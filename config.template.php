@@ -4,9 +4,9 @@
 	$apache_type = "unix";  // Types are unix or windows
 
 	## DB Settings
-	$db_user = "thetvdb"; // Database Username
+	$db_user = "root"; // Database Username
 	$db_password = ""; // Database Password
-	$db_database = ""; // Database Name
+	$db_database = "thegamedb"; // Database Name
 	$db_server = "localhost"; // Usually Localhost
 
 	## Mail Settings

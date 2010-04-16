@@ -1,0 +1,6 @@
+DirectoryIndex updates_day.xml
+<Files ".htaccess">
+	Order deny,allow
+	Deny from all
+	Satisfy All
+</Files>

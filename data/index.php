@@ -1,0 +1,3 @@
+<?php	## Redirect
+	Header("Location: /");
+?>

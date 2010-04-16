@@ -1,0 +1,4 @@
+RewriteEngine on
+Redirect permanent /forums http://forums.thetvdb.com
+Redirect permanent /forum http://forums.thetvdb.com
+RewriteRule ^Interfaces/(.*)$ interfaces/$1 [L]

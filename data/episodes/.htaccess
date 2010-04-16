@@ -1,0 +1,13 @@
+DirectoryIndex en.xml index.php
+RewriteEngine on
+
+RewriteRule ^([0-9]{1,4})$ $1/$1/en.xml [L]
+RewriteRule ^([0-9]{1,4})([^0-9]*)$ $1/$1$2 [L]
+RewriteRule ^([0-9]{4})([0-9]+)$ $1/$1$2/en.xml [L]
+RewriteRule ^([0-9]{4})([0-9]+)([^0-9]*)$ $1/$1$2$3 [L]
+
+<Files ".htaccess">
+        Order deny,allow
+        Deny from all
+        Satisfy All
+</Files>

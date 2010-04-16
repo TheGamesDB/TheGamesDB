@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0"  xmlns:dc="http://purl.org/dc/elements/1.1/"  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"  xmlns:admin="http://webns.net/mvcb/"  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<channel>
+<title>TheTVDB.com Today's New Episodes</title>
+<ttl>60</ttl>
+<link>http://www.thetvdb.com</link>
+<description>TheTVDB.com Today's New Episodes feed is updated once daily.  If shows are updated with today's airdate after this RSS feed is created, they will not be displayed due to caching.</description>
+<language>en-us</language>
+<pubDate>SAZ_DATE</pubDate>
+SAZ_ITEMS
+</channel>
+</rss>
+

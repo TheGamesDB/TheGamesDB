@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0"  xmlns:dc="http://purl.org/dc/elements/1.1/"  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"  xmlns:admin="http://webns.net/mvcb/"  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<channel>
+<title>TheTVDB.com Today's New Episodes</title>
+<ttl>60</ttl>
+<link>http://www.thetvdb.com</link>
+<description>TheTVDB.com Today's New Episodes feed is updated once daily.  If shows are updated with today's airdate after this RSS feed is created, they will not be displayed due to caching.</description>
+<language>en-us</language>
+<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+<item>
+	<title>In Treatment: Paul and Gina-Week Four</title>
+	<link>http://www.thetvdb.com/index.php?tab=episode&amp;seriesid=81248&amp;seasonid=30418&amp;id=351288</link>
+	<description></description>
+	<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+</item>
+
+<item>
+	<title>jPod: SpriteQuest</title>
+	<link>http://www.thetvdb.com/index.php?tab=episode&amp;seriesid=81122&amp;seasonid=30082&amp;id=351895</link>
+	<description>After Steve goes missing the Podsters get a new boss.</description>
+	<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+</item>
+
+<item>
+	<title>Monk: Mr. Monk Is on the Run (2)</title>
+	<link>http://www.thetvdb.com/index.php?tab=episode&amp;seriesid=78490&amp;seasonid=27882&amp;id=349208</link>
+	<description></description>
+	<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+</item>
+
+<item>
+	<title>New Amsterdam: Pilot</title>
+	<link>http://www.thetvdb.com/index.php?tab=episode&amp;seriesid=80481&amp;seasonid=29558&amp;id=343884</link>
+	<description></description>
+	<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+</item>
+
+<item>
+	<title>Stargate Atlantis: The Kindred (1)</title>
+	<link>http://www.thetvdb.com/index.php?tab=episode&amp;seriesid=70851&amp;seasonid=28424&amp;id=335402</link>
+	<description>While a disease spreads through the Pegasus Galaxy, Teyla believes the father of her child is trying to communicate with her.</description>
+	<pubDate>Fri, 22 Feb 2008 00:00:06 -0800</pubDate>
+</item>
+
+
+</channel>
+</rss>
+

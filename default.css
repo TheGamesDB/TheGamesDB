@@ -1,0 +1,380 @@
+/**************************************************
+  General styles
+**************************************************/
+BODY  {
+	margin: 0px;
+	padding: 0px;
+	background-image: url(images/bg.gif);
+	background-repeat: repeat-x;
+	background-color: #002F49;
+	font: 9pt Helvetica, Arial, san-serif;
+	color: white;
+}
+
+TABLE TD {
+	vertical-align: top;
+}
+
+FORM  {
+	margin: 0px;
+	padding: 0px;
+}
+
+LI  {
+	margin-bottom: 15px;
+}
+
+.section  {
+	background-color: #001D2D;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+}
+
+.section H1  {
+	margin: 0px;
+	margin-bottom: 5px;
+	color: #B6D415;
+	font: bold 12pt Helvetica, Arial, san-serif;
+}
+
+.section H2  {
+	margin: 0px;
+	color: #fff;
+	font: bold 11pt Helvetica, Arial, san-serif;
+}
+
+.titlesection  {
+	background-color: #B6D415;
+	margin: 5px 0px 5px 0px;
+	padding: 10px;
+	color: #001D2D;
+}
+
+.titlesection A:link, .titlesection A:visited  {
+	color: #001B2C;
+}
+
+.titlesection A:hover  {
+	color: #002F49;
+}
+
+.titlesection H1  {
+	margin: 0px;
+	margin-bottom: 0px;
+	color: #001B2C;
+	font: bold 12pt Helvetica, Arial, san-serif;
+}
+
+.titlesection H2  {
+	margin: 0px;
+	margin-bottom: 0px;
+	margin-left:  20px;
+	color: #001B2C;
+	font: bold 11pt Helvetica, Arial, san-serif;
+}
+
+.titlesection H3  {
+	margin: 0px;
+	margin-bottom: 0px;
+	margin-left:  40px;
+	color: #001B2C;
+	font: bold 10pt Helvetica, Arial, san-serif;
+}
+
+.blanksection  {
+	margin: 5px 0px 5px 0px;
+	padding: 0px;
+}
+
+.banner  {
+	border: 1px solid black;
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+#bannerauthor  {
+	color: #B6D415;
+	font: 8pt Helvetica, Arial, san-serif;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.bannerinfo  {
+	margin-bottom: 10px;
+	font: 8pt Helvetica, Arial, san-serif;
+}
+
+.seasonlink  {
+
+}
+
+.languagesel_on {
+	background-color: #fdd;
+}
+.languagesel_off {
+	background-color: #fff;
+}
+
+TEXTAREA  {
+	font: 9pt Helvetica, Arial, san-serif;
+}
+
+#bannerrotator
+{
+	margin: 10px 0px 5px;
+	overflow: hidden;
+	position: relative;
+	width: 758px;
+	height: 140px;
+}
+
+#bannerrotator img
+{
+	width: 758px;
+	height: 140px;
+}
+
+.subsection  {
+	text-align: right;
+}
+
+#red  {
+	color: red;
+}
+
+.longtext  {
+	margin-left: 30px;
+	margin-right: 40px;
+}
+
+#smalltext  {
+	font: 8pt Helvetica, Arial, san-serif;
+	color: #B6D415;
+}
+
+#formnote  {
+	font: 8pt Helvetica, Arial, san-serif;
+	color: #B6D415;
+	white-space: normal !important;
+	margin-bottom: 5px;
+}
+
+/**************************************************
+  Searchbox styles
+**************************************************/
+#searchbox {
+	margin: 0px;
+	padding: 0px;
+	z-index: 1;
+}
+#searchbox #search {
+	position:relative;
+	top: 183px;
+	left: 590px;
+
+	width: 150px;
+	height: 16px !important;
+	border: none !important;
+	background-color: white;
+	font-size: 1em !important;
+	text-align: center;
+}
+
+#searchbox #usersearch,  #yearsearch{
+	width: 150px;
+	height: 14px !important;
+	border: none !important;
+	background-color: white;
+	font-size: 1em !important;
+	text-align: center;
+}
+
+
+
+
+/**************************************************
+  Link styles
+**************************************************/
+A  {
+	color: #B6D415;
+	text-decoration: none;
+}
+A:link  {
+	color: #B6D415;
+}
+A:visited  {
+	color: #B6D415;
+}
+A:hover  {
+	color: #DFEF86;
+}
+
+
+/**************************************************
+  List table styles
+**************************************************/
+TABLE#listtable  {
+	width: 100%;
+	padding: 0px;
+	background-color: #001D2D;
+}
+
+TABLE#listtable TD  {
+	vertical-align: top;
+	text-align: left;
+	font: 9pt Helvetica, Arial, san-serif;
+}
+TABLE#listtable .head {
+	background-color: #B6D415;
+	font-weight: bold;	
+	color: #001D2D;
+}
+TABLE#listtable .head a{
+	color: #001D2D;
+	text-decoration: none;
+}
+TABLE#listtable .head a:link  {
+	color: #001D2D;
+}
+TABLE#listtable .head A:visited  {
+	color: #001D2D;
+}
+TABLE#listtable .head A:hover  {
+	color: #DFEF86;
+}
+
+TABLE#listtable .even  {
+	background-color: #001D2D;
+}
+
+TABLE#listtable .odd  {
+	background-color: #002337;
+}
+
+TABLE#listtable .special  {
+	background-color: #502337;
+}
+
+
+/**************************************************
+  Infobox styles
+**************************************************/
+TABLE#infotable  {
+	width: 100%;
+	padding: 0px;
+	background-color: #001D2D;
+}
+
+TABLE#infotable TD  {
+	vertical-align: top;
+	text-align: left;
+	font: 9pt Helvetica, Arial, san-serif;
+	border-bottom: 1px solid #B6D415;
+}
+TABLE#infotable .head  {
+	font-weight: bold;	
+	color: #B6D415;
+}
+
+TABLE#infotable A  {
+	color: white;
+}
+
+TABLE#infotable A:hover  {
+	color: #CFE455;
+}
+
+
+/**************************************************
+  Data table styles
+**************************************************/
+TABLE#datatable TD {
+	vertical-align: top;
+	/* white-space: nowrap; */
+}
+
+TABLE#datatable INPUT  {
+	width: 240px;
+}
+
+TABLE#datatable TD #formnote  {
+	font: 8pt Helvetica, Arial, san-serif;
+	color: #B6D415;
+	white-space: normal !important;
+	margin-bottom: 5px;
+}
+
+/**************************************************
+  Data table list styles
+**************************************************/
+TABLE#datatablelist TD {
+	vertical-align: top;
+	/* white-space: nowrap; */
+}
+
+TABLE#datatablelist INPUT  {
+	width: 95px;
+}
+
+TABLE#datatablelist TD #formnote  {
+	font: 8pt Helvetica, Arial, san-serif;
+	color: #B6D415;
+	white-space: normal !important;
+	margin-bottom: 5px;
+}
+
+/**************************************************
+  Footer styles
+**************************************************/
+.footer  {
+	background-color: #B6D415;
+	color: #001B2C;
+	margin: 0px 0px 0px;
+	padding: 10px;
+	font: bold 8pt Helvetica, Arial, san-serif;
+}
+
+.footer A  {
+	color: #001D2D;
+	text-decoration: underline;
+}
+.footer A:hover  {
+	color: #002F49;
+}
+
+
+/*Nifty Corners Cube CSS by Alessandro Fulciniti
+The following classes are added dinamically by javascript,
+and their use should be avoided in the markup */
+
+b.niftycorners,b.niftyfill{display:block}
+b.niftycorners *{display:block;height: 1px;line-height:1px;font-size: 1px;
+    overflow:hidden;border-style:solid;border-width: 0 1px}
+/*normal*/
+b.r1{margin: 0 3px;border-width: 0 2px}
+b.r2{margin: 0 2px}
+b.r3{margin: 0 1px}
+b.r4{height: 2px}
+b.rb1{margin: 0 8px;border-width:0 2px}
+b.rb2{margin: 0 6px;border-width:0 2px}
+b.rb3{margin: 0 5px}
+b.rb4{margin: 0 4px}
+b.rb5{margin: 0 3px}
+b.rb6{margin: 0 2px}
+b.rb7{margin: 0 1px;height:2px}
+b.rb8{margin: 0;height:2px}
+b.rs1{margin: 0 1px}
+/*transparent inside*/
+b.t1{border-width: 0 5px}
+b.t2{border-width: 0 3px}
+b.t3{border-width: 0 2px}
+b.t4{height: 2px}
+b.tb1{border-width: 0 10px}
+b.tb2{border-width: 0 8px}
+b.tb3{border-width: 0 6px}
+b.tb4{border-width: 0 5px}
+b.tb5{border-width: 0 4px}
+b.tb6{border-width: 0 3px}
+b.tb7{border-width: 0 2px;height:2px}
+b.tb8{border-width: 0 1px;height:2px}
+b.ts1{border-width: 0 2px}

@@ -17,7 +17,7 @@
 	## Function to create the series name for the URL.  This removes all non alphanumeric characters
 	## and converts spaces to underscores.
 	function urlseriesname($seriesid) {
-		$query		= "SELECT translation FROM translation_seriesname WHERE seriesid=$seriesid AND languageid=7 LIMIT 1";
+		$query		= "SELECT translation FROM translation_seriesname WHERE seriesid=$seriesid AND languageid=$lid LIMIT 1";
 		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());
 		$seriesinfo	= mysql_fetch_object($result);
 
@@ -39,7 +39,7 @@
 		$query		= "REPLACE INTO seriesupdates (seriesid) VALUES ($seriesid)";
 		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());
 
-		$query		= "UPDATE tvseries SET lastupdated=UNIX_TIMESTAMP() WHERE id=$seriesid";
+		$query		= "UPDATE games SET lastupdated=UNIX_TIMESTAMP() WHERE id=$seriesid";
 		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 
@@ -129,7 +129,7 @@ if (!function_exists('file_put_contents')) {
 function bannerdisplay($id) {
   $bcount = 0;
   $textbcount = 0;
-	$query	= "SELECT * FROM banners WHERE keytype='series' AND keyvalue=$id AND subkey !='blank' and languageid=7 ORDER BY RAND()";
+	$query	= "SELECT * FROM banners WHERE keytype='series' AND keyvalue=$id AND subkey !='blank' and languageid=1 ORDER BY RAND()";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		while ($banner = mysql_fetch_object($result))  {
 			if ($banner->subkey == 'text')  { $textbcount++; }
@@ -405,7 +405,7 @@ function titlegenerator($titleseriesid, $titleseasonid, $titleepisodeid, $tab, $
 {
 	$id = mysql_real_escape_string($titleseriesid);
 	$seriesname = "";
-	$query	= "SELECT * FROM translation_seriesname WHERE seriesid=$id && (languageid=7 || languageid=$lid)";
+	$query	= "SELECT * FROM translation_seriesname WHERE seriesid=$id && (languageid=1 || languageid=$lid)";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	while($series = mysql_fetch_object($result))  {
 		if ($seriesname == "" || $series->languageid != 7)  {
@@ -416,7 +416,7 @@ function titlegenerator($titleseriesid, $titleseasonid, $titleepisodeid, $tab, $
 	if ($titleepisodeid != 'Null') {
 		$episodeid = mysql_real_escape_string($titleepisodeid);
 		$episodename = "";
-		$query	= "SELECT * FROM translation_episodename WHERE episodeid=$titleepisodeid && (languageid=7 || languageid=$lid)";
+		$query	= "SELECT * FROM translation_episodename WHERE episodeid=$titleepisodeid && (languageid=1 || languageid=$lid)";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		while($episode = mysql_fetch_object($result))  {
 			if ($episodename == "" || $episode->languageid != 7)  {

@@ -329,14 +329,14 @@ CREATE TABLE `tvseasons` (
 -- --------------------------------------------------------
 
 -- 
--- Table structure for table `tvseries`
+-- Table structure for table `games`
 -- 
 
-DROP TABLE IF EXISTS `tvseries`;
-CREATE TABLE `tvseries` (
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE `games` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `SeriesName` varchar(255) NOT NULL,
-  `SeriesID` varchar(45) default NULL,
+  `GameTitle` varchar(255) NOT NULL,
+  `GameID` varchar(45) default NULL,
   `Status` varchar(100) default NULL,
   `FirstAired` varchar(100) default NULL,
   `Network` varchar(100) default NULL,
@@ -364,7 +364,6 @@ CREATE TABLE `tvseries` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `IMDB_ID` (`IMDB_ID`),
   UNIQUE KEY `zap2it_id` (`zap2it_id`),
-  UNIQUE KEY `SeriesID` (`SeriesID`),
   KEY `mirrorupdate` (`mirrorupdate`),
   KEY `disabled` (`disabled`),
   FULLTEXT KEY `SeriesName` (`SeriesName`)

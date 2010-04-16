@@ -10,7 +10,7 @@
 
 		<?php	## Display series
 			$count = 0;
-			$query = "SELECT * FROM tvseries WHERE forceupdate=2 ORDER BY SeriesName";
+			$query = "SELECT * FROM games WHERE forceupdate=2 ORDER BY SeriesName";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			while ($db = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
@@ -39,7 +39,7 @@
 
 		<?php	## Display series
 			$count = 0;
-			$query = "SELECT * FROM tvseries WHERE forceupdate=1 ORDER BY SeriesName";
+			$query = "SELECT * FROM games WHERE forceupdate=1 ORDER BY SeriesName";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			while ($db = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }

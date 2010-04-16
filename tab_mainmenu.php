@@ -99,11 +99,7 @@
 
 		<?php	if ($loggedin == 1)  {  ?>
 		<div class="section">
-		<a href="./?tab=addshow"><h1>Add A Show</h1></a>
-  <!--<form action="<?=$fullurl?>" method="POST">
-				<input type="text" name="SeriesName">
-				<input type="submit" name="function" value="Add Series">
-			</form>-->
+		<a href="./?tab=addgame"><h1>Add A Game</h1></a>
 	<div id="red"><?=$errormessage?></div>
 		</div>
 		<?php	}  ?>
@@ -149,7 +145,7 @@
 				}
 				$favoritesquery = implode(" OR ", $userfavorites);
 
-				$query	= "SELECT id, seriesname FROM tvseries WHERE $favoritesquery ORDER BY SeriesName";
+				$query	= "SELECT id, seriesname FROM games WHERE $favoritesquery ORDER BY SeriesName";
 				$result = mysql_query($query);
 				while ($db = mysql_fetch_object($result))  {
 					$subquery = "SELECT *, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating from banners WHERE keytype='series' AND keyvalue=$db->id ORDER BY rating DESC, RAND()";

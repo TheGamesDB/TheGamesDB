@@ -10,7 +10,7 @@
 
 		<?php	## Display series
 			$count = 0;
-			$query = "SELECT * FROM tvseries WHERE bannerrequest>0 ORDER BY bannerrequest DESC LIMIT 25";
+			$query = "SELECT * FROM games WHERE bannerrequest>0 ORDER BY bannerrequest DESC LIMIT 25";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			while ($db = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
@@ -40,7 +40,7 @@
 
 		<?php	## Display series
 			$count = 0;
-			$query = "SELECT *, (SELECT SeriesName FROM tvseries WHERE id=tvseasons.seriesid) AS SeriesName FROM tvseasons WHERE bannerrequest>0 AND season!=0 ORDER BY bannerrequest DESC LIMIT 25";
+			$query = "SELECT *, (SELECT SeriesName FROM games WHERE id=tvseasons.seriesid) AS SeriesName FROM tvseasons WHERE bannerrequest>0 AND season!=0 ORDER BY bannerrequest DESC LIMIT 25";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			while ($db = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }

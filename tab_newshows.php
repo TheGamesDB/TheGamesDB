@@ -13,7 +13,7 @@
 
 		<?php	## Display series
 			$count = 0;
-			$query = "SELECT * FROM tvseries ORDER BY id desc limit 30";
+			$query = "SELECT * FROM games ORDER BY id desc limit 30";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			while ($db = mysql_fetch_object($result)) {
 				$displaynum = $count + 1;

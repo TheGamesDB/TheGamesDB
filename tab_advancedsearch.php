@@ -13,12 +13,12 @@ if($searching){
 	if ($year >= 1900 && $year <= $endyear){$where.=" and year(FirstAired) = ".$year;}elseif($year != ""){$errmsg.="Year must be between 1900 and ".$endyear."<br>";unset($searching);}
 	if ($imdb_id == "null"){unset($imdb_id); $where.=" and imdb_id is null";}
 	if (strtolower(substr($imdb_id,0,2)) == "tt" && substr($imdb_id,2,12) >= 1 && substr($imdb_id,2,12) < 999999999){$where.=" and imdb_id = '".$imdb_id."'";}elseif($imdb_id != ""){$errmsg.="Invalid IMDB.com ID.<br>";unset($searching);}	
-	if ($tvcom_id == "null"){unset($tvcom_id); $where.=" and tvseries.SeriesID is null";}
-  if ($tvcom_id > 0 && $tvcom_id < 9999999){$where.=" and tvseries.SeriesID = '".$tvcom_id."'";}elseif($tvcom_id != ""){$errmsg.="Invalid tv.com ID.<br>";unset($searching);}
+	if ($tvcom_id == "null"){unset($tvcom_id); $where.=" and games.SeriesID is null";}
+  if ($tvcom_id > 0 && $tvcom_id < 9999999){$where.=" and games.SeriesID = '".$tvcom_id."'";}elseif($tvcom_id != ""){$errmsg.="Invalid tv.com ID.<br>";unset($searching);}
   if (strtoupper(substr($zap2it_id,0,2)) == "SH" && substr($zap2it_id,2,12) >= 1 && substr($zap2it_id,2,12) < 999999999){$where.=" and zap2it_id = '".$zap2it_id."'";}elseif($zap2it_id != ""){$errmsg.="Invalid zap2it.com ID.<br>";unset($searching);}
   if (strlen($seriesname) > 1 && strlen($seriesname) < 80){$where.=" and translation_seriesname.translation LIKE '%".$seriesname."%' ";}elseif($seriesname != ""){$errmsg=$errmsg."Series names must be inbetween 2 and 80 characters in length.<br>";unset($searching);}
-  if (strlen($genre) > 3 && strlen($genre) < 26){$where.=" and tvseries.Genre like '%".$genre."%' ";}
-  if (strlen($network) > 1 && strlen($network) <= 30){$where.=" and tvseries.network like '%".$network."%' ";}elseif($network != ""){$errmsg=$errmsg."Network must be between 2 and 30 characters.<br>";unset($searching);}
+  if (strlen($genre) > 3 && strlen($genre) < 26){$where.=" and games.Genre like '%".$genre."%' ";}
+  if (strlen($network) > 1 && strlen($network) <= 30){$where.=" and games.network like '%".$network."%' ";}elseif($network != ""){$errmsg=$errmsg."Network must be between 2 and 30 characters.<br>";unset($searching);}
   if (strlen($order) > 2 && strlen($order) < 15){$orderby=" ORDER BY ".$order;}else{$errmsg.="Invalid order option.<br>";unset($searching);}
 }
 
@@ -131,7 +131,7 @@ if(!$searching){?>
 			<td class="head"><a href="./?<?echo str_replace("order=".$order, "order=srating desc", $_SERVER['QUERY_STRING']);?>">Rating</a></td>
 		</tr>
 <?
-	$query = "SELECT *, tvseries.id as showid, (SELECT round(avg(rating)) FROM ratings WHERE itemid = tvseries.id and itemtype='series') AS srating FROM (translation_seriesname INNER JOIN tvseries ON translation_seriesname.seriesid = tvseries.id) INNER JOIN languages ON translation_seriesname.languageid = languages.id ".$where.$orderby." LIMIT 50";
+	$query = "SELECT *, games.id as showid, (SELECT round(avg(rating)) FROM ratings WHERE itemid = games.id and itemtype='series') AS srating FROM (translation_seriesname INNER JOIN games ON translation_seriesname.seriesid = games.id) INNER JOIN languages ON translation_seriesname.languageid = languages.id ".$where.$orderby." LIMIT 50";
 	$result = mysql_query($query) or die('Query failed: List ' . mysql_error());
 			while ($serieslist = mysql_fetch_object($result)) {
 				if ($class == 'odd')  { $class = 'even';  }  else  { $class = 'odd';  }

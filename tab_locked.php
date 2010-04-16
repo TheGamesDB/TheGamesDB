@@ -16,7 +16,7 @@ if (!(isset($pagenum)))
 				$query = "SELECT * FROM tvseasons WHERE locked='yes' ORDER BY id";
 			}
 			else  {
-				$query = "SELECT * FROM tvseries WHERE locked='yes' ORDER BY SeriesName";
+				$query = "SELECT * FROM games WHERE locked='yes' ORDER BY SeriesName";
 				$type = 'series';
 			}
 
@@ -86,7 +86,7 @@ if (!(isset($pagenum)))
 				$result = mysql_query($query) or $error = 'No Seasons Are Locked';
 			}
 			else  {
-				$query = "SELECT * FROM tvseries WHERE locked='yes' ORDER BY SeriesName $max";
+				$query = "SELECT * FROM games WHERE locked='yes' ORDER BY SeriesName $max";
 				print'<tr>
 					<td class="head">ID</td>
 					<td class="head">Series Name</td>
@@ -104,7 +104,7 @@ if (!(isset($pagenum)))
 				while ($seasons = mysql_fetch_object($result2))  { 
   				  $seriesid =  $seasons->seriesid;
 				  $seasonnumber = $seasons->season;
-					$query3 = "SELECT * FROM tvseries WHERE id=$seriesid"; 
+					$query3 = "SELECT * FROM games WHERE id=$seriesid";
 					$result3 = mysql_query($query3) or die('Query failed: ' . mysql_error());
 					while ($series = mysql_fetch_object($result3))  { 
 						$Seriesname =  $series->SeriesName;
@@ -114,7 +114,7 @@ if (!(isset($pagenum)))
 				print "<tr><td class=\"$class\"><a href=\"/?tab=series&amp;id=$seriesid\">$Seriesname</a></td><td class=\"$class\"><a href=\"/?tab=season&seriesid=$seriesid&seasonid=$list->seasonid\">$seasonnumber</a></td><td class=\"$class\"><a href=\"/?tab=episode&seriesid=$seriesid&seasonid=$list->seasonid&id=$list->id\">$list->EpisodeName</a></td><td class=\"$class\">$lastupdated</td></tr>\n";
 			}
 			else if ($type == 'season')  {
-				$query2 = "SELECT * FROM tvseries WHERE id=$list->seriesid"; 
+				$query2 = "SELECT * FROM games WHERE id=$list->seriesid";
 				$result2 = mysql_query($query2) or die('Query failed: ' . mysql_error());
 				while ($series = mysql_fetch_object($result2))  { 
 					$Seriesname =  $series->SeriesName;

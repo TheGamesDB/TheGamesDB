@@ -152,38 +152,35 @@
 			$lid = $user->languageid;  ## user preferred language
 		}
 		else  {
-			$lid = 7;  ## English
+			$lid = 1;  ## English
 		}
 	}
 
 	#####################################################
 	## MAIN MENU FUNCTIONS
 	#####################################################
-	if ($function == 'Add Series')  {
+	if ($function == 'Add Game')  {
 		## Check for exact matches for seriesname
-		$SeriesName = mysql_real_escape_string($SeriesName);
-		$query	= "SELECT * FROM tvseries WHERE SeriesName='$SeriesName'";
+		$GameTitle = mysql_real_escape_string($GameTitle);
+		$query	= "SELECT * FROM games WHERE GameTitle='$GameTitle'";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 		## Insert if it doesnt exist already
 		if (mysql_num_rows($result) == 0)  {
-			$query	= "INSERT INTO tvseries (SeriesName, lastupdated) VALUES ('$SeriesName', $time)";
+			$query	= "INSERT INTO games (GameTitle, lastupdated) VALUES ('$GameTitle', $time)";
 			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 			$id = mysql_insert_id();
+                        // TODO: trace this back and change the name
 			seriesupdate($id); ## Update the XML data
 
-			$query	= "INSERT INTO translation_seriesname (seriesid, languageid, translation) VALUES ($id, 7, '$SeriesName')";
+			$query	= "INSERT INTO translation_seriesname (seriesid, languageid, translation) VALUES ($id, $lid, '$GameTitle')";
 			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 			
-			$query	= "INSERT INTO tvseasons (seriesid, season) VALUES ($id, 0)";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-//			$tab = 'series&id='.mysql_insert_id();
-			$URL = "/?tab=series&id=$id";
+			$URL = "/?tab=game&id=$id";
             header ("Location: $URL");
 		}
 		else {
-			$errormessage = 'Series Already Exists.';
-//            header ("Location: /");
+			$errormessage = 'Game Already Exists.';
 		}
 	}
 
@@ -192,109 +189,96 @@
 	## SERIES FUNCTIONS
 	#####################################################
 	if ($function == 'Save Series')  {
-		## Clear auto-import if Status isn't "Continuing".
-		##if ($_POST["Status"] != "Continuing")  {
-		##	$_POST["autoimport"] = "";
-		##}
+            $updates = array();
+            foreach ($_POST AS $key => $value)  {
+                    if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_')&& $key != 'comments' && $key != 'requestcomments'  && $key != 'requestreason')  {
+                            $value = rtrim($value);
+                            $value = ltrim($value);
+                            if ($value)  {
+                                    if ($key == 'FirstAired')  {
+                                            if (($timestamp = strtotime($value)) === false) {
+                                                    continue;
+                                            }
+                                            else  {
+                                                    $value = date ('Y-m-d', $timestamp);
+                                            }
+                                    }
+                                    $key = mysql_real_escape_string($key);
+                                    $value = strip_tags($value, '');
+                                    $value = mysql_real_escape_string($value);
+                                    array_push($updates, "$key='$value'");
+                            }
+                            else  {
+                                    array_push($updates, "$key=NULL");
+                            }
+                    }
+            }
+            array_push($updates, "lastupdated=$time");
 
-		## Also require SeriesID if auto-importing from tv.com.
-		##if ($_POST["autoimport"] == "tv.com" && $_POST["SeriesID"] == "")  {
-		##	$errormessage = "TV.com ID is required when TV.com is selected as the auto-import source.";
-		##}
-		##else  {
-			## Prepare SQL
-			$updates = array();
-			foreach ($_POST AS $key => $value)  {
-				if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'SeriesName_') && !strstr($key, 'Overview_')&& $key != 'comments' && $key != 'requestcomments'  && $key != 'requestreason')  {
-					$value = rtrim($value);
-					$value = ltrim($value);
-					if ($value)  {
-						if ($key == 'FirstAired')  {
-							if (($timestamp = strtotime($value)) === false) {
-								continue;
-							}
-							else  {
-								$value = date ('Y-m-d', $timestamp);
-							}
-						}
-						$key = mysql_real_escape_string($key);
-						$value = strip_tags($value, '');
-						$value = mysql_real_escape_string($value);
-						array_push($updates, "$key='$value'");
-					}
-					else  {
-						array_push($updates, "$key=NULL");
-					}
-				}
-			}
-			array_push($updates, "lastupdated=$time");
+            ## To keep things simple, we set GameTitle and Overview to the English for now
+            $GameTitle = ltrim($_POST["GameTitle_$lit"]);
+            $GameTitle = rtrim($GameTitle);
+            if ($GameTitle)  {
+                    $GameTitle = mysql_real_escape_string($GameTitle);
+                    array_push($updates, "GameTitle='$GameTitle'");
+            }
+            else  {
+                    array_push($updates, "GameTitle=NULL");
+            }
+            $Overview = ltrim($_POST["Overview_$lit"]);
+            $Overview = rtrim($Overview);
+            if ($Overview)  {
+                    $Overview = mysql_real_escape_string($Overview);
+                    array_push($updates, "Overview='$Overview'");
+            }
+            else  {
+                    array_push($updates, "Overview=NULL");
+            }
 
-			## To keep things simple, we set SeriesName and Overview to the English for now
-			$SeriesName = ltrim($_POST["SeriesName_7"]);
-			$SeriesName = rtrim($SeriesName);
-			if ($SeriesName)  {
-				$SeriesName = mysql_real_escape_string($SeriesName);
-				array_push($updates, "SeriesName='$SeriesName'");
-			}
-			else  {
-				array_push($updates, "SeriesName=NULL");
-			}
-			$Overview = ltrim($_POST["Overview_7"]);
-			$Overview = rtrim($Overview);
-			if ($Overview)  {
-				$Overview = mysql_real_escape_string($Overview);
-				array_push($updates, "Overview='$Overview'");
-			}
-			else  {
-				array_push($updates, "Overview=NULL");
-			}
+            ## Join the fields and run the query
+            $updatestring = implode(', ', $updates);
+            $newshowid = mysql_real_escape_string($newshowid);
+            $query = "UPDATE games SET $updatestring WHERE id=$newshowid";
+            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
-			## Join the fields and run the query
-			$updatestring = implode(', ', $updates);
-			$newshowid = mysql_real_escape_string($newshowid);
-			$query = "UPDATE tvseries SET $updatestring WHERE id=$newshowid";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+            ## Update translations of GameTitle
+            $query = "DELETE FROM translation_seriesname WHERE seriesid=$newshowid";
+            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+            foreach ($languages AS $langid => $langname)  {
+                    $value = mysql_real_escape_string($_POST["GameTitle_$langid"]);
+                    if ($value != '')  {
+                            $query = "INSERT INTO translation_seriesname (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
+                            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+                    }
+            }
 
-			## Update translations of SeriesName
-			$query = "DELETE FROM translation_seriesname WHERE seriesid=$newshowid";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			foreach ($languages AS $langid => $langname)  {
-				$value = mysql_real_escape_string($_POST["SeriesName_$langid"]);
-				if ($value != '')  {
-					$query = "INSERT INTO translation_seriesname (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
-					$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-				}
-			}
+            ## Update translations of Series Overview
+            $query = "DELETE FROM translation_seriesoverview WHERE seriesid=$newshowid";
+            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+            include('langDetect.php');
+            foreach ($languages AS $langid => $langname)  {
+                $value = mysql_real_escape_string($_POST["Overview_$langid"]);
+                if ($value != '')  {
+                    $obj = new LangDetect($value, 1);
+                    $langdetect = $obj->Analyze();
+                    if (ucfirst($langdetect) == $langid || $langid == 9 || $langid == 10){ ##Doesn't check Norwegian or Danish languages as they are similar and get misdetected too much
+                        $query = "INSERT INTO translation_seriesoverview (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
+                        $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+                    } else {
+                        $result = mysql_query("SELECT * FROM languages WHERE id = ".ucfirst($langdetect)) or die('Query failed get seasons: ' . mysql_error());
+                        $detectedlang = mysql_fetch_object($result)->name;
+                        $result = mysql_query("SELECT * FROM languages WHERE id = $langid") or die('Query failed get seasons: ' . mysql_error());
+                        $enteredlang = mysql_fetch_object($result)->name;
+                        $errormessage .= "You attempted to enter an $detectedlang overview into the $enteredlang overview field. Please pick the correct language and try again. If the language detected is wrong please come to the forums and let us know.<br/>";
+                    }
+                }
+            }
 
-			## Update translations of Series Overview
-			$query = "DELETE FROM translation_seriesoverview WHERE seriesid=$newshowid";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			include('langDetect.php');
-			foreach ($languages AS $langid => $langname)  {
-				$value = mysql_real_escape_string($_POST["Overview_$langid"]);
-				if ($value != '')  {					
-					$obj = new LangDetect($value, 1);
-    			$langdetect = $obj->Analyze();
-    			if (ucfirst($langdetect) == $langid || $langid == 9 || $langid == 10){ ##Doesn't check Norwegian or Danish languages as they are similar and get misdetected too much
-						$query = "INSERT INTO translation_seriesoverview (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
-						$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-					}
-					else{
-						$result = mysql_query("SELECT * FROM languages WHERE id = ".ucfirst($langdetect)) or die('Query failed get seasons: ' . mysql_error());
-    				$detectedlang = mysql_fetch_object($result)->name;
-    				$result = mysql_query("SELECT * FROM languages WHERE id = $langid") or die('Query failed get seasons: ' . mysql_error());
-    				$enteredlang = mysql_fetch_object($result)->name;
-						$errormessage .= "You attempted to enter an $detectedlang overview into the $enteredlang overview field. Please pick the correct language and try again. If the language detected is wrong please come to the forums and let us know.<br/>";
-					} 
-				}
-			}
+            seriesupdate($newshowid); ## Update the XML data
+            $errormessage .= 'Series info saved.';
 
-			seriesupdate($newshowid); ## Update the XML data
-			$errormessage .= 'Series info saved.';
-		##}
-
-		$id = $newshowid;
-		$tab = 'series';
+            $id = $newshowid;
+            $tab = 'game';
 	}
 
 	if ($function == 'Add Season')  {
@@ -357,7 +341,7 @@
 				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 				## Reset the missing banner count
-				$query	= "UPDATE tvseries SET bannerrequest=0 WHERE id=$id";
+				$query	= "UPDATE games SET bannerrequest=0 WHERE id=$id";
 				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 				## Store the seriesid for the XML updater
@@ -376,7 +360,7 @@
 	if ($function == 'Delete Series' && $adminuserlevel == 'ADMINISTRATOR')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
-		$query = "DELETE FROM tvseries WHERE id=$id";
+		$query = "DELETE FROM games WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 		$query = "DELETE FROM translation_seriesname WHERE seriesid=$id";
@@ -448,21 +432,21 @@
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$requestcomments = mysql_real_escape_string($requestcomments);		
-		$query = "UPDATE tvseries SET forceupdate=1, updateID=$user->id, requestcomment='$requestcomments'  WHERE id=$id";
+		$query = "UPDATE games SET forceupdate=1, updateID=$user->id, requestcomment='$requestcomments'  WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 		$errormessage = 'Series update requested.';
 	}
 	if (($function == 'Force TV.com Update' || $function == 'Approve TV.com Update') && $adminuserlevel == 'ADMINISTRATOR')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvseries SET forceupdate=2 WHERE id=$id";
+		$query = "UPDATE games SET forceupdate=2 WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 		$errormessage = 'Series update scheduled.';
 	}
 	if ($function == 'Deny TV.com Update' && $adminuserlevel == 'ADMINISTRATOR')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvseries SET forceupdate=0, updateID=0, requestcomment='' WHERE id=$id";
+		$query = "UPDATE games SET forceupdate=0, updateID=0, requestcomment='' WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 		$errormessage = 'Series update denied.';
 		mail ($email, 'Denial of TV.com Update Request for '.$seriesname, "Your original request was: ".stripslashes($requestreason)."\n\nThe reason for denial was:" .stripslashes($comments), "From: ".$user->emailaddress);
@@ -470,13 +454,13 @@
 	if ($function == 'Lock Series')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvseries SET locked='yes', lockedby=$user->id  WHERE id=$id";
+		$query = "UPDATE games SET locked='yes', lockedby=$user->id  WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 	if ($function == 'UnLock Series')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvseries SET locked='no', lockedby=''  WHERE id=$id";
+		$query = "UPDATE games SET locked='no', lockedby=''  WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 

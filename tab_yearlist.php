@@ -18,7 +18,7 @@ if (!(isset($pagenum)))
 //Here we count the number of results 
 //Edit $data to be your query 
 
-	$query = "SELECT * FROM tvseries WHERE FirstAired LIKE '%$string%'";
+	$query = "SELECT * FROM games WHERE FirstAired LIKE '%$string%'";
 	$result = mysql_query($query) or die('Query failed: Counter ' . mysql_error());
 	$rows = mysql_num_rows($result); 
    if ($rows != 0 ) {
@@ -57,7 +57,7 @@ if (!(isset($pagenum)))
    }
    else {
 
-	$query = "SELECT * FROM tvseries WHERE FirstAired LIKE '%$string%' $max ";
+	$query = "SELECT * FROM games WHERE FirstAired LIKE '%$string%' $max ";
 	$result = mysql_query($query) or die('Query failed: List ' . mysql_error());
 
 			while ($serieslist = mysql_fetch_object($result)) {

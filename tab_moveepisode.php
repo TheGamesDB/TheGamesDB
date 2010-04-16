@@ -1,7 +1,7 @@
 <?php
 	## Get this series' information
 	$seriesid = mysql_real_escape_string($seriesid);
-	$query	= "SELECT * FROM tvseries WHERE id=$seriesid";
+	$query	= "SELECT * FROM games WHERE id=$seriesid";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	$series = mysql_fetch_object($result);
 

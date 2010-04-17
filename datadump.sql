@@ -34,6 +34,15 @@ CREATE TABLE `apiusers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `apiusers`
+--
+
+LOCK TABLES `apiusers` WRITE;
+/*!40000 ALTER TABLE `apiusers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `apiusers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `banners`
 --
 
@@ -62,6 +71,15 @@ CREATE TABLE `banners` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `banners`
+--
+
+LOCK TABLES `banners` WRITE;
+/*!40000 ALTER TABLE `banners` DISABLE KEYS */;
+/*!40000 ALTER TABLE `banners` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `deletions`
 --
 
@@ -74,6 +92,15 @@ CREATE TABLE `deletions` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2912 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `deletions`
+--
+
+LOCK TABLES `deletions` WRITE;
+/*!40000 ALTER TABLE `deletions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deletions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `games`
@@ -121,6 +148,16 @@ CREATE TABLE `games` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `games`
+--
+
+LOCK TABLES `games` WRITE;
+/*!40000 ALTER TABLE `games` DISABLE KEYS */;
+INSERT INTO `games` VALUES (1,'Halo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1271467092,NULL,NULL,NULL,0,0,0,0,'','no','2010-04-17 01:18:12',0,NULL,'No',NULL,NULL,NULL),(2,'Fable',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1271521696,NULL,NULL,NULL,0,0,0,0,'','no','2010-04-17 16:28:16',0,NULL,'No',NULL,NULL,NULL),(3,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1271534337,NULL,NULL,NULL,0,0,0,0,'','no','2010-04-17 19:58:57',0,'tv.com','No',NULL,NULL,'|Sega Dreamcast|Sega Game Gear|'),(4,'Halo 3',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Here is some over view text.',NULL,1271536383,NULL,NULL,NULL,0,0,0,0,'','no','2010-04-17 20:33:03',0,'tv.com','No',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `games` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `genres`
 --
 
@@ -135,6 +172,15 @@ CREATE TABLE `genres` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `genres`
+--
+
+LOCK TABLES `genres` WRITE;
+/*!40000 ALTER TABLE `genres` DISABLE KEYS */;
+/*!40000 ALTER TABLE `genres` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `imgstatus`
 --
 
@@ -147,6 +193,15 @@ CREATE TABLE `imgstatus` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `imgstatus`
+--
+
+LOCK TABLES `imgstatus` WRITE;
+/*!40000 ALTER TABLE `imgstatus` DISABLE KEYS */;
+/*!40000 ALTER TABLE `imgstatus` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `languages`
@@ -165,6 +220,16 @@ CREATE TABLE `languages` (
   KEY `mirrorupdate` (`mirrorupdate`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `languages`
+--
+
+LOCK TABLES `languages` WRITE;
+/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
+INSERT INTO `languages` VALUES (1,'EN','English',1,'2010-04-16 23:26:15');
+/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `mirrors`
@@ -186,6 +251,15 @@ CREATE TABLE `mirrors` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `mirrors`
+--
+
+LOCK TABLES `mirrors` WRITE;
+/*!40000 ALTER TABLE `mirrors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mirrors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `platforms`
 --
 
@@ -198,6 +272,16 @@ CREATE TABLE `platforms` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `platforms`
+--
+
+LOCK TABLES `platforms` WRITE;
+/*!40000 ALTER TABLE `platforms` DISABLE KEYS */;
+INSERT INTO `platforms` VALUES (1,'PC'),(2,'GameCube'),(3,'Nintendo 64'),(4,'Gameboy'),(5,'Gameboy Advance'),(6,'Super Nintendo'),(7,'NES'),(8,'Nintendo DS'),(9,'Nintendo Wii'),(10,'Sony Playstation'),(11,'Sony Playstation 2'),(12,'Sony Playstation 3'),(13,'Sony PSP'),(14,'Microsoft XBox'),(15,'Microsoft XBox 360'),(16,'Sega Dreamcast'),(17,'Sega Saturn'),(18,'Sega Genesis'),(19,'Sega Master System'),(20,'Sega Game Gear'),(21,'Sega CD'),(22,'Atari 2600'),(23,'Arcade'),(24,'NeoGeo');
+/*!40000 ALTER TABLE `platforms` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ratings`
@@ -218,6 +302,15 @@ CREATE TABLE `ratings` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `ratings`
+--
+
+LOCK TABLES `ratings` WRITE;
+/*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `runtimes`
 --
 
@@ -229,6 +322,15 @@ CREATE TABLE `runtimes` (
   PRIMARY KEY (`Runtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `runtimes`
+--
+
+LOCK TABLES `runtimes` WRITE;
+/*!40000 ALTER TABLE `runtimes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `runtimes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `seriesupdates`
@@ -244,6 +346,16 @@ CREATE TABLE `seriesupdates` (
   UNIQUE KEY `seriesid` (`seriesid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=92412 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seriesupdates`
+--
+
+LOCK TABLES `seriesupdates` WRITE;
+/*!40000 ALTER TABLE `seriesupdates` DISABLE KEYS */;
+INSERT INTO `seriesupdates` VALUES (92405,1),(92406,2),(92408,3),(92411,4);
+/*!40000 ALTER TABLE `seriesupdates` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `translation_episodename`
@@ -265,6 +377,15 @@ CREATE TABLE `translation_episodename` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `translation_episodename`
+--
+
+LOCK TABLES `translation_episodename` WRITE;
+/*!40000 ALTER TABLE `translation_episodename` DISABLE KEYS */;
+/*!40000 ALTER TABLE `translation_episodename` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `translation_episodeoverview`
 --
 
@@ -282,6 +403,15 @@ CREATE TABLE `translation_episodeoverview` (
   KEY `mirrorupdate` (`mirrorupdate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=324950 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `translation_episodeoverview`
+--
+
+LOCK TABLES `translation_episodeoverview` WRITE;
+/*!40000 ALTER TABLE `translation_episodeoverview` DISABLE KEYS */;
+/*!40000 ALTER TABLE `translation_episodeoverview` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `translation_labels`
@@ -303,6 +433,15 @@ CREATE TABLE `translation_labels` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `translation_labels`
+--
+
+LOCK TABLES `translation_labels` WRITE;
+/*!40000 ALTER TABLE `translation_labels` DISABLE KEYS */;
+/*!40000 ALTER TABLE `translation_labels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `translation_seriesname`
 --
 
@@ -322,6 +461,16 @@ CREATE TABLE `translation_seriesname` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `translation_seriesname`
+--
+
+LOCK TABLES `translation_seriesname` WRITE;
+/*!40000 ALTER TABLE `translation_seriesname` DISABLE KEYS */;
+INSERT INTO `translation_seriesname` VALUES (35468,1,1,'Halo','2010-04-17 01:18:12'),(35469,2,1,'Fable','2010-04-17 16:28:16'),(35471,3,1,'Fable 2','2010-04-17 19:58:57'),(35475,4,1,'Halo 3','2010-04-17 20:33:03');
+/*!40000 ALTER TABLE `translation_seriesname` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `translation_seriesoverview`
 --
 
@@ -339,6 +488,15 @@ CREATE TABLE `translation_seriesoverview` (
   KEY `mirrorupdate` (`mirrorupdate`)
 ) ENGINE=MyISAM AUTO_INCREMENT=25946 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `translation_seriesoverview`
+--
+
+LOCK TABLES `translation_seriesoverview` WRITE;
+/*!40000 ALTER TABLE `translation_seriesoverview` DISABLE KEYS */;
+/*!40000 ALTER TABLE `translation_seriesoverview` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `tvepisodes`
@@ -387,6 +545,15 @@ CREATE TABLE `tvepisodes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `tvepisodes`
+--
+
+LOCK TABLES `tvepisodes` WRITE;
+/*!40000 ALTER TABLE `tvepisodes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tvepisodes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tvseasons`
 --
 
@@ -408,6 +575,15 @@ CREATE TABLE `tvseasons` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `tvseasons`
+--
+
+LOCK TABLES `tvseasons` WRITE;
+/*!40000 ALTER TABLE `tvseasons` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tvseasons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user_episodes`
 --
 
@@ -424,6 +600,15 @@ CREATE TABLE `user_episodes` (
   KEY `userid` (`userid`,`episodeid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_episodes`
+--
+
+LOCK TABLES `user_episodes` WRITE;
+/*!40000 ALTER TABLE `user_episodes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_episodes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -453,6 +638,16 @@ CREATE TABLE `users` (
   KEY `mirrorupdate` (`mirrorupdate`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'mattmcla','*9C54AF0E0CAFA65284B400EA017E5EA64B477D56','mclaughlin.matt@gmail.com',NULL,'SUPERADMIN',1,NULL,'banners',3,1,1,'58536D31278176DA',NULL,'2010-04-16 23:28:13');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -463,4 +658,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-04-17 13:39:39
+-- Dump completed on 2010-04-17 13:40:30

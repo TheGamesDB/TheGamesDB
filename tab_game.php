@@ -72,7 +72,7 @@
 	<div id="red"><?=$errormessage?></div>
 	<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
 	<tr>
-		<td width="100%"><?=translatetext('Game ID')?>:</td>
+		<td><?=translatetext('Game ID')?>:</td>
 		<td><?=$series->id?></td>
 	</tr>
 	<tr>
@@ -149,6 +149,13 @@
 				}
 			?>
 		</select>
+		</td>
+	</tr>
+    <tr>
+		<td>Platform: <a onclick="openChild('/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
+		<td>
+			<input type="text" name="Platformfake" value="<?=$series->Genre?>" maxlength="255" disabled="true">
+			<input type="hidden" name="Platform" value="<?=$game->Platform?>">
 		</td>
 	</tr>
 	<tr>

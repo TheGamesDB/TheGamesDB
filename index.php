@@ -189,57 +189,55 @@
 	## SERIES FUNCTIONS
 	#####################################################
 	if ($function == 'Save Series')  {
-            $updates = array();
-            foreach ($_POST AS $key => $value)  {
-                    if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_')&& $key != 'comments' && $key != 'requestcomments'  && $key != 'requestreason')  {
-                            $value = rtrim($value);
-                            $value = ltrim($value);
-                            if ($value)  {
-                                    if ($key == 'FirstAired')  {
-                                            if (($timestamp = strtotime($value)) === false) {
-                                                    continue;
-                                            }
-                                            else  {
-                                                    $value = date ('Y-m-d', $timestamp);
-                                            }
-                                    }
-                                    $key = mysql_real_escape_string($key);
-                                    $value = strip_tags($value, '');
-                                    $value = mysql_real_escape_string($value);
-                                    array_push($updates, "$key='$value'");
-                            }
-                            else  {
-                                    array_push($updates, "$key=NULL");
-                            }
+        $updates = array();
+        foreach ($_POST AS $key => $value)  {
+            if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_')&& $key != 'comments' && $key != 'requestcomments'  && $key != 'requestreason')  {
+                $value = rtrim($value);
+                $value = ltrim($value);
+                if ($value)  {
+                    if ($key == 'FirstAired')  {
+                        if (($timestamp = strtotime($value)) === false) {
+                            continue;
+                        } else {
+                            $value = date ('Y-m-d', $timestamp);
+                        }
                     }
+                    $key = mysql_real_escape_string($key);
+                    $value = strip_tags($value, '');
+                    $value = mysql_real_escape_string($value);
+                    array_push($updates, "$key='$value'");
+                } else {
+                    array_push($updates, "$key=NULL");
+                }
             }
-            array_push($updates, "lastupdated=$time");
+        }
+        array_push($updates, "lastupdated=$time");
 
-            ## To keep things simple, we set GameTitle and Overview to the English for now
-            $GameTitle = ltrim($_POST["GameTitle_$lit"]);
-            $GameTitle = rtrim($GameTitle);
-            if ($GameTitle)  {
-                    $GameTitle = mysql_real_escape_string($GameTitle);
-                    array_push($updates, "GameTitle='$GameTitle'");
-            }
-            else  {
-                    array_push($updates, "GameTitle=NULL");
-            }
-            $Overview = ltrim($_POST["Overview_$lit"]);
-            $Overview = rtrim($Overview);
-            if ($Overview)  {
-                    $Overview = mysql_real_escape_string($Overview);
-                    array_push($updates, "Overview='$Overview'");
-            }
-            else  {
-                    array_push($updates, "Overview=NULL");
-            }
+        ## To keep things simple, we set GameTitle and Overview to the English for now
+        $GameTitle = ltrim($_POST["GameTitle_$lid"]);
+        $GameTitle = rtrim($GameTitle);
+        if ($GameTitle)  {
+            $GameTitle = mysql_real_escape_string($GameTitle);
+            array_push($updates, "GameTitle='$GameTitle'");
+        }
+        else  {
+            array_push($updates, "GameTitle=NULL");
+        }
+        $Overview = ltrim($_POST["Overview_$lid"]);
+        $Overview = rtrim($Overview);
+        if ($Overview)  {
+            $Overview = mysql_real_escape_string($Overview);
+            array_push($updates, "Overview='$Overview'");
+        }
+        else  {
+            array_push($updates, "Overview=NULL");
+        }
 
-            ## Join the fields and run the query
-            $updatestring = implode(', ', $updates);
-            $newshowid = mysql_real_escape_string($newshowid);
-            $query = "UPDATE games SET $updatestring WHERE id=$newshowid";
-            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+        ## Join the fields and run the query
+        $updatestring = implode(', ', $updates);
+        $newshowid = mysql_real_escape_string($newshowid);
+        $query = "UPDATE games SET $updatestring WHERE id=$newshowid";
+        $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
             ## Update translations of GameTitle
             $query = "DELETE FROM translation_seriesname WHERE seriesid=$newshowid";

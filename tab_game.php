@@ -4,30 +4,31 @@
 	## Get this series' information
 	$id = mysql_real_escape_string($id);
 	$query	= "SELECT * FROM games WHERE id=$id";
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	$series = mysql_fetch_object($result);
+	$result = mysql_query($query) or die('Query1 failed: ' . mysql_error());
+	$game = mysql_fetch_object($result);
 
 	## Get the lastupdated time of the episodes
 	$query = "SELECT e.lastupdated FROM tvepisodes AS e, tvseasons as s WHERE e.seasonid=s.id AND s.seriesid=$id AND e.lastupdated > 0 ORDER BY e.lastupdated DESC LIMIT 1";
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	$result = mysql_query($query) or die('Query2 failed: ' . mysql_error());
 	$episodeupdate = mysql_fetch_object($result);
 
 	global $user;
-	$query3	= "SELECT * FROM users WHERE id=$series->updateID limit 1";
-	$result3 = mysql_query($query3) or die('Query failed: ' . mysql_error());
+    $updateid = $game->updateID ? $game->updateID : 0;
+	$query3	= "SELECT * FROM users WHERE id=$updateid limit 1";
+	$result3 = mysql_query($query3) or die($query3 . ' Query3 failed: ' . mysql_error());
 	$users	= mysql_fetch_object($result3);
 
 	##Get Name of Admin if locked
-	if ($series->lockedby) {
-		$query3	= "SELECT * FROM users WHERE id=$series->lockedby limit 1";
-		$result3 = mysql_query($query3) or die('Query failed: ' . mysql_error());
+	if ($game->lockedby) {
+		$query3	= "SELECT * FROM users WHERE id=$game->lockedby limit 1";
+		$result3 = mysql_query($query3) or die('Query4 failed: ' . mysql_error());
 		$lockadmin	= mysql_fetch_object($result3);
 	}
 
 	## Generate Season 0
 	$season0 = array();
 	$query	= "SELECT * FROM tvseasons WHERE seriesid=$id ORDER BY season";
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	$result = mysql_query($query) or die('Query5 failed: ' . mysql_error());
 	while ($db = mysql_fetch_object($result))  {
 		$seasonstring = "$db->season";
 		array_push($season0, $seasonstring);
@@ -45,7 +46,7 @@
 
 	if ($user->lastupdatedby_admin)  { 
 		$query	= "SELECT * FROM users WHERE id=$user->lastupdatedby_admin";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		$result = mysql_query($query) or die('Query6 failed: ' . mysql_error());
 		$adminuser	= mysql_fetch_object($result);
 	}
 
@@ -63,7 +64,7 @@
 
 
 <div class="titlesection">
-	<h1><?=stripslashes($series->SeriesName);?></h1>
+	<h1><?=stripslashes($game->GameTitle);?></h1>
 </div>
 
 
@@ -73,15 +74,15 @@
 	<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
 	<tr>
 		<td><?=translatetext('Game ID')?>:</td>
-		<td><?=$series->id?></td>
+		<td><?=$game->id?></td>
 	</tr>
 	<tr>
 		<td><?=translatetext('Game Title')?>: </td>
 		<td>
 			<?php
-				## Display SeriesName translations
-				$query	= "SELECT l.*, t.translation FROM languages AS l LEFT OUTER JOIN translation_seriesname AS t ON l.id=t.languageid AND t.seriesid=$series->id ORDER BY l.name";
-				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+				## Display GameTitle translations
+				$query	= "SELECT l.*, t.translation FROM languages AS l LEFT OUTER JOIN translation_seriesname AS t ON l.id=t.languageid AND t.seriesid=$game->id ORDER BY l.name";
+				$result = mysql_query($query) or die($query . ' Query failed: ' . mysql_error());
 				while($lang = mysql_fetch_object($result))  {
 
 					## If we have the currently selected language
@@ -144,7 +145,7 @@
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				while ($db = mysql_fetch_object($result))  {
 					$selected = '';
-					if ($series->Status == $db->Status)  {  $selected = 'selected';  }
+					if ($game->Status == $db->Status)  {  $selected = 'selected';  }
 					print "<option value=\"$db->Status\" $selected>$db->Status\n";
 				}
 			?>
@@ -154,25 +155,25 @@
     <tr>
 		<td>Platform: <a onclick="openChild('/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
 		<td>
-			<input type="text" name="Platformfake" value="<?=$series->Genre?>" maxlength="255" disabled="true">
+			<input type="text" name="Platformfake" value="<?=$game->Platform?>" maxlength="255" disabled="true">
 			<input type="hidden" name="Platform" value="<?=$game->Platform?>">
 		</td>
 	</tr>
 	<tr>
-		<td>Genre: <a onclick="openChild('/genres.php?Genre=<?=addcslashes($series->Genre,"'")?>&amp;SeriesName=<?echo addcslashes($series->SeriesName,"'");?>&seriesid=<?=$series->id?>', 'GenresEditor<?=$series->id?>', 480, 295); return false" href="#">Choose</a></td>
+		<td>Genre: <a onclick="openChild('/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
 		<td>
-			<input type="text" name="Genrefake" value="<?=$series->Genre?>" maxlength="255" disabled="true">
-			<input type="hidden" name="Genre" value="<?=$series->Genre?>">
+			<input type="text" name="Genrefake" value="<?=$game->Genre?>" maxlength="255" disabled="true">
+			<input type="hidden" name="Genre" value="<?=$game->Genre?>">
 		</td>
 	</tr>
 	<tr>
 		<td>Release Date:</td>
-		<td><input type="text" name="FirstAired" value="<?=$series->FirstAired?>" maxlength="45"></td>
+		<td><input type="text" name="FirstAired" value="<?=$game->FirstAired?>" maxlength="45"></td>
 	</tr>
 	
 	<tr>
 		<td>Developer:</td>
-		<td><input type="text" name="Network" value="<?=$series->Network?>" maxlength="45"></td>
+		<td><input type="text" name="Network" value="<?=$game->Network?>" maxlength="45"></td>
 	</tr>
 	
 	<tr>
@@ -180,18 +181,16 @@
 		<td>
 		<select name="Rating" size="1">
 			<option>
-			<option <?php if ($series->Rating=='TV-Y') print 'selected'; ?>>TV-Y
-			<option <?php if ($series->Rating=='TV-Y7') print 'selected'; ?>>TV-Y7
-			<option <?php if ($series->Rating=='TV-G') print 'selected'; ?>>TV-G
-			<option <?php if ($series->Rating=='TV-PG') print 'selected'; ?>>TV-PG
-			<option <?php if ($series->Rating=='TV-14') print 'selected'; ?>>TV-14
-			<option <?php if ($series->Rating=='TV-MA') print 'selected'; ?>>TV-MA
+			<option <?php if ($game->Rating=='eC - Early Childhood') print 'selected'; ?>>eC - Early Childhood
+			<option <?php if ($game->Rating=='E - Everyone') print 'selected'; ?>>E - Everyone
+			<option <?php if ($game->Rating=='T - Teen') print 'selected'; ?>>T - Teen
+			<option <?php if ($game->Rating=='M - Mature') print 'selected'; ?>>M - Mature
 		</select>
 		</td>
 	</tr>
 	<tr>
 		<td>Actors/Voice Actors:</td>
-		<td><input type="text" name="Actors" value="<?=$series->Actors?>" maxlength="512"></td>
+		<td><input type="text" name="Actors" value="<?=$game->Actors?>" maxlength="512"></td>
 	</tr>
 
 	<tr>
@@ -199,7 +198,7 @@
 		<td>
 			<?php
 				## Display OVerview translations
-				$query	= "SELECT l.*, t.translation FROM languages AS l LEFT OUTER JOIN translation_seriesoverview AS t ON l.id=t.languageid AND t.seriesid=$series->id ORDER BY l.name";
+				$query	= "SELECT l.*, t.translation FROM languages AS l LEFT OUTER JOIN translation_seriesoverview AS t ON l.id=t.languageid AND t.seriesid=$game->id ORDER BY l.name";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				while($lang = mysql_fetch_object($result))  {
 
@@ -277,7 +276,7 @@
 	<tr>
 		<td valign="top">TV.com ID:</td>
 		<td>
-			<input type="text" name="id" value="<?=$series->id?>" maxlength="45">
+			<input type="text" name="id" value="<?=$game->id?>" maxlength="45">
 			<div id="formnote">This field MUST correspond to the tv.com series id.</div>
 		</td>
 	</tr>
@@ -285,7 +284,7 @@
 	<tr>
 		<td valign="top">IMDB.com ID:</td>
 		<td>
-			<input type="text" name="IMDB_ID" value="<?=$series->IMDB_ID?>" maxlength="25">
+			<input type="text" name="IMDB_ID" value="<?=$game->IMDB_ID?>" maxlength="25">
 			<div id="formnote">This field MUST correspond to the IMDB.com ID. Include the leading tt.</div>
 		</td>
 	</tr>
@@ -293,7 +292,7 @@
 	<tr>
 		<td valign="top">Zap2it / SchedulesDirect ID:</td>
 		<td>
-			<input type="text" name="zap2it_id" value="<?=$series->zap2it_id?>" maxlength="25">
+			<input type="text" name="zap2it_id" value="<?=$game->zap2it_id?>" maxlength="25">
 			<div id="formnote">This field MUST correspond to the Zap2It ID, include the leading "SH".</div>
 		</td>
 	</tr>
@@ -301,15 +300,15 @@
 	<?php	if ($adminuserlevel == 'ADMINISTRATOR')  {  ?>
 	<tr>
 		<td>Banner Requests:</td>
-		<td><input type="text" name="bannerrequest" value="<?=$series->bannerrequest?>" maxlength="10"></td>
+		<td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>
 	</tr>
 	<tr>
 		<td valign="top">Disable Series:</td>
 		<td>
 		<select name="disabled" size="1">
 			<option>
-			<option <?php if ($series->disabled=='Yes') print 'selected'; ?>>Yes
-			<option <?php if ($series->disabled=='No') print 'selected'; ?>>No
+			<option <?php if ($game->disabled=='Yes') print 'selected'; ?>>Yes
+			<option <?php if ($game->disabled=='No') print 'selected'; ?>>No
 		</select>
 			<div id="formnote">Setting this flag will disable image uploads for the series. Use for innacurate or duplicate series.</div>
 		</td>
@@ -319,16 +318,16 @@
 	<tr>
 		<td valign="top">Last Updated:</td>
 		<td>
-			<div id="formnote">Series: <?=date("r", $series->lastupdated)?></div>
+			<div id="formnote">Series: <?=date("r", $game->lastupdated)?></div>
 			<div id="formnote">Episodes: <?=date("r", $episodeupdate->lastupdated)?></div>
 		</td>
 	</tr>
 	<?php	if ($loggedin == 1)  {  ?>
 	<tr>
 		<td style="text-align: left" colspan="2" valign="top">
-			<?php	if ($series->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')  {  ?>
+			<?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')  {  ?>
 		        <input type="submit" name="function" value="Save Series" class="submit"><br>
-		        <input type="hidden" name="newshowid" value="<?=$series->id?>">
+		        <input type="hidden" name="newshowid" value="<?=$game->id?>">
 
 			<?php	if ($adminuserlevel == 'ADMINISTRATOR')  {  ?>
 		        <input type="submit" name="function" value="Delete Series" class="submit_red" onClick="return confirmSubmit()"><br>
@@ -344,10 +343,10 @@
 	<div id="formContainer" style="width: 400px; height: 250px; margin-left:15px; margin-top:15px;">
 <font color="black">
 <b><?php echo $users->username ?></b> made this request.<br>
-<b>Reason given for TV.com update request: </font><br><font color=red><?php echo "$series->requestcomment" ?></font></b>
+<b>Reason given for TV.com update request: </font><br><font color=red><?php echo "$game->requestcomment" ?></font></b>
 <TEXTAREA NAME="comments" COLS=40 ROWS=6></TEXTAREA>
 <input type="hidden" name="email" value="<?php echo $users->emailaddress ?>">
-<input type="hidden" name="gametitle" value="<?php echo $series->GameTitle ?>">
+<input type="hidden" name="gametitle" value="<?php echo $game->GameTitle ?>">
 <input type="submit" name="function" value="Deny TV.com Update" class="submit_long">
 	</div>
 </td></tr>
@@ -364,7 +363,7 @@
 <font color="black">
 <b>Please explain why the request was made.<br>Maximum 255 Characters
 </font>
-<input type="hidden" name="requestreason" value="<?php echo "$series->requestcomment" ?>">
+<input type="hidden" name="requestreason" value="<?php echo "$game->requestcomment" ?>">
 <textarea name=requestcomments COLS=45 ROWS=6 onkeyup="TAlimit(this)"></textarea>
 <input type="submit" name="function" value="Request TV.com Update" class="submit_long">
 	</div>
@@ -373,29 +372,29 @@
 </div>
 
 
-	<?php	if ($series->locked != 'yes')  {  ?>
-	<?php if ($series->SeriesID && $tvupdates==1) { ?>
-			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $series->forceupdate == 0)  {  ?>
+	<?php	if ($game->locked != 'yes')  {  ?>
+	<?php if ($game->id && $tvupdates==1) { ?>
+			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $game->forceupdate == 0)  {  ?>
 		        <input type="submit" name="function" value="Force TV.com Update" class="submit_long"><br>
 			<?php	}  ?>
 
-			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $series->forceupdate == 1)  {  ?>
+			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $game->forceupdate == 1)  {  ?>
 		        <input type="submit" name="function" value="Approve TV.com Update" class="submit_long"><br>
 		        <input type="button" value="Deny TV.com Update" onClick='document.getElementById("denied_popup").style.display="block"' class="submit_long">
-			<?php	print "<div id=adminnote><b>Reason for TV.com update request: <font color=red>$series->requestcomment</font></b></div>";
+			<?php	print "<div id=adminnote><b>Reason for TV.com update request: <font color=red>$game->requestcomment</font></b></div>";
 					}  ?>
 
-			<?php	if ($adminuserlevel != 'ADMINISTRATOR' && $series->forceupdate == 0)  {  ?>
+			<?php	if ($adminuserlevel != 'ADMINISTRATOR' && $game->forceupdate == 0)  {  ?>
 				<input type="button" value="Request TV.com Update" onClick='document.getElementById("request_popup").style.display="block"' class="submit_long">
 			<?php	}  ?>
 
 
-			<?php	if ($series->forceupdate == 1)  {
+			<?php	if ($game->forceupdate == 1)  {
 						if ($adminuserlevel != 'ADMINISTRATOR')  { 
 							print "<div id=formnote>Force update requested by a user</div>";
 						}
 				}
-				elseif ($series->forceupdate == 2)  {
+				elseif ($game->forceupdate == 2)  {
 					print "<div id=formnote>Force update requested by an administrator</div>";
 				}
 			if ($adminuserlevel == 'ADMINISTRATOR')  {  
@@ -459,7 +458,7 @@
 	</div>
 
 	<div style="text-align: right">
-	<?php	if ($loggedin == 1 and $series->locked != 'yes')  {  ?>
+	<?php	if ($loggedin == 1 and $game->locked != 'yes')  {  ?>
 	<form action="index.php">
 		<input type="text" name="Season" size="10"> <input type="submit" name="function" value="Add Season" class="submit">
 	</form>
@@ -587,7 +586,7 @@
 		elseif ($user->bannerlimit == 0) {
 			print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
 		} ## Check banner limit
-		elseif ($series->disabled == 'Yes')  { 
+		elseif ($game->disabled == 'Yes')  {
 			print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
 		}		
 		elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR')  {  
@@ -694,7 +693,7 @@
 			elseif ($user->bannerlimit == 0) {
 				print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
 			} ## Check banner limit
-			elseif ($series->disabled == 'Yes')  { 
+			elseif ($game->disabled == 'Yes')  {
 				print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
 			}		
 			else  {  
@@ -728,5 +727,5 @@
 </table>
 
 <script type="text/javascript">
-	DisplayImporterRow('<?=$series->autoimport?>');
+	DisplayImporterRow('<?=$game->autoimport?>');
 </script>

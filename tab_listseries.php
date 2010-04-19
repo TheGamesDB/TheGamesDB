@@ -27,8 +27,8 @@
 			<td class="head">Show ID</td>
 		</tr>
 
-		<?php	## Run the series query
-			$seriescount = 0;
+		<?php	## Run the games query
+			$gamecount = 0;
 			$string = mysql_real_escape_string($string);
 			$letter = mysql_real_escape_string($letter);			
 
@@ -46,17 +46,16 @@
 			}
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-			## Display each series
-			while ($series = mysql_fetch_object($result)) {
-				#$urlseriesname = urlseriesname($series->seriesid);
+			## Display each game
+			while ($game = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
-				print "<tr><td class=\"$class\"><a href=\"/?tab=series&amp;id=$series->seriesid&amp;lid=$series->languageid\">$series->translation</a> </td><td class=\"$class\">$series->language</td><td class=\"$class\">$series->seriesid</td></tr>\n";
-				$seriescount++;
+				print "<tr><td class=\"$class\"><a href=\"/?tab=game&amp;id=$game->id&amp;lid=$game->languageid\">$game->translation</a> </td><td class=\"$class\">$game->language</td><td class=\"$class\">$game->id</td></tr>\n";
+				$gamecount++;
 			}
 
 			## No matches found?
-			if ($seriescount == 0)  {
-				print "<tr><td class=odd colspan=2>No Series Found. ";
+			if ($gamecount == 0)  {
+				print "<tr><td class=odd colspan=2>No game Found. ";
 				if (!$alllang){print "Retry <a href=\"index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">search</a> in all languages?";}
 				print "</td></tr>\n";
 				

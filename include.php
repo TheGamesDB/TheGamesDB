@@ -36,9 +36,6 @@
 	## Function to create a seriesupdate record. This is used whenever a series or episode needs
 	## to be updated in the XML files
 	function seriesupdate($seriesid)  {
-		$query		= "REPLACE INTO seriesupdates (seriesid) VALUES ($seriesid)";
-		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());
-
 		$query		= "UPDATE games SET lastupdated=UNIX_TIMESTAMP() WHERE id=$seriesid";
 		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
@@ -134,7 +131,7 @@ function bannerdisplay($id) {
 		while ($banner = mysql_fetch_object($result))  {
 			if ($banner->subkey == 'text')  { $textbcount++; }
 			else {
-				print "<img src=\"$baseurl/banners/$banner->filename\" alt='banner' title='banner' class='rotatebanner' />";
+				print "<img src=\"banners/$banner->filename\" alt='banner' title='banner' class='rotatebanner' />";
 				$bcount++;
 			}
 		}
@@ -145,49 +142,11 @@ function bannerdisplay($id) {
 			$bcount++;
 			if ($banner->subkey == 'text')  {
 				$textbcount++;
-				print "<img src=\"$baseurl/banners/$banner->filename\" alt='banner' title='banner' class='rotatebanner' />";
+				print "<img src=\"banners/$banner->filename\" alt='banner' title='banner' class='rotatebanner' />";
 			}
 		}
   }
 	if ($bcount == 0 AND $textbcount == 0) { print "<style>#bannerrotator {display:none;}</style>"; }
-}
-
-## Function to generate a text or blank series banner from tv.com
-## Inputs: banner type, text for banner, integer language ID, tvdb ID, tv.com ID for banner retrieval
-## Outputs: image file, SQL insert statement for future display and retrieva;, IMG html code for initial display
-function generatebanner($type,$text,$languageid, $seriesid, $tvcomid) {
-	global $typecount;
-	$typecount = 0;
-	$time = time();
-	$banner = file_get_contents("http://thetvdb.com/makebanner.php?id=" . $tvcomid . "&text=" . urlencode(stripslashes($text)));
-
-	## If banner was generated, continue
-	if ($banner != 'ERROR')  {
-
-		## Save it to disk and continue if successful
-		$filename = "$type/$seriesid.jpg";
-		if (file_put_contents("banners/$filename", $banner))  {
-
-			## Verify once more that it doesnt exist
-			$query	= "SELECT * FROM banners WHERE keytype='series' AND keyvalue=$seriesid AND subkey='$type' LIMIT 1";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-
-
-			## Store the SQL record
-			if (mysql_num_rows($result) == 0)  {
-				$query	= "INSERT INTO banners (userid, keytype, keyvalue, subkey, dateadded, filename, languageid) VALUES (1, 'series', '$seriesid', '$type', $time, '$filename', '$languageid')";
-				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-				$id = mysql_insert_id();
-				storesql($query, $id);  ## Store the statement for the mirrors
-				storefile_add("banners/$filename");  ## Store the file info for the mirrors
-			}
-
-			## Display it
-			print "<img src=\"$baseurl/banners/$filename\" class=\"banner\" border=\"0\" alt=\"text\">\n";
-			print "<div id=\"bannerauth\">Banner generated automatically</div>\n";
-			$typecount++;
-		}
-	}
 }
 
 
@@ -222,36 +181,30 @@ function displaybannernew ($banner, $allowdelete, $link) {
 	global $loggedin, $user, $bannercount, $tab, $id, $seriesid, $seasonid;
 	switch ($tab) {
 		case "mainmenu":
-			$fullurl = "/?";
+			$fullurl = $baseurl . "/?";
 			break;
-		case "series":
-			$fullurl = "/?tab=series&id=$id";
-			break;
-		case "season":
-			$fullurl = "/?tab=season&seriesid=$seriesid&seasonid=$seasonid";
-			break;
-		case "episode":
-			$fullurl = "/?tab=episode&seriesid=$seriesid&seasonid=$seasonid&id=$id";
+		case "game":
+			$fullurl = $baseurl . "/?tab=game&id=$id";
 			break;
 		default:
-			$fullurl = "/?";
+			$fullurl = $baseurl . "/?";
 	}
 
 
 	## Check if the banner is cached already. If not, create it.
 	if (!file_exists("../banners/_cache/$banner->filename"))  {
 		## Create the cached version of the image
-		$target = file_get_contents("http://thetvdb.com/thumbnail.php?gd=2&maxw=300&src=banners/$banner->filename");
+		$target = file_get_contents("thumbnail.php?gd=2&maxw=300&src=banners/$banner->filename");
 		file_put_contents("banners/_cache/$banner->filename", $target);
 	}
 
 
 	## Display the image
 	if ($link)  {
-		print "<a href=\"$link\"><img src=\"/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
+		print "<a href=\"$link\"><img src=\"banners/_cache/$banner->filename\" class=\"banner\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
 	}
 	else  {
-		print "<a href=\"javascript:;\" onClick=\"toggleDiv('bannerinfo$banner->id');\"><img src=\"/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\"></a>\n";
+		print "<a href=\"javascript:;\" onClick=\"toggleDiv('bannerinfo$banner->id');\"><img src=\"banners/_cache/$banner->filename\" class=\"banner\" border=\"0\"></a>\n";
 	}
 
 
@@ -284,9 +237,9 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		## Display the site rating
 		for ($i = 1; $i <= 10; $i++)  {
 			if ($i <= $rating->average)
-				print "<img src=\"/images/star_on.gif\" width=15 height=15 border=0>";
+				print "<img src=\"images/star_on.gif\" width=15 height=15 border=0>";
 			else 
-				print "<img src=\"/images/star_off.gif\" width=15 height=15 border=0>";
+				print "<img src=\"images/star_off.gif\" width=15 height=15 border=0>";
 		}
 		print "</td></tr>\n";
 

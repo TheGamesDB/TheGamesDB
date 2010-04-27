@@ -7,11 +7,6 @@
 	$result = mysql_query($query) or die('Query1 failed: ' . mysql_error());
 	$game = mysql_fetch_object($result);
 
-	## Get the lastupdated time of the episodes
-	$query = "SELECT e.lastupdated FROM tvepisodes AS e, tvseasons as s WHERE e.seasonid=s.id AND s.seriesid=$id AND e.lastupdated > 0 ORDER BY e.lastupdated DESC LIMIT 1";
-	$result = mysql_query($query) or die('Query2 failed: ' . mysql_error());
-	$episodeupdate = mysql_fetch_object($result);
-
 	global $user;
     $updateid = $game->updateID ? $game->updateID : 0;
 	$query3	= "SELECT * FROM users WHERE id=$updateid limit 1";
@@ -23,20 +18,6 @@
 		$query3	= "SELECT * FROM users WHERE id=$game->lockedby limit 1";
 		$result3 = mysql_query($query3) or die('Query4 failed: ' . mysql_error());
 		$lockadmin	= mysql_fetch_object($result3);
-	}
-
-	## Generate Season 0
-	$season0 = array();
-	$query	= "SELECT * FROM tvseasons WHERE seriesid=$id ORDER BY season";
-	$result = mysql_query($query) or die('Query5 failed: ' . mysql_error());
-	while ($db = mysql_fetch_object($result))  {
-		$seasonstring = "$db->season";
-		array_push($season0, $seasonstring);
-	}
-	if ($season0[0] != 0) {
-		$query	= "INSERT INTO tvseasons (seriesid, season) VALUES ($id, 0)";
-//		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-//		storesql($query, mysql_insert_id());  ## Store the statement for the mirrors
 	}
 
 	## Keep track of the language
@@ -153,14 +134,14 @@
 		</td>
 	</tr>
     <tr>
-		<td>Platform: <a onclick="openChild('/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
+		<td>Platform: <a onclick="openChild('<?=$baseurl?>/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
 		<td>
 			<input type="text" name="Platformfake" value="<?=$game->Platform?>" maxlength="255" disabled="true">
 			<input type="hidden" name="Platform" value="<?=$game->Platform?>">
 		</td>
 	</tr>
 	<tr>
-		<td>Genre: <a onclick="openChild('/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
+		<td>Genre: <a onclick="openChild('<?=$baseurl?>/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
 		<td>
 			<input type="text" name="Genrefake" value="<?=$game->Genre?>" maxlength="255" disabled="true">
 			<input type="hidden" name="Genre" value="<?=$game->Genre?>">
@@ -173,7 +154,11 @@
 	
 	<tr>
 		<td>Developer:</td>
-		<td><input type="text" name="Network" value="<?=$game->Network?>" maxlength="45"></td>
+		<td><input type="text" name="Developer" value="<?=$game->Developer?>" maxlength="45"></td>
+	</tr>
+        <tr>
+		<td>Publisher:</td>
+		<td><input type="text" name="Publisher" value="<?=$game->Publisher?>" maxlength="45"></td>
 	</tr>
 	
 	<tr>
@@ -271,31 +256,15 @@
 			<div id="formnote">New episodes for this series will be automatically imported if this value is set. Status must be 'Continuing' for this setting to save.</div>
 		</td>
 	</tr>
-
-	<!-- <tr id="tvcom"> -->
+        <!--
 	<tr>
-		<td valign="top">TV.com ID:</td>
+		<td valign="top">MetaCritic URL: </td>
 		<td>
-			<input type="text" name="id" value="<?=$game->id?>" maxlength="45">
-			<div id="formnote">This field MUST correspond to the tv.com series id.</div>
+			<input type="text" name="metacriticurl" value="<?=$game->metacriticurl?>" maxlength="255">
+			<div id="formnote">This field MUST correspond to the metacritic.com url for this game.</div>
 		</td>
 	</tr>
-	
-	<tr>
-		<td valign="top">IMDB.com ID:</td>
-		<td>
-			<input type="text" name="IMDB_ID" value="<?=$game->IMDB_ID?>" maxlength="25">
-			<div id="formnote">This field MUST correspond to the IMDB.com ID. Include the leading tt.</div>
-		</td>
-	</tr>
-
-	<tr>
-		<td valign="top">Zap2it / SchedulesDirect ID:</td>
-		<td>
-			<input type="text" name="zap2it_id" value="<?=$game->zap2it_id?>" maxlength="25">
-			<div id="formnote">This field MUST correspond to the Zap2It ID, include the leading "SH".</div>
-		</td>
-	</tr>
+        -->
 	
 	<?php	if ($adminuserlevel == 'ADMINISTRATOR')  {  ?>
 	<tr>
@@ -303,7 +272,7 @@
 		<td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>
 	</tr>
 	<tr>
-		<td valign="top">Disable Series:</td>
+		<td valign="top">Disable Game:</td>
 		<td>
 		<select name="disabled" size="1">
 			<option>
@@ -318,7 +287,7 @@
 	<tr>
 		<td valign="top">Last Updated:</td>
 		<td>
-			<div id="formnote">Series: <?=date("r", $game->lastupdated)?></div>
+			<div id="formnote">Game: <?=date("r", $game->lastupdated)?></div>
 			<div id="formnote">Episodes: <?=date("r", $episodeupdate->lastupdated)?></div>
 		</td>
 	</tr>
@@ -326,11 +295,11 @@
 	<tr>
 		<td style="text-align: left" colspan="2" valign="top">
 			<?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')  {  ?>
-		        <input type="submit" name="function" value="Save Series" class="submit"><br>
+		        <input type="submit" name="function" value="Save Game" class="submit"><br>
 		        <input type="hidden" name="newshowid" value="<?=$game->id?>">
 
 			<?php	if ($adminuserlevel == 'ADMINISTRATOR')  {  ?>
-		        <input type="submit" name="function" value="Delete Series" class="submit_red" onClick="return confirmSubmit()"><br>
+		        <input type="submit" name="function" value="Delete Game" class="submit_red" onClick="return confirmSubmit()"><br>
 			<?php	}  }?>
 
 <div id='denied_popup' style='width: 400px; height: 500px; display:none; position: absolute; top: 500px; left: 400px;'>
@@ -372,56 +341,33 @@
 </div>
 
 
-	<?php	if ($game->locked != 'yes')  {  ?>
-	<?php if ($game->id && $tvupdates==1) { ?>
-			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $game->forceupdate == 0)  {  ?>
-		        <input type="submit" name="function" value="Force TV.com Update" class="submit_long"><br>
-			<?php	}  ?>
-
-			<?php	if ($adminuserlevel == 'ADMINISTRATOR' && $game->forceupdate == 1)  {  ?>
-		        <input type="submit" name="function" value="Approve TV.com Update" class="submit_long"><br>
-		        <input type="button" value="Deny TV.com Update" onClick='document.getElementById("denied_popup").style.display="block"' class="submit_long">
-			<?php	print "<div id=adminnote><b>Reason for TV.com update request: <font color=red>$game->requestcomment</font></b></div>";
-					}  ?>
-
-			<?php	if ($adminuserlevel != 'ADMINISTRATOR' && $game->forceupdate == 0)  {  ?>
-				<input type="button" value="Request TV.com Update" onClick='document.getElementById("request_popup").style.display="block"' class="submit_long">
-			<?php	}  ?>
-
-
-			<?php	if ($game->forceupdate == 1)  {
-						if ($adminuserlevel != 'ADMINISTRATOR')  { 
-							print "<div id=formnote>Force update requested by a user</div>";
-						}
-				}
-				elseif ($game->forceupdate == 2)  {
-					print "<div id=formnote>Force update requested by an administrator</div>";
-				}
-			if ($adminuserlevel == 'ADMINISTRATOR')  {  
-				echo '<input type="submit" value="Lock Series" name="function" class="submit"><br>';
-		        echo '<input type="submit" value="UnLock Series" name="function" class="submit" disabled><br>';
-				}
-		}
-		ELSE //No Series ID 
-		{
-			if ($adminuserlevel == 'ADMINISTRATOR')  {  
-				echo '<input type="submit" value="Lock Series" name="function" class="submit"><br>';
-		        echo '<input type="submit" value="UnLock Series" name="function" class="submit" disabled><br>';
-				}
-//			print "<div id=formnote style='color: red;'>A TV.com Series ID must be entered for the request update button to appear</div>";
-		}
-	}
+	<?php 
+    if ($game->locked != 'yes')  {
+        if ($game->id && $tvupdates==1) {
+                if ($adminuserlevel == 'ADMINISTRATOR')  {
+                    echo '<input type="submit" value="Lock Game" name="function" class="submit"><br>';
+                    echo '<input type="submit" value="UnLock Game" name="function" class="submit" disabled><br>';
+                }
+            }
+            ELSE //No Game ID
+            {
+                if ($adminuserlevel == 'ADMINISTRATOR')  {
+                    echo '<input type="submit" value="Lock Game" name="function" class="submit"><br>';
+                    echo '<input type="submit" value="UnLock Game" name="function" class="submit" disabled><br>';
+                }
+            }
+        }
 		ELSE //Record is Locked 
 		{
 			if ($adminuserlevel == 'ADMINISTRATOR')  {  
-				echo '<input type="submit" value="Lock Series" name="function" class="submit" disabled><br>';
-		        echo '<input type="submit" value="UnLock Series" name="function" class="submit"><br>';
+				echo '<input type="submit" value="Lock Game" name="function" class="submit" disabled><br>';
+		        echo '<input type="submit" value="UnLock Game" name="function" class="submit"><br>';
 				}
 			elseif ($_SESSION['userlevel'] == 'ADMINISTRATOR')  {  
-				echo '<input type="submit" value="Lock Series" name="function" class="submit" disabled><br>';
-		        echo '<input type="submit" value="UnLock Series" name="function" class="submit"><br>';
+				echo '<input type="submit" value="Lock Game" name="function" class="submit" disabled><br>';
+		        echo '<input type="submit" value="UnLock Game" name="function" class="submit"><br>';
 				}
-			print "<div id=formnote style='color: red;'>This series is locked and cannot be changed. It was locked by $lockadmin->username</div>";
+			print "<div id=formnote style='color: red;'>This game is locked and cannot be changed. It was locked by $lockadmin->username</div>";
 		}
 			?>
 			</div>
@@ -432,42 +378,6 @@
 	</table>
 </form>
 </div>
-
-
-<div class="section">
-<form action="<?=$fullurl?>" method="POST">
-<h1>Seasons</h1>
-	<div style="text-align: left">
-	<?php	## Display the seasons
-		$seasonarray = array();
-		$query	= "SELECT * FROM tvseasons WHERE seriesid=$id ORDER BY season";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		while ($db = mysql_fetch_object($result))  {
-		  if ($db->season == 0) {
-			$seasonstring = "<a href=\"/?tab=season&seriesid=$id&seasonid=$db->id$urllang\" class=\"seasonlink\">Specials</a>";
-			array_push($seasonarray, $seasonstring);
-		  }
-		  else{
-			$seasonstring = "<a href=\"/?tab=season&seriesid=$id&seasonid=$db->id$urllang\" class=\"seasonlink\">$db->season</a>";
-			array_push($seasonarray, $seasonstring);
-		  }
-		}
-		print implode(" | ", $seasonarray)." | <a href=\"/?tab=seasonall&id=$id$urllang\" class=\"seasonlink\">All</a>";
-
-	?>
-	</div>
-
-	<div style="text-align: right">
-	<?php	if ($loggedin == 1 and $game->locked != 'yes')  {  ?>
-	<form action="index.php">
-		<input type="text" name="Season" size="10"> <input type="submit" name="function" value="Add Season" class="submit">
-	</form>
-	<?php	}  ?>
-	</div>
-</form>
-</div>
-
-
 	</td>
 
 	<td>
@@ -593,7 +503,7 @@
 	?>
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
 	<tr>
-		<td colspan="2">Series banners must be 758px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
+		<td colspan="2">Game banners must be 758px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
 	</tr>
 	<tr>
 		<td>File:</td>
@@ -637,7 +547,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" style="text-align: right">
-			<input type="hidden" name="function" value="Upload Series Banner">
+			<input type="hidden" name="function" value="Upload Game Banner">
 			<input type="submit" name="button" value="Upload" class="submit">
 		</td>
 	</tr>
@@ -683,7 +593,7 @@
 
 		<?php	if ($loggedin == 1)  {  ?>
 		<div class="section">
-		<form action="/?tab=series&id=<?=$id?>" method="POST" enctype="multipart/form-data">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
 		<h1>Fan Art Upload</h1>
 
 		<?php  	## check for agreement to terms

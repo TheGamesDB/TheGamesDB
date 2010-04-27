@@ -7,7 +7,7 @@ class LangDetect {
     //Path LM-files
     //var $dir =  $_SERVER['DOCUMENT_ROOT'].'/synchNow/langdetect/finger_prints/';
     
-    //var $dir =  './langdetect/finger_prints/'; //RELATIV TO CALLING SCRIPT
+    var $dir =  './langdetect/finger_prints/'; //RELATIV TO CALLING SCRIPT
     //reasonable defaults
     var    $ng_number_sub = 350;     //default nb of ngrams created from analyzed text
     var    $max_delta = 140000;    //stop evaluation deviate strongly
@@ -32,8 +32,7 @@ function LangDetect($input, $sec = false, $dir_prints= false){
         if ($dir_prints !=false){
             $this->dir = $dir_prints;
          } else {
-         	$this->dir = '/home/www/finger_prints/';
-            #$this->dir = '/home/www/finger_prints/';
+         	$this->dir = '/var/www/finger_prints/';
         }
     }
 }

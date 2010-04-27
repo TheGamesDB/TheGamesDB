@@ -27,7 +27,7 @@
 </form>
 
 
-<a href="/?tab=register">Register for an account</a> <br>
-<a href="/?tab=password">Forgot your username or password?</a>
+<a href="<?php echo $baseurl;?>/?tab=register">Register for an account</a> <br>
+<a href="<?php echo $baseurl;?>/?tab=password">Forgot your username or password?</a>
 
 </div>

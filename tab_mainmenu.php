@@ -24,28 +24,7 @@
 		<td class="head">Series</td>
 		<td class="head">Episode</td>
 	</tr>
-	<?php	## Display shows episodes that are airing today
-		$cachedate		= date("l F d, Y");
-
-		## Get the shows from the database
-		$itemcount = 0;
-		$query = "SELECT id, seriesid, seasonid, (SELECT translation FROM translation_seriesname WHERE seriesid=tvepisodes.seriesid AND languageid=7 LIMIT 1) AS SeriesName, (SELECT translation FROM translation_episodename WHERE episodeid=tvepisodes.id AND languageid=7 LIMIT 1) AS EpisodeName FROM tvepisodes WHERE FirstAired=CURDATE() ORDER BY SeriesName, EpisodeNumber, EpisodeName";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		while ($episode = mysql_fetch_object($result))  {
-			if ($episode->EpisodeName) {
-				print "<tr><td><a href=\"/index.php?tab=series&id=$episode->seriesid\">$episode->SeriesName</a></td>\n";
-				print "<td><a href=\"/index.php?tab=episode&seriesid=$episode->seriesid&seasonid=$episode->seasonid&id=$episode->id\">$episode->EpisodeName</a></td></tr>\n";
-				$itemcount++;
-			}
-		}
-
-		## If no records were found
-		if ($itemcount == 0)  {
-			print "<tr><td colspan=2>There are no new episodes airing today</td></tr>";
-		}
-
-		## Attach the date
-	?>
+	
 		<tr>
 			<td colspan=2 style="border-bottom: none; text-align: right; font-size: 8pt; font-weight: bold; padding-top: 2px"><span style="float: left; width: 14px; padding: 0px; margin: 0px"><a href="/rss/newtoday.php" target="_blank"><img src="/images/rss.gif" width=12 height=12 border=0></a></span> Listings are for <?=$cachedate?></td>
 		</tr>

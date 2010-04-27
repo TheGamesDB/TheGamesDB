@@ -30,7 +30,7 @@ CREATE TABLE `apiusers` (
   `userid` int(10) unsigned NOT NULL,
   `lastupdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,7 +58,7 @@ CREATE TABLE `banners` (
   KEY `FK_banners_1` (`userid`),
   KEY `Index_3` (`keyvalue`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=25174 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `deletions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT 'junkinfo',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2912 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,8 @@ CREATE TABLE `games` (
   `GameID` varchar(45) DEFAULT NULL,
   `Status` varchar(100) DEFAULT NULL,
   `FirstAired` varchar(100) DEFAULT NULL,
-  `Network` varchar(100) DEFAULT NULL,
+  `Developer` varchar(100) DEFAULT NULL,
+  `Publisher` varchar(100) DEFAULT NULL,
   `Runtime` varchar(100) DEFAULT NULL,
   `Genre` varchar(100) DEFAULT NULL,
   `Actors` text,
@@ -117,7 +118,7 @@ CREATE TABLE `games` (
   KEY `mirrorupdate` (`mirrorupdate`),
   KEY `disabled` (`disabled`),
   FULLTEXT KEY `GameTitle` (`GameTitle`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +132,7 @@ CREATE TABLE `genres` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `genre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +146,7 @@ CREATE TABLE `imgstatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +164,7 @@ CREATE TABLE `languages` (
   `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +183,7 @@ CREATE TABLE `mirrors` (
   `mirrorpass` varchar(45) NOT NULL,
   `typemask` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +197,7 @@ CREATE TABLE `platforms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +215,7 @@ CREATE TABLE `ratings` (
   `rating` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `itemid` (`itemid`,`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=8039 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,59 +229,6 @@ CREATE TABLE `runtimes` (
   `Runtime` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`Runtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `seriesupdates`
---
-
-DROP TABLE IF EXISTS `seriesupdates`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `seriesupdates` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `seriesid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `seriesid` (`seriesid`)
-) ENGINE=MyISAM AUTO_INCREMENT=92412 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `translation_episodename`
---
-
-DROP TABLE IF EXISTS `translation_episodename`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `translation_episodename` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `episodeid` int(10) unsigned NOT NULL,
-  `languageid` int(10) unsigned NOT NULL,
-  `translation` varchar(255) NOT NULL,
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `EpisodeId` (`episodeid`,`languageid`),
-  KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=514206 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `translation_episodeoverview`
---
-
-DROP TABLE IF EXISTS `translation_episodeoverview`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `translation_episodeoverview` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `episodeid` int(10) unsigned NOT NULL,
-  `languageid` int(10) unsigned NOT NULL,
-  `translation` text,
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `EpisodeId` (`episodeid`,`languageid`),
-  KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=324950 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +247,7 @@ CREATE TABLE `translation_labels` (
   PRIMARY KEY (`id`),
   KEY `LanguageKey` (`languageid`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,7 +266,7 @@ CREATE TABLE `translation_seriesname` (
   PRIMARY KEY (`id`),
   KEY `SeriesId` (`seriesid`,`languageid`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=35476 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,91 +285,6 @@ CREATE TABLE `translation_seriesoverview` (
   PRIMARY KEY (`id`),
   KEY `SeriesId` (`seriesid`,`languageid`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=25946 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tvepisodes`
---
-
-DROP TABLE IF EXISTS `tvepisodes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tvepisodes` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `seasonid` int(10) unsigned NOT NULL DEFAULT '0',
-  `EpisodeNumber` int(10) unsigned NOT NULL DEFAULT '0',
-  `EpisodeName` varchar(255) DEFAULT 'Unknown',
-  `FirstAired` varchar(45) DEFAULT NULL,
-  `GuestStars` text,
-  `Director` text,
-  `Writer` text,
-  `Overview` text,
-  `ProductionCode` varchar(45) DEFAULT NULL,
-  `ShowURL` varchar(255) DEFAULT NULL,
-  `lastupdated` int(10) unsigned DEFAULT NULL,
-  `flagged` int(10) unsigned DEFAULT '0',
-  `DVD_discid` varchar(45) DEFAULT NULL,
-  `DVD_season` int(10) unsigned DEFAULT NULL,
-  `DVD_episodenumber` decimal(10,1) unsigned DEFAULT NULL,
-  `DVD_chapter` int(10) unsigned DEFAULT NULL,
-  `locked` varchar(3) NOT NULL DEFAULT 'no',
-  `absolute_number` int(3) DEFAULT NULL,
-  `filename` varchar(255) DEFAULT NULL,
-  `seriesid` int(10) unsigned NOT NULL,
-  `lastupdatedby` int(10) unsigned NOT NULL DEFAULT '0',
-  `airsafter_season` varchar(10) DEFAULT NULL,
-  `airsbefore_season` int(10) DEFAULT NULL,
-  `airsbefore_episode` int(10) DEFAULT NULL,
-  `thumb_author` int(10) NOT NULL DEFAULT '1',
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lockedby` int(11) NOT NULL,
-  `IMDB_ID` varchar(25) DEFAULT NULL,
-  `EpImgFlag` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `IMDB_ID` (`IMDB_ID`),
-  KEY `mirrorupdate` (`mirrorupdate`),
-  KEY `seasonid` (`seasonid`),
-  KEY `seriesid` (`seriesid`)
-) ENGINE=MyISAM AUTO_INCREMENT=372817 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='InnoDB free: 5120 kB; (`seasonid`) REFER `tvshows/tvseasons`';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tvseasons`
---
-
-DROP TABLE IF EXISTS `tvseasons`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tvseasons` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `seriesid` int(10) unsigned NOT NULL,
-  `season` int(10) unsigned NOT NULL,
-  `bannerrequest` int(10) unsigned DEFAULT '0',
-  `locked` varchar(3) NOT NULL DEFAULT 'no',
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `lockedby` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uniqueseason` (`seriesid`,`season`),
-  KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=33326 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `user_episodes`
---
-
-DROP TABLE IF EXISTS `user_episodes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_episodes` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` int(10) unsigned NOT NULL,
-  `episodeid` int(10) unsigned NOT NULL,
-  `status` varchar(16) NOT NULL,
-  `lastupdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `userid` (`userid`,`episodeid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -451,7 +314,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniqueid` (`uniqueid`),
   KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

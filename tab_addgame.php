@@ -8,7 +8,7 @@
     <p><b>DO NOT</b> put non english information into english fields.  If a game is published in another language, and is never translated from that language into english, we still do not want non-english information in the english fields.</p>
     <p>Games are added immediately but new entries are monitored and incorrect entries will get deleted.  If in doubt, always come to the forums and ask before attempting to add a game.</p>
       
-  <form action="./index.php?" method="POST">
+  <form action="<?php echo $baseurl;?>/index.php?" method="POST">
 		<input type="text" name="GameTitle">
 		<input type="submit" name="function" value="Add Game">
 	</form>

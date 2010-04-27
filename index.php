@@ -184,11 +184,10 @@
 		}
 	}
 
-
-	#####################################################
-	## SERIES FUNCTIONS
-	#####################################################
-	if ($function == 'Save Series')  {
+    /*
+     * Game Functions
+     */
+	if ($function == 'Save Game')  {
         $updates = array();
         foreach ($_POST AS $key => $value)  {
             if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_')&& $key != 'comments' && $key != 'requestcomments'  && $key != 'requestreason')  {
@@ -257,18 +256,8 @@
             foreach ($languages AS $langid => $langname)  {
                 $value = mysql_real_escape_string($_POST["Overview_$langid"]);
                 if ($value != '')  {
-                    $obj = new LangDetect($value, 1);
-                    $langdetect = $obj->Analyze();
-                    if (ucfirst($langdetect) == $langid || $langid == 9 || $langid == 10){ ##Doesn't check Norwegian or Danish languages as they are similar and get misdetected too much
-                        $query = "INSERT INTO translation_seriesoverview (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
-                        $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-                    } else {
-                        $result = mysql_query("SELECT * FROM languages WHERE id = ".ucfirst($langdetect)) or die('Query failed get seasons: ' . mysql_error());
-                        $detectedlang = mysql_fetch_object($result)->name;
-                        $result = mysql_query("SELECT * FROM languages WHERE id = $langid") or die('Query failed get seasons: ' . mysql_error());
-                        $enteredlang = mysql_fetch_object($result)->name;
-                        $errormessage .= "You attempted to enter an $detectedlang overview into the $enteredlang overview field. Please pick the correct language and try again. If the language detected is wrong please come to the forums and let us know.<br/>";
-                    }
+                    $query = "INSERT INTO translation_seriesoverview (translation, seriesid, languageid) VALUES ('$value', $newshowid, 1)";
+                    $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
                 }
             }
 
@@ -279,26 +268,7 @@
             $tab = 'game';
 	}
 
-	if ($function == 'Add Season')  {
-		$seasonint = intval($Season);
-
-			## Check for exact matches for seriesid/season
-			$id = mysql_real_escape_string($id);
-			$seasonint = mysql_real_escape_string($seasonint);
-			$query	= "SELECT * FROM tvseasons WHERE seriesid=$id AND season=$seasonint";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-			## Insert if it doesnt exist already
-			if (mysql_num_rows($result) == 0)  {
-				$query	= "INSERT INTO tvseasons (seriesid, season) VALUES ($id, $seasonint)";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			}
-
-			## Store the seriesid for the XML updater
-			seriesupdate($id);
-	}
-
-	if ($function == 'Upload Series Banner')  {
+	if ($function == 'Upload Game Banner')  {
 		## Check if the image is the right size
 		list($image_width, $image_height, $image_type, $image_attr)	= getimagesize($_FILES['bannerfile']['tmp_name']);
 		if ($image_width == 758 && $image_height == 140)  {
@@ -355,7 +325,7 @@
 		}
 	}
 
-	if ($function == 'Delete Series' && $adminuserlevel == 'ADMINISTRATOR')  {
+	if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "DELETE FROM games WHERE id=$id";
@@ -390,7 +360,7 @@
 		if ($image_type != 2)  {
 			$errormessage .= "Your image MUST be a jpg.<br>";
 		}
-		if (($resolution == '1920x1080' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 800) || ($resolution == '1280x720' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 600))  {
+		if (($resolution == '1920x1080' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 2000) || ($resolution == '1280x720' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 600))  {
 			$errormessage .= "Your image exceeds the size restrictions.<br>";
 		}
 
@@ -415,47 +385,26 @@
 				## Insert database record
 				$id = mysql_real_escape_string($id);
 				$colors = mysql_real_escape_string($colors);
-				$query	= "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution, colors) VALUES ('fanart', $id, $user->id, $time, '$filename', 7, '$resolution', '$colors')";
+				$query	= "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution, colors) VALUES ('fanart', $id, $user->id, $time, '$filename', 1, '$resolution', '$colors')";
 				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 				## Store the seriesid for the XML updater
 				seriesupdate($id);
 			}
+
+            $errormessage = "Fan art added";
 		}
-		$tab = 'series';
-		$errormessage = "Fan art added";
+		$tab = 'game';
+		
 	}
 
-	if ($function == 'Request TV.com Update')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$requestcomments = mysql_real_escape_string($requestcomments);		
-		$query = "UPDATE games SET forceupdate=1, updateID=$user->id, requestcomment='$requestcomments'  WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		$errormessage = 'Series update requested.';
-	}
-	if (($function == 'Force TV.com Update' || $function == 'Approve TV.com Update') && $adminuserlevel == 'ADMINISTRATOR')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE games SET forceupdate=2 WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		$errormessage = 'Series update scheduled.';
-	}
-	if ($function == 'Deny TV.com Update' && $adminuserlevel == 'ADMINISTRATOR')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE games SET forceupdate=0, updateID=0, requestcomment='' WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		$errormessage = 'Series update denied.';
-		mail ($email, 'Denial of TV.com Update Request for '.$seriesname, "Your original request was: ".stripslashes($requestreason)."\n\nThe reason for denial was:" .stripslashes($comments), "From: ".$user->emailaddress);
-	}
-	if ($function == 'Lock Series')  {
+	if ($function == 'Lock Game')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='yes', lockedby=$user->id  WHERE id=$id";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
-	if ($function == 'UnLock Series')  {
+	if ($function == 'UnLock Game')  {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='no', lockedby=''  WHERE id=$id";
@@ -463,291 +412,8 @@
 	}
 
 
-	#####################################################
-	## SEASON FUNCTIONS
-	#####################################################
-	if ($function == 'Add Episode')  {
-		$episodeint = intval($EpisodeNumber);
-
-		## Check for exact matches for season/episodenumber
-		$seasonid = mysql_real_escape_string($seasonid);
-		$episodeint = mysql_real_escape_string($episodeint);
-		$query	= "SELECT * FROM tvepisodes WHERE seasonid=$seasonid AND EpisodeNumber=$episodeint";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		## Insert if it doesnt exist already
-		if (mysql_num_rows($result) == 0)  {
-			$EpisodeName = mysql_real_escape_string($EpisodeName);
-			$seriesid = mysql_real_escape_string($seriesid);
-
-			$query	= "INSERT INTO tvepisodes (seriesid, seasonid, EpisodeNumber, EpisodeName, lastupdated, lastupdatedby) VALUES ($seriesid, $seasonid, $episodeint, '$EpisodeName', $time, $user->id)";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			$id = mysql_insert_id();
-
-			$query	= "INSERT INTO translation_episodename (episodeid, languageid, translation) VALUES ($id, 7, '$EpisodeName')";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-			seriesupdate($seriesid); ## Update the XML data
-		}
-	}
-
-	if ($function == 'Upload Season Banner')  {
-		## Check if the image is the right size
-		list($image_width, $image_height, $image_type, $image_attr)	= getimagesize($_FILES['bannerfile']['tmp_name']);
-		if ($image_width == 400 && $image_height == 578 && $keytype == "season" || $image_width == 758 && $image_height == 140 && $keytype == "seasonwide")  {
-		  if ($image_type == '2')  { ## Check if it's a JPEG
-			if ($keytype == "season") {$folder = "seasons";}
-			elseif ($keytype == "seasonwide") {$folder = "seasonswide";}
-			else {}
-			## Generate the new filename
-				if (file_exists("banners/$folder/$seriesid-$season.jpg"))  {
-					$filekey = 2;
-					while (file_exists("banners/$folder/$seriesid-$season-$filekey.jpg"))  {
-						$filekey++;
-					}
-					$filename = "$folder/$seriesid-$season-$filekey.jpg";
-				}
-				else  {
-					$filename = "$folder/$seriesid-$season.jpg";
-				}
-
-			## Rename/move the file
-			if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
-
-				## Insert database record
-				$seriesid = mysql_real_escape_string($seriesid);
-				$season = mysql_real_escape_string($season);
-				$query	= "INSERT INTO banners (keytype, keyvalue, userid, subkey, dateadded, filename, languageid) VALUES ('$keytype', $seriesid, $user->id, '$season', $time, '$filename', '$languageid')";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-				## Reset the missing banner count
-				$seasonid = mysql_real_escape_string($seasonid);	
-				$query	= "UPDATE tvseasons SET bannerrequest=0 WHERE id=$seasonid";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-				## Store the seriesid for the XML updater
-				seriesupdate($seriesid);
-			}
-		  }
-		  else  {
-			  $errormessage = 'Season banners MUST be JPEG';
-  		  }
-		}
-		else  {
-			if ($keytype == "season") {$errormessage = 'DVD Cover Style Season banners MUST be 400x578';}
-			elseif ($keytype == "seasonwide") {$errormessage = 'Wide Style Season banners MUST be 758x140';}
-			else {}
-			//$errormessage = 'Season banners MUST be 400x578 or 758x140';
-		}
-	}
-	if ($function == 'Delete Season' && $adminuserlevel == 'ADMINISTRATOR')  {
-
-		$seasonid = mysql_real_escape_string($seasonid);
-
-		## DELETE EPISODES
-		$query = "SELECT * FROM tvepisodes WHERE seasonid=$seasonid";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		while ($db = mysql_fetch_object($result)) {
-
-			## Delete Episode Image File
-			IF ($db->filename) {
-				unlink("banners/$db->filename");
-				unlink("banners/_cache/$db->filename");
-			}
-			$query = "DELETE FROM tvepisodes WHERE id=$db->id";
-			$results = mysql_query($query) or die('Query failed: ' . mysql_error());
-
-			$query = "DELETE FROM translation_episodename WHERE episodeid=$db->id";
-			$results = mysql_query($query) or die('Query failed: ' . mysql_error());
-
-			$query = "DELETE FROM translation_episodeoverview WHERE episodeid=$db->id";
-			$results = mysql_query($query) or die('Query failed: ' . mysql_error());
 	
-			## Store deletion record
-			$query = "INSERT INTO deletions (path) VALUES ('data/episodes/$db->id')";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		 }
-
-		## Delete The Season Banners
-		$query	= "SELECT * FROM tvseasons WHERE id=$seasonid";
-		$result = mysql_query($query) or die('Query failed get seasons: ' . mysql_error());
-		$season = mysql_fetch_object($result);
-		$query	= "SELECT * FROM banners WHERE (keytype='season' OR keytype='seasonwide') AND keyvalue=$seriesid AND subkey='$season->season'";
-		$result = mysql_query($query) or die('Query failed getbanners: ' . mysql_error());
-		while ($deletebanner = mysql_fetch_object($result)) {
-			$query	= "DELETE FROM banners WHERE id=$deletebanner->id";
-			$results = mysql_query($query) or die('Query failed deletebanner: ' . mysql_error());
-			## Delete file
-			unlink("banners/$deletebanner->filename");
-			unlink("banners/_cache/$deletebanner->filename");
-
-			## Store deletion record
-			$query = "INSERT INTO deletions (path) VALUES ('banners/$deletebanner->filename')";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		}
-		
-		## Delete The Season
-		$query = "DELETE FROM tvseasons WHERE id=$seasonid";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		$errormessage = 'Season deleted.';
-		seriesupdate($seriesid); ## Update the XML data
-		$id = $seriesid;
-		$tab = 'series';
-
-	}
-	if ($function == 'Lock Season')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($seasonid);
-		$query = "UPDATE tvseasons SET locked='yes', lockedby=$user->id  WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-	}
-	if ($function == 'UnLock Season')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($seasonid);
-		$query = "UPDATE tvseasons SET locked='no', lockedby=''  WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-	}
-	if ($function == 'Renumber Episodes' && $renum2 > 0 && $renum1 < 999999)  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($seasonid);
-		$showid = mysql_real_escape_string($seriesid);
-		$shift = mysql_real_escape_string($renum1.$renum2);
-		$query = "UPDATE tvepisodes SET episodenumber=episodenumber$shift WHERE seasonid=$id and seriesid=$showid";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());		
-		seriesupdate($showid); ## Update the XML data
-	}
-	#####################################################
-	## EPISODE FUNCTIONS
-	#####################################################
-	if ($function == 'Save Episode')  {
-		## Prepare SQL
-		$updates = array();
-
-		## Separate the airsbefore info, if set
-		if ($_POST["airsbefore"])  {
-			print "\n<!-- SAZ: $_POST[airsbefore] --->\n";
-			$airsbefore = explode("|", $_POST["airsbefore"]);
-			$_POST["airsbefore_season"] = $airsbefore[0];
-			$_POST["airsbefore_episode"] = $airsbefore[1];
-			unset($_POST["airsbefore"]);
-
-		}
-
-
-		## Loop through each passed value
-		foreach ($_POST AS $key => $value)  {
-			if ($key != 'function' && $key != 'button' && !strstr($key, 'EpisodeName_') && !strstr($key, 'Overview_'))  {
-				$value = rtrim($value);
-				$value = ltrim($value);
-				if ($value)  {
-					if ($key == 'FirstAired')  {
-						if (($timestamp = strtotime($value)) === false) {
-							continue;
-						}
-						else  {
-							$value = date ('Y-m-d', $timestamp);
-						}
-					}
-					$key = mysql_real_escape_string($key);
-					$value = strip_tags($value, '');
-					$value = mysql_real_escape_string($value);
-					array_push($updates, "$key='$value'");
-				}
-				else  {
-					array_push($updates, "$key=NULL");
-				}
-			}
-		}
-
-		## To keep things simple, we set EpisodeName and Overview to the English for now
-		$EpisodeName = ltrim($_POST["EpisodeName_7"]);
-		$EpisodeName = rtrim($EpisodeName);
-		if ($EpisodeName)  {
-			$EpisodeName = mysql_real_escape_string($EpisodeName);
-			array_push($updates, "EpisodeName='$EpisodeName'");
-		}
-		else  {
-			array_push($updates, "EpisodeName=NULL");
-		}
-		$Overview = ltrim($_POST["Overview_7"]);
-		$Overview = rtrim($Overview);
-		if ($Overview)  {
-			$Overview = mysql_real_escape_string($Overview);
-			array_push($updates, "Overview='$Overview'");
-		}
-		else  {
-			array_push($updates, "Overview=NULL");
-		}
-
-		array_push($updates, "lastupdated=$time");
-		array_push($updates, "lastupdatedby=$user->id");
-		$updatestring = implode(', ', $updates);
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvepisodes SET $updatestring WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		## Update translations of EpisodeName
-		$query = "DELETE FROM translation_episodename WHERE episodeid=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		foreach ($languages AS $langid => $langname)  {
-			$value = mysql_real_escape_string($_POST["EpisodeName_$langid"]);
-			if ($value != '')  {
-				$query = "INSERT INTO translation_episodename (translation, episodeid, languageid) VALUES ('$value', $id, $langid)";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			}
-		}
-
-		## Update translations of episode Overview
-		$query = "DELETE FROM translation_episodeoverview WHERE episodeid=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		foreach ($languages AS $langid => $langname)  {
-			$value = mysql_real_escape_string($_POST["Overview_$langid"]);
-			if ($value != '')  {
-				$query = "INSERT INTO translation_episodeoverview (translation, episodeid, languageid) VALUES ('$value', $id, $langid)";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-			}
-		}
-
-		seriesupdate($seriesid); ## Update the XML data
-		$errormessage = 'Episode info saved.';
-	}
-
-	if ($function == 'Delete Episode' AND $adminuserlevel == 'ADMINISTRATOR')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$query = "DELETE FROM tvepisodes WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		$query = "DELETE FROM translation_episodename WHERE episodeid=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		$query = "DELETE FROM translation_episodeoverview WHERE episodeid=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		## Store deletion record
-		seriesupdate($seriesid); ## Update the XML data
-		$query = "INSERT INTO deletions (path) VALUES ('episodes/$id')";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		$errormessage = 'Episode deleted.';
-		$tab = 'season';
-	}
-
-	## Move Episode To A Different Season
-	if ($function == 'Move Episode' AND $adminuserlevel == 'ADMINISTRATOR')  {
-		## Prepare SQL
-		$updates = array();
-		array_push($updates, "seasonid=$seasonid");
-		array_push($updates, "lastupdated=$time");
-		array_push($updates, "lastupdatedby=$user->id");
-		$updatestring = implode(', ', $updates);
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvepisodes SET $updatestring WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		seriesupdate($seriesid); ## Update the XML data
-		$errormessage = 'Episode info saved.';
-	}
+	
 
 	## Change A Series Banner's Language
 	if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR')  {
@@ -782,8 +448,6 @@
 
 				## Insert database record
 				$id = mysql_real_escape_string($id);
-				$query = "UPDATE tvepisodes SET filename='$filename', lastupdated=$time, thumb_author=$user->id, EpImgFlag=$episodeflag WHERE id=$id";
-				$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
 				## Store the seriesid for the XML updater
 				seriesupdate($seriesid);
@@ -803,60 +467,14 @@
 	}
 	
   function deleteEpBanner($id, $seriesid, $time){
-  	## Get the banner info (also verifies username again)
-		$id = mysql_real_escape_string($id);
-			## Delete SQL record
-			## Get this episode's information
-			$id = mysql_real_escape_string($id);
-			$query	= "SELECT * FROM tvepisodes WHERE id=$id";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			$episodes = mysql_fetch_object($result);
 
-			$query	= "UPDATE tvepisodes SET filename='', thumb_author='', lastupdated=$time, EpImgFlag=null WHERE id=$id";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-
-			## Store the seriesid for the XML updater
-			seriesupdate($seriesid);
-
-			## Delete file
-			unlink("banners/$episodes->filename");
-
-			## Store deletion record
-			$query = "INSERT INTO deletions (path) VALUES ('banners/$episodes->filename')";
-			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+			
 
 			return 'Banner was successfully deleted.';
   }
 	
 	if ($function == 'Delete Episode Banner')  {
  		$errormessage = deleteEpBanner($id, $seriesid, $time);
-	}
-	
-	if ($function == 'Lock Episode')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvepisodes SET locked='yes', lockedby=$user->id  WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-	}
-	if ($function == 'UnLock Episode')  {
-		## Prepare SQL
-		$id = mysql_real_escape_string($id);
-		$query = "UPDATE tvepisodes SET locked='no', lockedby=''  WHERE id=$id";
-		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-	}
-	if ($function == 'Replace Episode Banner')  {
-		
-		## Check if the image is the right size
-		list($image_width, $image_height, $image_type, $image_attr)	= getimagesize($_FILES['bannerfile']['tmp_name']);
-		$imgaspect = $image_width / $image_height;		
-		if ($image_width <= 400 && $image_height <= 300 && $image_width >= 300 && $image_height >= 170 && $image_type == '2' && (($imgaspect > 1.31 && $imgaspect < 1.35) || ($imgaspect > 1.739 and $imgaspect < 1.82)))  {		
-			deleteEpBanner($id, $seriesid, $time);
-			uploadEpBanner($id, $seriesid, $time, $user);
-			$errormessage = 'Banner Replaced.';
-		}
-		else {
-			$errormessage = 'Please check image, does not meet criteria to replace exsisting image.';
-		}
 	}
 
 	#####################################################
@@ -1138,7 +756,7 @@
 		$favorites = implode(",", $userfavorites);
 		$query	= "UPDATE users SET favorites = '$favorites' WHERE id=$_SESSION[userid]";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-		$tab = 'series';
+		$tab = 'game';
 		$user->favorites = $favorites;
 	}
 
@@ -1478,50 +1096,50 @@ google_ui_features = "rc:10";
 	</form>
 	<img src="<?php echo $baseurl;?>/images/<?=$headerimage?>" alt="Television show database" width="762" height="190" border="0" style="z-index: 0" usemap="#headernav">
 	<map name="headernav">
-		<area shape="rect" coords="11,11,545,140" name="Home" href="/index.php" alt="Home">
-		<area shape="rect" coords="620,11,740,28" name="Home" href="/index.php" alt="Home">
-		<area shape="rect" coords="620,30,740,46" name="About Us" href="/index.php?tab=aboutus" alt="About Us">
-		<area shape="rect" coords="620,48,740,64" name="Wiki" href="http://thetvdb.com/wiki" alt="Wiki">
-		<area shape="rect" coords="620,66,740,82" name="Forums" href="http://forums.thetvdb.com" alt="Forum">
-		<area shape="rect" coords="620,84,740,100" name="Login" href="/?tab=advancedsearch" alt="Advanced Search">
+		<area shape="rect" coords="11,11,545,140" name="Home" href="<?php echo $baseurl;?>/index.php" alt="Home">
+		<area shape="rect" coords="620,11,740,28" name="Home" href="<?php echo $baseurl;?>/index.php" alt="Home">
+		<area shape="rect" coords="620,30,740,46" name="About Us" href="<?php echo $baseurl;?>/index.php?tab=aboutus" alt="About Us">
+		<area shape="rect" coords="620,48,740,64" name="Wiki" href="<?php echo $baseurl;?>/wiki" alt="Wiki">
+		<area shape="rect" coords="620,66,740,82" name="Forums" href="<?php echo $baseurl;?>" alt="Forum">
+		<area shape="rect" coords="620,84,740,100" name="Login" href="<?php echo $baseurl;?>/?tab=advancedsearch" alt="Advanced Search">
 
 		<?php	## If logged in
 		if ($loggedin == 0)  {
-			print '<area shape="rect" coords="620,102,740,118" name="Login" href="/index.php?tab=login" alt="Login">';
+			print '<area shape="rect" coords="620,102,740,118" name="Login" href="'.$baseurl.'/index.php?tab=login" alt="Login">';
 		}
 		else  {
-			print '<area shape="rect" coords="620,102,740,118" name="Account" href="/index.php?tab=userinfo" alt="Account">';
-			print '<area shape="rect" coords="620,120,740,136" name="Logout" href="/?function=Log+Out" alt="Log Out">';
+			print '<area shape="rect" coords="620,102,740,118" name="Account" href="'.$baseurl.'/index.php?tab=userinfo" alt="Account">';
+			print '<area shape="rect" coords="620,120,740,136" name="Logout" href="'.$baseurl.'/?function=Log+Out" alt="Log Out">';
 		}
 		?>
 
-		<area shape="rect" coords="8,166,28,184" name="Television Shows: #" href="/index.php?tab=listseries&amp;letter=OTHER" alt="Other">
-		<area shape="rect" coords="28,166,48,184" name="Television Shows: A" href="/index.php?tab=listseries&amp;letter=A" alt="A">
-		<area shape="rect" coords="48,166,68,184" name="Television Shows: B" href="/index.php?tab=listseries&amp;letter=B" alt="B">
-		<area shape="rect" coords="68,166,88,184" name="Television Shows: C" href="/index.php?tab=listseries&amp;letter=C" alt="C">
-		<area shape="rect" coords="88,166,110,184" name="Television Shows: D" href="/index.php?tab=listseries&amp;letter=D" alt="D">
-		<area shape="rect" coords="110,166,130,184" name="Television Shows: E" href="/index.php?tab=listseries&amp;letter=E" alt="E">
-		<area shape="rect" coords="128,166,148,184" name="Television Shows: F" href="/index.php?tab=listseries&amp;letter=F" alt="F">
-		<area shape="rect" coords="148,166,170,184" name="Television Shows: G" href="/index.php?tab=listseries&amp;letter=G" alt="G">
-		<area shape="rect" coords="170,166,190,184" name="Television Shows: H" href="/index.php?tab=listseries&amp;letter=H" alt="H">
-		<area shape="rect" coords="190,166,206,184" name="Television Shows: I" href="/index.php?tab=listseries&amp;letter=I" alt="I">
-		<area shape="rect" coords="206,166,224,184" name="Television Shows: J" href="/index.php?tab=listseries&amp;letter=J" alt="J">
-		<area shape="rect" coords="224,166,244,184" name="Television Shows: K" href="/index.php?tab=listseries&amp;letter=K" alt="K">
-		<area shape="rect" coords="244,166,262,184" name="Television Shows: L" href="/index.php?tab=listseries&amp;letter=L" alt="L">
-		<area shape="rect" coords="262,166,286,184" name="Television Shows: M" href="/index.php?tab=listseries&amp;letter=M" alt="M">
-		<area shape="rect" coords="286,166,306,184" name="Television Shows: N" href="/index.php?tab=listseries&amp;letter=N" alt="N">
-		<area shape="rect" coords="306,166,328,184" name="Television Shows: O" href="/index.php?tab=listseries&amp;letter=O" alt="O">
-		<area shape="rect" coords="328,166,348,184" name="Television Shows: P" href="/index.php?tab=listseries&amp;letter=P" alt="P">
-		<area shape="rect" coords="348,166,370,184" name="Television Shows: Q" href="/index.php?tab=listseries&amp;letter=Q" alt="Q">
-		<area shape="rect" coords="370,166,390,184" name="Television Shows: R" href="/index.php?tab=listseries&amp;letter=R" alt="R">
-		<area shape="rect" coords="390,166,409,184" name="Television Shows: S" href="/index.php?tab=listseries&amp;letter=S" alt="S">
-		<area shape="rect" coords="409,166,429,184" name="Television Shows: T" href="/index.php?tab=listseries&amp;letter=T" alt="T">
-		<area shape="rect" coords="429,166,449,184" name="Television Shows: U" href="/index.php?tab=listseries&amp;letter=U" alt="U">
-		<area shape="rect" coords="449,166,469,184" name="Television Shows: V" href="/index.php?tab=listseries&amp;letter=V" alt="V">
-		<area shape="rect" coords="469,166,493,184" name="Television Shows: W" href="/index.php?tab=listseries&amp;letter=W" alt="W">
-		<area shape="rect" coords="493,166,513,184" name="Television Shows: X" href="/index.php?tab=listseries&amp;letter=X" alt="X">
-		<area shape="rect" coords="513,166,533,184" name="Television Shows: Y" href="/index.php?tab=listseries&amp;letter=Y" alt="Y">
-		<area shape="rect" coords="533,166,552,184" name="Television Shows: Z" href="/index.php?tab=listseries&amp;letter=Z" alt="Z">
+		<area shape="rect" coords="8,166,28,184" name="Television Shows: #" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=OTHER" alt="Other">
+		<area shape="rect" coords="28,166,48,184" name="Television Shows: A" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=A" alt="A">
+		<area shape="rect" coords="48,166,68,184" name="Television Shows: B" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=B" alt="B">
+		<area shape="rect" coords="68,166,88,184" name="Television Shows: C" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=C" alt="C">
+		<area shape="rect" coords="88,166,110,184" name="Television Shows: D" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=D" alt="D">
+		<area shape="rect" coords="110,166,130,184" name="Television Shows: E" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=E" alt="E">
+		<area shape="rect" coords="128,166,148,184" name="Television Shows: F" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=F" alt="F">
+		<area shape="rect" coords="148,166,170,184" name="Television Shows: G" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=G" alt="G">
+		<area shape="rect" coords="170,166,190,184" name="Television Shows: H" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=H" alt="H">
+		<area shape="rect" coords="190,166,206,184" name="Television Shows: I" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=I" alt="I">
+		<area shape="rect" coords="206,166,224,184" name="Television Shows: J" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=J" alt="J">
+		<area shape="rect" coords="224,166,244,184" name="Television Shows: K" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=K" alt="K">
+		<area shape="rect" coords="244,166,262,184" name="Television Shows: L" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=L" alt="L">
+		<area shape="rect" coords="262,166,286,184" name="Television Shows: M" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=M" alt="M">
+		<area shape="rect" coords="286,166,306,184" name="Television Shows: N" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=N" alt="N">
+		<area shape="rect" coords="306,166,328,184" name="Television Shows: O" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=O" alt="O">
+		<area shape="rect" coords="328,166,348,184" name="Television Shows: P" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=P" alt="P">
+		<area shape="rect" coords="348,166,370,184" name="Television Shows: Q" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=Q" alt="Q">
+		<area shape="rect" coords="370,166,390,184" name="Television Shows: R" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=R" alt="R">
+		<area shape="rect" coords="390,166,409,184" name="Television Shows: S" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=S" alt="S">
+		<area shape="rect" coords="409,166,429,184" name="Television Shows: T" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=T" alt="T">
+		<area shape="rect" coords="429,166,449,184" name="Television Shows: U" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=U" alt="U">
+		<area shape="rect" coords="449,166,469,184" name="Television Shows: V" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=V" alt="V">
+		<area shape="rect" coords="469,166,493,184" name="Television Shows: W" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=W" alt="W">
+		<area shape="rect" coords="493,166,513,184" name="Television Shows: X" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=X" alt="X">
+		<area shape="rect" coords="513,166,533,184" name="Television Shows: Y" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=Y" alt="Y">
+		<area shape="rect" coords="533,166,552,184" name="Television Shows: Z" href="<?php echo $baseurl;?>/index.php?tab=listseries&amp;letter=Z" alt="Z">
 	</map>
 </td></tr>
 <tr><td>

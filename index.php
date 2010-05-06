@@ -342,7 +342,7 @@
 		$query = "INSERT INTO deletions (path) VALUES ('data/series/$id')";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
-		$errormessage = 'Series deleted.';
+		$errormessage = 'Game deleted.';
 		$id = $newshowid;
 		$tab = 'mainmenu';
 
@@ -424,58 +424,7 @@
 		$errormessage = 'Banner Language Changed.';
 	}
 	
-	function uploadEpBanner($id, $seriesid, $time, $user){
-		## Check if the image is the right size
-		list($image_width, $image_height, $image_type, $image_attr)	= getimagesize($_FILES['bannerfile']['tmp_name']);
-		if ($image_width <= 400 && $image_height <= 300 && $image_width >= 280 && $image_height >= 150)  {
-			
-			## Checks the aspect ratio of the image and flags it
-			$imgaspect = $image_width / $image_height;			
-			if ($imgaspect > 1.31 and $imgaspect < 1.35){$episodeflag = 1;} ##4:3 Image
-			else if ($imgaspect > 1.739 and $imgaspect < 1.82){$episodeflag = 2;} ##16:9 Image
-			else {$episodeflag = 3;} ##Invalid Aspect ratio
-			
-		  if ($image_type == '2')  { ## Check if it's a JPEG
-			## Generate the new filename
-				if (file_exists("banners/episodes/$seriesid-$id.jpg"))  {
-					return 'Only one episode image is allowed.';
-				}
-				else  {
-					$filename = "episodes/$seriesid-$id.jpg";
-				}
-			## Rename/move the file
-			if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
-
-				## Insert database record
-				$id = mysql_real_escape_string($id);
-
-				## Store the seriesid for the XML updater
-				seriesupdate($seriesid);
-			}
-		  }
-		  else  {
-			  return 'Episode banners MUST be JPEG';
-  		  }
-		}
-		else  {
-			return 'Episode banners must be no more than 400px wide and 300px tall, and no less than 280px wide and 150px tall.';
-		}
-	}
-
-	if ($function == 'Upload Episode Banner')  {
-	  $errormessage = uploadEpBanner($id, $seriesid, $time, $user);
-	}
 	
-  function deleteEpBanner($id, $seriesid, $time){
-
-			
-
-			return 'Banner was successfully deleted.';
-  }
-	
-	if ($function == 'Delete Episode Banner')  {
- 		$errormessage = deleteEpBanner($id, $seriesid, $time);
-	}
 
 	#####################################################
 	## REGISTRATION AND PASSWORD FUNCTIONS

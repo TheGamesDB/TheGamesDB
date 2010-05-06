@@ -178,7 +178,7 @@ function displaybanner ($filename, $bannerauthor, $allowdelete, $fullurl, $banne
 ## Function to generate/display a cached version of a banner
 function displaybannernew ($banner, $allowdelete, $link) {
 
-	global $loggedin, $user, $bannercount, $tab, $id, $seriesid, $seasonid;
+	global $loggedin, $user, $bannercount, $tab, $id, $seriesid, $seasonid, $baseurl;
 	switch ($tab) {
 		case "mainmenu":
 			$fullurl = $baseurl . "/?";
@@ -194,17 +194,17 @@ function displaybannernew ($banner, $allowdelete, $link) {
 	## Check if the banner is cached already. If not, create it.
 	if (!file_exists("../banners/_cache/$banner->filename"))  {
 		## Create the cached version of the image
-		$target = file_get_contents("thumbnail.php?gd=2&maxw=300&src=banners/$banner->filename");
+		$target = file_get_contents("$baseurl/thumbnail.php?gd=2&maxw=300&src=banners/$banner->filename");
 		file_put_contents("banners/_cache/$banner->filename", $target);
 	}
 
 
 	## Display the image
 	if ($link)  {
-		print "<a href=\"$link\"><img src=\"banners/_cache/$banner->filename\" class=\"banner\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
+		print "<a href=\"$link\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
 	}
 	else  {
-		print "<a href=\"javascript:;\" onClick=\"toggleDiv('bannerinfo$banner->id');\"><img src=\"banners/_cache/$banner->filename\" class=\"banner\" border=\"0\"></a>\n";
+		print "<a href=\"javascript:;\" onClick=\"toggleDiv('bannerinfo$banner->id');\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\"></a>\n";
 	}
 
 
@@ -220,10 +220,10 @@ function displaybannernew ($banner, $allowdelete, $link) {
 
 	## Skip most stuff for episode images
 	if ($tab != 'episode')  {
-		print "<tr><td></td><td align=right><a href=\"banners/$banner->filename\" target=\"_blank\">View Full Size</a></td></tr>\n";
+		print "<tr><td></td><td align=right><a href=\"$baseurl/banners/$banner->filename\" target=\"_blank\">View Full Size</a></td></tr>\n";
 		if ($banner->keytype == 'fanart')  {
 			$banner->vignette = str_replace("original", "vignette", $banner->filename);
-			print "<tr><td></td><td align=right><a href=\"banners/$banner->vignette\" target=\"_blank\">View Full Size Vignette</a></td></tr>\n";
+			print "<tr><td></td><td align=right><a href=\"$baseurl/banners/$banner->vignette\" target=\"_blank\">View Full Size Vignette</a></td></tr>\n";
 		}
 		print "<tr><td>Site Rating:</td><td align=\"right\">\n";
 

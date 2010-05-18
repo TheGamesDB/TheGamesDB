@@ -1,7 +1,7 @@
 <?php	## Interface that allows clients to add series to their favorites
 	## Parameters:
 	##   $_REQUEST["accountid"]
-	##   $_REQUEST["seriesid"]
+	##   $_REQUEST["id"]
 	##   $_REQUEST["type"] (add|remove|null)
 	##
 	## Returns:
@@ -13,14 +13,14 @@
 <?php
 	## Prepare the search string
 	$accountid		= $_REQUEST["accountid"];
-	$seriesid		= $_REQUEST["seriesid"];
+	$gameid         = $_REQUEST["gameid"];
 	$type			= $_REQUEST["type"];
 	if ($accountid == "")  {
 		print "<Error>accountid is required</Error>\n";
 		exit;
 	}
-	elseif (($type == "add" || $type == "remove") && $seriesid == "")  {
-		print "<Error>seriesid is required for adding and deleting</Error>\n";
+	elseif (($type == "add" || $type == "remove") && $gameid == "")  {
+		print "<Error>id is required for adding and deleting</Error>\n";
 		exit;
 	}
 	else  {
@@ -42,7 +42,7 @@
 		if ($type == "remove")  {
 			$temp = explode(",", $db->favorites);
 			foreach ($temp AS $id)  {
-				if ($id != $seriesid)  {
+				if ($id != $gameid)  {
 					array_push($favorites, $id);
 				}
 			}
@@ -55,12 +55,12 @@
 
 			## Print new favorites list
 			foreach ($favorites AS $id)  {
-				print "<Series>$id</Series>\n";
+				print "<Game>$id</Game>\n";
 			}
 		}
 		elseif ($type == "add")  {
 			$favorites = explode(",", $db->favorites);
-			array_push($favorites, $seriesid);
+			array_push($favorites, $gameid);
 			$favorites = array_unique($favorites);
 			$favoriteslist = implode(",", $favorites);
 
@@ -70,14 +70,14 @@
 
 			## Print new favorites list
 			foreach ($favorites AS $id)  {
-				print "<Series>$id</Series>\n";
+				print "<Game>$id</Game>\n";
 			}
 		}
 		else  {
 			## Print new favorites list
 			$temp = explode(",", $db->favorites);
 			foreach ($temp AS $id)  {
-				print "<Series>$id</Series>\n";
+				print "<Game>$id</Game>\n";
 			}
 		}
 

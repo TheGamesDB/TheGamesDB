@@ -1,4 +1,5 @@
-<?php	## Interface that returns all updates since a given time
+<?php
+    ## Interface that returns all updates since a given time
 	## Parameters:
 	##   $_REQUEST["time"]
 	##   $_REQUEST["type"]			[series(default)|episode|all]
@@ -36,7 +37,7 @@
 		exit;
 	}
 	## Type can only be series, episode, all, or blank
-	elseif ($type != "series" && $type != "episode" && $type != "all" && $type != "")  {
+	elseif ($type != "game" && $type != "all" && $type != "")  {
 		print "<Error>Unknown value for type</Error>\n";
 		exit;
 	}
@@ -48,22 +49,13 @@
 
 
 	## Query for series (if desired)
-	if ($type == "series" || $type == "all" || $type == "")  {
-		$query = "SELECT id FROM tvseries WHERE lastupdated>=$time LIMIT 1000";
+	if ($type == "game" || $type == "all" || $type == "")  {
+		$query = "SELECT id FROM games WHERE lastupdated>=$time LIMIT 1000";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		while ($db = mysql_fetch_object($result))  {
-			print "<Series>$db->id</Series>\n";
+			print "<Game>$db->id</Game>\n";
 		}
 	}
-
-
-	## Query for episodes (if desired)
-	if ($type == "episode" || $type == "all")  {
-		$query = "SELECT id FROM tvepisodes WHERE lastupdated>=$time LIMIT 1000";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		while ($db = mysql_fetch_object($result))  {
-			print "<Episode>$db->id</Episode>\n";
-		}
-	}
+    
 ?>
 </Items>

@@ -1,4 +1,5 @@
-<?php	## Interface that allows clients to post-back ratings for a series/episode
+<?php
+    ## Interface that allows clients to post-back ratings for a series/episode
 	## Parameters:
 	##   $_REQUEST["accountid"]
 	##   $_REQUEST["itemtype"]
@@ -24,7 +25,7 @@
 		print "<Error>accountid is required</Error>\n";
 		exit;
 	}
-	elseif ($itemtype != "series" && $itemtype != "episode")  {
+	elseif ($itemtype != "game")  {
 		print "<Error>itemtype must be series or episode</Error>\n";
 		exit;
 	}
@@ -63,23 +64,11 @@
 
 
 	## Recreate the XML files
-	if ($itemtype == "series")  {
-		$query		= "REPLACE INTO seriesupdates (seriesid) VALUES ($itemid)";
+	if ($itemtype == "game")  {
+		$query		= "UPDATE games SET lastupdated=UNIX_TIMESTAMP() WHERE id=$itemid";
 		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());	
-
-		$query		= "UPDATE tvseries SET lastupdated=UNIX_TIMESTAMP() WHERE id=$itemid";
-		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());	
-		$tag		= "Series";
+		$tag		= "Game";
 	}
-	else  {
-		$query		= "REPLACE INTO seriesupdates (seriesid) VALUES ((SELECT seriesid FROM tvepisodes WHERE id=$itemid LIMIT 1))";
-		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());	
-
-		$query		= "UPDATE tvseries SET lastupdated=UNIX_TIMESTAMP() WHERE id=(SELECT seriesid FROM tvepisodes WHERE id=$itemid LIMIT 1)";
-		$result		= mysql_query($query) or die('Query failed: ' . mysql_error());	
-		$tag		= "Episode";
-	}
-
 
 	## Return the current rating
 	$query = "SELECT ROUND(AVG(rating),1) AS average FROM ratings WHERE itemtype='$itemtype' AND itemid=$itemid";

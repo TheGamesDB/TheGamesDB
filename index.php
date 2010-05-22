@@ -910,11 +910,11 @@
 		for (i=1; i<=10; i++)  {
 			if (i <= rating)  {
 				var thisimage = eval("document.images.userrating" + i);
-				thisimage.src = '/images/star_on.gif';
+				thisimage.src = '<?=$baseurl?>/images/star_on.gif';
 			}
 			else  {
 				var thisimage = eval("document.images.userrating" + i);
-				thisimage.src = '/images/star_off.gif';
+				thisimage.src = '<?=$baseurl?>/images/star_off.gif';
 			}
 		}
 	}
@@ -923,11 +923,11 @@
 		for (i=1; i<=10; i++)  {
 			if (i <= rating)  {
 				var thisimage = eval("document.images." + prefix + i);
-				thisimage.src = '/images/star_on.gif';
+				thisimage.src = '<?=$baseurl?>/images/star_on.gif';
 			}
 			else  {
 				var thisimage = eval("document.images." + prefix + i);
-				thisimage.src = '/images/star_off.gif';
+				thisimage.src = '<?=$baseurl?>/images/star_off.gif';
 			}
 		}
 	}

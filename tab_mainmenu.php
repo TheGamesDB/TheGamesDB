@@ -16,66 +16,6 @@
 	</div>
 
 
-
-	<div class="section">
-	<h1>New Today</h1>
-	<table cellspacing="0" cellpadding="1" border="0" width="100%" id="infotable">
-	<tr>
-		<td class="head">Series</td>
-		<td class="head">Episode</td>
-	</tr>
-	
-		<tr>
-			<td colspan=2 style="border-bottom: none; text-align: right; font-size: 8pt; font-weight: bold; padding-top: 2px"><span style="float: left; width: 14px; padding: 0px; margin: 0px"><a href="/rss/newtoday.php" target="_blank"><img src="/images/rss.gif" width=12 height=12 border=0></a></span> Listings are for <?=$cachedate?></td>
-		</tr>
-	</table>
-	</div>
-
-
-		<div class="section">
-		<h1>Site Stats</h1>
-		<?php	## Various quick stats about the site
-			$sitestats = array();
-			$query = "SHOW TABLE STATUS";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			while($db = mysql_fetch_object($result))  {
-				$sitestats[$db->Name] = $db->Rows;
-			}
-
-			$query = "SELECT COUNT(*) AS Rows, CONCAT('Banner', keytype) AS Name FROM banners GROUP BY keytype";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			while($db = mysql_fetch_object($result))  {
-				$sitestats[$db->Name] = $db->Rows;
-			}
-		?>
-		<table cellspacing="0" cellpadding="1" border="0" width="100%" id="infotable">
-		<tr><td>Series</td><td><?=$sitestats["tvseries"]?></td></tr>
-		<tr><td>Seasons</td><td><?=$sitestats["tvseasons"]?></td></tr>
-		<tr><td>Episodes</td><td><?=$sitestats["tvepisodes"]?></td></tr>
-		<tr><td>Fan Art</td><td><?=$sitestats["Bannerfanart"]?></td></tr>
-		<tr><td>Series Banners</td><td><?=$sitestats["Bannerseries"]?></td></tr>
-		<tr><td>Season Banners</td><td><?=$sitestats["Bannerseason"]?></td></tr>
-		<tr><td>Season Banners (wide)</td><td><?=$sitestats["Bannerseasonwide"]?></td></tr>
-		<tr><td>Users</td><td><?=$sitestats["users"]?></td></tr>
-		<tr><td>API Users</td><td><?=$sitestats["apiusers"]?></td></tr>
-		<tr><td>Ratings</td><td><?=$sitestats["ratings"]?></td></tr>
-		</table>
-		</div>
-
-
-		<div class="section">
-		<h1>Reports</h1>
-			<a href="/index.php?tab=bannerartists">Banners by User</a><br>
-			<a href="/index.php?tab=recentbanners&bannertype=series">50 Most Recent Series Banners</a><br>
-			<a href="/index.php?tab=recentbanners&bannertype=fanart">20 Most Recent Fan Art</a><br>
-			<a href="/index.php?tab=recentbanners&bannertype=fanart&artistcolorsmissing=1">20 Most Recent Fan Art (missing artist colors)</a><br>
-			<a href="/index.php?tab=recentbanners&bannertype=season">20 Most Recent Season Banners</a><br>
-			<a href="/index.php?tab=recentbanners&bannertype=seasonwide">50 Most Recent Wide Season Banners</a><br>
-			<a href="/index.php?tab=bannerrequests">Requested Banners</a><br>
-			<a href="/index.php?tab=newshows">30 Newest Shows</a><br>
-		</div>
-
-
 		<?php	if ($loggedin == 1)  {  ?>
 		<div class="section">
 		<a href="./?tab=addgame"><h1>Add A Game</h1></a>
@@ -135,37 +75,12 @@
 						displaybanner($banner->filename, $banner->user, 0, $fullurl, $banner->id, 0, "/index.php?tab=series&id=$db->id");
 					}
 					else {
-						ECHO "<br><a href='/index.php?tab=series&id=$db->id'>$db->seriesname</a>";
+						ECHO "<br><a href='$baseurl/index.php?tab=series&id=$db->id'>$db->seriesname</a>";
 					}
 				}
+            }
 				?>
 			</div>
-
-		<?php	## Otherwise, display popular/recommended banners
-			}
-			else  {
-		?>
-
-			<div class="section">
-			<h1>Popular Shows</h1>
-				<a href="/index.php?tab=series&id=73739"><img src="banners/_cache/graphical/24313-g2.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=79501"><img src="banners/_cache/graphical/79501-g.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=75340"><img src="banners/_cache/graphical/31635-g3.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=76290"><img src="banners/_cache/graphical/3866-g4.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=73545"><img src="banners/_cache/graphical/23557-g.jpg" class="banner" border="0"></a>
-			</div>
-
-			<div class="section">
-			<h1>Recommended By The Admins</h1>
-				<a href="/index.php?tab=series&id=73067"><img src="banners/_cache/graphical/21612-g.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=73244"><img src="banners/_cache/graphical/73244-g2.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=75397"><img src="banners/_cache/graphical/31988-g2.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=75682"><img src="banners/_cache/graphical/33332-g.jpg" class="banner" border="0"></a>
-				<a href="/index.php?tab=series&id=73104"><img src="banners/_cache/graphical/73104-g.jpg" class="banner" border="0"></a>
-
-				<a href="/index.php?tab=series&id=79759"><img src="banners/_cache/graphical/79759-g2.jpg" class="banner" border="0"></a>
-			</div>
-		<?php } ?>
 	</td>
 </tr>
 </table>

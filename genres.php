@@ -6,10 +6,10 @@
 <html>
 <head>
 	<title>Genres Selector</title>
-	<link rel=stylesheet href="/pngHack/pngHack.css" type="text/css">
-	<link rel="stylesheet" type="text/css" href="/default.css">
-	<script type="text/javascript" src="/xfade2.js"></script>
-	<script type="text/javascript" src="/niftycube.js"></script>
+	<link rel=stylesheet href="<?= $baseurl ?>/pngHack/pngHack.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="<?= $baseurl ?>/default.css">
+	<script type="text/javascript" src="<?= $baseurl ?>/xfade2.js"></script>
+	<script type="text/javascript" src="<?= $baseurl ?>/niftycube.js"></script>
 	<script type="text/javascript">
 		window.onload=function(){
 			Nifty("DIV.section","big");

@@ -415,10 +415,10 @@
 	
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->average)  {
-						print "<img src=\"/images/star_on.gif\" width=15 height=15 border=0>";
+						print "<img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0>";
 					}
 					else  {
-						print "<img src=\"/images/star_off.gif\" width=15 height=15 border=0>";
+						print "<img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0>";
 					}
 				}
 			?>
@@ -441,10 +441,10 @@
 
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->rating)  {
-						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 					else  {
-						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 				}
 			?>

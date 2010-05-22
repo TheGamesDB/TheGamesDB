@@ -87,7 +87,7 @@ CREATE TABLE `games` (
   `GameTitle` varchar(255) NOT NULL,
   `GameID` varchar(45) DEFAULT NULL,
   `Status` varchar(100) DEFAULT NULL,
-  `FirstAired` varchar(100) DEFAULT NULL,
+  `ReleaseDate` varchar(100) DEFAULT NULL,
   `Developer` varchar(100) DEFAULT NULL,
   `Publisher` varchar(100) DEFAULT NULL,
   `Runtime` varchar(100) DEFAULT NULL,
@@ -96,8 +96,6 @@ CREATE TABLE `games` (
   `Overview` text,
   `bannerrequest` int(10) unsigned DEFAULT '0',
   `lastupdated` int(10) unsigned DEFAULT NULL,
-  `Airs_DayOfWeek` varchar(45) DEFAULT NULL,
-  `Airs_Time` varchar(45) DEFAULT NULL,
   `Rating` varchar(45) DEFAULT NULL,
   `flagged` int(10) unsigned DEFAULT '0',
   `forceupdate` int(10) unsigned DEFAULT '0',
@@ -113,12 +111,9 @@ CREATE TABLE `games` (
   `zap2it_id` varchar(12) DEFAULT NULL,
   `Platform` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `IMDB_ID` (`IMDB_ID`),
-  UNIQUE KEY `zap2it_id` (`zap2it_id`),
-  KEY `mirrorupdate` (`mirrorupdate`),
   KEY `disabled` (`disabled`),
-  FULLTEXT KEY `GameTitle` (`GameTitle`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  FULLTEXT (GameTitle)
+) ENGINE=MyISAM
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,44 +224,6 @@ CREATE TABLE `runtimes` (
   `Runtime` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`Runtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `translation_labels`
---
-
-DROP TABLE IF EXISTS `translation_labels`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `translation_labels` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `languageid` int(10) unsigned NOT NULL,
-  `english` varchar(255) NOT NULL,
-  `translation` varchar(255) NOT NULL,
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `LanguageKey` (`languageid`),
-  KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `translation_seriesname`
---
-
-DROP TABLE IF EXISTS `translation_seriesname`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `translation_seriesname` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `seriesid` int(10) unsigned NOT NULL,
-  `languageid` int(10) unsigned NOT NULL,
-  `translation` varchar(255) NOT NULL,
-  `mirrorupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `SeriesId` (`seriesid`,`languageid`),
-  KEY `mirrorupdate` (`mirrorupdate`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

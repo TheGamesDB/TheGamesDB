@@ -158,12 +158,12 @@ function displaybanner ($filename, $bannerauthor, $allowdelete, $fullurl, $banne
 	## Check if the banner is cached already. If not, create it.
 	if (!file_exists("../banners/_cache/$filename"))  {
 		## Create the cached version of the image
-		$banner = file_get_contents("http://thetvdb.com/thumbnail.php?gd=2&maxw=300&src=banners/$filename");
+		$banner = file_get_contents("$baseurl/thumbnail.php?gd=2&maxw=300&src=banners/$filename");
 		file_put_contents("banners/_cache/$filename", $banner);
 	}
 
 	## Display the image
-	print "<a href=\"$link\"><img src=\"/banners/_cache/$filename\" class=\"banner\" border=\"0\"></a>\n";
+	print "<a href=\"$link\"><img src=\"$baseurl/banners/_cache/$filename\" class=\"banner\" border=\"0\"></a>\n";
 
 	## Display the author
 	if ($displayauthor && $allowdelete)  {
@@ -237,9 +237,9 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		## Display the site rating
 		for ($i = 1; $i <= 10; $i++)  {
 			if ($i <= $rating->average)
-				print "<img src=\"images/star_on.gif\" width=15 height=15 border=0>";
+				print "<img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0>";
 			else 
-				print "<img src=\"images/star_off.gif\" width=15 height=15 border=0>";
+				print "<img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0>";
 		}
 		print "</td></tr>\n";
 
@@ -270,7 +270,7 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		print "<tr><td>Ratings:</td><td align=right>$banner->ratingcount</td></tr>\n";
 		print "<tr><td>Created:</td><td align=right>" . date("F j, Y H:i", $banner->dateadded) . "</td></tr>\n";
 	}
-	print "<tr><td>Creator:</td><td align=right><a href=?tab=artistbanners&id=$banner->userid>$banner->creator</a></td></tr>\n";
+	print "<tr><td>Creator:</td><td align=right><a href=$baseurl/?tab=artistbanners&id=$banner->userid>$banner->creator</a></td></tr>\n";
 	if ($tab != "episode")  {
 		if ($banner->keytype != "season" && $banner->keytype != "seasonwide")  {
 			print "<tr><td>Format:</td><td align=right>" . ucwords($banner->subkey) . "</td></tr>\n";

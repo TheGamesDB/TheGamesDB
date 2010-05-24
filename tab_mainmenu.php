@@ -44,43 +44,8 @@
 		</div>
 		<?php 
 		} 
-
-		## If the user has favorites, display them
-			if ($user->favorites)  {
 		?>
-			<div class="section">
-			<h1>Your Favorites</h1>
-				<?php	## Display banners
 
-				## Prepare the favorites query
-				$userfavorites = explode(",", $user->favorites);
-				foreach ($userfavorites AS $key => $favorite)  {
-					if ($favorite)  {
-						$userfavorites[$key] = "tvseries.id=$favorite";
-					}
-					else  {
-						unset($userfavorites[$key]);
-					}
-				}
-				$favoritesquery = implode(" OR ", $userfavorites);
-
-				$query	= "SELECT id, seriesname FROM games WHERE $favoritesquery ORDER BY SeriesName";
-				$result = mysql_query($query);
-				while ($db = mysql_fetch_object($result))  {
-					$subquery = "SELECT *, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating from banners WHERE keytype='series' AND keyvalue=$db->id ORDER BY rating DESC, RAND()";
-					$subresult = mysql_query($subquery);
-					$banner = mysql_fetch_object($subresult);
-
-					if ($banner->filename && $user->favorites_displaymode=="banners") {
-						displaybanner($banner->filename, $banner->user, 0, $fullurl, $banner->id, 0, "/index.php?tab=series&id=$db->id");
-					}
-					else {
-						ECHO "<br><a href='$baseurl/index.php?tab=series&id=$db->id'>$db->seriesname</a>";
-					}
-				}
-            }
-				?>
-			</div>
 	</td>
 </tr>
 </table>

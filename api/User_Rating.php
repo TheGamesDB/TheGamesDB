@@ -1,5 +1,5 @@
 <?php
-    ## Interface that allows clients to post-back ratings for a series/episode
+    ## Interface that allows clients to post-back ratings for a game
 	## Parameters:
 	##   $_REQUEST["accountid"]
 	##   $_REQUEST["itemtype"]
@@ -26,7 +26,7 @@
 		exit;
 	}
 	elseif ($itemtype != "game")  {
-		print "<Error>itemtype must be series or episode</Error>\n";
+		print "<Error>itemtype must be game</Error>\n";
 		exit;
 	}
 	elseif ($rating < 0 || $rating > 10)  {
@@ -37,7 +37,7 @@
 
 	## A rating of 0 means we remove it from the database
 	if ($rating == 0)  {
-		$query = "DELETE FROM ratings WHERE itemtype='$itemtype' AND itemid=$itemid AND userid=(SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1)";
+		$query = "DELETE FROM ratings WHERE itemtype='game' AND itemid=$itemid AND userid=(SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1)";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 
@@ -45,7 +45,7 @@
 	## Handle adds/updates
 	else  {
 		## Run the query
-		$query = "SELECT id FROM ratings WHERE itemtype='$itemtype' AND itemid=$itemid AND userid=(SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1) LIMIT 1";
+		$query = "SELECT id FROM ratings WHERE itemtype='game' AND itemid=$itemid AND userid=(SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1) LIMIT 1";
 		$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 		$db = mysql_fetch_object($result);
 
@@ -57,7 +57,7 @@
 		}
 		## Otherwise, insert a new record
 		else  {
-			$query	= "INSERT INTO ratings (itemtype, itemid, userid, rating) VALUES ('$itemtype', $itemid, (SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1), $rating)";
+			$query	= "INSERT INTO ratings (itemtype, itemid, userid, rating) VALUES ('game', $itemid, (SELECT id FROM users WHERE uniqueid='$accountid' LIMIT 1), $rating)";
 			$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 		}
 	}
@@ -71,7 +71,7 @@
 	}
 
 	## Return the current rating
-	$query = "SELECT ROUND(AVG(rating),1) AS average FROM ratings WHERE itemtype='$itemtype' AND itemid=$itemid";
+	$query = "SELECT ROUND(AVG(rating),1) AS average FROM ratings WHERE itemtype='game' AND itemid=$itemid";
 	$result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 	$db = mysql_fetch_object($result);
 ?>

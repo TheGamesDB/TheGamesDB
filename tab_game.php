@@ -149,7 +149,7 @@
 	</tr>
 	<tr>
 		<td>Release Date:</td>
-		<td><input type="text" name="FirstAired" value="<?=$game->FirstAired?>" maxlength="45"></td>
+		<td><input type="text" name="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45"></td>
 	</tr>
 	
 	<tr>
@@ -409,7 +409,7 @@
 			<td><b>Site Rating:</b></td>
 			<td align="right">
 			<?php	## Get site rating for this series
-				$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='series' AND itemid=$id";
+				$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$rating = mysql_fetch_object($result);
 	
@@ -432,7 +432,7 @@
 			<td align="right">
 
 			<?php	## Get user rating for this series
-				$query	= "SELECT rating FROM ratings WHERE itemtype='series' AND itemid=$id AND userid=$user->id";
+				$query	= "SELECT rating FROM ratings WHERE itemtype='game' AND itemid=$id AND userid=$user->id";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$rating = mysql_fetch_object($result);
 				if (!$rating->rating)  {
@@ -441,10 +441,10 @@
 
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->rating)  {
-						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 					else  {
-						print "<a href=\"$fullurl&function=UserRating&type=series&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 				}
 			?>

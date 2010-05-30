@@ -1007,6 +1007,13 @@ foreach ($languages AS $langid => $langname) {
                     <img src="<?= $baseurl ?>/images/bannerws.png" />
                 </a>
                 <div id="nav">
+                    <form id="search" action="$baseurl/index.php">
+                        <input class="left "type="text" name="string" id="search" value="search" onFocus="this.value=''" />
+                        <input type="hidden" name="searchseriesid" id="searchseriesid" />
+                        <input type="hidden" name="tab" value="listseries" />
+                        <input type="hidden" name="function" value="Search" />
+
+                    </form>
                     <ul>
                         <?php if($loggedin): ?>
                         <li id="nav_login" class="tab"><a href="<?= $baseurl ?>/?function=Log+Out">Logout</a></li>

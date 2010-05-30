@@ -21,6 +21,10 @@ h2{
 
 /* NAV */
 
+#search{
+    margin-top: 5px;
+}
+
 #nav{
     height: 35px;
     background: transparent url('/images/brushmetal2.png') repeat-x left top;

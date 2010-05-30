@@ -1,3 +1,10 @@
+<form id="search" action="">
+    <input type="text" name="string" id="search" value="search" onFocus="this.value=''">
+    <input type="hidden" name="searchseriesid" id="searchseriesid" />
+    <input type="hidden" name="tab" value="listseries">
+    <input type="hidden" name="function" value="Search">
+
+</form>
 <h2>Welcome</h2>
 <? if($loggedin): ?>
 <a href="<?= $baseurl ?>/?tab=userinfo">User Info</a>

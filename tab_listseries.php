@@ -3,17 +3,16 @@
 		$languagelimit = "AND languageid = (SELECT languageid FROM users WHERE id = ".$_SESSION['userid'].")";
 		$query = "SELECT languages.name FROM users INNER JOIN languages ON users.languageid = languages.id WHERE users.id=".$_SESSION['userid'];
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		$languagelink = " in ".mysql_fetch_object($result)->name." (<a href=\"index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">Search in all languages</a>)";
 	}
 	
 	if ($function == 'Search')  {
-		$title = 'Search : ' . $string.$languagelink;
+		$title = 'Search : ' . $string;
 	}
 	elseif ($function == 'OverviewSearch')  {
 		$title = 'Overview Search : ' . $string;
 	}
 	else  {
-		$title = $letter.$languagelink;
+		$title = $letter;
 	}
 ?>
 

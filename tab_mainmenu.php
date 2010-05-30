@@ -1,51 +1,8 @@
-<table width="100%" cellspacing="0" cellpadding="5" border="0">
-<tr>
-	<!-- Left column -->
-	<td valign="top" width="100%">
-	<div class="section">
-	<h1>Welcome to The Television Database</h1>
-	<p>This website will serve as a frontend to a complete database of television shows.  The site includes series and season banners that can be incorporated into various HTPC software and plugins.</p>
-	<p><b>Facts about the Online TV Show Database:</b>
-	<ul>
-		<li>The database is currently being used by the <a href="http://mytv.senseitweb.com/r.ashx?1" target="_blank">myTV add-in</a> for Windows Media Center, Spiff's scraper for <a href="http://www.xboxmediacenter.com/" target="_blank">XBox Media Center</a> (SVN rev 8044); the <a href="http://meedio.com/forum/about25041.html">meeTVshows</a> and <a href="http://www.meedios.com/forum/viewtopic.php?t=1380">TVNight</a> plugins for <a href="http://www.meedios.com/">MeediOS</a> and <a href="http://meedio.com/">Meedio</a>; the <a href="http://forum.team-mediaportal.com/my_tvseries-f162.html">MP-TVSeries plugin</a> for <a href="http://www.team-mediaportal.com/">MediaPortal</a>; and a handful of smaller projects.
-		<li>The database schema and website are open source under the GPL, and are available at <a href="http://sourceforge.net/projects/tvdb/">Sourceforge</a>.
-		<li>I'm happy to make changes to the tv database's interfaces and data in order to accommodate programmers and users.
-		<li>Software developers are welcome to use our <a href="/wiki/index.php?title=Programmers_API" target="_blank">XML interface</a>.
-	</ul></p>
-	<p>Special thanks goes out to Josh Walter (walts81) for the original site; Richard Skarsten (t0ffluss) for the original banner site; Paul Taylor (polargeek) for considerable code contributions; Maelstrom Technology Solutions for hosting the forums and previously hosting the site; Coco for site administration help and code contributions; Crazzy Kid, Arne @ senseIT, and Zyran for generously providing a dedicated server and technical assistance for the site. Without the contributions of these people, as well as the ongoing work of the contributors and banner artists, this site wouldn't exist.
-	</div>
-
-
-		<?php	if ($loggedin == 1)  {  ?>
-		<div class="section">
-		<a href="./?tab=addgame"><h1>Add A Game</h1></a>
-	<div id="red"><?=$errormessage?></div>
-		</div>
-		<?php	}  ?>
-
-	</td>
-
-
-	<!-- Right column -->
-	<td valign="top">
-		<div class="blanksection">
-			<a href="/index.php?tab=donation"><img src='images/donate.png' alt='Donate' border='0' width="344" height="89"></a>
-		</div>
-		<?php	if ($adminuserlevel == 'ADMINISTRATOR')  { 	?>
-		<div class="section">
-		<h1>Administrator Options</h1>
-			<a href="/index.php?tab=userlist">User Editor</a>
-		<?php	if ($_SESSION['userlevel'] == 'SUPERADMIN')  { 	?>
-			&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="/index.php?tab=userlist&function=admin">Admin User Editor</a>
-		<?php } ?>
-		&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="/index.php?tab=locked">Lock Report</a>
-		<br>&nbsp;<br><a href="/index.php?tab=yearlist">Year List</a>
-
-		</div>
-		<?php 
-		} 
-		?>
-
-	</td>
-</tr>
-</table>
+<h2>Welcome</h2>
+<? if($loggedin): ?>
+<a href="<?= $baseurl ?>/?tab=userinfo">User Info</a>
+<? endif; ?>
+<p>This website will serve as a frontend to a complete database of video games for a wide range of commercial platforms. The site includes series banners and backdrops that can be incorporated into various HTPC software and plugins.</p>
+<h2>Site News</h2>
+<p>We are currently working on the layout, the engine, and a couple of other things.  The Go-Live date is still kind of an unknown right now, but we should be ready to roll any day now.</p>
+<h2>Top Submissions by Publisher</h2>

@@ -1,6 +1,6 @@
 <div class="section">
 <h1>Add A Game</h1>
-  <p id="red"><?=$errmsg?></p>
+  <p class="error"><?=$errmsg?></p>
   <h2>Rules for adding a game</h2>
     <p>Always check to make sure a game doesn't already exsist before adding it.  If it is found to be a duplicate, it will be deleted.  If you believe you've found a special case where a duplicate should be allowed, please come to the forums and ask first or it will be deleted.  Use the advanced search tool to try and find your game before adding it.  We may have it listed under a name you aren't aware of, so if you know the ID for it, you may be able to find it that way.</p>
     <p>Map packs and certain add-on's for games generally don't qualify for their own entry and should be entered under the main game instead.  If you believe an exception should be made, please come to the forums and ask first.</p>

@@ -1,6 +1,83 @@
+body{
+    background-color:#1E1E1E;
+    font-family:Arial;
+    font-size:10pt;
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    border: none;
+}
+
+h2{
+    margin-top: 0;
+}
+
+#main{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+/* NAV */
+
+#nav{
+    height: 35px;
+    background: transparent url('/images/brushmetal2.png') repeat-x left top;
+}
+
+#nav ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#nav .tab{
+    float: right;
+}
+
+#nav .tab a {
+    display: block;
+    height:35px;
+    width: 162px;
+}
+
+#nav_submit a{
+    background: transparent url('/images/button_img_map.jpg') 0 -105px no-repeat;
+}
+
+#nav_submit a:hover{
+    background: transparent url('/images/button_img_map.jpg') 0 -70px no-repeat;
+}
+
+#nav_forum a{
+    background: transparent url('/images/button_img_map.jpg') 0 -35px no-repeat;
+}
+
+#nav_forum a:hover{
+    background: transparent url('/images/button_img_map.jpg') 0 0 no-repeat;
+}
+
+#content{
+    background-color: #fff;
+    padding: 10px 35px;
+}
+
+#footer{
+    background-color: #4F4F4F;
+    padding:3px;
+}
+
+/* UTILITY CLASSES */
+
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+.tile { display: block; }
+.error { color: red }
 /**************************************************
   General styles
-**************************************************/
+
 BODY  {
 	margin: 0px;
 	padding: 0px;
@@ -159,9 +236,6 @@ TEXTAREA  {
 	margin-bottom: 5px;
 }
 
-/**************************************************
-  Searchbox styles
-**************************************************/
 #searchbox {
 	margin: 0px;
 	padding: 0px;
@@ -192,9 +266,6 @@ TEXTAREA  {
 
 
 
-/**************************************************
-  Link styles
-**************************************************/
 A  {
 	color: #B6D415;
 	text-decoration: none;
@@ -210,9 +281,6 @@ A:hover  {
 }
 
 
-/**************************************************
-  List table styles
-**************************************************/
 TABLE#listtable  {
 	width: 100%;
 	padding: 0px;
@@ -256,9 +324,6 @@ TABLE#listtable .special  {
 }
 
 
-/**************************************************
-  Infobox styles
-**************************************************/
 TABLE#infotable  {
 	width: 100%;
 	padding: 0px;
@@ -285,12 +350,8 @@ TABLE#infotable A:hover  {
 }
 
 
-/**************************************************
-  Data table styles
-**************************************************/
 TABLE#datatable TD {
 	vertical-align: top;
-	/* white-space: nowrap; */
 }
 
 TABLE#datatable INPUT  {
@@ -304,12 +365,8 @@ TABLE#datatable TD #formnote  {
 	margin-bottom: 5px;
 }
 
-/**************************************************
-  Data table list styles
-**************************************************/
 TABLE#datatablelist TD {
 	vertical-align: top;
-	/* white-space: nowrap; */
 }
 
 TABLE#datatablelist INPUT  {
@@ -323,9 +380,6 @@ TABLE#datatablelist TD #formnote  {
 	margin-bottom: 5px;
 }
 
-/**************************************************
-  Footer styles
-**************************************************/
 .footer  {
 	background-color: #B6D415;
 	color: #001B2C;
@@ -343,14 +397,10 @@ TABLE#datatablelist TD #formnote  {
 }
 
 
-/*Nifty Corners Cube CSS by Alessandro Fulciniti
-The following classes are added dinamically by javascript,
-and their use should be avoided in the markup */
 
 b.niftycorners,b.niftyfill{display:block}
 b.niftycorners *{display:block;height: 1px;line-height:1px;font-size: 1px;
     overflow:hidden;border-style:solid;border-width: 0 1px}
-/*normal*/
 b.r1{margin: 0 3px;border-width: 0 2px}
 b.r2{margin: 0 2px}
 b.r3{margin: 0 1px}
@@ -364,7 +414,6 @@ b.rb6{margin: 0 2px}
 b.rb7{margin: 0 1px;height:2px}
 b.rb8{margin: 0;height:2px}
 b.rs1{margin: 0 1px}
-/*transparent inside*/
 b.t1{border-width: 0 5px}
 b.t2{border-width: 0 3px}
 b.t3{border-width: 0 2px}
@@ -378,3 +427,4 @@ b.tb6{border-width: 0 3px}
 b.tb7{border-width: 0 2px;height:2px}
 b.tb8{border-width: 0 1px;height:2px}
 b.ts1{border-width: 0 2px}
+**************************************************/

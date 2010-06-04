@@ -210,14 +210,16 @@ if ($function == 'Save Game') {
     array_push($updates, "lastupdated=$time");
 
     ## To keep things simple, we set GameTitle and Overview to the English for now
-    $GameTitle = ltrim($_POST["GameTitle_$lid"]);
-    $GameTitle = rtrim($GameTitle);
-    if ($GameTitle) {
-        $GameTitle = mysql_real_escape_string($GameTitle);
-        array_push($updates, "GameTitle='$GameTitle'");
-    }
-    else {
-        array_push($updates, "GameTitle=NULL");
+    if($adminuserlevel == 'ADMINISTRATOR') {
+        $GameTitle = ltrim($_POST["GameTitle"]);
+        $GameTitle = rtrim($GameTitle);
+        if ($GameTitle) {
+            $GameTitle = mysql_real_escape_string($GameTitle);
+            array_push($updates, "GameTitle='$GameTitle'");
+        }
+        else {
+            array_push($updates, "GameTitle=NULL");
+        }
     }
     $Overview = ltrim($_POST["Overview_$lid"]);
     $Overview = rtrim($Overview);
@@ -259,7 +261,7 @@ if ($function == 'Save Game') {
     }
 
     seriesupdate($newshowid); ## Update the XML data
-    $errormessage .= 'Series info saved.';
+    $errormessage .= 'Game saved.';
 
     $id = $newshowid;
     $tab = 'game';
@@ -1007,7 +1009,7 @@ foreach ($languages AS $langid => $langname) {
                     <img src="<?= $baseurl ?>/images/bannerws.png" />
                 </a>
                 <div id="nav">
-                    <form id="search" action="$baseurl/index.php">
+                    <form id="search" action="<?= $baseurl ?>/index.php">
                         <input class="left "type="text" name="string" id="search" value="search" onFocus="this.value=''" />
                         <input type="hidden" name="searchseriesid" id="searchseriesid" />
                         <input type="hidden" name="tab" value="listseries" />

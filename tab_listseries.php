@@ -32,7 +32,7 @@
 			$letter = mysql_real_escape_string($letter);			
 
 			if ($function == 'Search')  {
-				$query = "SELECT *, (SELECT name FROM languages WHERE id=translation_seriesname.languageid) As language FROM translation_seriesname WHERE translation LIKE '%$string%' $languagelimit ORDER BY translation";
+				$query = "SELECT * FROM games WHERE GameTitle LIKE '%$string%' ORDER BY GameTitle";
 			}
 			elseif ($function == 'OverviewSearch')  {
 				$query = "SELECT *, (SELECT name FROM languages WHERE id=translation_seriesoverview.languageid) As language FROM translation_seriesoverview WHERE translation LIKE '%$string%' ORDER BY ID";
@@ -48,7 +48,7 @@
 			## Display each game
 			while ($game = mysql_fetch_object($result)) {
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
-				print "<tr><td class=\"$class\"><a href=\"$baseurl/?tab=game&amp;id=$game->seriesid&amp;lid=$game->languageid\">$game->translation</a> </td><td class=\"$class\">$game->language</td><td class=\"$class\">$game->id</td></tr>\n";
+				print "<tr><td class=\"$class\"><a href=\"$baseurl/?tab=game&amp;id=$game->id&amp;lid=1\">$game->GameTitle</a> </td><td class=\"$class\">$game->id</td></tr>\n";
 				$gamecount++;
 			}
 

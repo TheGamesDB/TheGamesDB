@@ -43,7 +43,7 @@
 		}
 	</script>
 </head>
-<body>
+<body style="color:#fff;">
 <table width="95%" cellspacing="0" cellpadding="0" border="0" align="center">
 <tr><td>
 	<div class="titlesection">

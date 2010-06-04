@@ -33,7 +33,11 @@ if ($user->lastupdatedby_admin) {
 
 ?>
 
-
+<script type="text/javascript">
+$(document).ready(function(){
+   $('#ReleaseDate').datepicker();
+});
+</script>
 <div id="bannerrotator">
     <?=bannerdisplay($id)?>
 </div>
@@ -69,32 +73,6 @@ if ($user->lastupdatedby_admin) {
                                 <input name="GameTitle" type="text" <?=$readonly?> style="display: <?=$display?>" value="<?=stripslashes($game->GameTitle);?>" />
 
                                 <br>
-
-                                <select name="GameTitle_LangSelect" size="1" onChange="ShowSeriesName(this.options[this.selectedIndex].value)">
-                                    <?php
-                                    ## Display language selector
-                                    foreach ($languages AS $langid => $langname) {
-                                        ## If we have the currently selected language
-                                        if ($lid == $langid) {
-                                            $selected = 'selected';
-                                        }
-                                        ## Otherwise
-                                        else {
-                                            $selected = '';
-                                        }
-
-                                        ## If a translation is found
-                                        if ($seriesname_translation[$langid] == 1) {
-                                            $class = 'languagesel_off';
-                                        }
-                                        ## Otherwise
-                                        else {
-                                            $class = 'languagesel_on';
-                                        }
-                                        print "<option value=\"$langid\" class=\"$class\" $selected>$langname</option>\n";
-}
-?>
-                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -132,7 +110,7 @@ if ($user->lastupdatedby_admin) {
                         </tr>
                         <tr>
                             <td>Release Date:</td>
-                            <td><input type="text" name="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45"></td>
+                            <td><input type="text" name="ReleaseDate" id="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45"></td>
                         </tr>
 
                         <tr>
@@ -236,7 +214,6 @@ if ($user->lastupdatedby_admin) {
 					}*/
         ?>
                                 </select>
-                                <div id="formnote">New episodes for this series will be automatically imported if this value is set. Status must be 'Continuing' for this setting to save.</div>
                             </td>
                         </tr>
                         <!--
@@ -262,7 +239,7 @@ if ($user->lastupdatedby_admin) {
                                     <option <?php if ($game->disabled=='Yes') print 'selected'; ?>>Yes
                                     <option <?php if ($game->disabled=='No') print 'selected'; ?>>No
                                 </select>
-                                <div id="formnote">Setting this flag will disable image uploads for the series. Use for innacurate or duplicate series.</div>
+                                <div id="formnote">Setting this flag will disable image uploads for this game. Use for innacurate or duplicate games.</div>
                             </td>
                         </tr>
 
@@ -271,7 +248,6 @@ if ($user->lastupdatedby_admin) {
                             <td valign="top">Last Updated:</td>
                             <td>
                                 <div id="formnote">Game: <?=date("r", $game->lastupdated)?></div>
-                                <div id="formnote">Episodes: <?=date("r", $episodeupdate->lastupdated)?></div>
                             </td>
                         </tr>
 <?php	if ($loggedin == 1) {  ?>
@@ -462,7 +438,7 @@ if ($user->lastupdatedby_admin) {
                                                                     }
 
                                                                     if ($bannercount == 0) {
-                                                                        print "There are no banners for this series\n";
+                                                                        print "There are no banners for this game\n";
 }
 ?>
                                                                 </div>
@@ -540,7 +516,7 @@ if ($user->lastupdatedby_admin) {
                                                                                 <?php
                                                                             } ## Print banner limit message
                                                                             else {
-                                                                                print "You have already uploaded $userbanners banners for this series, which is your banner limit.  To get your banner limit increased, please post a request on the forums.";
+                                                                                print "You have already uploaded $userbanners banners for this game, which is your banner limit.  To get your banner limit increased, please post a request on the forums.";
     }
                                                                         ?>
                                                                     </form>
@@ -571,7 +547,7 @@ if ($user->lastupdatedby_admin) {
                                                                     }
 
                                                                     if ($bannercount == 0) {
-                                                                        print "There is no fan art for this series\n";
+                                                                        print "There is no fan art for this game\n";
 }
 ?>
                                                                 </div>

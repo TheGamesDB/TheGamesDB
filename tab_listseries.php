@@ -17,13 +17,12 @@
 ?>
 
 <div class="section">
-<h1>TV Shows | <?=$title?></h1>
+<h1>Games | <?=$title?></h1>
 
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">
 		<tr>
-			<td class="head">Show Title</td>
-			<td class="head">Language</td>			
-			<td class="head">Show ID</td>
+			<td class="head">Game Title</td>
+			<td class="head">Game ID</td>
 		</tr>
 
 		<?php	## Run the games query

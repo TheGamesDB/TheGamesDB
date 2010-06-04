@@ -184,6 +184,7 @@ if ($function == 'Add Game') {
 /*
      * Game Functions
 */
+
 if ($function == 'Save Game') {
     $updates = array();
     foreach ($_POST AS $key => $value) {
@@ -270,7 +271,7 @@ if ($function == 'Save Game') {
 if ($function == 'Upload Game Banner') {
     ## Check if the image is the right size
     list($image_width, $image_height, $image_type, $image_attr)	= getimagesize($_FILES['bannerfile']['tmp_name']);
-    if ($image_width == 758 && $image_height == 140) {
+    if ($image_width == 760 && $image_height == 140) {
         if ($image_type == '2') { ## Check if it's a JPEG
             ## Generate the new filename
             if ($subkey == 'graphical') {
@@ -827,7 +828,11 @@ if ($tab == '') {
         <META name="keywords" content="video, games, database, open, dirctory, thegamesdb, api" />
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl;?>/default.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />
+
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
+        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
         <script LANGUAGE="JavaScript" type="text/javascript">
             <!--
             function confirmSubmit()  {

@@ -1027,7 +1027,7 @@ foreach ($languages AS $langid => $langname) {
                         <?php else: ?>
                         <li id="nav_login" class="tab"><a href="<?= $baseurl ?>/?tab=login">Login</a></li>
                         <?php endif; ?>
-                        <li id="nav_forum" class="tab"><a href="#"></a></li>
+                        <li id="nav_forum" class="tab"><a href="http://forums.thegamesdb.net"></a></li>
                         <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
                     </ul>
                 </div>
@@ -1047,5 +1047,18 @@ foreach ($languages AS $langid => $langname) {
                 <div class="clear"></div>
             </div>
         </div>
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-16803563-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+        </script>
     </body>
 </html>

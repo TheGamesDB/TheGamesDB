@@ -580,7 +580,7 @@ if ($function == 'Terms Agreement') {
     if ($agreecheck) {
         $query	= "UPDATE users SET banneragreement=1 WHERE id=$user->id";
         $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Thankyou for agreeing to the site terms you may now upload banners';
+        $errormessage = 'Thankyou for agreeing to the site terms. You may now upload banners';
         $tab= 'mainmenu';
     }
 }

@@ -464,7 +464,7 @@ $(document).ready(function(){
         ?>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
                                                                             <tr>
-                                                                                <td colspan="2">Game banners must be 758px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
+                                                                                <td colspan="2">Game banners must be 760px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>File:</td>

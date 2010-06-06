@@ -72,6 +72,34 @@ h2{
     padding:3px;
 }
 
+/* RECENTLY ADDED */
+#recent {
+    text-align: center;
+}
+#recent ul{
+    padding: 0;
+    margin: 0;
+}
+
+#recent li {
+    list-style: none;
+    float: left;
+    padding: 0 5px;
+}
+
+#recent img, #recent li {
+    width: 175px
+}
+
+#recent a {
+    text-decoration: none;
+}
+
+#recent span{
+    font-weight: bold;
+    padding: 3px 0;
+}
+
 /* UTILITY CLASSES */
 
 .left { float: left; }

@@ -85,10 +85,12 @@ h2{
     list-style: none;
     float: left;
     padding: 0 5px;
+    height: 200px;
+
 }
 
 #recent img, #recent li {
-    width: 175px
+    width: 300px;
 }
 
 #recent a {

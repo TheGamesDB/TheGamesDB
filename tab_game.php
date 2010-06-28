@@ -34,9 +34,9 @@ if ($user->lastupdatedby_admin) {
 ?>
 
 <script type="text/javascript">
-$(document).ready(function(){
-   $('#ReleaseDate').datepicker();
-});
+    $(document).ready(function(){
+        $('#ReleaseDate').datepicker();
+    });
 </script>
 <div id="bannerrotator">
     <?=bannerdisplay($id)?>
@@ -68,8 +68,8 @@ $(document).ready(function(){
                                 $readonly = 'readonly=true';
                                 if ($adminuserlevel == 'ADMINISTRATOR') {
                                     $readonly = null;
-}
-?>
+                                }
+                                ?>
                                 <input name="GameTitle" type="text" <?=$readonly?> style="display: <?=$display?>" value="<?=stripslashes($game->GameTitle);?>" />
 
                                 <br>
@@ -89,8 +89,8 @@ $(document).ready(function(){
                                                 $selected = 'selected';
                                             }
                                             print "<option value=\"$db->Status\" $selected>$db->Status\n";
-}
-?>
+                                        }
+                                        ?>
                                 </select>
                             </td>
                         </tr>
@@ -123,7 +123,7 @@ $(document).ready(function(){
                         </tr>
 
                         <tr>
-                            <td>Rating:</td>
+                            <td>ESRB Rating:</td>
                             <td>
                                 <select name="Rating" size="1">
                                     <option>
@@ -164,10 +164,10 @@ $(document).ready(function(){
                                     ## Otherwise
                                     else {
                                         $seriesoverview_translation[$lang->id] = 0;
-    }
+                                    }
                                     ?>
                                 <textarea rows="18" cols="40" name="Overview_<?=$lang->id?>" style="display: <?=$display?>"><?=stripslashes($lang->translation);?></textarea>
-    <?php	}  ?>
+                                    <?php	}  ?>
 
                                 <br>
 
@@ -193,8 +193,8 @@ $(document).ready(function(){
                                             $class = 'languagesel_on';
                                         }
                                         print "<option value=\"$langid\" class=\"$class\" $selected>$langname</option>\n";
-}
-?>
+                                    }
+                                    ?>
                                 </select>
                             </td>
                         </tr>
@@ -212,7 +212,7 @@ $(document).ready(function(){
 						if ($series->autoimport == $db->autoimport)  {  $selected = 'selected';  }
 						print "<option value=\"$db->autoimport\" $selected>$db->autoimport\n";
 					}*/
-        ?>
+                                            ?>
                                 </select>
                             </td>
                         </tr>
@@ -226,7 +226,7 @@ $(document).ready(function(){
 	</tr>
                         -->
 
-<?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
+                        <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
                         <tr>
                             <td>Banner Requests:</td>
                             <td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>
@@ -243,25 +243,25 @@ $(document).ready(function(){
                             </td>
                         </tr>
 
-    <?php	}  ?>
+                            <?php	}  ?>
                         <tr>
                             <td valign="top">Last Updated:</td>
                             <td>
                                 <div id="formnote">Game: <?=date("r", $game->lastupdated)?></div>
                             </td>
                         </tr>
-<?php	if ($loggedin == 1) {  ?>
+                        <?php	if ($loggedin == 1) {  ?>
                         <tr>
                             <td style="text-align: left" colspan="2" valign="top">
-    <?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR') {  ?>
+                                    <?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR') {  ?>
                                 <input type="submit" name="function" value="Save Game" class="submit"><br>
                                 <input type="hidden" name="newshowid" value="<?=$game->id?>">
 
                                         <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
                                 <input type="submit" name="function" value="Delete Game" class="submit_red" onClick="return confirmSubmit()"><br>
                                             <?php	}
-    }
-    ?>
+                                    }
+                                    ?>
 
                                 <div id='denied_popup' style='width: 400px; height: 500px; display:none; position: absolute; top: 500px; left: 400px;'>
                                     <table width='380' cellpadding='0' cellspacing='0' border='0'>
@@ -329,12 +329,12 @@ $(document).ready(function(){
                                                                         echo '<input type="submit" value="UnLock Game" name="function" class="submit"><br>';
                                                                     }
                                                                     print "<div id=formnote style='color: red;'>This game is locked and cannot be changed. It was locked by $lockadmin->username</div>";
-    }
-    ?>
+                                                                }
+                                                                ?>
                                                             </div>
                                                             </td>
                                                             </tr>
-    <?php	}  ?>
+                                                                <?php	}  ?>
 
                                                             </table>
                                                             </form>
@@ -342,7 +342,7 @@ $(document).ready(function(){
                                                             </td>
 
                                                             <td>
-                                                                    <?php	if ($loggedin == 1) {  ?>
+                                                                <?php	if ($loggedin == 1) {  ?>
                                                                 <div class="blanksection">
                                                                         <?php	## First, generate their userfavorites array
                                                                         $userfavorites = explode(",", $user->favorites);
@@ -356,10 +356,10 @@ $(document).ready(function(){
                                                                         ## mark it as a favorite.
                                                                         else {
                                                                             print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/nonfavorite.png' alt='Not Favorite' border='0' width='326' height='79'></a>";
-    }
-                                                                    ?>
+                                                                        }
+                                                                        ?>
                                                                 </div>
-    <?php	}  ?>
+                                                                    <?php	}  ?>
 
 
 
@@ -381,13 +381,13 @@ $(document).ready(function(){
                                                                                     else {
                                                                                         print "<img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0>";
                                                                                     }
-}
-?>
+                                                                                }
+                                                                                ?>
                                                                                 <div id="smalltext"><?=$rating->count?> rating<?php if ($rating->count != 1) print "s" ?></div>
                                                                             </td>
                                                                         </tr>
 
-<?php	if ($loggedin == 1) {  ?>
+                                                                        <?php	if ($loggedin == 1) {  ?>
                                                                         <tr>
                                                                             <td><b>Your Rating:</b></td>
                                                                             <td align="right">
@@ -407,11 +407,11 @@ $(document).ready(function(){
                                                                                         else {
                                                                                             print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
                                                                                         }
-    }
-    ?>
+                                                                                    }
+                                                                                    ?>
                                                                             </td>
                                                                         </tr>
-    <?php	}  ?>
+                                                                            <?php	}  ?>
                                                                     </table>
                                                                 </div>
 
@@ -439,13 +439,13 @@ $(document).ready(function(){
 
                                                                     if ($bannercount == 0) {
                                                                         print "There are no banners for this game\n";
-}
-?>
+                                                                    }
+                                                                    ?>
                                                                 </div>
 
 
 
-<?php	if ($loggedin == 1) {  ?>
+                                                                <?php	if ($loggedin == 1) {  ?>
                                                                 <div class="section">
                                                                     <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
                                                                         <h1>Banner Upload</h1>
@@ -460,8 +460,8 @@ $(document).ready(function(){
                                                                             elseif ($game->disabled == 'Yes') {
                                                                                 print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
                                                                             }
-    elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR') {
-        ?>
+                                                                            elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR') {
+                                                                                ?>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
                                                                             <tr>
                                                                                 <td colspan="2">Game banners must be 760px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
@@ -470,6 +470,11 @@ $(document).ready(function(){
                                                                                 <td>File:</td>
                                                                                 <td>
                                                                                     <input type="file" name="bannerfile" size="15">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">
+                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -501,8 +506,8 @@ $(document).ready(function(){
 
                                                                                                 ## If a translation is found
                                                                                                 print "<option value=\"$langid\" $selected>$langname</option>\n";
-        }
-        ?>
+                                                                                            }
+                                                                                            ?>
                                                                                 </select>
                                                                             </td>
                                                                             </tr>
@@ -517,10 +522,10 @@ $(document).ready(function(){
                                                                             } ## Print banner limit message
                                                                             else {
                                                                                 print "You have already uploaded $userbanners banners for this game, which is your banner limit.  To get your banner limit increased, please post a request on the forums.";
-    }
-                                                                        ?>
+                                                                            }
+                                                                            ?>
                                                                     </form>
-    <?php	}  ?>
+                                                                        <?php	}  ?>
                                                                 </div>
 
 
@@ -548,11 +553,11 @@ $(document).ready(function(){
 
                                                                     if ($bannercount == 0) {
                                                                         print "There is no fan art for this game\n";
-}
-?>
+                                                                    }
+                                                                    ?>
                                                                 </div>
 
-<?php	if ($loggedin == 1) {  ?>
+                                                                <?php	if ($loggedin == 1) {  ?>
                                                                 <div class="section">
                                                                     <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
                                                                         <h1>Fan Art Upload</h1>
@@ -567,8 +572,8 @@ $(document).ready(function(){
                                                                             elseif ($game->disabled == 'Yes') {
                                                                                 print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
                                                                             }
-    else {
-        ?>
+                                                                            else {
+                                                                                ?>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
                                                                             <tr>
                                                                                 <td colspan="2">All fan art must adhere to specific resolution, file size, and design restrictions.  Please view the <a href="/wiki/index.php/Fan_Art" target="_blank">wiki page</a> for specifications and examples. Please set your artist colors after uploading by clicking on the link below your image.<br><br></td>
@@ -580,6 +585,11 @@ $(document).ready(function(){
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
+                                                                                <td colspan="2">
+                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
                                                                                 <td colspan="2" style="text-align: right">
                                                                                     <input type="hidden" name="function" value="Upload Fan Art">
                                                                                     <input type="submit" name="button" value="Upload" class="submit">
@@ -587,10 +597,10 @@ $(document).ready(function(){
                                                                             </tr>
                                                                         </table>
                                                                                 <?php
-    }
-                                                                        ?>
+                                                                            }
+                                                                            ?>
                                                                     </form>
-    <?php	}  ?>
+                                                                        <?php	}  ?>
                                                                 </div>
 
                                                             </td>

@@ -133,6 +133,14 @@ if ($_SESSION['userlevel'] == 'ADMINISTRATOR' OR $_SESSION['userlevel'] == 'SUPE
     $adminuserlevel = 'ADMINISTRATOR';
 }
 
+// Logged in Redirect List
+$secureArea = array(
+    'addgame'
+);
+if(!$loggedin && in_array($tab, $secureArea)){
+    header("Location:index.php");
+}
+
 #####################################################
 ## Language stuff
 #####################################################
@@ -323,7 +331,7 @@ if ($function == 'Upload Game Banner') {
         }
     }
     else {
-        $errormessage = 'Series banners MUST be 758px wide by 140px tall';
+        $errormessage = 'Series banners MUST be 760px wide by 140px tall';
     }
 }
 
@@ -1010,6 +1018,13 @@ foreach ($languages AS $langid => $langname) {
     <body>
         <div id="main">
             <div id="header">
+                <p>
+                    <?php if($loggedin): ?>
+                    <a href="<?= $baseurl ?>/?tab=logout">Logout</a>
+                    <?php else: ?>
+                    <a href="<?= $baseurl ?>/?tab=login">Login</a>. New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+                    <?php endif; ?>
+                </p>
                 <a href="<?= $baseurl ?>" title="An open database of video games">
                     <img src="<?= $baseurl ?>/images/bannerws.png" />
                 </a>
@@ -1022,13 +1037,10 @@ foreach ($languages AS $langid => $langname) {
 
                     </form>
                     <ul>
-                        <?php if($loggedin): ?>
-                        <li id="nav_login" class="tab"><a href="<?= $baseurl ?>/?function=Log+Out">Logout</a></li>
-                        <?php else: ?>
-                        <li id="nav_login" class="tab"><a href="<?= $baseurl ?>/?tab=login">Login</a></li>
-                        <?php endif; ?>
                         <li id="nav_forum" class="tab"><a href="http://forums.thegamesdb.net"></a></li>
+                        <?php if($loggedin): ?>
                         <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

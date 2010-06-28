@@ -19,6 +19,27 @@ h2{
     margin: 0 auto;
 }
 
+/* HEADER */
+#header {
+    position: relative;
+}
+
+#header p {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #fff;
+}
+
+#header a {
+    color: gold;
+    text-decoration: none;
+}
+
+#header a:hover {
+    text-decoration: underline;
+}
+
 /* NAV */
 
 #search{
@@ -100,6 +121,19 @@ h2{
 #recent span{
     font-weight: bold;
     padding: 3px 0;
+}
+
+/* Banner Rotater */
+#bannerrotator {
+    position: relative;
+    height: 140px;
+}
+
+#bannerrotator .rotatebanner {
+    display:none;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* UTILITY CLASSES */

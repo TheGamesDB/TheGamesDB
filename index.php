@@ -135,9 +135,9 @@ if ($_SESSION['userlevel'] == 'ADMINISTRATOR' OR $_SESSION['userlevel'] == 'SUPE
 
 // Logged in Redirect List
 $secureArea = array(
-    'addgame'
+        'addgame'
 );
-if(!$loggedin && in_array($tab, $secureArea)){
+if(!$loggedin && in_array($tab, $secureArea)) {
     header("Location:index.php");
 }
 
@@ -181,6 +181,10 @@ if ($function == 'Add Game') {
         // TODO: trace this back and change the name
         seriesupdate($id); ## Update the XML data
 
+        // Add Audit
+        $sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'created', $id, NULL)";
+        mysql_query($sql);
+
         $URL = "$baseurl/?tab=game&id=$id";
         header ("Location: $URL");
     }
@@ -190,7 +194,7 @@ if ($function == 'Add Game') {
 }
 
 /*
-     * Game Functions
+* Game Functions
 */
 
 if ($function == 'Save Game') {
@@ -246,30 +250,11 @@ if ($function == 'Save Game') {
     $query = "UPDATE games SET $updatestring WHERE id=$newshowid";
     $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
 
-    ## Update translations of GameTitle
-    $query = "DELETE FROM translation_seriesname WHERE seriesid=$newshowid";
-    $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-    foreach ($languages AS $langid => $langname) {
-        $value = mysql_real_escape_string($_POST["GameTitle_$langid"]);
-        if ($value != '') {
-            $query = "INSERT INTO translation_seriesname (translation, seriesid, languageid) VALUES ('$value', $newshowid, $langid)";
-            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-        }
+    // Add Audit
+    if(!empty($updatestring)) {
+        $sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'updated', $id, NULL)";
+        mysql_query($sql);
     }
-
-    ## Update translations of Series Overview
-    $query = "DELETE FROM translation_seriesoverview WHERE seriesid=$newshowid";
-    $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-    include('langDetect.php');
-    foreach ($languages AS $langid => $langname) {
-        $value = mysql_real_escape_string($_POST["Overview_$langid"]);
-        if ($value != '') {
-            $query = "INSERT INTO translation_seriesoverview (translation, seriesid, languageid) VALUES ('$value', $newshowid, 1)";
-            $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
-        }
-    }
-
-    seriesupdate($newshowid); ## Update the XML data
     $errormessage .= 'Game saved.';
 
     $id = $newshowid;
@@ -356,6 +341,32 @@ if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
     $id = $newshowid;
     $tab = 'mainmenu';
 
+}
+
+if($function == 'Upload Box Art') {
+    $id = mysql_real_escape_string($id);
+    list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
+    $resolution = $image_width . 'x' . $image_height;
+
+    $fileid = 1;
+    while (file_exists("banners/boxart/original/$cover_side/$id-$fileid.jpg")) {
+        $fileid++;
+    }
+
+    $filename = "boxart/original/$cover_side/$id-$fileid.jpg";
+    if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
+        ## Insert database record
+        $id = mysql_real_escape_string($id);
+        $colors = mysql_real_escape_string($colors);
+        $query	= "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('boxart', $id, $user->id, $time, '$filename', 1, '$resolution')";
+        $result	= mysql_query($query) or die('Query failed: ' . mysql_error());
+
+        ## Store the seriesid for the XML updater
+        seriesupdate($id);
+    }
+
+    $errormessage = "Box art added";
+    $tab = 'game';
 }
 
 if ($function == 'Upload Fan Art') {

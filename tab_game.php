@@ -464,7 +464,7 @@ if ($user->lastupdatedby_admin) {
                                                                                 ?>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
                                                                             <tr>
-                                                                                <td colspan="2">Game banners must be 760px wide by 140px tall. For additional restrictions and examples, please visit our <a href="/wiki/index.php/Series_Banners" target="_blank">wiki page</a>.<br><br></td>
+                                                                                <td colspan="2">Game banners must be 760px wide by 140px tall. For additional restrictions and examples, please visit our <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.<br><br></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>File:</td>
@@ -576,7 +576,7 @@ if ($user->lastupdatedby_admin) {
                                                                                 ?>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
                                                                             <tr>
-                                                                                <td colspan="2">All fan art must adhere to specific resolution, file size, and design restrictions.  Please view the <a href="/wiki/index.php/Fan_Art" target="_blank">wiki page</a> for specifications and examples. Please set your artist colors after uploading by clicking on the link below your image.<br><br></td>
+                                                                                <td colspan="2">All fan art must adhere to specific resolution, file size, and design restrictions.  Please view the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a> for specifications and examples. Please set your artist colors after uploading by clicking on the link below your image.<br><br></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>File:</td>
@@ -603,10 +603,81 @@ if ($user->lastupdatedby_admin) {
                                                                         <?php	}  ?>
                                                                 </div>
 
+                                                                <div class="section">
+                                                                    <h1>Fan Art</h1>
+                                                                    <?php	## Display all fanart for this show
+                                                                    $bannercount = 0;
+                                                                    $query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id ORDER BY rating DESC,RAND()";
+                                                                    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+                                                                    while ($banner = mysql_fetch_object($result)) {
+                                                                        $banner->language = "N/A";
+                                                                        $banner->subkey = $banner->resolution;
+
+                                                                        ## If this person is allowed to delete the banner, pass that info along
+                                                                        if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+                                                                            displaybannernew($banner, 1, "");
+                                                                        }
+                                                                        else {
+                                                                            displaybannernew($banner, 0, "");
+                                                                        }
+
+                                                                        ## Increment counter
+                                                                        $bannercount++;
+                                                                    }
+
+                                                                    if ($bannercount == 0) {
+                                                                        print "There is no fan art for this game\n";
+                                                                    }
+                                                                    ?>
+                                                                </div>
+
+                                                                <div class="section">
+                                                                    <h1>Box Art</h1>
+                                                                    <?php  	## check for agreement to terms
+                                                                    if ($user->banneragreement != 1) {
+                                                                        print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+                                                                    } ## Check for disabled banner upload
+                                                                    elseif ($user->bannerlimit == 0) {
+                                                                        print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+                                                                    } ## Check banner limit
+                                                                    elseif ($game->disabled == 'Yes') {
+                                                                        print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+                                                                    }
+                                                                    else {
+                                                                        ?>
+                                                                    <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+                                                                            <tr>
+                                                                                <td>File:</td>
+                                                                                <td>
+                                                                                    <select id="cover_side" name="cover_side">
+                                                                                        <option value="front">Front</option>
+                                                                                        <option value="back">Back</option>
+                                                                                    </select>
+                                                                                    <input type="file" name="bannerfile">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">
+                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2" style="text-align: right">
+                                                                                    <input type="hidden" name="function" value="Upload Box Art">
+                                                                                    <input type="submit" name="button" value="Upload" class="submit">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </form>
+                                                                        <?php } ?>
+                                                                </div>
+
                                                             </td>
                                                             </tr>
                                                             </table>
 
                                                             <script type="text/javascript">
-                                                                DisplayImporterRow('<?=$game->autoimport?>');
+                                                                DisplayImporterRow('<?=$game->
+        autoimport?>');
                                                             </script>

@@ -14,24 +14,36 @@ include("include.php");
 
 ## Prepare the search string
 $name           = $_REQUEST["name"];
+$id             = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
 $user			= $_REQUEST["user"];
-if ($name == "") {
-    print "<Error>name is required</Error>\n";
+
+if (empty($name) && empty($id)) {
+    print "<Error>A name or id is required</Error>\n";
     exit;
-}
-else {
-    if (strpos($name,", The")) {
-        $name = "The ".substr($name,0,strpos($name,", The"));
+} else {
+    if(isset($name)) {
+        if (strpos($name,", The")) {
+            $name = "The ".substr($name,0,strpos($name,", The"));
+        }
+        if (strpos($name,"'")) {
+            $name = str_replace("\'","",$name);
+        } 
+    } if (isset($id) && !is_numeric($id)) {
+        print "<Error>An ID must be an int</Error>\n";
+        exit;
+    }else{
+        $id = (int) $id;
     }
-    if (strpos($name,"'")) {
-        $name = str_replace("\'","",$name);
-    } ##To be removed if someone can figure out hwo to do this in sphinx
     print "<Data>\n";
 }
 
-## Run the query
-$query = "SELECT * FROM games WHERE MATCH(GameTitle) AGAINST('$name')";
+$query;
+if(isset($id)) {
+    $query = "SELECT * FROM games WHERE id=$id";
+} else {
+    $query = "SELECT * FROM games WHERE MATCH(GameTitle) AGAINST('$name')";
+}
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 while ($obj = mysql_fetch_object($result)) {

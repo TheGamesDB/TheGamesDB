@@ -1,6 +1,6 @@
 <?php
 ## Connect to the database
-include("include.php");	
+include("include.php");
 
 ## Start session
 session_start();
@@ -234,8 +234,7 @@ if ($function == 'Save Game') {
             array_push($updates, "GameTitle=NULL");
         }
     }
-    $Overview = ltrim($_POST["Overview_$lid"]);
-    $Overview = rtrim($Overview);
+    $Overview = trim($_POST["Overview"]);
     if ($Overview) {
         $Overview = mysql_real_escape_string($Overview);
         array_push($updates, "Overview='$Overview'");

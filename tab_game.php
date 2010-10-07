@@ -142,60 +142,13 @@ if ($user->lastupdatedby_admin) {
                         <tr>
                             <td>Overview: </td>
                             <td>
-                                <?php
-                                ## Display OVerview translations
-                                $query	= "SELECT l.*, t.translation FROM languages AS l LEFT OUTER JOIN translation_seriesoverview AS t ON l.id=t.languageid AND t.seriesid=$game->id ORDER BY l.name";
-                                $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                while($lang = mysql_fetch_object($result)) {
 
-                                    ## If we have the currently selected language
-                                    if ($lang->id == $lid) {
-                                        $display = 'inline';
-                                    }
-                                    ## Otherwise
-                                    else {
-                                        $display = 'none';
-                                    }
+                                <textarea rows="18" cols="40" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
 
-                                    ## If a translation is found
-                                    if ($lang->translation) {
-                                        $seriesoverview_translation[$lang->id] = 1;
-                                    }
-                                    ## Otherwise
-                                    else {
-                                        $seriesoverview_translation[$lang->id] = 0;
-                                    }
-                                    ?>
-                                <textarea rows="18" cols="40" name="Overview_<?=$lang->id?>" style="display: <?=$display?>"><?=stripslashes($lang->translation);?></textarea>
-                                    <?php	}  ?>
 
                                 <br>
 
-                                <select name="Overview_LangSelect" size="1" onChange="ShowSeriesOverview(this.options[this.selectedIndex].value)">
-                                    <?php
-                                    ## Display language selector
-                                    foreach ($languages AS $langid => $langname) {
-                                        ## If we have the currently selected language
-                                        if ($lid == $langid) {
-                                            $selected = 'selected';
-                                        }
-                                        ## Otherwise
-                                        else {
-                                            $selected = '';
-                                        }
 
-                                        ## If a translation is found
-                                        if ($seriesoverview_translation[$langid] == 1) {
-                                            $class = 'languagesel_off';
-                                        }
-                                        ## Otherwise
-                                        else {
-                                            $class = 'languagesel_on';
-                                        }
-                                        print "<option value=\"$langid\" class=\"$class\" $selected>$langname</option>\n";
-                                    }
-                                    ?>
-                                </select>
                             </td>
                         </tr>
 

@@ -1,4 +1,4 @@
-<?php	
+<?php
 ## Interface that allows clients to get
 ## seriesid using name
 ## Parameters:
@@ -28,18 +28,19 @@ if (empty($name) && empty($id)) {
         }
         if (strpos($name,"'")) {
             $name = str_replace("\'","",$name);
-        } 
-    } if (isset($id) && !is_numeric($id)) {
+        }
+    }
+    if(isset($id) && !is_numeric($id)) {
         print "<Error>An ID must be an int</Error>\n";
         exit;
-    }else{
+    }else {
         $id = (int) $id;
     }
-    print "<Data>\n";
+    print "<Data>\n<baseImgUrl>http://thegamesdb.net/banners/</baseImgUrl>\n";
 }
 
 $query;
-if(isset($id)) {
+if(isset($id) && !empty($id)) {
     $query = "SELECT * FROM games WHERE id=$id";
 } else {
     $query = "SELECT * FROM games WHERE MATCH(GameTitle) AGAINST('$name')";
@@ -47,38 +48,49 @@ if(isset($id)) {
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 while ($obj = mysql_fetch_object($result)) {
-
-    ## Get base information
-    $subquery = "SELECT id, GameTitle, ReleaseDate FROM games WHERE id={$obj->id}";
-    $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
-    $db = mysql_fetch_object($subresult);
-
-    ## Get top banner
-    $subquery = "SELECT filename FROM banners WHERE keytype='series' AND keyvalue=$obj->id ORDER BY (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) DESC,RAND() LIMIT 1";
-    $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
-    if ($subdb = mysql_fetch_object($subresult)) {
-        $db->banner = $subdb->filename;
-    }
-
-    ## Get additional information (overview)
-    $subquery = "SELECT translation FROM translation_seriesoverview WHERE seriesid=$obj->id AND languageid=1 AND translation IS NOT NULL ORDER BY languageid DESC LIMIT 2";
-    $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
-    if ($subdb = mysql_fetch_object($subresult)) {
-        $db->Overview = $subdb->translation;
-    }
-
-    ## Start XML item
     print "<Game>\n";
 
-    ## Loop through each field for this item
-    foreach ($db as $key => $value) {
-
+    // Base Info
+    $subquery = "SELECT id, GameTitle, ReleaseDate, Overview FROM games WHERE id={$obj->id}";
+    $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
+    $baseObj = mysql_fetch_object($baseResult);
+    foreach($baseObj as $key => $value) {
         ## Prepare the string for output
-        $value = xmlformat($value, $key);
+        if(!empty($value)) {
+            $value = xmlformat($value, $key);
+            print "<$key>$value</$key>\n";
+        }
+    }
 
-        ## Print the string
-        print "<$key>$value</$key>\n";
+    ## Get top banner
+    $subquery = "SELECT filename, keytype FROM banners WHERE keyvalue=$obj->id";
+    $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
+    if($subresult) {
+        echo "<Images>";
+        while($subdb = mysql_fetch_object($subresult)) {
+            $key = $subdb->keytype;
+            $value = $subdb->filename;
+            $value = xmlformat($value, $key);
 
+            switch ($key) {
+                case 'series':
+                    echo "<banner>$value</banner>";
+                    break;
+
+                case 'fanart':
+                    echo '<fanart>';
+                    echo "<orginal>$value</orginal>";
+                    $v = str_replace('original', 'vignette', $value);
+                    echo "<vignette>$v</vignette>";
+                    echo '</fanart>';
+                    break;
+
+                case 'boxart':
+                    echo "<boxart>$value</boxart>";
+                    break;
+            }
+        }
+        echo "</Images>";
     }
 
     ## End XML item

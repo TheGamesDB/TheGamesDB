@@ -51,14 +51,20 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT id, GameTitle, ReleaseDate, Overview FROM games WHERE id={$obj->id}";
+    $subquery = "SELECT id, GameTitle, ReleaseDate, Overview, Rating FROM games WHERE id={$obj->id}";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach($baseObj as $key => $value) {
         ## Prepare the string for output
         if(!empty($value)) {
-            $value = xmlformat($value, $key);
+$value = xmlformat($value, $key);
+		switch($key){
+		case 'Rating':
+			print "<ESRB>$value</ESRB>\n";
+			break;
+            default:
             print "<$key>$value</$key>\n";
+		}
         }
     }
 
@@ -79,7 +85,7 @@ while ($obj = mysql_fetch_object($result)) {
 
                 case 'fanart':
                     echo '<fanart>';
-                    echo "<orginal>$value</orginal>";
+                    echo "<original>$value</original>";
                     $v = str_replace('original', 'vignette', $value);
                     echo "<vignette>$v</vignette>";
                     echo '</fanart>';

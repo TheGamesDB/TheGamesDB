@@ -93,9 +93,16 @@ h2{
     padding:3px;
 }
 
+/* MAIN NEWS */
+#news{
+    margin-right: 310px;
+    min-height: 500px;
+}
+
 /* RECENTLY ADDED */
 #recent {
     text-align: center;
+    width: 305px;
 }
 #recent ul{
     padding: 0;
@@ -103,11 +110,10 @@ h2{
 }
 
 #recent li {
+    display: none;
     list-style: none;
     float: left;
     padding: 0 5px;
-    height: 200px;
-
 }
 
 #recent img, #recent li {
@@ -121,6 +127,9 @@ h2{
 #recent span{
     font-weight: bold;
     padding: 3px 0;
+}
+#recent li img {
+    width: 300px;
 }
 
 /* Banner Rotater */

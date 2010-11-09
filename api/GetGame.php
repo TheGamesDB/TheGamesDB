@@ -8,39 +8,38 @@
 ##
 ## Returns:
 ##   XML item holding the series id that matches the name
-
 ## Include functions, db connection, etc
 include("include.php");
 
 ## Prepare the search string
-$name           = $_REQUEST["name"];
-$id             = $_REQUEST['id'];
+$name = $_REQUEST["name"];
+$id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
-$user			= $_REQUEST["user"];
+$user = $_REQUEST["user"];
 
 if (empty($name) && empty($id)) {
     print "<Error>A name or id is required</Error>\n";
     exit;
 } else {
-    if(isset($name)) {
-        if (strpos($name,", The")) {
-            $name = "The ".substr($name,0,strpos($name,", The"));
+    if (isset($name)) {
+        if (strpos($name, ", The")) {
+            $name = "The " . substr($name, 0, strpos($name, ", The"));
         }
-        if (strpos($name,"'")) {
-            $name = str_replace("\'","",$name);
+        if (strpos($name, "'")) {
+            $name = str_replace("\'", "", $name);
         }
     }
-    if(isset($id) && !is_numeric($id)) {
+    if (isset($id) && !is_numeric($id)) {
         print "<Error>An ID must be an int</Error>\n";
         exit;
-    }else {
+    } else {
         $id = (int) $id;
     }
     print "<Data>\n<baseImgUrl>http://thegamesdb.net/banners/</baseImgUrl>\n";
 }
 
 $query;
-if(isset($id) && !empty($id)) {
+if (isset($id) && !empty($id)) {
     $query = "SELECT * FROM games WHERE id=$id";
 } else {
     $query = "SELECT * FROM games WHERE MATCH(GameTitle) AGAINST('$name')";
@@ -51,29 +50,40 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT id, GameTitle, ReleaseDate, Overview, Rating FROM games WHERE id={$obj->id}";
+    $subquery = "SELECT id, GameTitle, ReleaseDate, Overview, Rating, Genre, Players FROM games WHERE id={$obj->id}";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
-    foreach($baseObj as $key => $value) {
+    foreach ($baseObj as $key => $value) {
         ## Prepare the string for output
-        if(!empty($value)) {
-$value = xmlformat($value, $key);
-		switch($key){
-		case 'Rating':
-			print "<ESRB>$value</ESRB>\n";
-			break;
-            default:
-            print "<$key>$value</$key>\n";
-		}
+        if (!empty($value)) {
+            $value = xmlformat($value, $key);
+            switch ($key) {
+                case 'Genre':
+                    echo '<Genres>';
+                    $genres  = explode('|', $value);
+                    foreach($genres as $genre){
+                        if(!empty($genre)){
+                            echo '<genre>' . $genre . '</genre>';
+                        }
+                    }
+                    echo '</Genres>';
+                    break;
+
+                case 'Rating':
+                    print "<ESRB>$value</ESRB>\n";
+                    break;
+                default:
+                    print "<$key>$value</$key>\n";
+            }
         }
     }
 
     ## Get top banner
     $subquery = "SELECT filename, keytype FROM banners WHERE keyvalue=$obj->id";
     $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
-    if($subresult) {
+    if ($subresult) {
         echo "<Images>";
-        while($subdb = mysql_fetch_object($subresult)) {
+        while ($subdb = mysql_fetch_object($subresult)) {
             $key = $subdb->keytype;
             $value = $subdb->filename;
             $value = xmlformat($value, $key);

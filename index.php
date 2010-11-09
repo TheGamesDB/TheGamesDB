@@ -851,8 +851,24 @@ if ($tab == '') {
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-        <script LANGUAGE="JavaScript" type="text/javascript">
-            <!--
+        <script type="text/javascript">
+            $('document').ready(function(){
+                var index = 0;
+                var images = $('#recent li');
+                $($(images).get(index)).show();
+                window.setInterval(function(){
+                    $($(images).get(index)).fadeOut('slow', function(){
+                        if(index == images.length - 1){
+                            index = 0;
+                        }else{
+                            index++;
+                        }
+
+                        $($(images).get(index)).fadeIn('slow');
+                    });
+                }, 6000);
+            });
+
             function confirmSubmit()  {
                 var agree=confirm("Are you sure you wish to delete this?");
                 if (agree)
@@ -933,11 +949,11 @@ foreach ($languages AS $langid => $langname) {
         for (i=1; i<=10; i++)  {
             if (i <= rating)  {
                 var thisimage = eval("document.images.userrating" + i);
-                thisimage.src = '<?=$baseurl?>/images/star_on.gif';
+                thisimage.src = '<?=$baseurl?>/images/star_on.png';
             }
             else  {
                 var thisimage = eval("document.images.userrating" + i);
-                thisimage.src = '<?=$baseurl?>/images/star_off.gif';
+                thisimage.src = '<?=$baseurl?>/images/star_off.png';
             }
         }
     }
@@ -946,11 +962,11 @@ foreach ($languages AS $langid => $langname) {
         for (i=1; i<=10; i++)  {
             if (i <= rating)  {
                 var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?=$baseurl?>/images/star_on.gif';
+                thisimage.src = '<?=$baseurl?>/images/star_on.png';
             }
             else  {
                 var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?=$baseurl?>/images/star_off.gif';
+                thisimage.src = '<?=$baseurl?>/images/star_off.png';
             }
         }
     }

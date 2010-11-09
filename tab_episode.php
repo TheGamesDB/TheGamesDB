@@ -454,10 +454,10 @@ if ($lid) {
 				
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->average)  {
-						print "<img src=\"/images/star_on.gif\" width=15 height=15 border=0>";
+						print "<img src=\"/images/star_on.png\" width=15 height=15 border=0>";
 					}
 					else  {
-						print "<img src=\"/images/star_off.gif\" width=15 height=15 border=0>";
+						print "<img src=\"/images/star_off.png\" width=15 height=15 border=0>";
 					}
 				}
 			?>
@@ -476,10 +476,10 @@ if ($lid) {
 
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->rating)  {
-						print "<a href=\"/?function=UserRating&type=episode&itemid=$id&rating=$i&seriesid=$seriesid&seasonid=$seasonid\" OnMouseOver=\"UserRating($i)\" OnMouseOut=\"UserRating($rating->rating)\"><img src=\"/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"/?function=UserRating&type=episode&itemid=$id&rating=$i&seriesid=$seriesid&seasonid=$seasonid\" OnMouseOver=\"UserRating($i)\" OnMouseOut=\"UserRating($rating->rating)\"><img src=\"/images/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 					else  {
-						print "<a href=\"/?function=UserRating&type=episode&itemid=$id&rating=$i&seriesid=$seriesid&seasonid=$seasonid\" OnMouseOver=\"UserRating($i)\" OnMouseOut=\"UserRating($rating->rating)\"><img src=\"/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+						print "<a href=\"/?function=UserRating&type=episode&itemid=$id&rating=$i&seriesid=$seriesid&seasonid=$seasonid\" OnMouseOver=\"UserRating($i)\" OnMouseOut=\"UserRating($rating->rating)\"><img src=\"/images/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 					}
 				}
 			?>

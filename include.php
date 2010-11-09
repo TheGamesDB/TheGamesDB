@@ -237,9 +237,9 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		## Display the site rating
 		for ($i = 1; $i <= 10; $i++)  {
 			if ($i <= $rating->average)
-				print "<img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0>";
+				print "<img src=\"$baseurl/images/star_on.png\" width=15 height=15 border=0>";
 			else 
-				print "<img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0>";
+				print "<img src=\"$baseurl/images/star_off.png\" width=15 height=15 border=0>";
 		}
 		print "</td></tr>\n";
 
@@ -257,10 +257,10 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		
 				for ($i = 1; $i <= 10; $i++)  {
 					if ($i <= $rating->rating)  {
-						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id', $i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id', $rating->rating)\"><img src=\"/images/star_on.gif\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id', $i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id', $rating->rating)\"><img src=\"/images/star_on.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
 					}
 					else  {
-						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id',$i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id',$rating->rating)\"><img src=\"/images/star_off.gif\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id',$i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id',$rating->rating)\"><img src=\"/images/star_off.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
 					}
 				}
 			print "</td></tr>\n";

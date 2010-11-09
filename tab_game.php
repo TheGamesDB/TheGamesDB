@@ -76,20 +76,14 @@ if ($user->lastupdatedby_admin) {
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">Status:</td>
+                            <td valign="top">Players:</td>
                             <td>
-                                <select name="Status" size="1">
-                                    <option>
-                                        <?php	## Print all status in database
-                                        $query	= "SELECT Status FROM games WHERE Status IS NOT NULL GROUP BY Status ORDER BY Status";
-                                        $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                        while ($db = mysql_fetch_object($result)) {
-                                            $selected = '';
-                                            if ($game->Status == $db->Status) {
-                                                $selected = 'selected';
-                                            }
-                                            print "<option value=\"$db->Status\" $selected>$db->Status\n";
-                                        }
+                                <select name="Players">
+                                    <option vlaue="0">Select . . . </option>
+                                    <option value="1" <?php if ($game->Players == 1) echo 'selected' ?>>1</option>
+                                    <option value="2" <?php if ($game->Players == 2) echo 'selected' ?>>2</option>
+                                    <option value="3" <?php if ($game->Players == 3) echo 'selected' ?>>3</option>
+                                    <option value="4" <?php if ($game->Players == 4) echo 'selected' ?>>4+</option>
                                         ?>
                                 </select>
                             </td>
@@ -329,10 +323,10 @@ if ($user->lastupdatedby_admin) {
 
                                                                                 for ($i = 1; $i <= 10; $i++) {
                                                                                     if ($i <= $rating->average) {
-                                                                                        print "<img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0>";
+                                                                                        print "<img src=\"$baseurl/images/star_on.png\" width=15 height=15 border=0>";
                                                                                     }
                                                                                     else {
-                                                                                        print "<img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0>";
+                                                                                        print "<img src=\"$baseurl/images/star_off.png\" width=15 height=15 border=0>";
                                                                                     }
                                                                                 }
                                                                                 ?>
@@ -355,10 +349,10 @@ if ($user->lastupdatedby_admin) {
 
                                                                                     for ($i = 1; $i <= 10; $i++) {
                                                                                         if ($i <= $rating->rating) {
-                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
                                                                                         }
                                                                                         else {
-                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.gif\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
                                                                                         }
                                                                                     }
                                                                                     ?>
@@ -557,7 +551,7 @@ if ($user->lastupdatedby_admin) {
                                                                 </div>
 
                                                                 <div class="section">
-                                                                    <h1>Fan Art</h1>
+                                                                    <h1>Box Art</h1>
                                                                     <?php	## Display all fanart for this show
                                                                     $bannercount = 0;
                                                                     $query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id ORDER BY rating DESC,RAND()";

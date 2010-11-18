@@ -50,7 +50,7 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT g.id, g.GameTitle, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid) WHERE g.id={$obj->id} and r.itemtype='game'";
+    $subquery = "SELECT g.id, g.GameTitle, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid and r.itemtype='game') WHERE g.id={$obj->id} Group By g.id";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach ($baseObj as $key => $value) {

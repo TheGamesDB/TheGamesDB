@@ -1024,7 +1024,7 @@ if ($tab == '') {
             <div id="header">
                 <p>
                     <?php if ($loggedin): ?>
-                        <a href="<?= $baseurl ?>/?tab=logout">Logout</a>
+                        <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
                     <?php else: ?>
                             <a href="<?= $baseurl ?>/?tab=login">Login</a>. New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
                     <?php endif; ?>
@@ -1061,6 +1061,7 @@ if ($tab == '') {
                                 <a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
                                     <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/>
                 </a>
+                <?php if($tab != 'mainmenu'): ?>
                 <div class="ad">
                     <script type="text/javascript"><!--
                         google_ad_client = "ca-pub-9813914365177844";
@@ -1073,7 +1074,8 @@ if ($tab == '') {
                     <script type="text/javascript"
                             src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
                     </script>
-                </div>                
+                </div>
+                <?php endif; ?>
                 <div class="clear"></div>
             </div>
         </div>

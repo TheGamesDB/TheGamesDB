@@ -467,7 +467,7 @@ if ($function == 'Register') {
 if ($function == 'Reset Password') {
     ## Get their email address and username
     $email = mysql_real_escape_string($email);
-    $query = "SELECT * FROM users WHERE emailaddress='$email'";
+    $query = "SELECT emailaddress, username, id FROM users WHERE emailaddress='$email'";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
     $db = mysql_fetch_object($result);
 
@@ -482,19 +482,13 @@ if ($function == 'Reset Password') {
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
         ## Email it to the user
-        require("libphp-phpmailer/class.phpmailer.php");
-        $mail = new PHPMailer();
-        $mail->From = $mail_username;
-        $mail->FromName = "TheTVDB.com";
-        $mail->Host = $mail_server;
-        $mail->SMTPAuth = true;
-        $mail->Username = $mail_username;
-        $mail->Password = $mail_password;
-        $mail->Mailer = "smtp";
-        $mail->AddAddress($db->emailaddress, $db->username);
-        $mail->Subject = "Your account information";
-        $mail->Body = "This is an automated message.\n\nYour online TV database password has been reset.  Here is your new login information:\nusername: $db->username\npassword: $newpass\n\nIf you have any questions, please let me know.\nScott Zsori\nSite Administrator\n";
-        $mail->Send();
+        $from = "TheGamesDB <$mail_username>";
+        $host = $mail_server;
+        $to = $db->username . '<' . $db->emailaddress . '>';
+        $subject = "Your account information";
+        $message = "This is an automated message.\n\nYour GamesDB password has been reset.  Here is your new login information:\nusername: $db->username\npassword: $newpass\n\nIf you have any questions, please let us know.\nTheGamesDB Crew\n";
+        $headers = 'From: ' . $from;
+        mail($to, $subject, wordwrap($message, 70), $headers);
 
         $errormessage = 'Login information has been sent.';
     } else {

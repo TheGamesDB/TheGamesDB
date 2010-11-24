@@ -152,6 +152,7 @@ h2{
 .clear { clear: both; }
 .tile { display: block;margin-top: 11px }
 .error { color: red }
+.message {color:green;font-size: 18px}
 .ad {
     margin:0 auto;
     width:468px;

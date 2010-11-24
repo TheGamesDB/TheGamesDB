@@ -6,6 +6,7 @@ include("include.php");
 session_start();
 $time = time();
 
+$message = null;
 
 #####################################################
 ## COOKIE STUFF - AUTOMATIC LOGIN
@@ -452,6 +453,7 @@ if ($function == 'Register') {
                 $query = "INSERT INTO users (username, userpass, emailaddress, languageid, uniqueid) VALUES ('$username', PASSWORD('$userpass1'), '$email', $languageid, '$uniqueid')";
                 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
                 $tab = 'mainmenu';
+                $message = '<p><em>Thank you for registering with TheGamesDB!</em><p>You will receive an email confirmation with your account information shortly.  Please proceed to the login screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
             } else {
                 $errormessage = 'Email address is required.';
             }
@@ -1045,6 +1047,9 @@ if ($tab == '') {
 
                     <div id="content">
                         <div class="error"><?= $errormessage ?></div>
+                        <?php if($message): ?>
+                        <div class="message"><?= $message ?></div>
+                        <?php endif; ?>
                 <?php
                                 include("tab_$tab.php");
                 ?>

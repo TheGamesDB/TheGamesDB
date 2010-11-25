@@ -148,6 +148,7 @@ h2{
 /* UTILITY CLASSES */
 
 .left { float: left; }
+.banner {margin-bottom: 20px}
 .right { float: right; }
 .clear { clear: both; }
 .tile { display: block;margin-top: 11px }

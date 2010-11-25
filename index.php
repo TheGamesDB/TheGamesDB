@@ -979,7 +979,6 @@ if ($tab == '') {
     // -->
         </script>
 
-        <script type="text/javascript" src="<?php echo $baseurl; ?>/xfade2.js"></script>
         <script type="text/javascript" src="<?php echo $baseurl; ?>/niftycube.js"></script>
         <script type="text/javascript">
             window.onload=function(){

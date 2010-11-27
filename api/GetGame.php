@@ -13,6 +13,7 @@ include("include.php");
 
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
+$name = str_replace(array(' - ', '-'), '%', $name);
 
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];

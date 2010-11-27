@@ -12,7 +12,8 @@
 include("include.php");
 
 ## Prepare the search string
-$name = $_REQUEST["name"];
+$name = stripcslashes($_REQUEST["name"]);
+
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];
@@ -24,9 +25,6 @@ if (empty($name) && empty($id)) {
     if (isset($name)) {
         if (strpos($name, ", The")) {
             $name = "The " . substr($name, 0, strpos($name, ", The"));
-        }
-        if (strpos($name, "'")) {
-            $name = str_replace("\'", "", $name);
         }
     }
     if (isset($id) && !is_numeric($id)) {
@@ -60,9 +58,9 @@ while ($obj = mysql_fetch_object($result)) {
             switch ($key) {
                 case 'Genre':
                     echo '<Genres>';
-                    $genres  = explode('|', $value);
-                    foreach($genres as $genre){
-                        if(!empty($genre)){
+                    $genres = explode('|', $value);
+                    foreach ($genres as $genre) {
+                        if (!empty($genre)) {
                             echo '<genre>' . $genre . '</genre>';
                         }
                     }
@@ -70,7 +68,7 @@ while ($obj = mysql_fetch_object($result)) {
                     break;
 
                 case 'Rating':
-                    print "<Rating>" . (float)$value . "</Rating>";
+                    print "<Rating>" . (float) $value . "</Rating>";
                     break;
 
                 default:

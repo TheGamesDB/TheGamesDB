@@ -12,7 +12,7 @@
 include("include.php");
 
 ## Prepare the search string
-$name = stripcslashes($_REQUEST["name"]);
+$name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
 
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];

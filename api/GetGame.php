@@ -40,9 +40,9 @@ if (empty($name) && empty($id)) {
 
 $query;
 if (isset($id) && !empty($id)) {
-    $query = "SELECT * FROM games WHERE id=$id";
+    $query = "SELECT id FROM games WHERE id=$id";
 } else {
-    $query = "SELECT * FROM games WHERE MATCH(GameTitle) AGAINST('$name')";
+    $query = "SELECT id FROM games WHERE GameTitle LIKE '%$name%'";
 }
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 

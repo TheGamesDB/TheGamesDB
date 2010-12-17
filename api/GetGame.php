@@ -13,7 +13,7 @@ include("include.php");
 
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
-$name = str_replace(array(' - ', '-'), '%', $name);
+//$name = str_replace('-', '(.).(.)', $name);
 
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
@@ -41,7 +41,7 @@ $query;
 if (isset($id) && !empty($id)) {
     $query = "SELECT id FROM games WHERE id=$id";
 } else {
-    $query = "SELECT id FROM games WHERE GameTitle LIKE '%$name%'";
+    $query = "SELECT id FROM games WHERE GameTitle REGEXP '$name'";
 }
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
@@ -102,7 +102,8 @@ while ($obj = mysql_fetch_object($result)) {
                     break;
 
                 case 'boxart':
-                    echo "<boxart>$value</boxart>";
+                    $type  = (preg_match('/front/', $value)) ? 'front' : 'back';
+                    echo "<boxart side='$type'>$value</boxart>";
                     break;
             }
         }

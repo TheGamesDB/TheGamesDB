@@ -25,9 +25,14 @@ $result = mysql_query($sql);
     <? if ($loggedin): ?>
                         <a href="<?= $baseurl ?>/?tab=userinfo">User Info</a>
     <? endif; ?>
-    <p>This website will serve as a frontend to a complete database of video games for a wide range of commercial platforms. The site includes series banners and backdrops that can be incorporated into various HTPC software and plugins.</p>
+    <p>This website aims to be the top resource for video game scraping via our API.  We strive to have the highest quality available in our artwork and metadata.  This site is open and entirely community drivin, and relies on user submissions for content.  We host Fanart, Banners, Covers, and Metadata that can be incorporated into media center front-ends for HTPC's in various ways.  Please feel free to contribute!</p>
     <h2>Site News</h2>
-    <p>We are currently working on the layout, the engine, and a couple of other things.  The Go-Live date is still kind of an unknown right now, but we should be ready to roll any day now.</p>
+    <p>We are currently working on the layout, the engine, and a couple of other things.  We have recently upgraded to a new host server, so enjoy the increased speed!</p>
+	<h2>API In Action</h2>
+	<p>Imagine yourself sitting on your couch with your remote in hand. You're browsing through an endless number of video games, all beautifully displayed on your screen with high resolution art work and accurate info.  Now stop imagining, and start living the dream!
+	<br><br>
+	Here's an example of how TheGamesDB's API and database can be used to display artwork and metadata for your games.</p>
+	<iframe width="560" height="349" src="http://www.youtube.com/embed/BXDDraeFROg?rel=0" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div style="clear:both;"></div>

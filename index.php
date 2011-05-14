@@ -814,7 +814,7 @@ if ($tab == '') {
         <title>An open database of video games</title>
         <META name="description" content="An open database of video games" />
         <META name="keywords" content="video, games, database, open, dirctory, thegamesdb, api" />
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/default.css" />
+        <link rel="stylesheet" type="text/css" href="/default.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />
 
@@ -1059,6 +1059,7 @@ if ($tab == '') {
                                 <a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
                                     <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/>
                 </a>
+								<br><center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center><br>
                 <?php if($tab != 'mainmenu'): ?>
                 <div class="ad">
                     <script type="text/javascript"><!--

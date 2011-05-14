@@ -134,7 +134,7 @@ if ($user->lastupdatedby_admin) {
                         </tr>
 
                         <tr>
-                            <td>Overview: </td>
+                            <td>Overview (ENGLISH ONLY): </td>
                             <td>
 
                                 <textarea rows="18" cols="40" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>

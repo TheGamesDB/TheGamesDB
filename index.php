@@ -1056,10 +1056,15 @@ if ($tab == '') {
 
                             <div id="footer">
 
-                                <a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
+                                <left><font color=#FFFFFF>
+								Owner: Scott Brant<br>
+								Coding & Design: Matt McGlaughlin</left>
+				<center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center>
+								<br>
+								<left>Licensing info and additional contributors are listed on our <a href=http://code.google.com/p/thegamesdb/><font color=#FFFFFF>development tracker.</font></a></left>
+								<a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
                                     <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/>
                 </a>
-								<br><center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center><br>
                 <?php if($tab != 'mainmenu'): ?>
                 <div class="ad">
                     <script type="text/javascript"><!--

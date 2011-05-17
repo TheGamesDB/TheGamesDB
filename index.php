@@ -1036,7 +1036,7 @@ if ($tab == '') {
 
                             </form>
                             <ul>
-                                <li id="nav_forum" class="tab"><a href="http://forums.thegamesdb.net"></a></li>
+                                <li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
                         <?php if ($loggedin): ?>
                                 <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
                         <?php endif; ?>

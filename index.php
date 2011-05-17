@@ -609,7 +609,7 @@ if ($function == 'Delete Banner') {
     }
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
     $deletebanner = mysql_fetch_object($result);
-    $errormessage = 'Banner was successfully deleted.';
+    $errormessage = 'Image was successfully deleted.';
 
     if ($deletebanner->id) {
         ## Delete SQL record
@@ -649,7 +649,7 @@ if ($function == 'Delete Banner Admin') {
     $query = "SELECT * FROM banners WHERE id=$bannerid";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
     $deletebanner = mysql_fetch_object($result);
-    $errormessage = 'Banner was successfully deleted.';
+    $errormessage = 'Image was successfully deleted.';
 
     if ($deletebanner->id) {
         ## Delete SQL record

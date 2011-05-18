@@ -1,10 +1,10 @@
 <div class="section">
-<h1>Top 50 Banner Artists</h1>
+<h1>Top 50 Art Contributors</h1>
 
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">
 		<tr>
-			<td class="head">Artist Name</td>
-			<td class="head">Total Banners</td>
+			<td class="head">User Name</td>
+			<td class="head">Total Art Submitted</td>
 			<td class="head">Ratings</td>
 			<td class="head">Average Rating</td>
 		</tr>

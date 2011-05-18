@@ -41,7 +41,7 @@
 ?>
 
 <div class="section">
-<h1><?=$title?> <?=$max?> Most Recent <?=ucwords($bannertype)?> Banners <?=$extratitle?></h1>
+<h1><?=$title?> <?=$max?> Most Recent <?=ucwords($bannertype)?> Images <?=$extratitle?></h1>
 
 <table cellspacing="0" cellpadding=2" border="0" align="center" width="600">
 <tr>

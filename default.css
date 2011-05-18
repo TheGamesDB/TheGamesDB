@@ -67,6 +67,14 @@ h2{
     width: 162px;
 }
 
+#nav_donation a{
+    background: transparent url('/images/button_img_map.jpg') 0 -175px no-repeat;
+}
+
+#nav_donation a:hover{
+    background: transparent url('/images/button_img_map.jpg') 0 -140px no-repeat;
+}
+
 #nav_submit a{
     background: transparent url('/images/button_img_map.jpg') 0 -105px no-repeat;
 }

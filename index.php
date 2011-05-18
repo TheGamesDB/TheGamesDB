@@ -1036,6 +1036,7 @@ if ($tab == '') {
 
                             </form>
                             <ul>
+								<li id="nav_donation" class="tab"><a href="http://thegamesdb.net/?tab=donation"></a></li>
                                 <li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
                         <?php if ($loggedin): ?>
                                 <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
@@ -1056,15 +1057,13 @@ if ($tab == '') {
 
                             <div id="footer">
 
+															<a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
+                                    <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/ style="float: right; padding-right: 5px"></a>
                                 <left><font color=#FFFFFF>
 								Owner: Scott Brant<br>
 								Coding & Design: Matt McGlaughlin</left>
 				<center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center>
-								<br>
-								<left>Licensing info and additional contributors are listed on our <a href=http://code.google.com/p/thegamesdb/><font color=#FFFFFF>development tracker.</font></a></left>
-								<a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
-                                    <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/>
-                </a>
+
                 <?php if($tab != 'mainmenu'): ?>
                 <div class="ad">
                     <script type="text/javascript"><!--

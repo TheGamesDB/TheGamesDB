@@ -56,7 +56,7 @@
 			<form action="#" method="POST" name="platformsform" onSubmit="return false">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="datatablelist">
 <?
-				$query = "SELECT * FROM platforms";
+				$query = "SELECT * FROM platforms ORDER BY name";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$tr = 1;								
 				while ($platforms = mysql_fetch_object($result)) {

@@ -35,7 +35,7 @@ if ($user->lastupdatedby_admin) {
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#ReleaseDate').datepicker();
+        $('#ReleaseDate').datepicker({ changeYear: true, yearRange: '1950:2020'  });
     });
 </script>
 <div id="bannerrotator">
@@ -104,7 +104,7 @@ if ($user->lastupdatedby_admin) {
                         </tr>
                         <tr>
                             <td>Release Date:</td>
-                            <td><input type="text" name="ReleaseDate" id="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45"></td>
+                            <td><input type="text" name="ReleaseDate" id="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45" readonly></td>
                         </tr>
 
                         <tr>

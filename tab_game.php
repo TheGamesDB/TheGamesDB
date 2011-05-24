@@ -121,10 +121,12 @@ if ($user->lastupdatedby_admin) {
                             <td>
                                 <select name="Rating" size="1">
                                     <option>
-                                    <option <?php if ($game->Rating=='eC - Early Childhood') print 'selected'; ?>>eC - Early Childhood
+                                    <option <?php if ($game->Rating=='EC - Early Childhood') print 'selected'; ?>>EC - Early Childhood
                                     <option <?php if ($game->Rating=='E - Everyone') print 'selected'; ?>>E - Everyone
+									<option <?php if ($game->Rating=='E10+ - Everyone 10+') print 'selected'; ?>>E10+ - Everyone 10+
                                     <option <?php if ($game->Rating=='T - Teen') print 'selected'; ?>>T - Teen
                                     <option <?php if ($game->Rating=='M - Mature') print 'selected'; ?>>M - Mature
+									<option <?php if ($game->Rating=='RP - Rating Pending') print 'selected'; ?>>RP - Rating Pending
                                 </select>
                             </td>
                         </tr>

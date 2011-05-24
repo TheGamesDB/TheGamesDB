@@ -575,7 +575,7 @@ if ($user->lastupdatedby_admin) {
                                                                     }
 
                                                                     if ($bannercount == 0) {
-                                                                        print "There is no fan art for this game\n";
+                                                                        print "There is no box art for this game\n";
                                                                     }
                                                                     ?>
                                                                 </div>

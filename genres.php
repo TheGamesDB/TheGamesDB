@@ -56,7 +56,7 @@
 			<form action="#" method="POST" name="genresform" onSubmit="return false">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="datatablelist">
 <?
-				$query = "SELECT * FROM genres";
+				$query = "SELECT * FROM genres ORDER BY genre";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$tr = 1;								
 				while ($genres = mysql_fetch_object($result)) {

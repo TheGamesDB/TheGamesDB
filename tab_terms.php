@@ -7,7 +7,7 @@
 	<br>
 	<br>
 	<u>TheGamesDb.net WIKI:</u><br>
-	We ask that anyone who plans on becoming a part of TheGamesDB.net community please takes the time to read over the WIKI as it will make your experience more worthwhile. We know the WIKI isn’t perfect. If you see something that needs to be added, edited or deleted, please post in the forums.
+	We ask that anyone who plans on becoming a part of TheGamesDB.net community please takes the time to read over the WIKI as it will make your experience more worthwhile. We know the WIKI isn&apos;t perfect. If you see something that needs to be added, edited or deleted, please post in the forums.
 	<br>
 	<br>
 	<u>Search the Site:</u><br>
@@ -15,12 +15,12 @@
 	<br>
 	<br>
 	<u>Sources of information:</u><br>
-	Your first stop for getting information should ALWAYS be an official site for the game. Sometimes, the official sites don't list complete information, so from there you'll want to hit sites that are either edited by professionals or checked for accuracy on a regular basis. These sites include wikipedia.org, gamespy.com, ign.com, and gamespot.com.
-For the titles of games, I generally follow the formatting used on Wikipedia since it's widely agreed upon. For standard game titles, MAKE SURE you capitalize the first letter in the title. If we have inconsistencies with capitalization, things will start to look very messy.
+	Your first stop for getting information should ALWAYS be an official site for the game. Sometimes, the official sites don&apos;t list complete information, so from there you'll want to hit sites that are either edited by professionals or checked for accuracy on a regular basis. These sites include wikipedia.org, gamespy.com, ign.com, and gamespot.com.
+For the titles of games, I generally follow the formatting used on Wikipedia since it&apos;s widely agreed upon. For standard game titles, MAKE SURE you capitalize the first letter in the title. If we have inconsistencies with capitalization, things will start to look very messy.
 <br>
 <br>
 	<u>Being a Community:</u><br>
-	We know that the site isn’t perfect. That’s why we need you! You think something’s wrong? Question it! You think something is unclear? Let us know! You have the greatest idea for the site that it would eliminate all issues for the rest of time? PLEASE TELL US! We are listening! We understand that YOU are the key to success here, and suggestions and feature requests have an extremely good chance of being implemented. Ask away!
+	We know that the site isn&apos;t perfect. That&apos;s why we need you! You think something&apos;s wrong? Question it! You think something is unclear? Let us know! You have the greatest idea for the site that it would eliminate all issues for the rest of time? PLEASE TELL US! We are listening! We understand that YOU are the key to success here, and suggestions and feature requests have an extremely good chance of being implemented. Ask away!
 	<br>
 	<br>
 	<u>Uploading Images:</u><br>
@@ -34,13 +34,13 @@ For the titles of games, I generally follow the formatting used on Wikipedia sin
         <li>The Banner must be jpeg not bitmap or gif.</li>
         <li>Each Creator is limited to 3 banners per series and 3 banners per season (please try and make each banner unique and not simply the same images with different fonts.</li>
         <li>While some tv series do contain nudity please refrain from using images which contain it.</li>
-        <li>Do not take another artists' banners to alter them slightly then re-upload them. Some artists have spent a good deal of time on the images they upload and it is not acceptable to alter their work without permission.</li>
+        <li>Do not take another artists banners to alter them slightly then re-upload them. Some artists have spent a good deal of time on the images they upload and it is not acceptable to alter their work without permission.</li>
     </ul>
 	
 	    <h2>Fanart</h2>
     <ul>
         <li>Fanart must be 1280x720 or 1920x1080</li>
-        <li>Images must be of good quality. We don't want blurry or pixelated images.</li>
+        <li>Images must be of good quality. We don&apos;t want blurry or pixelated images.</li>
 		<li>Look at the image you're using... Can this be used for more than one game? If you have a picture that is just Mario, you can probably use this as artwork for multiple mario games. This is perfectly acceptable. However, if artwork is title specific, please don't use it on another title in the game series that it doesn't apply to. This would be something like a picture of a character that shows up in one game like Super Mario Bros. 2, but isn't in Super Mario Bros.</li>
 		
     </ul>

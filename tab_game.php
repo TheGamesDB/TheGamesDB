@@ -130,11 +130,7 @@ if ($user->lastupdatedby_admin) {
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Actors/Voice Actors:</td>
-                            <td><input type="text" name="Actors" value="<?=$game->Actors?>" maxlength="512"></td>
-                        </tr>
-
+						
                         <tr>
                             <td>Overview (ENGLISH ONLY): </td>
                             <td>

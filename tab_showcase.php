@@ -37,7 +37,7 @@
 <div style="width: 800px; background-color: #000; color: #FFF; margin: auto; padding: 5px 30px 15px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
 	<img src="images/showcase/feature-xbmclauncher.jpg" style="float: left; padding-right: 30px; padding-bottom: 20px;" />
 	<h1 class="arcade"><span style="color: #00CC3F;">XBMC</span><span style="color: #FFF;">Launcher</span></h1>
-	<p><br />XBMC-Launcher is a plugin that used to launch and run windows or linux applications including emulators within the XBMC GUI.</p>
+	<p><br />XBMC-Launcher is a plugin that is used to launch and run windows or linux applications including emulators within the XBMC GUI.</p>
 	<p>It will allow you to browse your games &amp; apps collection with your remote displaying images scraped from our database wherever it can.</p>
 	<p>It is available to download &amp; and auto-install through the XBMC Application Repository.</p>
 	

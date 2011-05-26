@@ -821,7 +821,22 @@ if ($tab == '') {
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-        <script type="text/javascript">
+    <!-- Start ShadowBox Include -->
+<link rel="stylesheet" href="js/shadowbox/shadowbox.css" type="text/css" media="all" />
+<script src="js/shadowbox/shadowbox.js" type="text/javascript"></script>
+<script type="text/javascript">
+           Shadowbox.init({ overlayOpacity: 0.85 });
+</script>
+<!-- End ShadowBox Include -->
+
+<!-- Start Cufon Include -->
+<script src="js/cufon/cufon-yui.js" type="text/javascript"></script>
+<script src="js/cufon/arcade.font.js" type="text/javascript"></script>
+<script type="text/javascript">
+           Cufon.replace('.arcade');
+</script>
+<!-- End Cufon Include -->  
+	  <script type="text/javascript">
             $('document').ready(function(){
                 var index = 0;
                 var images = $('#recent li');

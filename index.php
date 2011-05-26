@@ -1077,7 +1077,7 @@ if ($tab == '') {
                                     <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/ style="float: right; padding-right: 5px"></a>
                                 <left><font color=#FFFFFF>
 								Owner: Scott Brant (smidley)<br>
-								Coding & Design: Matt McLaughlin</left>
+								Coding & Design: Alex Nazaruk (flexage), Matt McLaughlin</left>
 				<center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center>
 
                 <?php if($tab != 'mainmenu'): ?>

@@ -4,6 +4,7 @@
 ?>
 	<div style="text-align: center;">
 		<h1 class="arcade">Admin Reports &amp; Statistics:</h1>
+		<p><a href="?tab=userlist">User List</a></p>
 		<p><a href="?tab=adminstats&statstype=missingoverview">Games Missing Overview</a></p>
 		<p><a href="?tab=adminstats&statstype=missingplatform">Games Missing Platform Data</a></p>
 		<p><a href="?tab=adminstats&statstype=missinggenre">Games Missing Genre Data</a></p>

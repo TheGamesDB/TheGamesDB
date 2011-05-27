@@ -33,7 +33,7 @@
 							<select name="stringPlatform">
 								<option value="">Select...</option>
 								<?php
-									$platformQuery = mysql_query(" SELECT * FROM platforms ");
+									$platformQuery = mysql_query(" SELECT * FROM platforms ORDER BY name ASC");
 									while($platformResult = mysql_fetch_assoc($platformQuery))
 									{
 										?>
@@ -110,7 +110,7 @@
 				$query = "SELECT * FROM games WHERE GameTitle LIKE '%$string%'";
 				if($stringPlatform != "")
 				{
-					$query = $query .  " AND platform = '$stringPlatform' ";
+					$query = $query .  " AND platform LIKE '%$stringPlatform%' ";
 				}
 				if($stringRating != "")
 				{

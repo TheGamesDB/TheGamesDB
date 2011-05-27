@@ -378,21 +378,21 @@ A:visited  {
 A:hover  {
 	color: #DFEF86;
 }
-
+*/
 
 TABLE#listtable  {
 	width: 100%;
 	padding: 0px;
 	background-color: #001D2D;
+	border: 2px solid #666666;
 }
 
 TABLE#listtable TD  {
 	vertical-align: top;
-	text-align: left;
 	font: 9pt Helvetica, Arial, san-serif;
 }
 TABLE#listtable .head {
-	background-color: #B6D415;
+	background-color: #EF5F00;
 	font-weight: bold;	
 	color: #001D2D;
 }
@@ -410,19 +410,35 @@ TABLE#listtable .head A:hover  {
 	color: #DFEF86;
 }
 
+TABLE#listtable td a{
+	color: #001D2D;
+}
+TABLE#listtable td a:link  {
+	color: #001D2D;
+}
+TABLE#listtable td A:visited  {
+	color: #001D2D;
+}
+TABLE#listtable .even A:hover  {
+	color: #FF6F00;
+}
+TABLE#listtable .odd A:hover  {
+	color: #EF5F00;
+}
+
 TABLE#listtable .even  {
-	background-color: #001D2D;
+	background-color: #AAA;
 }
 
 TABLE#listtable .odd  {
-	background-color: #002337;
+	background-color: #DDD;
 }
 
 TABLE#listtable .special  {
 	background-color: #502337;
 }
 
-
+/*
 TABLE#infotable  {
 	width: 100%;
 	padding: 0px;

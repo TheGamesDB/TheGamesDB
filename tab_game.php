@@ -52,6 +52,7 @@ if ($user->lastupdatedby_admin) {
                 <h1><?=stripslashes($game->GameTitle);?></h1>
             </div>
 
+			<div style="clear: both;"></div>
 
             <div class="section">
                 <form action="<?=$fullurl?>" method="POST" name="seriesform">
@@ -89,7 +90,7 @@ if ($user->lastupdatedby_admin) {
                             </td>
                         </tr>
                         <tr>
-                            <td>Platform: <a onclick="openChild('<?=$baseurl?>/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
+                            <td>Platform:<?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a onclick="openChild('<?=$baseurl?>/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a><?php } ?></td>
                             <td>
                                 <input type="text" name="Platformfake" value="<?=$game->Platform?>" maxlength="255" disabled="true">
                                 <input type="hidden" name="Platform" value="<?=$game->Platform?>">
@@ -121,16 +122,15 @@ if ($user->lastupdatedby_admin) {
                             <td>
                                 <select name="Rating" size="1">
                                     <option>
-                                    <option <?php if ($game->Rating=='EC - Early Childhood') print 'selected'; ?>>EC - Early Childhood
+                                    <option <?php if ($game->Rating=='eC - Early Childhood') print 'selected'; ?>>EC - Early Childhood
                                     <option <?php if ($game->Rating=='E - Everyone') print 'selected'; ?>>E - Everyone
-									<option <?php if ($game->Rating=='E10+ - Everyone 10+') print 'selected'; ?>>E10+ - Everyone 10+
+                                    <option <?php if ($game->Rating=='E10+ - Everyone 10+') print 'selected'; ?>>E10+ - Everyone 10+
                                     <option <?php if ($game->Rating=='T - Teen') print 'selected'; ?>>T - Teen
                                     <option <?php if ($game->Rating=='M - Mature') print 'selected'; ?>>M - Mature
-									<option <?php if ($game->Rating=='RP - Rating Pending') print 'selected'; ?>>RP - Rating Pending
+                                    <option <?php if ($game->Rating=='RP - Rating Pending') print 'selected'; ?>>RP - Rating Pending
                                 </select>
                             </td>
                         </tr>
-						
                         <tr>
                             <td>Overview (ENGLISH ONLY): </td>
                             <td>
@@ -143,7 +143,6 @@ if ($user->lastupdatedby_admin) {
 
                             </td>
                         </tr>
-
                         <tr style="display:none">
                             <td valign="top">Auto-Import:</td>
                             <td>

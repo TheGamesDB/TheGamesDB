@@ -165,14 +165,18 @@ if (!isset($lid)) {
 ## MAIN MENU FUNCTIONS
 #####################################################
 if ($function == 'Add Game') {
+	## Get Platform POSTDATA
+	$selectedPlatform = $_POST['Platform'];
+	
+	
     ## Check for exact matches for seriesname
     $GameTitle = mysql_real_escape_string($GameTitle);
-    $query = "SELECT * FROM games WHERE GameTitle='$GameTitle'";
+    $query = "SELECT * FROM games WHERE GameTitle='$GameTitle' AND Platform='$selectedPlatform'";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
     ## Insert if it doesnt exist already
     if (mysql_num_rows($result) == 0) {
-        $query = "INSERT INTO games (GameTitle, lastupdated) VALUES ('$GameTitle', $time)";
+        $query = "INSERT INTO games (GameTitle, Platform, lastupdated) VALUES ('$GameTitle', '$selectedPlatform', $time)";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
         $id = mysql_insert_id();
         // TODO: trace this back and change the name
@@ -183,8 +187,9 @@ if ($function == 'Add Game') {
 
         $URL = "$baseurl/?tab=game&id=$id";
         header("Location: $URL");
+		echo $selectedPlatform;
     } else {
-        $errormessage = 'Game Already Exists.';
+        $errormessage = "Game Already Exists For That Platform - $GameTitle, $selectedPlatform.";
     }
 }
 
@@ -821,22 +826,24 @@ if ($tab == '') {
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
-    <!-- Start ShadowBox Include -->
-<link rel="stylesheet" href="js/shadowbox/shadowbox.css" type="text/css" media="all" />
-<script src="js/shadowbox/shadowbox.js" type="text/javascript"></script>
-<script type="text/javascript">
-           Shadowbox.init({ overlayOpacity: 0.85 });
-</script>
-<!-- End ShadowBox Include -->
-
-<!-- Start Cufon Include -->
-<script src="js/cufon/cufon-yui.js" type="text/javascript"></script>
-<script src="js/cufon/arcade.font.js" type="text/javascript"></script>
-<script type="text/javascript">
-           Cufon.replace('.arcade');
-</script>
-<!-- End Cufon Include -->  
-	  <script type="text/javascript">
+		
+		<!-- Start ShadowBox Include -->
+        <link rel="stylesheet" href="js/shadowbox/shadowbox.css" type="text/css" media="all" />
+		<script src="js/shadowbox/shadowbox.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			Shadowbox.init({ overlayOpacity: 0.85 });
+		</script>
+		<!-- End ShadowBox Include -->
+		
+		<!-- Start Cufon Include -->
+		<script src="js/cufon/cufon-yui.js" type="text/javascript"></script>
+		<script src="js/cufon/arcade.font.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			Cufon.replace('.arcade');
+		</script>
+		<!-- End Cufon Include -->
+		
+        <script type="text/javascript">
             $('document').ready(function(){
                 var index = 0;
                 var images = $('#recent li');
@@ -1051,9 +1058,9 @@ if ($tab == '') {
 
                             </form>
                             <ul>
-								<li id="nav_donation" class="tab"><a href="http://thegamesdb.net/?tab=donation"></a></li>
+								<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
                                 <li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
-								<li id="nav_stats" class="tab"><a href="http://thegamesdb.net/?tab=stats"></a></li>
+								<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
                         <?php if ($loggedin): ?>
                                 <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
                         <?php endif; ?>
@@ -1074,10 +1081,8 @@ if ($tab == '') {
                             <div id="footer">
 
 															<a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
-                                    <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter"/ style="float: right; padding-right: 5px"></a>
-                                <left><font color=#FFFFFF>
-								Owner: Scott Brant (smidley)<br>
-								Coding & Design: Alex Nazaruk (flexage), Matt McLaughlin</left>
+                                    <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter" style="float: right; padding-right: 5px" /></a>
+                                <left><font color=#FFFFFF>Owner: Scott Brant (smidley)<br>Coding &amp; Design: Alex Nazaruk (flexage), Matt McLaughlin</left> 
 				<center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center>
 
                 <?php if($tab != 'mainmenu'): ?>
@@ -1112,5 +1117,8 @@ if ($tab == '') {
             })();
 
         </script>
+		
+		<!-- Force instant run of cufon to circumvent IE delay -->
+		<script type="text/javascript"> Cufon.now(); </script>
     </body>
 </html>

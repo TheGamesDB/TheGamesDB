@@ -576,7 +576,7 @@ if ($user->lastupdatedby_admin) {
                                                                 </div>
 
                                                                 <div class="section">
-                                                                    <h1>Box Art</h1>
+                                                                    <h1>Box Art Upload</h1>
                                                                     <?php  	## check for agreement to terms
                                                                     if ($user->banneragreement != 1) {
                                                                         print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";

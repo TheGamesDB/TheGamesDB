@@ -168,8 +168,8 @@ h2{
 .right { float: right; }
 .clear { clear: both; }
 .tile { display: block;margin-top: 11px }
-.error { color: red }
-.message {color:green;font-size: 18px}
+.error { color: red; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
+.message {color:green; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
 .ad {
     margin:0 auto;
     width:468px;

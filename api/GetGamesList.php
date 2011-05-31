@@ -41,7 +41,7 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT id, GameTitle, ReleaseDate FROM games WHERE id={$obj->id}";
+    $subquery = "SELECT id, GameTitle, ReleaseDate, Platform FROM games WHERE id={$obj->id}";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach ($baseObj as $key => $value) {

@@ -137,7 +137,9 @@ $secureArea = array(
     'addgame'
 );
 if (!$loggedin && in_array($tab, $secureArea)) {
-    header("Location:index.php");
+    //header("Location:index.php");
+	$tab = "mainmenu";
+	$errormessage = "You must be logged in to access that area. <a href=\"$baseurl/?tab=login\">Login</a>";
 }
 
 #####################################################
@@ -458,7 +460,7 @@ if ($function == 'Register') {
                 $query = "INSERT INTO users (username, userpass, emailaddress, languageid, uniqueid) VALUES ('$username', PASSWORD('$userpass1'), '$email', $languageid, '$uniqueid')";
                 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
                 $tab = 'mainmenu';
-                $message = '<p><em>Thank you for registering with TheGamesDB!</em><p>You will receive an email confirmation with your account information shortly.  Please proceed to the login screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
+                $message = '<p><strong><em>Thank you for registering with TheGamesDB!</em></strong><p>You will receive an email confirmation with your account information shortly.  Please proceed to the <a href=\"$baseurl/?tab=login\">Login</a> screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
             } else {
                 $errormessage = 'Email address is required.';
             }
@@ -580,7 +582,7 @@ if ($function == 'Terms Agreement') {
     if ($agreecheck) {
         $query = "UPDATE users SET banneragreement=1 WHERE id=$user->id";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Thankyou for agreeing to the site terms. You may now upload banners';
+        $errormessage = 'Thank you for agreeing to the site terms. You may now upload banners';
         $tab = 'mainmenu';
     }
 }
@@ -843,20 +845,26 @@ if ($tab == '') {
 		</script>
 		<!-- End Cufon Include -->
 		
+		
+		<!-- Start jQuery Image Dropdown Include -->
+		<link rel="stylesheet" type="text/css" href="/js/jqdropdown/dd.css" />
+		<script src="js/jqdropdown/js/jquery.dd.js" type="text/javascript"></script>
+		<!-- End jQuery Image Dropdown Include -->
+		
         <script type="text/javascript">
             $('document').ready(function(){
                 var index = 0;
                 var images = $('#recent li');
-                $($(images).get(index)).show();
+                $($(images).get(index)).show('clip', {easing: 'easeOutCirc'}, 2000);
                 window.setInterval(function(){
-                    $($(images).get(index)).fadeOut('slow', function(){
+                    $($(images).get(index)).hide('clip', {easing: 'easeInOutCirc'}, 2000, function(){
                         if(index == images.length - 1){
                             index = 0;
                         }else{
                             index++;
                         }
 
-                        $($(images).get(index)).fadeIn('slow');
+                        $($(images).get(index)).fadeIn(1500);
                     });
                 }, 6000);
             });
@@ -1041,9 +1049,9 @@ if ($tab == '') {
             <div id="header">
                 <p>
                     <?php if ($loggedin): ?>
-                        <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+						<a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a> | <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
                     <?php else: ?>
-                            <a href="<?= $baseurl ?>/?tab=login">Login</a>. New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+                            <a href="<?= $baseurl ?>/?tab=login">Login</a> | New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
                     <?php endif; ?>
                         </p>
                         <a href="<?= $baseurl ?>" title="An open database of video games">
@@ -1051,11 +1059,11 @@ if ($tab == '') {
                         </a>
                         <div id="nav">
                             <form id="search" action="<?= $baseurl ?>/index.php">
-                                <input class="left "type="text" name="string" id="search" value="search" onFocus="this.value=''" />
+                                <input class="left "type="text" name="string" id="search" value="Search..." onFocus="this.value=''" style="color: #333; margin-left: 10px;" />
                                 <input type="hidden" name="searchseriesid" id="searchseriesid" />
                                 <input type="hidden" name="tab" value="listseries" />
                                 <input type="hidden" name="function" value="Search" />
-
+								<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px;" />
                             </form>
                             <ul>
 								<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
@@ -1069,7 +1077,9 @@ if ($tab == '') {
                     </div>
 
                     <div id="content">
+                        <?php if($errormessage): ?>
                         <div class="error"><?= $errormessage ?></div>
+                        <?php endif; ?>
                         <?php if($message): ?>
                         <div class="message"><?= $message ?></div>
                         <?php endif; ?>

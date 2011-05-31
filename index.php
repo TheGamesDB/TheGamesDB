@@ -168,17 +168,17 @@ if (!isset($lid)) {
 #####################################################
 if ($function == 'Add Game') {
 	## Get Platform POSTDATA
-	$selectedPlatform = $_POST['Platform'];
+	//$selectedPlatform = $_POST['Platform'];
 	
 	
     ## Check for exact matches for seriesname
     $GameTitle = mysql_real_escape_string($GameTitle);
-    $query = "SELECT * FROM games WHERE GameTitle='$GameTitle' AND Platform='$selectedPlatform'";
+    $query = "SELECT * FROM games WHERE GameTitle='$GameTitle' AND Platform='$cleanPlatform'";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
     ## Insert if it doesnt exist already
     if (mysql_num_rows($result) == 0) {
-        $query = "INSERT INTO games (GameTitle, Platform, lastupdated) VALUES ('$GameTitle', '$selectedPlatform', $time)";
+        $query = "INSERT INTO games (GameTitle, Platform, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time)";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
         $id = mysql_insert_id();
         // TODO: trace this back and change the name
@@ -191,7 +191,7 @@ if ($function == 'Add Game') {
         header("Location: $URL");
 		echo $selectedPlatform;
     } else {
-        $errormessage = "Game Already Exists For That Platform - $GameTitle, $selectedPlatform.";
+        $errormessage = "Sorry, \"$GameTitle\" Already Exists For That Platform.";
     }
 }
 
@@ -855,16 +855,16 @@ if ($tab == '') {
             $('document').ready(function(){
                 var index = 0;
                 var images = $('#recent li');
-                $($(images).get(index)).show('clip', {easing: 'easeOutCirc'}, 2000);
+                $($(images).get(index)).fadeIn('slow');
                 window.setInterval(function(){
-                    $($(images).get(index)).hide('clip', {easing: 'easeInOutCirc'}, 2000, function(){
+                    $($(images).get(index)).fadeOut('slow', function(){
                         if(index == images.length - 1){
                             index = 0;
                         }else{
                             index++;
                         }
 
-                        $($(images).get(index)).fadeIn(1500);
+                        $($(images).get(index)).fadeIn('slow');
                     });
                 }, 6000);
             });

@@ -25,13 +25,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$lockedcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform, games.lockedby, users.username FROM games, users WHERE locked = 'yes' AND games.lockedby = users.id ORDER BY games.GameTitle ASC");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name, games.lockedby, users.username FROM games, platforms, users WHERE games.Platform = platforms.id AND locked = 'yes' AND games.lockedby = users.id ORDER BY games.GameTitle ASC");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 						<td><?php echo $row[username]; ?></td>
 					</tr>
 					<?php
@@ -56,13 +56,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE games.Overview IS NULL ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE games.Platform = platforms.id AND games.Overview IS NULL ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;
@@ -114,13 +114,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE games.Genre IS NULL ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE games.Platform = platforms.id AND games.Genre IS NULL ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;
@@ -144,13 +144,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$multiplecount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE games.Platform LIKE '|%|%|' ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE games.Platform = platforms.id AND games.Platform LIKE '|%|%|' ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$multiplecount++;
@@ -174,13 +174,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%front%') ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%front%') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;
@@ -204,13 +204,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$morecount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE (SELECT COUNT(filename) FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%front%') > 1 ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE (SELECT COUNT(filename) FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%front%') > 1 AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$morecount++;
@@ -234,13 +234,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%back%') ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.filename LIKE '%back%') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;
@@ -264,13 +264,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'fanart') ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'fanart') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;
@@ -294,13 +294,13 @@ if ($adminuserlevel == 'ADMINISTRATOR') {
 					</tr>
 				<?php
 				$missingcount = 0;
-				$result = mysql_query(" SELECT games.id, games.GameTitle, games.Platform FROM games WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'series') ORDER BY games.GameTitle ASC ");
+				$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'series') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
 				while($row = mysql_fetch_assoc($result)) {
 					?>
 					<tr>
 						<td><?php echo $row[id]; ?></td>
 						<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
-						<td><?php echo $row[Platform]; ?></td>
+						<td><?php echo $row[name]; ?></td>
 					</tr>
 					<?php
 					$missingcount++;

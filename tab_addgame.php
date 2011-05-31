@@ -34,13 +34,13 @@
 				<tr>
 					<td valign="top"><b>Platform:</b></td>
 					<td>
-						<select id="Platform" name="Platform">
+						<select id="Platform" name="cleanPlatform">
 							<option value="empty">Select Platform...</option>
 							<?php
 								while($platformRow = mysql_fetch_assoc($platformResult))
 								{
 							?>
-								<option value="|<?php echo $platformRow["name"]; ?>|"><?php echo $platformRow["name"]; ?></option>
+								<option value="<?php echo $platformRow["id"]; ?>"><?php echo $platformRow["name"]; ?></option>
 							<?php
 								}
 							?>

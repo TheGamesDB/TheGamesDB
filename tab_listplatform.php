@@ -19,8 +19,7 @@
 									while($platformResult = mysql_fetch_assoc($platformQuery))
 									{
 										?>
-											<a href="?tab_listplatforms&platform=<?php echo $platformResult['name']; ?>" style="color: #FFF; display: inline-block;"><?php echo $platformResult['name']; ?></a>&nbsp;
-											<option value="<?php echo $platformResult['name']; ?>" title="images/common/consoles/png48/<?php echo $platformResult['icon'];?>"<?php if($stringPlatform == $platformResult['name']) {echo " selected";}?>><?php echo $platformResult['name']; ?></option>
+											<option value="<?php echo $platformResult['id']; ?>" title="images/common/consoles/png48/<?php echo $platformResult['icon'];?>"<?php if($stringPlatform == $platformResult['id']) {echo " selected";}?>><?php echo $platformResult['name']; ?></option>
 										<?php
 									}
 								?>
@@ -55,12 +54,15 @@
 
 			
 			if ($function == 'Browse By Platform')  {
-				$query = "SELECT * FROM games WHERE platform LIKE '%$stringPlatform%' ORDER BY GameTitle";
+				$query = "SELECT * FROM games WHERE Platform = '$stringPlatform' ORDER BY GameTitle";
 			
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 				## Display each game
 				while ($game = mysql_fetch_object($result)) {
+					$platformIdQuery = mysql_query("SELECT * FROM platforms WHERE id = '$game->Platform' LIMIT 1");
+					$platformIdResult = mysql_fetch_object($platformIdQuery);
+				
 					$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 					$boxartResult = mysql_num_rows($boxartQuery);
 					
@@ -72,8 +74,8 @@
 					<tr>
 						<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
 						<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/?tab=game&id=<?php echo $game->id; ?>&lid=1"><?php echo $game->GameTitle; ?></a></td>
-						<td class="<?php echo $class; ?>"><?php echo $game->Platform; ?></td>
-						<td class="<?php echo $class; ?>"><?php echo $game->Genre; ?></td>
+						<td class="<?php echo $class; ?>"><img src="images/common/consoles/png16/<?php echo $platformIdResult->icon; ?>" alt="<?php echo $platformIdResult->name; ?>" style="vertical-align: middle;" /> <?php echo $platformIdResult->name; ?></td>
+						<td class="<?php echo $class; ?>"><?php if(!empty($game->Genre)) { $mainGenre = explode("|", $game->Genre); if(strlen($mainGenre[1]) > 15) { $mainGenre[1] = substr($mainGenre[1], 0, 15) . "..."; }echo $mainGenre[1]; } ?></td>
 						<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
 						<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
 						<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>

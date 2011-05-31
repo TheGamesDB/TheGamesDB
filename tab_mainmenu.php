@@ -30,8 +30,7 @@
 							while($platformResult = mysql_fetch_assoc($platformQuery))
 							{
 								?>
-									<a href="?tab_listplatforms&platform=<?php echo $platformResult['name']; ?>" style="color: #FFF; display: inline-block;"><?php echo $platformResult['name']; ?></a>&nbsp;
-									<option value="<?php echo $platformResult['name']; ?>" title="images/common/consoles/png24/<?php echo $platformResult['icon'];?>"<?php if($stringPlatform == $platformResult['name']) {echo " selected";}?>><?php echo $platformResult['name']; ?></option>
+									<option value="<?php echo $platformResult['id']; ?>" title="images/common/consoles/png24/<?php echo $platformResult['icon'];?>"<?php if($stringPlatform == $platformResult['name']) {echo " selected";}?>><?php echo $platformResult['name']; ?></option>
 								<?php
 							}
 						?>

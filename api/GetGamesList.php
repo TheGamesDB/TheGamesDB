@@ -41,13 +41,17 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT id, GameTitle, ReleaseDate, Platform FROM games WHERE id={$obj->id}";
+    $subquery = "SELECT games.id, games.GameTitle, games.ReleaseDate, platforms.name FROM games, platforms WHERE games.id={$obj->id} AND platforms.id = games.Platform";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach ($baseObj as $key => $value) {
         ## Prepare the string for output
         if (!empty($value)) {
             $value = xmlformat($value, $key);
+			if($key == "name")
+			{
+				$key = "Platform";
+			}
             print "<$key>$value</$key>\n";
         }
     }

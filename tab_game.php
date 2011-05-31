@@ -89,11 +89,26 @@ if ($user->lastupdatedby_admin) {
                                 </select>
                             </td>
                         </tr>
+						<?php
+							$platformIdQuery = mysql_query("SELECT * FROM platforms WHERE id = '$game->Platform' LIMIT 1");
+							$platformIdResult = mysql_fetch_object($platformIdQuery);
+						?>
                         <tr>
-                            <td>Platform:<?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a onclick="openChild('<?=$baseurl?>/platforms.php?Platform=<?=addcslashes($game->Platform,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'PlatformsEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a><?php } ?></td>
+                            <td>Platform:</td>
                             <td>
-                                <input type="text" name="Platformfake" value="<?=$game->Platform?>" maxlength="255" disabled="true">
-                                <input type="hidden" name="Platform" value="<?=$game->Platform?>">
+								<?php
+									$platformQuery = mysql_query(" SELECT * FROM platforms ORDER BY name ASC");
+								?>
+									<select name="Platform"<?php if ($adminuserlevel != 'ADMINISTRATOR') { echo "disabled"; } ?>>
+										<?php
+											while($platformResult = mysql_fetch_object($platformQuery))
+											{
+										?>
+												<option value="<?=$platformResult->id?>"<?php if($platformResult->id == $platformIdResult->id){ echo " selected"; } ?>><?=$platformResult->name?></option>
+										<?php
+											}
+										?>
+									</select>
                             </td>
                         </tr>
                         <tr>

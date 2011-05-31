@@ -19,6 +19,37 @@ $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];
 
+	###==============###
+	###VITAL FUNCTIONS###
+	###----------------------------###
+	
+	## Function to generate a fanart thumb image if does not already exist
+	function makeFanartThumb($sourcefile, $targetfile) {
+
+        ## Get the image sizes and read it into an image object
+        $sourcefile_id  = imagecreatefromjpeg($sourcefile);
+        $width          = imageSX($sourcefile_id);
+        $height         = imageSY($sourcefile_id);
+
+        ## Settings
+        //$scale          = 0.1;
+		$destWidth = 300;
+		$destHeight = 169;
+
+        ## Create a new destination image object - for scale resize replace $destWidth, $destHeight with: $width * $scale, $height * $scale
+        $result_id      = imagecreatetruecolor($destWidth, $destHeight);
+
+        ## Copy our source image resized into the destination object - for scale resize replace $destWidth, $destHeight with: $width * $scale, $height * $scale
+        imagecopyresampled($result_id, $sourcefile_id, 0, 0, 0, 0, $destWidth, $destHeight, $width, $height);
+
+        ## Return the JPG
+        imagejpeg ($result_id, $targetfile, 90);
+
+        ## Wrap it up
+        imagedestroy($sourcefile_id);
+        imagedestroy($result_id);
+	}
+
 if (empty($name) && empty($id)) {
     print "<Error>A name or id is required</Error>\n";
     exit;
@@ -94,11 +125,28 @@ while ($obj = mysql_fetch_object($result)) {
                     break;
 
                 case 'fanart':
-                    echo '<fanart>';
-                    echo "<original>$value</original>";
-                    $v = str_replace('original', 'vignette', $value);
-                    echo "<vignette>$v</vignette>";
-                    echo '</fanart>';
+					## Construct file names
+					$faOriginal = $value;
+					$faVignette = str_replace("original", "vignette", $value);
+					$faThumb = str_replace("original", "thumb", $value);
+				
+					## Check to see if the original fanart file actually exists before attempting to process 
+					if(file_exists("../banners/$faOriginal"))
+					{			
+						## Check if thumb already exists
+						if(!file_exists("../banners/$faThumb"))
+						{					
+							## If thumb is non-existant then create it
+							makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
+						}
+						
+						## Output Fanart XML Branch
+						print "<fanart>\n";
+							print "<original>$faOriginal</original>\n";
+							print "<vignette>$faVignette</vignette>\n";
+							print "<thumb>$faThumb</thumb>\n";
+						print "</fanart>\n";
+					}
                     break;
 
                 case 'boxart':

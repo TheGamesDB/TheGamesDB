@@ -40,7 +40,7 @@
 								while($platformRow = mysql_fetch_assoc($platformResult))
 								{
 							?>
-								<option value="<?php echo $platformRow["id"]; ?>"><?php echo $platformRow["name"]; ?></option>
+								<option value="<?php echo $platformRow["id"]; ?>"<?php if($passPlatform == $platformRow["id"]) {echo " selected";}?>><?php echo $platformRow["name"]; ?></option>
 							<?php
 								}
 							?>
@@ -49,7 +49,7 @@
 				</tr>
 				<tr> 
 					<td valign="top"><b>Game Title:</b></td> 
-					<td><input type="text" id="GameTitle" name="GameTitle" size="46"></td>
+					<td><input type="text" id="GameTitle" name="GameTitle" size="46" value="<?php if(!empty($passTitle)){echo $passTitle;} ?>"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><a href="http://forums.thegamesdb.net/" style="color: #fff;">Request a new platform option</a></td>

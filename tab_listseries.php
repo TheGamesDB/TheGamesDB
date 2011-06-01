@@ -162,10 +162,18 @@
 
 			## No matches found?
 			if ($gamecount == 0)  {
-				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">No Games Found. Have you tried widening your search parameters?";
+				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">The game you searched for has not been added yet, would you like to <a href=\"?tab=addgame&passTitle=$string\">create it?</a>";
 				//if (!$alllang){print "Retry <a href=\"$baseurl/index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">search</a> in all languages?";}
 				print "</td></tr>\n";
 				
+			}
+			else
+			{
+				?>
+					<tr>
+						<td class="total" colspan="7">Total Matching Search: <?=$gamecount?> Games</td>
+					</tr>
+				<?
 			}
 		?>
 		</table>

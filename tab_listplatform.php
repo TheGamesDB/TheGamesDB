@@ -87,10 +87,18 @@
 
 			## No matches found?
 			if ($gamecount == 0)  {
-				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">This platform currently has 0 games... Why not <a href=\"?tab=addgame\">add one</a>?";
+				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">This platform does not have any games yet... Why not <a href=\"?tab=addgame&passPlatform=$stringPlatform\">add one</a>?";
 				//if (!$alllang){print "Retry <a href=\"$baseurl/index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">search</a> in all languages?";}
 				print "</td></tr>\n";
 				
+			}
+			else
+			{
+				?>
+					<tr>
+						<td class="total" colspan="7">Platform Total: <?=$gamecount?> Games</td>
+					</tr>
+				<?php
 			}
 		?>
 		</table>

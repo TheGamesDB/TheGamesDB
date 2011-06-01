@@ -438,6 +438,15 @@ TABLE#listtable .special  {
 	background-color: #502337;
 }
 
+TABLE#listtable .total  {
+	background-color: #313131;
+	color: #FFF;
+	text-align: center;
+	font-weight: normal;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+
 /*
 TABLE#infotable  {
 	width: 100%;

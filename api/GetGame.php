@@ -65,22 +65,44 @@ if (empty($name) && empty($id)) {
     } else {
         $id = (int) $id;
     }
-    print "<Data>\n<baseImgUrl>http://thegamesdb.net/banners/</baseImgUrl>\n";
 }
 
 $query;
-if (isset($id) && !empty($id)) {
-    $query = "SELECT id FROM games WHERE id=$id";
-} else {
-    $query = "SELECT id FROM games WHERE GameTitle REGEXP '$name'";
+if (isset($id) && !empty($id))
+{
+	$query = "SELECT id FROM games WHERE id=$id";
+}
+else
+{
+	if(isset($platform) && !empty($platform))
+	{
+		$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
+		if(mysql_num_rows($platformResult) != 0)
+		{
+			$platformRow = mysql_fetch_assoc($platformResult);
+			$platformId = $platformRow['id'];
+			
+			$query = "SELECT id FROM games WHERE GameTitle REGEXP '$name' AND Platform = '$platformId'";
+		}
+		else
+		{
+			print "<Error>The specified platform was not valid.</Error>\n";
+			exit;
+		}
+	}
+	else
+	{
+		$query = "SELECT id FROM games WHERE GameTitle REGEXP '$name'";
+	}
 }
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+print "<Data>\n<baseImgUrl>http://thegamesdb.net/banners/</baseImgUrl>\n";
 
 while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT g.id, g.GameTitle, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid and r.itemtype='game') WHERE g.id={$obj->id} Group By g.id";
+    $subquery = "SELECT g.id, g.GameTitle, p.name as Platform, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid and r.itemtype='game'), platforms as p WHERE g.id={$obj->id} AND p.id = g.platform Group By g.id";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach ($baseObj as $key => $value) {

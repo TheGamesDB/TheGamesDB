@@ -15,6 +15,7 @@ include("include.php");
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
 $name = str_replace(array(' - ', '-'), '%', $name);
+$platform = $_REQUEST["platform"];
 
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];
@@ -28,15 +29,33 @@ if (empty($name)) {
             $name = "The " . substr($name, 0, strpos($name, ", The"));
         }
     }
-    print "<Data>\n";
 }
 
 $query;
-if (isset($name) && !empty($name)) {
-    $query = "SELECT id FROM games WHERE GameTitle LIKE '%$name%' ORDER BY GameTitle ASC";
+if (isset($name) && !empty($name))
+{
+	$query = "SELECT id FROM games WHERE GameTitle LIKE '%$name%'";
+	if(isset($platform) && !empty($platform))
+	{
+		$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
+		if(mysql_num_rows($platformResult) != 0)
+		{
+			$platformRow = mysql_fetch_assoc($platformResult);
+			$platformId = $platformRow['id'];
+			
+			$query = $query . " AND platform = '$platformId'";
+		}
+		else
+		{
+			print "<Error>The specified platform was not valid.</Error>\n";
+			exit;
+		}
+	}
+	$query = $query . " ORDER BY GameTitle ASC";
 }
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
+print "<Data>\n";
 while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 

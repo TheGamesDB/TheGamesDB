@@ -71,10 +71,16 @@
 					makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
 				}
 				
+				## Get Fanart Image Dimensions
+				$sourcefile_id  = imagecreatefromjpeg("../banners/$faOriginal");
+				$faWidth          = imageSX($sourcefile_id);
+				$faHeight         = imageSY($sourcefile_id);
+				imagedestroy($sourcefile_id);
+				
 				## Output Fanart XML Branch
 				print "<fanart>\n";
-					print "<original>$faOriginal</original>\n";
-					print "<vignette>$faVignette</vignette>\n";
+					print "<original width=\"$faWidth\" height=\"$faHeight\">$faOriginal</original>\n";
+					print "<vignette width=\"$faWidth\" height=\"$faHeight\">$faVignette</vignette>\n";
 					print "<thumb>$faThumb</thumb>\n";
 				print "</fanart>\n";
 			}
@@ -96,9 +102,27 @@
 		
 			## Check to see if the original boxart file actually exists before attempting to process 
 			if(file_exists("../banners/$baOriginal"))
-			{			
+			{
+				$imageType = getimagesize("../banners/$baOriginal");
+				
+				if($imageType[2] == 2)
+				{
+					## Get Boxart Image Dimensions
+					$baSourcefile_id  = imagecreatefromjpeg("../banners/$baOriginal");
+					$baWidth          = imageSX($baSourcefile_id);
+					$baHeight         = imageSY($baSourcefile_id);
+					imagedestroy($baSourcefile_id);
+				}
+				elseif($imageType[2] == 3)
+				{
+					$baSourcefile_id  = imagecreatefrompng("../banners/$baOriginal");
+					$baWidth          = imageSX($baSourcefile_id);
+					$baHeight         = imageSY($baSourcefile_id);
+					imagedestroy($baSourcefile_id);
+				}
+				
 				## Output Boxart XML Branch
-				echo "<boxart side='$type'>$baOriginal</boxart>\n";
+				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\">$baOriginal</boxart>\n";
 			}
 		}
 	}
@@ -118,7 +142,7 @@
 			if(file_exists("../banners/$banOriginal"))
 			{			
 				## Output Boxart XML Branch
-				echo "<banner>$banOriginal</banner>";
+				echo "<banner width=\"760\" height=\"140\">$banOriginal</banner>";
 			}
 		}
 	}

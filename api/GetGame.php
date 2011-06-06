@@ -49,6 +49,105 @@ $user = $_REQUEST["user"];
         imagedestroy($sourcefile_id);
         imagedestroy($result_id);
 	}
+	
+	function processFanart($gameID)
+	{
+		## Select all fanart rows for the requested game id
+		$faResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'fanart' ORDER BY filename ASC ");
+		
+		## Process each fanart row incrementally
+		while($faRow = mysql_fetch_assoc($faResult))
+		{
+			## Construct file names
+			$faOriginal = $faRow['filename'];
+			$faVignette = str_replace("original", "vignette", $faRow['filename']);
+			$faThumb = str_replace("original", "thumb", $faRow['filename']);
+		
+			## Check to see if the original fanart file actually exists before attempting to process 
+			if(file_exists("../banners/$faOriginal"))
+			{			
+				## Check if thumb already exists
+				if(!file_exists("../banners/$faThumb"))
+				{					
+					## If thumb is non-existant then create it
+					makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
+				}
+				
+				## Get Fanart Image Dimensions
+				$sourcefile_id  = imagecreatefromjpeg("../banners/$faOriginal");
+				$faWidth          = imageSX($sourcefile_id);
+				$faHeight         = imageSY($sourcefile_id);
+				imagedestroy($sourcefile_id);
+				
+				## Output Fanart XML Branch
+				print "<fanart>\n";
+					print "<original width=\"$faWidth\" height=\"$faHeight\">$faOriginal</original>\n";
+					print "<vignette width=\"$faWidth\" height=\"$faHeight\">$faVignette</vignette>\n";
+					print "<thumb>$faThumb</thumb>\n";
+				print "</fanart>\n";
+			}
+		}
+	}
+	
+	function processBoxart($gameID)
+	{
+		## Select all boxart rows for the requested game id
+		$baResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'boxart' ORDER BY filename ASC ");
+		
+		## Process each boxart row incrementally
+		while($baRow = mysql_fetch_assoc($baResult))
+		{
+			## Construct file names
+			$baOriginal = $baRow['filename'];
+			
+			$type  = (preg_match('/front/', $baOriginal)) ? 'front' : 'back';
+		
+			## Check to see if the original boxart file actually exists before attempting to process 
+			if(file_exists("../banners/$baOriginal"))
+			{
+				$imageType = getimagesize("../banners/$baOriginal");
+				
+				if($imageType[2] == 2)
+				{
+					## Get Boxart Image Dimensions
+					$baSourcefile_id  = imagecreatefromjpeg("../banners/$baOriginal");
+					$baWidth          = imageSX($baSourcefile_id);
+					$baHeight         = imageSY($baSourcefile_id);
+					imagedestroy($baSourcefile_id);
+				}
+				elseif($imageType[2] == 3)
+				{
+					$baSourcefile_id  = imagecreatefrompng("../banners/$baOriginal");
+					$baWidth          = imageSX($baSourcefile_id);
+					$baHeight         = imageSY($baSourcefile_id);
+					imagedestroy($baSourcefile_id);
+				}
+				
+				## Output Boxart XML Branch
+				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\">$baOriginal</boxart>\n";
+			}
+		}
+	}
+	
+	function processBanner($gameID)
+	{
+		## Select all boxart rows for the requested game id
+		$banResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'series' ORDER BY filename ASC ");
+		
+		## Process each boxart row incrementally
+		while($banRow = mysql_fetch_assoc($banResult))
+		{
+			## Construct file names
+			$banOriginal = $banRow['filename'];
+		
+			## Check to see if the original boxart file actually exists before attempting to process 
+			if(file_exists("../banners/$banOriginal"))
+			{			
+				## Output Boxart XML Branch
+				echo "<banner width=\"760\" height=\"140\">$banOriginal</banner>";
+			}
+		}
+	}
 
 if (empty($name) && empty($id)) {
     print "<Error>A name or id is required</Error>\n";
@@ -131,54 +230,15 @@ while ($obj = mysql_fetch_object($result)) {
         }
     }
 
-    ## Get top banner
-    $subquery = "SELECT filename, keytype FROM banners WHERE keyvalue=$obj->id";
-    $subresult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
-    if ($subresult) {
-        echo "<Images>";
-        while ($subdb = mysql_fetch_object($subresult)) {
-            $key = $subdb->keytype;
-            $value = $subdb->filename;
-            $value = xmlformat($value, $key);
-
-            switch ($key) {
-                case 'series':
-                    echo "<banner>$value</banner>";
-                    break;
-
-                case 'fanart':
-					## Construct file names
-					$faOriginal = $value;
-					$faVignette = str_replace("original", "vignette", $value);
-					$faThumb = str_replace("original", "thumb", $value);
-				
-					## Check to see if the original fanart file actually exists before attempting to process 
-					if(file_exists("../banners/$faOriginal"))
-					{			
-						## Check if thumb already exists
-						if(!file_exists("../banners/$faThumb"))
-						{					
-							## If thumb is non-existant then create it
-							makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
-						}
-						
-						## Output Fanart XML Branch
-						print "<fanart>\n";
-							print "<original>$faOriginal</original>\n";
-							print "<vignette>$faVignette</vignette>\n";
-							print "<thumb>$faThumb</thumb>\n";
-						print "</fanart>\n";
-					}
-                    break;
-
-                case 'boxart':
-                    $type  = (preg_match('/front/', $value)) ? 'front' : 'back';
-                    echo "<boxart side='$type'>$value</boxart>";
-                    break;
-            }
-        }
-        echo "</Images>";
-    }
+    ## Process Images
+	print "<Images>\n";
+	
+	processFanart($obj->id);
+	processBoxart($obj->id);
+	processBanner($obj->id);
+	
+	print "</Images>\n";
+    
 
     ## End XML item
     print "</Game>\n";

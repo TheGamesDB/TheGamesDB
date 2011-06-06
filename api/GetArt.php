@@ -72,10 +72,9 @@
 				}
 				
 				## Get Fanart Image Dimensions
-				$sourcefile_id  = imagecreatefromjpeg("../banners/$faOriginal");
-				$faWidth          = imageSX($sourcefile_id);
-				$faHeight         = imageSY($sourcefile_id);
-				imagedestroy($sourcefile_id);
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$faOriginal");
+				$faWidth = $image_width;
+				$faHeight = $image_height;
 				
 				## Output Fanart XML Branch
 				print "<fanart>\n";
@@ -103,23 +102,10 @@
 			## Check to see if the original boxart file actually exists before attempting to process 
 			if(file_exists("../banners/$baOriginal"))
 			{
-				$imageType = getimagesize("../banners/$baOriginal");
-				
-				if($imageType[2] == 2)
-				{
-					## Get Boxart Image Dimensions
-					$baSourcefile_id  = imagecreatefromjpeg("../banners/$baOriginal");
-					$baWidth          = imageSX($baSourcefile_id);
-					$baHeight         = imageSY($baSourcefile_id);
-					imagedestroy($baSourcefile_id);
-				}
-				elseif($imageType[2] == 3)
-				{
-					$baSourcefile_id  = imagecreatefrompng("../banners/$baOriginal");
-					$baWidth          = imageSX($baSourcefile_id);
-					$baHeight         = imageSY($baSourcefile_id);
-					imagedestroy($baSourcefile_id);
-				}
+				## Get boxart image dimensions
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$baOriginal");
+				$baWidth = $image_width;
+				$baHeight = $image_height;
 				
 				## Output Boxart XML Branch
 				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\">$baOriginal</boxart>\n";

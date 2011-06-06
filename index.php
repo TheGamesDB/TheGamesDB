@@ -264,29 +264,55 @@ if ($function == 'Upload Game Banner') {
     ## Check if the image is the right size
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     if ($image_width == 760 && $image_height == 140) {
-        if ($image_type == '2') { ## Check if it's a JPEG
-            ## Generate the new filename
-            if ($subkey == 'graphical') {
-                if (file_exists("banners/$subkey/$id-g.jpg")) {
-                    $filekey = 2;
-                    while (file_exists("banners/$subkey/$id-g$filekey.jpg")) {
-                        $filekey++;
-                    }
-                    $filename = "$subkey/$id-g$filekey.jpg";
-                } else {
-                    $filename = "$subkey/$id-g.jpg";
-                }
-            } else {
-                if (file_exists("banners/$subkey/$id.jpg")) {
-                    $filekey = 2;
-                    while (file_exists("banners/$subkey/$id-$filekey.jpg")) {
-                        $filekey++;
-                    }
-                    $filename = "$subkey/$id-$filekey.jpg";
-                } else {
-                    $filename = "$subkey/$id.jpg";
-                }
-            }
+        if ($image_type == '2' || $image_type == '3') { ## Check if it's a JPEG or png
+			if ($image_type == '2') { ## If it's a JPEG name the extesion accordingly
+				## Generate the new filename
+				if ($subkey == 'graphical') {
+					if (file_exists("banners/$subkey/$id-g.jpg") || file_exists("banners/$subkey/$id-g.png")) {
+						$filekey = 2;
+						while (file_exists("banners/$subkey/$id-g$filekey.jpg") || file_exists("banners/$subkey/$id-g$filekey.png")) {
+							$filekey++;
+						}
+						$filename = "$subkey/$id-g$filekey.jpg";
+					} else {
+						$filename = "$subkey/$id-g.jpg";
+					}
+				} else {
+					if (file_exists("banners/$subkey/$id.jpg") || file_exists("banners/$subkey/$id.png")) {
+						$filekey = 2;
+						while (file_exists("banners/$subkey/$id-$filekey.jpg") || file_exists("banners/$subkey/$id-$filekey.png")) {
+							$filekey++;
+						}
+						$filename = "$subkey/$id-$filekey.jpg";
+					} else {
+						$filename = "$subkey/$id.jpg";
+					}
+				}
+			}
+			elseif ($image_type == '3') { ## If it's a PNG name the extesion accordingly
+				## Generate the new filename
+				if ($subkey == 'graphical') {
+					if (file_exists("banners/$subkey/$id-g.jpg") || file_exists("banners/$subkey/$id-g.png")) {
+						$filekey = 2;
+						while (file_exists("banners/$subkey/$id-g$filekey.jpg") || file_exists("banners/$subkey/$id-g$filekey.png")) {
+							$filekey++;
+						}
+						$filename = "$subkey/$id-g$filekey.png";
+					} else {
+						$filename = "$subkey/$id-g.png";
+					}
+				} else {
+					if (file_exists("banners/$subkey/$id.jpg") || file_exists("banners/$subkey/$id.png")) {
+						$filekey = 2;
+						while (file_exists("banners/$subkey/$id-$filekey.jpg") || file_exists("banners/$subkey/$id-$filekey.png")) {
+							$filekey++;
+						}
+						$filename = "$subkey/$id-$filekey.png";
+					} else {
+						$filename = "$subkey/$id.png";
+					}
+				}
+			}
             if ($subkey == 'blank') {
                 $languageid = '0';
             }
@@ -307,11 +333,12 @@ if ($function == 'Upload Game Banner') {
                 seriesupdate($id);
             }
         } else {
-            $errormessage = 'Series banners MUST be JPEG';
+            $errormessage = 'Game banners MUST be in either JPG or PNG format.';
         }
     } else {
-        $errormessage = 'Series banners MUST be 760px wide by 140px tall';
+        $errormessage = 'Game banners MUST be 760px wide by 140px tall';
     }
+	$message .= "Banner sucessfully added.";
 }
 
 if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
@@ -331,7 +358,7 @@ if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
     $query = "INSERT INTO deletions (path) VALUES ('data/series/$id')";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-    $errormessage = 'Game deleted.';
+    $message = 'Game deleted.';
     $id = $newshowid;
     $tab = 'mainmenu';
 }
@@ -340,26 +367,48 @@ if ($function == 'Upload Box Art') {
     $id = mysql_real_escape_string($id);
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     $resolution = $image_width . 'x' . $image_height;
-
-    $fileid = 1;
-    while (file_exists("banners/boxart/original/$cover_side/$id-$fileid.jpg")) {
-        $fileid++;
+	
+	if ($image_type == 2 || $image_type == 3)
+	{
+        $errormessage = "";
     }
+	else
+	{
+		$errormessage = "Your image MUST be either in JPG or PNG format.<br>";
+	}
 
-    $filename = "boxart/original/$cover_side/$id-$fileid.jpg";
-    if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
-        ## Insert database record
-        $id = mysql_real_escape_string($id);
-        $colors = mysql_real_escape_string($colors);
-        $query = "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('boxart', $id, $user->id, $time, '$filename', 1, '$resolution')";
-        $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    ## No errors, so we can process it
+    if ($errormessage == "") 
+	{	
+		$fileid = 1;
+		while (file_exists("banners/boxart/original/$cover_side/$id-$fileid.jpg") || file_exists("banners/boxart/original/$cover_side/$id-$fileid.png")) {
+			$fileid++;
+		}
+		
+		## See if image is jpeg format
+		if($image_type == 2)
+		{
+			$filename = "boxart/original/$cover_side/$id-$fileid.jpg";
+		}
+		## or see if image is png format
+		elseif($image_type == 3)
+		{
+			$filename = "boxart/original/$cover_side/$id-$fileid.png";
+		}
+		if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
+			## Insert database record
+			$id = mysql_real_escape_string($id);
+			$colors = mysql_real_escape_string($colors);
+			$query = "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('boxart', $id, $user->id, $time, '$filename', 1, '$resolution')";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-        ## Store the seriesid for the XML updater
-        seriesupdate($id);
-    }
+			## Store the seriesid for the XML updater
+			seriesupdate($id);
+		}
 
-    $errormessage = "Box art added";
-    $tab = 'game';
+		$message .= "Box art sucessfully added.";
+		$tab = 'game';
+	}
 }
 
 if ($function == 'Upload Fan Art') {
@@ -372,7 +421,7 @@ if ($function == 'Upload Fan Art') {
         $errormessage .= "Your image is not a valid fan art resolution.<br>";
     }
     if ($image_type != 2) {
-        $errormessage .= "Your image MUST be a jpg.<br>";
+        $errormessage .= "Your image MUST be in JPG format.<br>";
     }
     if (($resolution == '1920x1080' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 2000) || ($resolution == '1280x720' && filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 600)) {
         $errormessage .= "Your image exceeds the size restrictions.<br>";
@@ -406,7 +455,7 @@ if ($function == 'Upload Fan Art') {
             seriesupdate($id);
         }
 
-        $errormessage = "Fan art added";
+        $message = "Fan art successfully added";
     }
     $tab = 'game';
 }
@@ -616,7 +665,7 @@ if ($function == 'Delete Banner') {
     }
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
     $deletebanner = mysql_fetch_object($result);
-    $errormessage = 'Image was successfully deleted.';
+    $message = 'Image was successfully deleted.';
 
     if ($deletebanner->id) {
         ## Delete SQL record
@@ -656,7 +705,7 @@ if ($function == 'Delete Banner Admin') {
     $query = "SELECT * FROM banners WHERE id=$bannerid";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
     $deletebanner = mysql_fetch_object($result);
-    $errormessage = 'Image was successfully deleted.';
+    $message = 'Image was successfully deleted.';
 
     if ($deletebanner->id) {
         ## Delete SQL record

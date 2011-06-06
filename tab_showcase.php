@@ -82,7 +82,7 @@
 	
 	<div style="float: left;">
 		<h2 class="arcade" style="color: #FF4F00;">Media:</h2>
-		<a rel="shadowbox[romcollectionbrowser];width=640;height=510" href="http://www.youtube.com/embed/_xvGM8eHWB0"><img src="images/showcase/thumb-romcollectionbrowser-video1.jpg"  style="float:left;" /></a>
+		<a rel="shadowbox[romcollectionbrowser];width=640;height=510" href="http://www.youtube.com/embed/NRTg3HmIuqU?rel=0&amp;hd=1"><img src="images/showcase/thumb-romcollectionbrowser-video1.jpg"  style="float:left;" /></a>
 		<a rel="shadowbox[romcollectionbrowser]" href="images/showcase/romcollectionbrowser-image1.jpg"><img src="images/showcase/romcollectionbrowser-image1.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
 		<a rel="shadowbox[romcollectionbrowser]" href="images/showcase/romcollectionbrowser-image2.jpg"><img src="images/showcase/romcollectionbrowser-image2.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
 		<a rel="shadowbox[romcollectionbrowser]" href="images/showcase/romcollectionbrowser-image3.jpg"><img src="images/showcase/romcollectionbrowser-image3.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>

@@ -1,17 +1,17 @@
 <div class="section">
-    <h1>TheGamesDB Terms and Conditions</h1><br>
+    <h1 class="arcade">TheGamesDB Terms and Conditions</h1><br>
     <p><em>We would like all users to review and agree to these terms before using the site.</em></p>
 	
-	<h2>General Guidelines</h2>
+	<h2 class="arcade">General Guidelines</h2>
 	<p>Please take a minute to read these guidelines. We are very excited about people getting together and helping to make something great, but we also need to work together to keep some sort of order around here!
 	<br>
 	<br>
 	<u>TheGamesDb.net WIKI:</u><br>
-	We ask that anyone who plans on becoming a part of TheGamesDB.net community please takes the time to read over the WIKI as it will make your experience more worthwhile. We know the WIKI isn&apos;t perfect. If you see something that needs to be added, edited or deleted, please post in the forums.
+	We ask that anyone who plans on becoming a part of TheGamesDB.net community please takes the time to read over the <a href=http://code.google.com/p/thegamesdb/w/list>WIKI</a> as it will make your experience more worthwhile. We know the WIKI isn&apos;t perfect. If you see something that needs to be added, edited or deleted, please post in the <a href=http://forums.thegamesdb.net/>forums</a>.
 	<br>
 	<br>
 	<u>Search the Site:</u><br>
-	Always do a search for a game before posting a new one.  Chances are, the game you want to post has already been submitted.  The titles may be different than what you were expecting, and if you have one that you feel is more correct for a currently posted game, please let us know in the forums and we will get it changed.  Never submit a game title that has any modifications (like the console name included).  A good practice is to see what the game is titled on Wikipedia.
+	Always do a search for a game before posting a new one.  Chances are, the game you want to post has already been submitted.  The titles may be different than what you were expecting, and if you have one that you feel is more correct for a currently posted game, please let us know in the <a href=http://forums.thegamesdb.net/>forums</a> and we will get it changed.  Never submit a game title that has any modifications (like the console name included).  A good practice is to see what the game is titled on Wikipedia.
 	<br>
 	<br>
 	<u>Sources of information:</u><br>
@@ -28,16 +28,16 @@ For the titles of games, I generally follow the formatting used on Wikipedia sin
 	
 	</p>
 	
-    <h2>All Image Guidelines</h2>
+    <h2 class="arcade">All Image Guidelines</h2>
     <ul>
         <li>The Banner language should be set on upload to the language on the banner</li>
-        <li>The Banner must be jpeg not bitmap or gif.</li>
-        <li>Each Creator is limited to 3 banners per series and 3 banners per season (please try and make each banner unique and not simply the same images with different fonts.</li>
-        <li>While some tv series do contain nudity please refrain from using images which contain it.</li>
+        <li>Images must be JPG or PNG.</li>
+        <li>Each Creator is limited to 3 banners per game.  Please try and make each banner unique and not simply the same images with different fonts.</li>
+        <li>While some games do contain nudity please refrain from using images which contain it.</li>
         <li>Do not take another artists banners to alter them slightly then re-upload them. Some artists have spent a good deal of time on the images they upload and it is not acceptable to alter their work without permission.</li>
     </ul>
 	
-	    <h2>Fanart</h2>
+	    <h2 class="arcade">Fanart</h2>
     <ul>
         <li>Fanart must be 1280x720 or 1920x1080</li>
         <li>Images must be of good quality. We don&apos;t want blurry or pixelated images.</li>
@@ -45,20 +45,20 @@ For the titles of games, I generally follow the formatting used on Wikipedia sin
 		
     </ul>
 
-    <h2>Banners</h2>
+    <h2 class="arcade">Banners</h2>
     <ul>
         <li>Banners must be 760 x 140</li>
         <li>Text banners generally use Arial Bold font, 27pt as the text.</li>
     </ul>
 
-    <h2>Example Banners</h2>
+    <h2 class="arcade">Example Banners</h2>
     <img class="banner" src="images/ayumi-banner-xblades.jpg" border="0" alt=" "/>
     <img class="banner" src="images/Banner - Mario Joy.jpg" border="0" alt=" "/>
     <img class="banner" src="images/Super-Mario-Land-GB-banner.jpg" border="0" alt=" "/>
 
-    <h2>Resources</h2>
+    <h2 class="arcade">Resources</h2>
 
-    <h3>Image Sources</h3>
+    <h3 class="arcade">Image Sources</h3>
     <ul>
         <li><a href="http://www.amazon.com" target="_blank" class="postlink">amazon.com</a>
         <li><a href="http://wikipedia.com" target="_blank" class="postlink">wikipedia.com</a>
@@ -75,7 +75,7 @@ For the titles of games, I generally follow the formatting used on Wikipedia sin
 		<li><a href="http://images.google.com" target="_blank" class="postlink">Google Image Search</a>
     </ul>
 
-    <h3>Fonts:</h3>
+    <h3 class="arcade">Fonts:</h3>
     <ul>
         <li><a href="http://www.dafont.com/" target="_blank" class="postlink">http://www.dafont.com/</a>
     </ul>

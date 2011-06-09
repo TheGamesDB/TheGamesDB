@@ -878,6 +878,21 @@ if ($tab == '') {
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 		
+		<!-- Start AnythingSlider Include -->
+        <link rel="stylesheet" href="js/anythingslider/css/anythingslider.css" type="text/css" media="all" />
+		<script src="js/anythingslider/js/jquery.anythingslider.js" type="text/javascript"></script>
+		<!-- End AnythingSlider Include -->
+		
+		<!-- Start FaceBox Include -->
+        <link rel="stylesheet" href="js/facebox/facebox.css" type="text/css" media="all" />
+		<script src="js/facebox/facebox.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+			   $('a[rel*=facebox]').facebox() 
+			}) 
+		</script>
+		<!-- End FaceBox Include -->
+		
 		<!-- Start ShadowBox Include -->
         <link rel="stylesheet" href="js/shadowbox/shadowbox.css" type="text/css" media="all" />
 		<script src="js/shadowbox/shadowbox.js" type="text/javascript"></script>
@@ -899,6 +914,10 @@ if ($tab == '') {
 		<link rel="stylesheet" type="text/css" href="/js/jqdropdown/dd.css" />
 		<script src="js/jqdropdown/js/jquery.dd.js" type="text/javascript"></script>
 		<!-- End jQuery Image Dropdown Include -->
+		
+		<!-- Start xFade2 Include -->
+		<script src="js/xfade2/xfade2.js" type="text/javascript"></script>
+		<!-- End xFade2 Include -->
 		
         <script type="text/javascript">
             $('document').ready(function(){
@@ -1015,22 +1034,23 @@ if ($tab == '') {
         for (i=1; i<=10; i++)  {
             if (i <= rating)  {
                 var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?= $baseurl ?>/images/star_on.png';
+                thisimage.src = '<?= $baseurl ?>/images/game/star_on.png';
             }
             else  {
                 var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?= $baseurl ?>/images/star_off.png';
+                thisimage.src = '<?= $baseurl ?>/images/game/star_off.png';
             }
         }
     }
 
     //Function to toggle an element
     function toggleDiv(divid){
-        if(document.getElementById(divid).style.display == 'none'){
-            document.getElementById(divid).style.display = 'block';
-        }else{
-            document.getElementById(divid).style.display = 'none';
-        }
+        // if(document.getElementById(divid).style.display == 'none'){
+            // document.getElementById(divid).style.display = 'block';
+        // }else{
+            // document.getElementById(divid).style.display = 'none';
+        // }
+		$('#' + divid).slideToggle(500);
     }
 
     // Site Terms Agreement Function

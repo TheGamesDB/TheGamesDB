@@ -1,5 +1,5 @@
 body{
-    background-color:#1E1E1E;
+    background:#111111 url(images/bg-main-background.jpg) repeat-x top center;
     font-family:Arial;
     font-size:10pt;
     padding: 0;
@@ -148,12 +148,108 @@ h2{
     width: 300px;
 }
 
-/* Banner Rotater */
-#bannerrotator {
-    position: relative;
-    height: 140px;
+/* GAME PAGE */
+#gameLeft {
+	width: 538px;
+	float: left;
+	padding-right: 30px;
+}
+#gameRight {
+	width: 330px;
+	float: left;
+	padding-left: 30px;
+	border-left: 2px dotted #666;
+}
+#gameInfoContent {
+	color: #FFF;
+	width: 498px;
+	padding: 20px 20px 100px 20px;
+	background: #999 url(images/game/bg-gameinfo-content.jpg) no-repeat bottom center;
+	border: 1px solid #666;
+	border-radius: 10px;	
+}
+#gameInfoContent .button {
+	width: 120px;
+	height: 30px;
+}
+#gameInfoContent a {
+	color: #FFF;
+}
+#gameLeft #gameOtherPlatforms {
+	color: #FFF;
+	background: #999 url(images/game/bg-othergames.jpg) no-repeat bottom center;
+	margin-top: 10px;
+	padding: 10px 10px 30px 10px;
+	text-align: center;
+	border: 1px solid #666;
+	border-radius: 10px;
+}
+#gameLeft #gameOtherPlatforms h3 {
+	margin-top: 0px;
+	text-align: left;
+}
+#gameLeft #gameOtherPlatforms a {
+	font-size: 16px;
+	color: #000;
+}
+#gameLeft .miniPanel {
+	display: none;
+	text-align: justify;
+	/*float: left;
+	width: 240px;
+	height: 220px;
+	padding: 9px 10px;
+	margin-top: 10px;
+	color: #FFF;
+	border: 1px solid #666;
+	border-radius: 10px;
+	margin-left:3px;
+	margin-right: 2px;
+	background-color: #999;*/
+}
+#gameLeft .miniPanel h3 {
+	margin-top: 0px;
+}
+#gameLeft .miniPanel a {
+	color: #666;
+}
+#gameRight .miniPanel {
+	width: 300px;
+	padding: 7px 15px;
+	margin-top: 10px;
+	color: #FFF;
+	border: 1px solid #666;
+	border-radius: 10px;
+	background-color: #999;
+}
+#gameRight .miniPanel h1 {
+	margin-top: 0px;
+}
+#gameRight .miniPanel a {
+	color: #FFF;
 }
 
+/* Banner Rotater */
+#bannerrotator {
+	position: static;
+	width: 1000px;
+	margin-left: -35px;
+	margin-top: -10px;
+	padding-top: 10px;
+}
+#bannerRotatorObject {
+    position: relative;
+	width: 780px;
+    height: 160px;
+	margin: auto;
+	margin-bottom: 15px;
+	background-color: #999;
+	border-radius: 10px;
+	border: 1px solid #666;
+}
+#bannerRotatorObject img{
+	padding: 10px;
+}
 #bannerrotator .rotatebanner {
     display:none;
     position: absolute;

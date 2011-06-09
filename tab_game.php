@@ -38,32 +38,42 @@ if ($user->lastupdatedby_admin) {
         $('#ReleaseDate').datepicker({ changeYear: true, yearRange: '1950:2020'  });
     });
 </script>
-<div id="bannerrotator">
+
+
+<div id="bannerrotator" style="border-bottom: 2px dotted #666; margin-bottom: 20px;">
+	<div id="bannerRotatorObject">
     <?=bannerdisplay($id)?>
+	</div>
 </div>
 
+<div style="clear:both"></div>
 
-<table cellspacing="5" cellpadding="0" border="0" width="100%">
-    <tr>
-        <td valign="top" width="100%">
+<div id="gameLeft">
 
-
+			<h2 class="arcade">Game information</h2>
+	
+	<?php
+		$platformIconResult = mysql_query(" SELECT name, icon FROM platforms WHERE id = '$game->Platform' ");
+		$platformIcon = mysql_fetch_assoc($platformIconResult);
+	?>
+	
+	<div id="gameInfoContent">
             <div class="titlesection">
-                <h1><?=stripslashes($game->GameTitle);?></h1>
+                <h2 class="arcade" style="margin-top: 0px; padding-top: 0px;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -16px;" /> <?=stripslashes($game->GameTitle);?></h2>
             </div>
 
 			<div style="clear: both;"></div>
-
+			
             <div class="section">
                 <form action="<?=$fullurl?>" method="POST" name="seriesform">
                     <div id="red"><?=$errormessage?></div>
                     <table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
                         <tr>
-                            <td><?=translatetext('Game ID')?>:</td>
+                            <td><strong><?=translatetext('Game ID')?>:</strong></td>
                             <td><?=$game->id?></td>
                         </tr>
                         <tr>
-                            <td><?=translatetext('Game Title')?>: </td>
+                            <td><strong><?=translatetext('Game Title')?>:</strong></td>
                             <td>
                                 <?php
                                 $readonly = 'readonly=true';
@@ -77,7 +87,7 @@ if ($user->lastupdatedby_admin) {
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">Players:</td>
+                            <td valign="top"><strong>Players:</strong></td>
                             <td>
                                 <select name="Players">
                                     <option vlaue="0">Select . . . </option>
@@ -94,7 +104,7 @@ if ($user->lastupdatedby_admin) {
 							$platformIdResult = mysql_fetch_object($platformIdQuery);
 						?>
                         <tr>
-                            <td>Platform:</td>
+                            <td><strong>Platform:</strong></td>
                             <td>
 								<?php
 									$platformQuery = mysql_query(" SELECT * FROM platforms ORDER BY name ASC");
@@ -112,28 +122,28 @@ if ($user->lastupdatedby_admin) {
                             </td>
                         </tr>
                         <tr>
-                            <td>Genre: <a onclick="openChild('<?=$baseurl?>/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a></td>
+                            <td><strong>Genre:</strong></td>
                             <td>
-                                <input type="text" name="Genrefake" value="<?=$game->Genre?>" maxlength="255" disabled="true">
+                                <input type="text" name="Genrefake" value="<?=$game->Genre?>" maxlength="255" disabled="true"> <a onclick="openChild('<?=$baseurl?>/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a>
                                 <input type="hidden" name="Genre" value="<?=$game->Genre?>">
                             </td>
                         </tr>
                         <tr>
-                            <td>Release Date:</td>
+                            <td><strong>Release Date:</strong></td>
                             <td><input type="text" name="ReleaseDate" id="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45" readonly></td>
                         </tr>
 
                         <tr>
-                            <td>Developer:</td>
+                            <td><strong>Developer:</strong></td>
                             <td><input type="text" name="Developer" value="<?=$game->Developer?>" maxlength="45"></td>
                         </tr>
                         <tr>
-                            <td>Publisher:</td>
+                            <td><strong>Publisher:</strong></td>
                             <td><input type="text" name="Publisher" value="<?=$game->Publisher?>" maxlength="45"></td>
                         </tr>
 
                         <tr>
-                            <td>ESRB Rating:</td>
+                            <td><strong>ESRB Rating:</strong></td>
                             <td>
                                 <select name="Rating" size="1">
                                     <option>
@@ -147,10 +157,10 @@ if ($user->lastupdatedby_admin) {
                             </td>
                         </tr>
                         <tr>
-                            <td>Overview (ENGLISH ONLY): </td>
+                            <td><strong>Overview (ENGLISH ONLY):</strong></td>
                             <td>
 
-                                <textarea rows="18" cols="40" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
+                                <textarea rows="18" cols="48" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
 
 
                                 <br>
@@ -187,11 +197,11 @@ if ($user->lastupdatedby_admin) {
 
                         <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
                         <tr>
-                            <td>Banner Requests:</td>
+                            <td><strong>Banner Requests:</strong></td>
                             <td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>
                         </tr>
                         <tr>
-                            <td valign="top">Disable Game:</td>
+                            <td valign="top"><strong>Disable Game:</strong></td>
                             <td>
                                 <select name="disabled" size="1">
                                     <option>
@@ -204,20 +214,20 @@ if ($user->lastupdatedby_admin) {
 
                             <?php	}  ?>
                         <tr>
-                            <td valign="top">Last Updated:</td>
+                            <td valign="top">&nbsp;</td>
                             <td>
-                                <div id="formnote">Game: <?=date("r", $game->lastupdated)?></div>
+                                <div id="formnote"><strong>Game Last Updated:</strong> <?=date("r", $game->lastupdated)?></div>
                             </td>
                         </tr>
                         <?php	if ($loggedin == 1) {  ?>
                         <tr>
-                            <td style="text-align: left" colspan="2" valign="top">
+                            <td style="text-align: center" colspan="2" valign="top">
                                     <?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR') {  ?>
-                                <input type="submit" name="function" value="Save Game" class="submit"><br>
+                                <input type="submit" name="function" value="Save Game" class="button submit">
                                 <input type="hidden" name="newshowid" value="<?=$game->id?>">
 
                                         <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
-                                <input type="submit" name="function" value="Delete Game" class="submit_red" onClick="return confirmSubmit()"><br>
+                                <input type="submit" name="function" value="Delete Game" class="button submit_red" onClick="return confirmSubmit()"><br>
                                             <?php	}
                                     }
                                     ?>
@@ -260,32 +270,39 @@ if ($user->lastupdatedby_admin) {
                                                             </table>
                                                             </div>
 
-
                                                                 <?php
                                                                 if ($game->locked != 'yes') {
                                                                     if ($game->id && $tvupdates==1) {
                                                                         if ($adminuserlevel == 'ADMINISTRATOR') {
-                                                                            echo '<input type="submit" value="Lock Game" name="function" class="submit"><br>';
-                                                                            echo '<input type="submit" value="UnLock Game" name="function" class="submit" disabled><br>';
+																		?>
+                                                                            <input type="submit" value="Lock Game" name="function" class="button submit">
+                                                                            <input type="submit" value="UnLock Game" name="function" class="button submit" disabled><br>
+																		<?php
                                                                         }
                                                                     }
                                                                     ELSE //No Game ID
                                                                     {
                                                                         if ($adminuserlevel == 'ADMINISTRATOR') {
-                                                                            echo '<input type="submit" value="Lock Game" name="function" class="submit"><br>';
-                                                                            echo '<input type="submit" value="UnLock Game" name="function" class="submit" disabled><br>';
+																		?>
+                                                                            <input type="submit" value="Lock Game" name="function" class="button submit">
+                                                                            <input type="submit" value="UnLock Game" name="function" class="button submit" disabled><br>
+																		<?php
                                                                         }
                                                                     }
                                                                 }
                                                                 ELSE //Record is Locked
                                                                 {
                                                                     if ($adminuserlevel == 'ADMINISTRATOR') {
-                                                                        echo '<input type="submit" value="Lock Game" name="function" class="submit" disabled><br>';
-                                                                        echo '<input type="submit" value="UnLock Game" name="function" class="submit"><br>';
+																	?>
+                                                                        <input type="submit" value="Lock Game" name="function" class="button submit" disabled>
+                                                                        <input type="submit" value="UnLock Game" name="function" class="button submit"><br>
+																	<?php
                                                                     }
                                                                     elseif ($_SESSION['userlevel'] == 'ADMINISTRATOR') {
-                                                                        echo '<input type="submit" value="Lock Game" name="function" class="submit" disabled><br>';
-                                                                        echo '<input type="submit" value="UnLock Game" name="function" class="submit"><br>';
+																	?>
+                                                                        <input type="submit" value="Lock Game" name="function" class="button submit" disabled>
+                                                                        <input type="submit" value="UnLock Game" name="function" class="button submit"><br>
+																	<?php
                                                                     }
                                                                     print "<div id=formnote style='color: red;'>This game is locked and cannot be changed. It was locked by $lockadmin->username</div>";
                                                                 }
@@ -298,345 +315,550 @@ if ($user->lastupdatedby_admin) {
                                                             </table>
                                                             </form>
                                                             </div>
-                                                            </td>
+	</div>
+	
+	<div id="gameOtherPlatforms">
+		<h3 class="arcade">Other Platforms with this Game</h3>
+		<?php
+			$similarResult = mysql_query(" SELECT g.id, g.platform, g.GameTitle, p.name, p.icon FROM games as g, platforms as p WHERE g.GameTitle = '$game->GameTitle' AND g.Platform <> '$game->Platform' AND g.Platform = p.id ORDER BY p.name");
+			$similarRowCount = mysql_num_rows($similarResult);
+			if($similarRowCount > 0)
+			{
+				?>
+				<p style="margin: 5px;">This game exists on <?=$similarRowCount?> other platforms.</p>
+				<div id="gameOtherPlatformsList">
+				<?php
+				while($similarRow = mysql_fetch_assoc($similarResult))
+				{
+					?>
+						<div style="margin-top: 10px;"><img src="images/common/consoles/png32/<?=$similarRow['icon']?>" alt="<?=$similarRow['name']?>" style="vertical-align: -8px;" />&nbsp;&nbsp;<a href="<?=$baseurl?>?tab=game&id=<?=$similarRow['id']?>"><?=$similarRow['name']?> - <?=$similarRow['GameTitle']?></a></div>
+					<?php
+				}
+				?>
+				</div>
+				<?php
+			}
+			else
+			{
+				?>
+				<p style="font-size: 16px; line-height: 70px; vertical-align: middle;">There are currently no other platforms that have this game yet...</p>
+				<p style="font-size: 16px;">If you know of one, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
+				<?php
+			}
+		?>
+	</div>
+	
+	<?php if ($loggedin == 1) {  ?>
+	<div style="border-top: 2px dotted #666; padding-top: 20px; margin-top: 10px;">
+	
+	<?php if ($loggedin == 1) {  ?>
+	<div class="miniPanel">
+		<h3 class="arcade">Upload Guides</h3>
+	</div>
+	<?php
+	}
+	?>
+	
+	<?php if ($loggedin == 1) {  ?>
+	<div id="frontBoxartUpload" class="miniPanel">
+		<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Front Box Art Upload</h2>
+		<?php  	## check for agreement to terms
+		if ($user->banneragreement != 1) {
+			print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+		} ## Check for disabled banner upload
+		elseif ($user->bannerlimit == 0) {
+			print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+		} ## Check banner limit
+		elseif ($game->disabled == 'Yes') {
+			print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+		}
+		else {
+			?>
+		<p>The only accepted image formats for box art is JPG and PNG.</p>
+		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+		<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td>File:
+						<input type="file" name="bannerfile" size="36">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						<input type="hidden" name="cover_side" value="front">
+						<input type="hidden" name="function" value="Upload Box Art">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+			<?php } ?>
+	</div>
+	<?php } ?>
+	
+	<?php if ($loggedin == 1) {  ?>
+	<div id="rearBoxartUpload" class="miniPanel">
+		<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Rear Box Art Upload</h2>
+		<?php  	## check for agreement to terms
+		if ($user->banneragreement != 1) {
+			print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+		} ## Check for disabled banner upload
+		elseif ($user->bannerlimit == 0) {
+			print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+		} ## Check banner limit
+		elseif ($game->disabled == 'Yes') {
+			print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+		}
+		else {
+			?>
+		<p>The only accepted image formats for box art is JPG and PNG.</p>
+		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+		<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td>File:
+						<input type="file" name="bannerfile" size="36">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">				
+						<input type="hidden" name="cover_side" value="back">
+						<input type="hidden" name="function" value="Upload Box Art">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+			<?php } ?>
+	</div>
+	<?php } ?>
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="fanartUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Fan Art Upload</h2>
 
-                                                            <td>
-                                                                <?php	if ($loggedin == 1) {  ?>
-                                                                <div class="blanksection">
-                                                                        <?php	## First, generate their userfavorites array
-                                                                        $userfavorites = explode(",", $user->favorites);
+				<?php  	## check for agreement to terms
+				if ($user->banneragreement != 1) {
+					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+				} ## Check for disabled banner upload
+				elseif ($user->bannerlimit == 0) {
+					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+				} ## Check banner limit
+				elseif ($game->disabled == 'Yes') {
+					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+				}
+				else {
+					?>
+			<p>All fan art resolutions <strong>must</strong> be 1920x1080 <em>(2MB Max Size)</em> or 1280x720.<em>(600KB Max Size)</em></p>
+			<p>The only accepted image format for fan art is JPG.</p>
+			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+			<p>Please set your artist colors after uploading.</p>
+			<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td><strong>File to Upload:</strong><br /><br />
+						<input type="file" name="bannerfile" size="42">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						<input type="hidden" name="function" value="Upload Fan Art">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+					<?php
+				}
+				?>
+		</form>
+	</div>
+	<?php	}  ?>
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="bannerUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Banner Upload</h2>
 
-                                                                        ## If the user has this as a favorite, display a message and a button
-                                                                        ## to "Un-favorite".
-                                                                        if (in_array($id, $userfavorites, 1)) {
-                                                                            print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/favorite.png' alt='Favorite' border='0' width='326' height='79'></a>";
-                                                                        }
-                                                                        ## If the user doesn't have this as a favorite, display a button to
-                                                                        ## mark it as a favorite.
-                                                                        else {
-                                                                            print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/nonfavorite.png' alt='Not Favorite' border='0' width='326' height='79'></a>";
-                                                                        }
-                                                                        ?>
-                                                                </div>
-                                                                    <?php	}  ?>
+				<?php  	## check for agreement to terms
+				if ($user->banneragreement != 1) {
+					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+				} ## Check for disabled banner upload
+				elseif ($user->bannerlimit == 0) {
+					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+				} ## Check banner limit
+				elseif ($game->disabled == 'Yes') {
+					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+				}
+				elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR') {
+					?>
+			<p>All banner resolutions <strong>must</strong> be 760x140.</p>
+			<p>The only accepted image formats for banners are JPG and PNG.</p>
+			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+			<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+			<p><strong>Banner Type:</strong>
+				<select name="subkey" size="1">
+					<option value="graphical">Graphical</option>
+					<option value="text">Text</option>
+					<option value="blank">Blank</option>
+				</select></p>
+			<p><nobr><strong>Banner Language:</strong></nobr>
+				<select name="languageid" size="1">
+					<?php
 
+					## Display language selector
+					foreach ($languages AS $langid => $langname) {
+						## If we have the currently selected language
+						if ($lid == $langid) {
+							$selected = 'selected';
+						}
+						## Otherwise
+						else {
+							$selected = '';
+						}
 
+						## If a translation is found
+						print "<option value=\"$langid\" $selected>$langname</option>\n";
+					}
+					?>
+					</select></p>
+				<p><strong>File:</strong> <input type="file" name="bannerfile" size="36"></p>
+				<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+				<p style="text-align: right;">
+					<input type="hidden" name="function" value="Upload Game Banner">
+					<input type="submit" name="button" value="Upload" class="submit">
+				</p>
+				<?php
+				} ## Print banner limit message
+				else {
+					print "<p>You have already uploaded $userbanners banners for this game, which is your banner limit.  To get your banner limit increased, please post a request on the forums.</p>";
+				}
+				?>
+		</form>
+	</div>
+	<?php	}  ?>
+	
+	</div>
+	<?php	}  ?>
+	
+	<div style="clear: both;"></div>
+	
+</div>
 
-                                                                <div class="section">
-                                                                    <H1>Rating</h1>
-                                                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                                        <tr>
-                                                                            <td><b>Site Rating:</b></td>
-                                                                            <td align="right">
-                                                                                <?php	## Get site rating for this series
-                                                                                $query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
-                                                                                $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                                                                $rating = mysql_fetch_object($result);
+<div id="gameRight">
+		<?php	if ($loggedin == 1) {  ?>
+		<div style="text-align: center;">
+				<?php	## First, generate their userfavorites array
+				$userfavorites = explode(",", $user->favorites);
 
-                                                                                for ($i = 1; $i <= 10; $i++) {
-                                                                                    if ($i <= $rating->average) {
-                                                                                        print "<img src=\"$baseurl/images/star_on.png\" width=15 height=15 border=0>";
-                                                                                    }
-                                                                                    else {
-                                                                                        print "<img src=\"$baseurl/images/star_off.png\" width=15 height=15 border=0>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                                <div id="smalltext"><?=$rating->count?> rating<?php if ($rating->count != 1) print "s" ?></div>
-                                                                            </td>
-                                                                        </tr>
-
-                                                                        <?php	if ($loggedin == 1) {  ?>
-                                                                        <tr>
-                                                                            <td><b>Your Rating:</b></td>
-                                                                            <td align="right">
-
-                                                                                    <?php	## Get user rating for this series
-                                                                                    $query	= "SELECT rating FROM ratings WHERE itemtype='game' AND itemid=$id AND userid=$user->id";
-                                                                                    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                                                                    $rating = mysql_fetch_object($result);
-                                                                                    if (!$rating->rating) {
-                                                                                        $rating->rating = 0;
-                                                                                    }
-
-                                                                                    for ($i = 1; $i <= 10; $i++) {
-                                                                                        if ($i <= $rating->rating) {
-                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
-                                                                                        }
-                                                                                        else {
-                                                                                            print "<a href=\"$fullurl&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
-                                                                                        }
-                                                                                    }
-                                                                                    ?>
-                                                                            </td>
-                                                                        </tr>
-                                                                            <?php	}  ?>
-                                                                    </table>
-                                                                </div>
-
-
-
-                                                                <div class="section" style="width: 300px">
-                                                                    <h1>Banners</h1>
-                                                                    <?php	## Display all banners for this show
-                                                                    $bannercount = 0;
-                                                                    $query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT name FROM languages WHERE id=banners.languageid) AS language, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='series' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-                                                                    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                                                    while ($banner = mysql_fetch_object($result)) {
-
-                                                                        ## If this person is allowed to delete the banner, pass that info along
-                                                                        if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-                                                                            displaybannernew($banner, 1, "");
-                                                                        }
-                                                                        else {
-                                                                            displaybannernew($banner, 0, "");
-                                                                        }
-
-                                                                        ## Increment counter
-                                                                        $bannercount++;
-                                                                    }
-
-                                                                    if ($bannercount == 0) {
-                                                                        print "There are no banners for this game\n";
-                                                                    }
-                                                                    ?>
-                                                                </div>
-
-
-
-                                                                <?php	if ($loggedin == 1) {  ?>
-                                                                <div class="section">
-                                                                    <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-                                                                        <h1>Banner Upload</h1>
-
-                                                                            <?php  	## check for agreement to terms
-                                                                            if ($user->banneragreement != 1) {
-                                                                                print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-                                                                            } ## Check for disabled banner upload
-                                                                            elseif ($user->bannerlimit == 0) {
-                                                                                print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-                                                                            } ## Check banner limit
-                                                                            elseif ($game->disabled == 'Yes') {
-                                                                                print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-                                                                            }
-                                                                            elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR') {
-                                                                                ?>
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-                                                                            <tr>
-                                                                                <td colspan="2">Game banners must be 760px wide by 140px tall. For additional restrictions and examples, please visit our <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.<br><br></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>File:</td>
-                                                                                <td>
-                                                                                    <input type="file" name="bannerfile" size="15">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2">
-                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Banner Type:</td>
-                                                                                <td>
-                                                                                    <select name="subkey" size="1">
-                                                                                        <option value="graphical">graphical</option>
-                                                                                        <option value="text">text</option>
-                                                                                        <option value="blank">blank</option>
-                                                                                    </select>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td><nobr>Banner Language:</nobr></td>
-                                                                            <td>
-                                                                                <select name="languageid" size="1">
-                                                                                            <?php
-
-                                                                                            ## Display language selector
-                                                                                            foreach ($languages AS $langid => $langname) {
-                                                                                                ## If we have the currently selected language
-                                                                                                if ($lid == $langid) {
-                                                                                                    $selected = 'selected';
-                                                                                                }
-                                                                                                ## Otherwise
-                                                                                                else {
-                                                                                                    $selected = '';
-                                                                                                }
-
-                                                                                                ## If a translation is found
-                                                                                                print "<option value=\"$langid\" $selected>$langname</option>\n";
-                                                                                            }
-                                                                                            ?>
-                                                                                </select>
-                                                                            </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align: right">
-                                                                                    <input type="hidden" name="function" value="Upload Game Banner">
-                                                                                    <input type="submit" name="button" value="Upload" class="submit">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                                <?php
-                                                                            } ## Print banner limit message
-                                                                            else {
-                                                                                print "You have already uploaded $userbanners banners for this game, which is your banner limit.  To get your banner limit increased, please post a request on the forums.";
-                                                                            }
-                                                                            ?>
-                                                                    </form>
-                                                                        <?php	}  ?>
-                                                                </div>
+				## If the user has this as a favorite, display a message and a button
+				## to "Un-favorite".
+				if (in_array($id, $userfavorites, 1)) {
+					print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/game/badge-favorite.png' alt='Favorite' border='0' width='300' height='75'></a>";
+				}
+				## If the user doesn't have this as a favorite, display a button to
+				## mark it as a favorite.
+				else {
+					print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/game/badge-not-favorite.png' alt='Not Favorite' border='0' width='300' height='75'></a>";
+				}
+				?>
+		</div>
+			<?php	}  ?>
 
 
-                                                                <div class="section">
-                                                                    <h1>Fan Art</h1>
-                                                                    <?php	## Display all fanart for this show
-                                                                    $bannercount = 0;
-                                                                    $query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='fanart' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-                                                                    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                                                    while ($banner = mysql_fetch_object($result)) {
-                                                                        $banner->language = "N/A";
-                                                                        $banner->subkey = $banner->resolution;
 
-                                                                        ## If this person is allowed to delete the banner, pass that info along
-                                                                        if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-                                                                            displaybannernew($banner, 1, "");
-                                                                        }
-                                                                        else {
-                                                                            displaybannernew($banner, 0, "");
-                                                                        }
+		<div class="miniPanel">
+			<h2 class="arcade">Rating</h2>
+			<table cellspacing="0" cellpadding="0" border="0" width="100%">
+				<tr>
+					<td><b>Site Rating:</b></td>
+					<td align="right">
+						<?php	## Get site rating for this series
+						$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
+						$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+						$rating = mysql_fetch_object($result);
 
-                                                                        ## Increment counter
-                                                                        $bannercount++;
-                                                                    }
+						for ($i = 1; $i <= 10; $i++) {
+							if ($i <= $rating->average) {
+								print "<img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0>";
+							}
+							else {
+								print "<img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0>";
+							}
+						}
+						?>
+						<div id="smalltext"><?=$rating->count?> rating<?php if ($rating->count != 1) print "s" ?></div>
+					</td>
+				</tr>
 
-                                                                    if ($bannercount == 0) {
-                                                                        print "There is no fan art for this game\n";
-                                                                    }
-                                                                    ?>
-                                                                </div>
+				<?php	if ($loggedin == 1) {  ?>
+				<tr>
+					<td><b>Your Rating:</b></td>
+					<td align="right">
 
-                                                                <?php	if ($loggedin == 1) {  ?>
-                                                                <div class="section">
-                                                                    <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-                                                                        <h1>Fan Art Upload</h1>
+							<?php	## Get user rating for this series
+							$query	= "SELECT rating FROM ratings WHERE itemtype='game' AND itemid=$id AND userid=$user->id";
+							$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+							$rating = mysql_fetch_object($result);
+							if (!$rating->rating) {
+								$rating->rating = 0;
+							}
 
-                                                                            <?php  	## check for agreement to terms
-                                                                            if ($user->banneragreement != 1) {
-                                                                                print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-                                                                            } ## Check for disabled banner upload
-                                                                            elseif ($user->bannerlimit == 0) {
-                                                                                print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-                                                                            } ## Check banner limit
-                                                                            elseif ($game->disabled == 'Yes') {
-                                                                                print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-                                                                            }
-                                                                            else {
-                                                                                ?>
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-                                                                            <tr>
-                                                                                <td colspan="2">All fan art must adhere to specific resolution, file size, and design restrictions.  Please view the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a> for specifications and examples. Please set your artist colors after uploading by clicking on the link below your image.<br><br></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>File:</td>
-                                                                                <td>
-                                                                                    <input type="file" name="bannerfile">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2">
-                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align: right">
-                                                                                    <input type="hidden" name="function" value="Upload Fan Art">
-                                                                                    <input type="submit" name="button" value="Upload" class="submit">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                                <?php
-                                                                            }
-                                                                            ?>
-                                                                    </form>
-                                                                        <?php	}  ?>
-                                                                </div>
+							for ($i = 1; $i <= 10; $i++) {
+								if ($i <= $rating->rating) {
+									print "<a href=\"?tab=game&id=$id&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+								}
+								else {
+									print "<a href=\"?tab=game&id=$id&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+								}
+							}
+							?>
+					</td>
+				</tr>
+					<?php	}  ?>
+			</table>
+		</div>
 
-                                                                <div class="section">
-                                                                    <h1>Box Art</h1>
-                                                                    <?php	## Display all fanart for this show
-                                                                    $bannercount = 0;
-                                                                    $query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-                                                                    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-                                                                    while ($banner = mysql_fetch_object($result)) {
-                                                                        $banner->language = "N/A";
-                                                                        $banner->subkey = $banner->resolution;
+		
+		<!-- Start Front Boxart Panel -->
+		<div class="miniPanel boxart">
+			<h2 class="arcade">Front Box Art</h2>
+			<?php	## Display all fanart for this show
+			$bannercount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id AND filename LIKE '%front%' ORDER BY rating DESC,RAND()";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			?>
+			<ul class="boxartSlide">
+			<?php
+			if(mysql_num_rows($result) > 0)
+			{
+			while ($banner = mysql_fetch_object($result)) {
+				echo "<li>";
+				$banner->language = "N/A";
+				$banner->subkey = $banner->resolution;
 
-                                                                        ## If this person is allowed to delete the banner, pass that info along
-                                                                        if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-                                                                            displaybannernew($banner, 1, "");
-                                                                        }
-                                                                        else {
-                                                                            displaybannernew($banner, 0, "");
-                                                                        }
+				## If this person is allowed to delete the banner, pass that info along
+				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+					displaybannernew($banner, 1, "");
+				}
+				else {
+					displaybannernew($banner, 0, "");
+				}
 
-                                                                        ## Increment counter
-                                                                        $bannercount++;
-                                                                    }
+				## Increment counter
+				$bannercount++;
+				echo "</li>";
+			}
+			?>
+			<?php
+			}
+			if ($bannercount == 0) {
+				print "<li><p style=\"text-align: center;\">There is no front box art for this game</p></li>";
+			}
+			?>
+			</ul>
+			<?php	if ($loggedin == 1) {  ?>
+			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#frontBoxartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#frontBoxartUpload" rel="facebox" style="font-size: 16px;">Upload Front Boxart</a></span></p>
+			<?php  }  ?>
+		</div>
+		<!-- End Front Boxart Panel -->
+		
+		
+		<!-- Start Rear Boxart Panel -->
+		<div class="miniPanel boxart">
+			<h2 class="arcade">Rear Box Art</h2>
+			
+			<?php	## Display all fanart for this show
+			$bannercount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id AND filename LIKE '%back%' ORDER BY rating DESC,RAND()";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			?>
+			<ul class="boxartSlide">
+			<?
+			if(mysql_num_rows($result) > 0)
+			{
+				while ($banner = mysql_fetch_object($result)) {
+					echo "<li>";
+					$banner->language = "N/A";
+					$banner->subkey = $banner->resolution;
 
-                                                                    if ($bannercount == 0) {
-                                                                        print "There is no box art for this game\n";
-                                                                    }
-                                                                    ?>
-                                                                </div>
+					## If this person is allowed to delete the banner, pass that info along
+					if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+						displaybannernew($banner, 1, "");
+					}
+					else {
+						displaybannernew($banner, 0, "");
+					}
+				
+				}
+				## Increment counter
+				$bannercount++;
+				echo "</li>";
+			}
+			?>
+			<?php
+			if ($bannercount == 0) {
+				print "<li><p style=\"text-align: center;\">There is no rear boxart for this game</p></li>";
+			}
+			?>
+			</ul>
+			<?php	if ($loggedin == 1) {  ?>
+			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#rearBoxartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#rearBoxartUpload" rel="facebox" style="font-size: 16px;">Upload Rear Boxart</a></span></p>
+			<?php  }  ?>
+		</div>
+		<!-- End Rear Boxart Panel -->
 
-                                                                <div class="section">
-                                                                    <h1>Box Art Upload</h1>
-                                                                    <?php  	## check for agreement to terms
-                                                                    if ($user->banneragreement != 1) {
-                                                                        print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-                                                                    } ## Check for disabled banner upload
-                                                                    elseif ($user->bannerlimit == 0) {
-                                                                        print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-                                                                    } ## Check banner limit
-                                                                    elseif ($game->disabled == 'Yes') {
-                                                                        print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-                                                                    }
-                                                                    else {
-                                                                        ?>
-                                                                    <form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-                                                                            <tr>
-                                                                                <td>File:</td>
-                                                                                <td>
-                                                                                    <select id="cover_side" name="cover_side">
-                                                                                        <option value="front">Front</option>
-                                                                                        <option value="back">Back</option>
-                                                                                    </select>
-                                                                                    <input type="file" name="bannerfile">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2">
-                                                                                    <p><em>Please Note:</em> Uploading an image with out saving first will result in data loss.</p>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align: right">
-                                                                                    <input type="hidden" name="function" value="Upload Box Art">
-                                                                                    <input type="submit" name="button" value="Upload" class="submit">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </form>
-                                                                        <?php } ?>
-                                                                </div>
+		
+		<!-- Start Fanart Panel -->
+		<div class="miniPanel fanart">
+			<h2 class="arcade">Fan Art</h2>
+			<?php	## Display all fanart for this show
+			$bannercount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='fanart' AND keyvalue=$id ORDER BY rating DESC,RAND()";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			?>
+			<ul class="fanartSlide">
+			<?php
+			if(mysql_num_rows($result) > 0)
+			{
+			while ($banner = mysql_fetch_object($result)) {
+				
+				echo"<li>";
+				
+				$banner->language = "N/A";
+				$banner->subkey = $banner->resolution;
 
-                                                            </td>
-                                                            </tr>
-                                                            </table>
+				## If this person is allowed to delete the banner, pass that info along
+				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+					displaybannernew($banner, 1, "");
+				}
+				else {
+					displaybannernew($banner, 0, "");
+				}
+
+				## Increment counter
+				$bannercount++;
+				
+				echo "</li>";
+			}
+			?>
+			<?php
+			}
+
+			if ($bannercount == 0) {
+				print "<li><p style=\"text-align: center;\">There is no fan art for this game</p></li>";
+			}
+			?>
+			</ul>
+			<?php	if ($loggedin == 1) {  ?>
+			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#fanartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#fanartUpload" rel="facebox" style="font-size: 16px;">Upload Fanart</a></span></p>
+			<?php  }  ?>
+		</div>
+		<!-- End Fanart Panel -->
+		
+		
+		<!-- Start Banner Panel -->
+		 <div class="miniPanel banner">
+			<h2 class="arcade">Banners</h2>
+			<?php	## Display all banners for this show
+			$bannercount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT name FROM languages WHERE id=banners.languageid) AS language, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='series' AND keyvalue=$id ORDER BY rating DESC,RAND()";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			?>
+			<ul class="bannerSlide">
+			<?php
+			if(mysql_num_rows($result) > 0)
+			{
+			while ($banner = mysql_fetch_object($result)) {
+				echo "<li>";
+				## If this person is allowed to delete the banner, pass that info along
+				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+					displaybannernew($banner, 1, "");
+				}
+				else {
+					displaybannernew($banner, 0, "");
+				}
+
+				## Increment counter
+				$bannercount++;
+				echo "</li>";
+			}
+			?>
+			<?php
+			}
+
+			if ($bannercount == 0) {
+				print "<li><p style=\"text-align: center;\">There are no banners for this game</p></li>";
+			}
+			?>
+			</ul>
+			<?php	if ($loggedin == 1) {  ?>
+			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#bannerUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#bannerUpload" rel="facebox" style="font-size: 16px;">Upload Banner</a></span></p>
+			<?php  }  ?>
+		</div>
+		<!-- End Banner Panel -->
+</div>
+<div style="clear: both;"></div>
 
                                                             <script type="text/javascript">
                                                                 DisplayImporterRow('<?=$game->
         autoimport?>');
                                                             </script>
+		
+		<script>
+			// $(document).ready(function(){	
+				// $("#frontBoxartSlide").easySlider({
+					// auto: true,
+					// continuous: true,
+					// nextId: "slider1next",
+					// prevId: "slider1prev"
+				// });
+			// });
+		
+			$(function () {
+				$('.boxartSlide').anythingSlider({
+				//width : 300,						// Override the default CSS width
+				//height: 615,
+				delay: 3500,
+				buildNavigation: true,
+				buildArrows: false,
+				resizeContents: false,
+				easing: 'easeInOutExpo'
+				});
+				$('.fanartSlide').anythingSlider({
+				//width : 300,						// Override the default CSS width
+				//height: 430,
+				delay: 3500,
+				buildNavigation: true,
+				buildArrows: false,
+				resizeContents: false,
+				easing: 'easeInOutExpo'
+				});
+				$('.bannerSlide').anythingSlider({
+				//width : 300,						// Override the default CSS width
+				//height: 245,
+				delay: 3500,
+				buildNavigation: true,
+				buildArrows: false,
+				resizeContents: false,
+				easing: 'easeInOutExpo'
+				});
+			});
+		</script>

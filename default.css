@@ -42,10 +42,6 @@ h2{
 
 /* NAV */
 
-#search{
-    margin-top: 5px;
-}
-
 #nav{
     height: 35px;
     background: transparent url('/images/brushmetal2.png') repeat-x left top;
@@ -153,6 +149,31 @@ h2{
 	width: 538px;
 	float: left;
 	padding-right: 30px;
+	padding-top: 20px;
+	border-top: 2px dotted #666;
+}
+#gameOptionsRight {
+	width: 330px;
+	float: left;
+	padding-left: 30px;
+	padding-top: 10px;
+	border-top: 2px dotted #666;
+	border-left: 2px dotted #666;
+}
+#gameOptionsRight .miniPanel {
+	width: 300px;
+	padding: 7px 15px;
+	margin-top: 10px;
+	color: #FFF;
+	border: 1px solid #666;
+	border-radius: 10px;
+	background-color: #999;
+}
+#gameOptionsRight .miniPanel h1 {
+	margin-top: 0px;
+}
+#gameOptionsRight .miniPanel a {
+	color: #FFF;
 }
 #gameRight {
 	width: 330px;

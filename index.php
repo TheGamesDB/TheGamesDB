@@ -1116,34 +1116,34 @@ if ($tab == '') {
     <body>
         <div id="main">
             <div id="header">
-                <p>
-                    <?php if ($loggedin): ?>
+				<p>
+					<?php if ($loggedin): ?>
 						<a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a> | <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
-                    <?php else: ?>
-                            <a href="<?= $baseurl ?>/?tab=login">Login</a> | New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
-                    <?php endif; ?>
-                        </p>
-                        <a href="<?= $baseurl ?>" title="An open database of video games">
-                            <img src="<?= $baseurl ?>/images/bannerws.png" />
-                        </a>
-                        <div id="nav">
-                            <form id="search" action="<?= $baseurl ?>/index.php">
-                                <input class="left "type="text" name="string" id="search" value="Search..." onFocus="this.value=''" style="color: #333; margin-left: 10px;" />
-                                <input type="hidden" name="searchseriesid" id="searchseriesid" />
-                                <input type="hidden" name="tab" value="listseries" />
-                                <input type="hidden" name="function" value="Search" />
-								<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px;" />
-                            </form>
-                            <ul>
-								<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
-                                <li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
-								<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
-                        <?php if ($loggedin): ?>
-                                <li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
-                        <?php endif; ?>
-                            </ul>
-                        </div>
-                    </div>
+					<?php else: ?>
+						<a href="<?= $baseurl ?>/?tab=login">Login</a> | New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+					<?php endif; ?>
+				</p>
+				<a href="<?= $baseurl ?>" title="An open database of video games">
+					<img src="<?= $baseurl ?>/images/bannerws.png" />
+				</a>
+				<div id="nav">
+					<form id="search" action="<?= $baseurl ?>/index.php">
+						<input class="left "type="text" name="string" id="search" value="Search..." onFocus="this.value=''" style="color: #333; margin-left: 10px; margin-top: 5px;" />
+						<input type="hidden" name="searchseriesid" id="searchseriesid" />
+						<input type="hidden" name="tab" value="listseries" />
+						<input type="hidden" name="function" value="Search" />
+						<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
+					</form>
+					<ul>
+						<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
+						<li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
+						<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
+					<?php if ($loggedin): ?>
+							<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
+					<?php endif; ?>
+					</ul>
+				</div>
+			</div>
 
                     <div id="content">
                         <?php if($errormessage): ?>

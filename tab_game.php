@@ -48,18 +48,17 @@ if ($user->lastupdatedby_admin) {
 
 <div style="clear:both"></div>
 
-<div id="gameLeft">
-
-			<h2 class="arcade">Game information</h2>
-	
 	<?php
 		$platformIconResult = mysql_query(" SELECT name, icon FROM platforms WHERE id = '$game->Platform' ");
 		$platformIcon = mysql_fetch_assoc($platformIconResult);
 	?>
+	<h1 class="arcade" style="margin-top: 0px; padding-top: 0px;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -16px;" /> <?=stripslashes($game->GameTitle);?></h1>
+	
+<div id="gameLeft">
 	
 	<div id="gameInfoContent">
             <div class="titlesection">
-                <h2 class="arcade" style="margin-top: 0px; padding-top: 0px;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -16px;" /> <?=stripslashes($game->GameTitle);?></h2>
+				<h2 class="arcade">Game information</h2>
             </div>
 
 			<div style="clear: both;"></div>
@@ -352,14 +351,6 @@ if ($user->lastupdatedby_admin) {
 	<div style="border-top: 2px dotted #666; padding-top: 20px; margin-top: 10px;">
 	
 	<?php if ($loggedin == 1) {  ?>
-	<div class="miniPanel">
-		<h3 class="arcade">Upload Guides</h3>
-	</div>
-	<?php
-	}
-	?>
-	
-	<?php if ($loggedin == 1) {  ?>
 	<div id="frontBoxartUpload" class="miniPanel">
 		<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Front Box Art Upload</h2>
 		<?php  	## check for agreement to terms
@@ -562,9 +553,9 @@ if ($user->lastupdatedby_admin) {
 	
 </div>
 
-<div id="gameRight">
+<div id="gameOptionsRight">
 		<?php	if ($loggedin == 1) {  ?>
-		<div style="text-align: center;">
+		<div style="text-align: center; margin-top: 10px;">
 				<?php	## First, generate their userfavorites array
 				$userfavorites = explode(",", $user->favorites);
 
@@ -636,6 +627,9 @@ if ($user->lastupdatedby_admin) {
 			</table>
 		</div>
 
+</div>
+		
+<div id="gameRight">
 		
 		<!-- Start Front Boxart Panel -->
 		<div class="miniPanel boxart">
@@ -650,7 +644,7 @@ if ($user->lastupdatedby_admin) {
 			if(mysql_num_rows($result) > 0)
 			{
 			while ($banner = mysql_fetch_object($result)) {
-				echo "<li>";
+				echo "<li><br />";
 				$banner->language = "N/A";
 				$banner->subkey = $banner->resolution;
 
@@ -664,7 +658,7 @@ if ($user->lastupdatedby_admin) {
 
 				## Increment counter
 				$bannercount++;
-				echo "</li>";
+				echo "<br /></li>";
 			}
 			?>
 			<?php
@@ -695,7 +689,7 @@ if ($user->lastupdatedby_admin) {
 			if(mysql_num_rows($result) > 0)
 			{
 				while ($banner = mysql_fetch_object($result)) {
-					echo "<li>";
+					echo "<li><br />";
 					$banner->language = "N/A";
 					$banner->subkey = $banner->resolution;
 
@@ -710,7 +704,7 @@ if ($user->lastupdatedby_admin) {
 				}
 				## Increment counter
 				$bannercount++;
-				echo "</li>";
+				echo "<br /></li>";
 			}
 			?>
 			<?php
@@ -740,7 +734,7 @@ if ($user->lastupdatedby_admin) {
 			{
 			while ($banner = mysql_fetch_object($result)) {
 				
-				echo"<li>";
+				echo"<li><br />";
 				
 				$banner->language = "N/A";
 				$banner->subkey = $banner->resolution;
@@ -756,7 +750,7 @@ if ($user->lastupdatedby_admin) {
 				## Increment counter
 				$bannercount++;
 				
-				echo "</li>";
+				echo "<br /></li>";
 			}
 			?>
 			<?php
@@ -787,7 +781,7 @@ if ($user->lastupdatedby_admin) {
 			if(mysql_num_rows($result) > 0)
 			{
 			while ($banner = mysql_fetch_object($result)) {
-				echo "<li>";
+				echo "<li><br />";
 				## If this person is allowed to delete the banner, pass that info along
 				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
 					displaybannernew($banner, 1, "");
@@ -798,7 +792,7 @@ if ($user->lastupdatedby_admin) {
 
 				## Increment counter
 				$bannercount++;
-				echo "</li>";
+				echo "<br /></li>";
 			}
 			?>
 			<?php
@@ -834,7 +828,7 @@ if ($user->lastupdatedby_admin) {
 		
 			$(function () {
 				$('.boxartSlide').anythingSlider({
-				//width : 300,						// Override the default CSS width
+				width : 300,						// Override the default CSS width
 				//height: 615,
 				delay: 3500,
 				buildNavigation: true,
@@ -843,7 +837,7 @@ if ($user->lastupdatedby_admin) {
 				easing: 'easeInOutExpo'
 				});
 				$('.fanartSlide').anythingSlider({
-				//width : 300,						// Override the default CSS width
+				width : 300,						// Override the default CSS width
 				//height: 430,
 				delay: 3500,
 				buildNavigation: true,
@@ -852,7 +846,7 @@ if ($user->lastupdatedby_admin) {
 				easing: 'easeInOutExpo'
 				});
 				$('.bannerSlide').anythingSlider({
-				//width : 300,						// Override the default CSS width
+				width : 300,						// Override the default CSS width
 				//height: 245,
 				delay: 3500,
 				buildNavigation: true,

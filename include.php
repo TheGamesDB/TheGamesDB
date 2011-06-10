@@ -196,15 +196,20 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		## Create the cached version of the image
 		$target = file_get_contents("$baseurl/thumbnail.php?gd=2&maxw=300&src=banners/$banner->filename");
 		file_put_contents("banners/_cache/$banner->filename", $target);
+		
+		## fetch image dimensions
+		list($image_width, $image_height, $image_type, $image_attr) = getimagesize("banners/_cache/$banner->filename");
+		$imgWidth = $image_width;
+		$imgHeight = $image_height;
 	}
 
 
 	## Display the image
 	if ($link)  {
-		print "<a href=\"$link\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
+		print "<a href=\"$link\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" width=\"$imgWidth\" height=\"$imgHeight\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
 	}
 	else  {
-		print "<a href=\"javascript:;\" onClick=\"toggleDiv('bannerinfo$banner->id');\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" border=\"0\"></a>\n";
+		print "<img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" width=\"$imgWidth\" height=\"$imgHeight\" border=\"0\">\n";
 	}
 
 

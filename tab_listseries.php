@@ -22,16 +22,30 @@
 <h1 class="arcade">Games|<?=$title?></h1>
 	
 	<!-- Start Advanced Search -->
-	<div style="width: 90%; margin: auto; margin-bottom: 12px;">
-		<a href="javascript: void();" onclick="$('#advancedSearchPanel').slideToggle(); if($('#chevron').attr('src') == 'images/common/icons/expand_16.png') { $('#chevron').attr('src', 'images/common/icons/collapse_16.png'); } else { $('#chevron').attr('src', 'images/common/icons/expand_16.png'); }" style="text-decoration: none; outline: 0px; color: #0066FF;">Advanced Search <img id="chevron" src="images/common/icons/expand_16.png" alt="Expand/Collapse" style="vertical-align:middle;" /></a>
-		<div id="advancedSearchPanel" style="display: none; border: 1px solid #0066FF; background-color: #E5FAFF; padding: 15px;">
+	<div style="width: 80%; margin: auto; margin-bottom: 12px;">
+		<?php
+			if($function == "Advanced Search")
+			{
+			?>
+		<a href="javascript: void();" onclick="$('#advancedSearchPanel').slideToggle(); if($('#chevron').attr('src') == 'images/common/icons/expand_16.png') { $('#chevron').attr('src', 'images/common/icons/collapse_16.png'); } else { $('#chevron').attr('src', 'images/common/icons/expand_16.png'); }" style="text-decoration: none; outline: 0px; color: #EF5F00; font-weight: bold;">Advanced Search <img id="chevron" src="images/common/icons/collapse_16.png" alt="Expand/Collapse" style="vertical-align:middle;" /></a>
+		<div id="advancedSearchPanel" style="border: 1px solid #666; background-color: #999; padding: 15px; border-radius: 10px; color: #FFF; font-weight: bold;">
+			<?php
+			}
+			else
+			{
+			?>
+		<a href="javascript: void();" onclick="$('#advancedSearchPanel').slideToggle(); if($('#chevron').attr('src') == 'images/common/icons/expand_16.png') { $('#chevron').attr('src', 'images/common/icons/collapse_16.png'); } else { $('#chevron').attr('src', 'images/common/icons/expand_16.png'); }" style="text-decoration: none; outline: 0px; color: #EF5F00; font-weight: bold;">Advanced Search <img id="chevron" src="images/common/icons/expand_16.png" alt="Expand/Collapse" style="vertical-align:middle;" /></a>
+		<div id="advancedSearchPanel" style="display: none; border: 1px solid #666; background-color: #999; padding: 15px; border-radius: 10px; color: #FFF; font-weight: bold;">
+			<?php
+			}
+		?>
 			<form>
 				<table cellspacing="6" width="100%">
 					<tr>
-						<td>Search:<input type="text" name="string" value="<?php echo $string; ?>" size="20" /></td>
+						<td>Search: <input type="text" name="string" value="<?php echo $string; ?>" size="40" /></td>
 						<td>Platform:
 							<select name="stringPlatform">
-								<option value="">Select...</option>
+								<option value="">Any</option>
 								<?php
 									$platformQuery = mysql_query(" SELECT * FROM platforms ORDER BY name ASC");
 									while($platformResult = mysql_fetch_assoc($platformQuery))
@@ -43,9 +57,11 @@
 								?>
 							</select>
 						</td>
+					</tr>
+					<tr>
 						<td>Rating:
 							<select name="stringRating">
-								<option value="">Select...</option>
+								<option value="">Any</option>
 								<option<?php if($stringRating == "eC - Early Childhood") { echo " selected"; } ?>>EC - Early Childhood</option>
                                 <option<?php if($stringRating == "E - Everyone") { echo " selected"; } ?>>E - Everyone</option>
                                 <option<?php if($stringRating == "E10+ - Everyone 10+") { echo " selected"; } ?>>E10+ - Everyone 10+</option>
@@ -54,27 +70,23 @@
                                 <option<?php if($stringRating == "RP - Rating Pending") { echo " selected"; } ?>>RP - Pating Pending</option>
 							</select>
 						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
 						<td>Genre:
-							<select name="stringGenres" disabled>
-								<option value="">Select...</option>
+							<select name="stringGenres">
+								<option value="">Any</option>
 								<?php
 									$genresQuery = mysql_query(" SELECT * FROM genres ");
 									while($genresResult = mysql_fetch_assoc($genresQuery))
 									{
 										?>
-											<option<?php if($stringGenres == $genresResult['name']) { echo " selected"; } ?> value="<?php echo $genresResult['name']; ?>"><?php echo $genresResult['name']; ?></option>
+											<option<?php if($stringGenres == $genresResult['genre']) { echo " selected"; } ?> value="<?php echo $genresResult['genre']; ?>"><?php echo $genresResult['genre']; ?></option>
 										<?php
 									}
 								?>
 							</select>
 						</td>
-						<td></td>
-						<td>
-							<!-- <input type="hidden" name="searchseriesid" id="searchseriesid" /> -->
+					</tr>
+					<tr>
+						<td align="right" colspan="2">
                             <input type="hidden" name="tab" value="listseries" />
                             <input type="hidden" name="function" value="Advanced Search" />
 							<input type="submit" value="Search..."/>	
@@ -151,7 +163,35 @@
 					<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
 					<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/?tab=game&id=<?php echo $game->id; ?>&lid=1"><?php echo $game->GameTitle; ?></a></td>
 					<td class="<?php echo $class; ?>"><img src="images/common/consoles/png16/<?php echo $platformIdResult->icon; ?>" alt="<?php echo $platformIdResult->name; ?>" style="vertical-align: middle;" /> <?php echo $platformIdResult->name; ?></td>
-					<td class="<?php echo $class; ?>"><?php if(!empty($game->Genre)) { $mainGenre = explode("|", $game->Genre); if(strlen($mainGenre[1]) > 15) { $mainGenre[1] = substr($mainGenre[1], 0, 15) . "..."; }echo $mainGenre[1]; } ?></td>
+					<td class="<?php echo $class; ?>">
+						<?php if(!empty($game->Genre))
+						{
+							$mainGenre = explode("|", $game->Genre);
+							if(!empty($stringGenres))
+							{
+								for($i = 0; $i <= count($mainGenre); $i++)
+								{
+									if($mainGenre[$i] == $stringGenres)
+									{
+										if(strlen($mainGenre[$i]) > 15)
+										{
+											$mainGenre[$i] = substr($mainGenre[$i], 0, 15) . "...";
+										}
+										echo $mainGenre[$i];
+									}
+								}
+							}
+							else
+							{
+								if(strlen($mainGenre[1]) > 15)
+								{
+									$mainGenre[1] = substr($mainGenre[1], 0, 15) . "...";
+								}
+								echo $mainGenre[1];
+							}
+						}
+						?>
+					</td>
 					<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
 					<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
 					<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>

@@ -37,5 +37,44 @@
 		$value = preg_replace('/\0/', '', $value);
 		return $value;
 	}
+	
+	function clean($string)
+	{
+		// Replace other special chars
+		$specialCharacters = array(
+		'#' => '',
+		'$' => '',
+		'%' => '',
+		'&' => '',
+		'@' => '',
+		'.' => '',
+		'€' => '',
+		'+' => '',
+		'=' => '',
+		'-' => '',
+		'§' => '',
+		'\\' => '',
+		'/' => '',
+		);
+
+		while (list($character, $replacement) = each($specialCharacters)) {
+		$string = str_replace($character, '-' . $replacement . '-', $string);
+		}
+
+		$string = strtr($string,
+		"ÀÁÂÃÄÅáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
+		"AAAAAAaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn"
+		);
+
+		// Remove all remaining other unknown characters
+		$string = preg_replace('/[^a-zA-Z0-9\-]/', ' ', $string);
+		$string = preg_replace('/^[\-]+/', '', $string);
+		$string = preg_replace('/[\-]+$/', '', $string);
+		$string = preg_replace('/[\-]{2,}/', ' ', $string);
+		$string = str_replace('   ', ' ', $string);
+		$string = str_replace('  ', ' ', $string);
+
+		return $string;
+	}
 ?>
 

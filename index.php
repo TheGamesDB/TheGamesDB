@@ -510,6 +510,15 @@ if ($function == 'Register') {
                 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
                 $tab = 'mainmenu';
                 $message = '<p><strong><em>Thank you for registering with TheGamesDB!</em></strong><p>You will receive an email confirmation with your account information shortly.  Please proceed to the <a href=\"$baseurl/?tab=login\">Login</a> screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
+				
+				## Email it to the user
+				$from = "TheGamesDB <$mail_username>";
+				$host = $mail_server;
+				$to = $username . '<' . $email . '>';
+				$subject = "Thank you for registering with TheGamesDB.net";
+				$emailmessage = "Thank you for registering with TheGamesDB.net.\n\nHere is your new login information:\nusername: $username\npassword: $userpass1\n\nIf you have forgotten your password you can reset it by visiting: http://www.thegamesdb.net/?tab=password\n\nIf you have any questions, please let us know.\n\nTheGamesDB Crew.";
+				$headers = 'From: ' . $from;
+				mail($to, $subject, wordwrap($emailmessage, 70), $headers);
             } else {
                 $errormessage = 'Email address is required.';
             }
@@ -544,11 +553,11 @@ if ($function == 'Reset Password') {
         $host = $mail_server;
         $to = $db->username . '<' . $db->emailaddress . '>';
         $subject = "Your account information";
-        $message = "This is an automated message.\n\nYour GamesDB password has been reset.  Here is your new login information:\nusername: $db->username\npassword: $newpass\n\nIf you have any questions, please let us know.\nTheGamesDB Crew\n";
+        $message = "This is an automated message.\n\nYour GamesDB password has been reset.\n\nHere is your new login information:\nusername: $db->username\npassword: $newpass\n\nIf you have any questions, please let us know.\n\nTheGamesDB Crew\n";
         $headers = 'From: ' . $from;
         mail($to, $subject, wordwrap($message, 70), $headers);
 
-        $errormessage = 'Login information has been sent.';
+        $message = 'Login information has been sent.';
     } else {
         $errormessage = 'That address cannot be found.';
     }

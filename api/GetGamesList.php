@@ -14,7 +14,7 @@ include("include.php");
 
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
-$name = str_replace(array(' - ', '-'), '%', $name);
+//$name = str_replace(array(' - ', '-'), '%', $name);
 $platform = $_REQUEST["platform"];
 
 //$language		= $_REQUEST["language"];
@@ -34,7 +34,16 @@ if (empty($name)) {
 $query;
 if (isset($name) && !empty($name))
 {
-	$query = "SELECT id FROM games WHERE GameTitle LIKE '%$name%'";
+	$cleanName = clean($name);
+	$nameKeys = explode(" ", $cleanName);
+	$query = "SELECT id FROM games WHERE GameTitle LIKE '%$nameKeys[0]%'";
+	for($i = 1; $i <= count($nameKeys); $i++)
+	{
+		if($nameKeys[$i] != "" || $nameKeys[$i] != " " || $nameKeys[$i] != "  " || $nameKeys[$i] != "   ")
+		{
+			$query .= " AND GameTitle LIKE '%$nameKeys[$i]%'";
+		}
+	}
 	if(isset($platform) && !empty($platform))
 	{
 		$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
@@ -53,6 +62,7 @@ if (isset($name) && !empty($name))
 	}
 	$query = $query . " ORDER BY GameTitle ASC";
 }
+
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 print "<Data>\n";

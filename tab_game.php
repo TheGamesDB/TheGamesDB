@@ -64,7 +64,7 @@ if ($user->lastupdatedby_admin) {
 			<div style="clear: both;"></div>
 			
             <div class="section">
-                <form action="<?=$fullurl?>" method="POST" name="seriesform">
+                <form action="<?=$fullurl?>" method="POST" name="seriesform" id="seriesform" onsubmit="if(seriesform.coopfake.checked == false) {$('#coop').val('No');} else if(seriesform.coopfake.checked == true){ $('#coop').val('Yes'); }">
                     <div id="red"><?=$errormessage?></div>
                     <table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
                         <tr>
@@ -96,6 +96,8 @@ if ($user->lastupdatedby_admin) {
                                     <option value="4" <?php if ($game->Players == 4) echo 'selected' ?>>4+</option>
                                         ?>
                                 </select>
+								<span style="padding-left: 20px;">Co-op:</span><input type="checkbox" id="coopfake" <?php if ($game->coop == "Yes") echo 'checked' ?> />
+								<input type="hidden" id="coop" name="coop" />
                             </td>
                         </tr>
 						<?php

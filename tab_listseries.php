@@ -86,7 +86,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="right" colspan="2">
+						<td>
+							Co-op:
+                            <select name="stringCoop">
+								<option value="">Any</option>
+								<option<?php if($stringCoop == "Yes") { echo " selected"; } ?>>Yes</option>
+								<option<?php if($stringCoop == "No") { echo " selected"; } ?>>No</option>
+                                
+							</select>
+						</td>
+						<td align="right">
                             <input type="hidden" name="tab" value="listseries" />
                             <input type="hidden" name="function" value="Advanced Search" />
 							<input type="submit" value="Search..."/>	
@@ -98,6 +107,23 @@
 	</div>
 	<!-- End Advanced Search -->
 	
+	<!-- Start Sort By -->
+	<form style="text-align: right;">
+		<input type="hidden" name="tab" value="<?=$tab?>" />
+        <input type="hidden" name="function" value="<?=$function?>" />
+		<input name="string" type="hidden" value="<?=$string?>" />
+		<input name="stringPlatform" type="hidden" value="<?=$stringPlatform?>" />
+		<input name="stringRating" type="hidden" value="<?=$stringRating?>" />
+		<input name="stringGenres" type="hidden" value="<?=$stringGenres?>" />
+		<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
+			<option <?php if($sortBy == "g.GameTitle"){ echo "selected"; } ?> value="g.GameTitle">Name</option>
+			<option <?php if($sortBy == "p.name"){ echo "selected"; } ?> value="p.name">Platform</option>
+			<option <?php if($sortBy == "g.Genre"){ echo "selected"; } ?> value="g.Genre">Genre</option>
+			<option <?php if($sortBy == "g.Rating"){ echo "selected"; } ?> value="g.Rating">Rating</option>
+		</select></p>
+	</form>
+	<!-- End Sort By -->
+	
 	<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable">
 		<tr>
 			<td class="head arcade" align="center">ID</td>
@@ -107,6 +133,7 @@
 			<td class="head arcade">ESRB</td>
 			<td class="head arcade">Boxart</td>
 			<td class="head arcade">Fanart</td>
+			<td class="head arcade">Banner</td>
 		</tr>
 
 		<?php	## Run the games query
@@ -115,24 +142,44 @@
 			$letter = mysql_real_escape_string($letter);			
 
 			if ($function == 'Search')  {
-				$query = "SELECT * FROM games WHERE GameTitle LIKE '%$string%' ORDER BY GameTitle";
+				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE GameTitle LIKE '%$string%' and g.Platform = p.id";
+				if(!empty($sortBy))
+				{
+					$query .= " ORDER BY $sortBy, GameTitle ASC";
+				}
+				else
+				{
+					$query .= " ORDER BY GameTitle";
+				}
 			}
 			## Start Advanced Search Query
 			elseif ($function == 'Advanced Search')  {
-				$query = "SELECT * FROM games WHERE GameTitle LIKE '%$string%'";
+				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE g.GameTitle LIKE '%$string%'";
 				if($stringPlatform != "")
 				{
-					$query = $query .  " AND Platform = '$stringPlatform' ";
+					$query = $query .  " AND g.Platform = '$stringPlatform' ";
 				}
 				if($stringRating != "")
 				{
-					$query = $query .  " AND Rating = '$stringRating' ";
+					$query = $query .  " AND g.Rating = '$stringRating' ";
 				}
 				if($stringGenres != "")
 				{
-					$query = $query .  " AND Genre LIKE '%$stringGenres%' ";
+					$query = $query .  " AND g.Genre LIKE '%$stringGenres%' ";
 				}
-				$query = $query .  "ORDER BY GameTitle";
+				if($stringCoop != "")
+				{
+					$query = $query .  " AND g.coop = '$stringCoop' ";
+				}
+				$query = $query .  "AND g.Platform = p.id ";
+				if(!empty($sortBy))
+				{
+					$query .= " ORDER BY $sortBy, GameTitle ASC";
+				}
+				else
+				{
+					$query .= " ORDER BY GameTitle";
+				}
 			}
 			## End Advanced Search Query
 			elseif ($function == 'OverviewSearch')  {
@@ -150,12 +197,15 @@
 			while ($game = mysql_fetch_object($result)) {
 				$platformIdQuery = mysql_query("SELECT * FROM platforms WHERE id = '$game->Platform' LIMIT 1");
 				$platformIdResult = mysql_fetch_object($platformIdQuery);
-					
+				
 				$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 				$boxartResult = mysql_num_rows($boxartQuery);
 				
 				$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'fanart' LIMIT 1");
 				$fanartResult = mysql_num_rows($fanartQuery);
+
+				$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'series' LIMIT 1");
+				$bannerResult = mysql_num_rows($bannerQuery);
 				
 				if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
 				?>
@@ -195,6 +245,8 @@
 					<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
 					<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
 					<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+					<td align="center" class="<?php echo $class; ?>"><?php if($bannerResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+				</tr>
 				</tr>
 				<?php
 				$gamecount++;
@@ -202,7 +254,7 @@
 
 			## No matches found?
 			if ($gamecount == 0)  {
-				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">The game you searched for has not been added yet, would you like to <a href=\"?tab=addgame&passTitle=$string\">create it?</a>";
+				print "<tr><td class=\"odd\" colspan=\"8\" align=\"center\" style=\"font-weight: bold;\">The game you searched for has not been added yet, would you like to <a href=\"?tab=addgame&passTitle=$string\">create it?</a>";
 				//if (!$alllang){print "Retry <a href=\"$baseurl/index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">search</a> in all languages?";}
 				print "</td></tr>\n";
 				
@@ -211,7 +263,7 @@
 			{
 				?>
 					<tr>
-						<td class="total" colspan="7">Total Matching Search: <?=$gamecount?> Games</td>
+						<td class="total" colspan="8">Total Matching Search: <?=$gamecount?> Games</td>
 					</tr>
 				<?
 			}

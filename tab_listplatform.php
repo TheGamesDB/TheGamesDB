@@ -35,6 +35,21 @@
 	</div>
 	<!-- End Browse By Platform -->
 	
+	<!-- Start Sort By -->
+	<form style="text-align: right;">
+		<input type="hidden" name="tab" value="<?=$tab?>" />
+        <input type="hidden" name="function" value="<?=$function?>" />
+
+		<input name="stringPlatform" type="hidden" value="<?=$stringPlatform?>" />
+
+		<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
+			<option <?php if($sortBy == "GameTitle"){ echo "selected"; } ?> value="GameTitle">Name</option>
+			<option <?php if($sortBy == "Genre"){ echo "selected"; } ?> value="Genre">Genre</option>
+			<option <?php if($sortBy == "Rating"){ echo "selected"; } ?> value="Rating">Rating</option>
+		</select></p>
+	</form>
+	<!-- End Sort By -->
+	
 	<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable">
 		<tr>
 			<td class="head arcade" align="center">ID</td>
@@ -44,6 +59,7 @@
 			<td class="head arcade">ESRB</td>
 			<td class="head arcade">Boxart</td>
 			<td class="head arcade">Fanart</td>
+			<td class="head arcade">Banner</td>
 		</tr>
 
 		<?php	## Run the games query
@@ -54,7 +70,15 @@
 
 			
 			if ($function == 'Browse By Platform')  {
-				$query = "SELECT * FROM games WHERE Platform = '$stringPlatform' ORDER BY GameTitle";
+				$query = "SELECT * FROM games WHERE Platform = '$stringPlatform'";
+				if(!empty($sortBy))
+				{
+					$query .= " ORDER BY $sortBy, GameTitle ASC";
+				}
+				else
+				{
+					$query .= " ORDER BY GameTitle";
+				}
 			
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
@@ -69,6 +93,9 @@
 					$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'fanart' LIMIT 1");
 					$fanartResult = mysql_num_rows($fanartQuery);
 					
+					$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'series' LIMIT 1");
+					$bannerResult = mysql_num_rows($bannerQuery);
+					
 					if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
 					?>
 					<tr>
@@ -79,6 +106,7 @@
 						<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
 						<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
 						<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+						<td align="center" class="<?php echo $class; ?>"><?php if($bannerResult != 0){ ?><img src="images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
 					</tr>
 					<?php
 					$gamecount++;
@@ -87,7 +115,7 @@
 
 			## No matches found?
 			if ($gamecount == 0)  {
-				print "<tr><td class=\"odd\" colspan=\"7\" align=\"center\" style=\"font-weight: bold;\">This platform does not have any games yet... Why not <a href=\"?tab=addgame&passPlatform=$stringPlatform\">add one</a>?";
+				print "<tr><td class=\"odd\" colspan=\"8\" align=\"center\" style=\"font-weight: bold;\">This platform does not have any games yet... Why not <a href=\"?tab=addgame&passPlatform=$stringPlatform\">add one</a>?";
 				//if (!$alllang){print "Retry <a href=\"$baseurl/index.php?".$_SERVER["QUERY_STRING"]."&alllang=1\">search</a> in all languages?";}
 				print "</td></tr>\n";
 				
@@ -96,7 +124,7 @@
 			{
 				?>
 					<tr>
-						<td class="total" colspan="7">Platform Total: <?=$gamecount?> Games</td>
+						<td class="total" colspan="8">Platform Total: <?=$gamecount?> Games</td>
 					</tr>
 				<?php
 			}

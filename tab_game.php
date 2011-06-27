@@ -369,7 +369,7 @@ if ($user->lastupdatedby_admin) {
 			?>
 		<p>The only accepted image formats for box art is JPG and PNG.</p>
 		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-		<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+		<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
 		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
 			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
 				<tr>
@@ -412,7 +412,7 @@ if ($user->lastupdatedby_admin) {
 			?>
 		<p>The only accepted image formats for box art is JPG and PNG.</p>
 		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-		<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+		<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
 		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
 			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
 				<tr>
@@ -459,7 +459,7 @@ if ($user->lastupdatedby_admin) {
 			<p>The only accepted image format for fan art is JPG.</p>
 			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
 			<p>Please set your artist colors after uploading.</p>
-			<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
 			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
 				<tr>
 					<td><strong>File to Upload:</strong><br /><br />
@@ -505,7 +505,7 @@ if ($user->lastupdatedby_admin) {
 			<p>All banner resolutions <strong>must</strong> be 760x140.</p>
 			<p>The only accepted image formats for banners are JPG and PNG.</p>
 			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-			<p>More information can be found on the <a href="http://code.google.com/p/thegamesdb/wiki/ImagesAndArtWork" target="_blank">wiki page</a>.</p>
+			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
 			<p><strong>Banner Type:</strong>
 				<select name="subkey" size="1">
 					<option value="graphical">Graphical</option>

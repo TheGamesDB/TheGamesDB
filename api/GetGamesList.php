@@ -60,6 +60,10 @@ if (isset($name) && !empty($name))
 			exit;
 		}
 	}
+	if(isset($genre) && !empty($genre))
+	{
+		$query = $query . " AND Genre Like '%$genre%'";
+	}	
 	$query = $query . " ORDER BY GameTitle ASC";
 }
 

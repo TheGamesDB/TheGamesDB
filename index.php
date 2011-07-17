@@ -1182,19 +1182,20 @@ if ($tab == '') {
 							
 							<p style="text-align: center;"><a href="http://thegamesdb.net/?tab=terms">Terms &amp; Conditions</a></p>
 
+							<!--
 							<?php //if($tab != 'mainmenu'): ?>
 							<div class="ad">
-								<script type="text/javascript"><!--
+								<script type="text/javascript">
 									google_ad_client = "ca-pub-9813914365177844";
 									/* Footer New */
 									google_ad_slot = "1296638344";
 									google_ad_width = 468;
 									google_ad_height = 60;
-									//-->
 								</script>
 								<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 							</div>
 							<?php //endif; ?>
+							-->
 							<div class="clear"></div>
 							
 						</div>

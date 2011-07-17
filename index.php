@@ -925,7 +925,9 @@ if ($tab == '') {
 		<!-- End jQuery Image Dropdown Include -->
 		
 		<!-- Start xFade2 Include -->
+		<?php if($tab == "game") { ?>
 		<script src="js/xfade2/xfade2.js" type="text/javascript"></script>
+		<?php } ?>
 		<!-- End xFade2 Include -->
 		
         <script type="text/javascript">
@@ -1127,9 +1129,9 @@ if ($tab == '') {
             <div id="header">
 				<p>
 					<?php if ($loggedin): ?>
-						<a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a> | <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+						<a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
 					<?php else: ?>
-						<a href="<?= $baseurl ?>/?tab=login">Login</a> | New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+						<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
 					<?php endif; ?>
 				</p>
 				<a href="<?= $baseurl ?>" title="An open database of video games">
@@ -1161,52 +1163,61 @@ if ($tab == '') {
                         <?php if($message): ?>
                         <div class="message"><?= $message ?></div>
                         <?php endif; ?>
-                <?php
-                                include("tab_$tab.php");
-                ?>
-                            </div>
+						
+						<!-- Start Include Page (Tab) Content -->
+						<?php
+							include("tab_$tab.php");
+						?>
+						<!-- End Include Page (Tab) Content -->
+						
+						</div>
 
-                            <div id="footer">
+						<div id="footer">
+						
+							<a href="http://twitter.com/thegamesdb" target="_blank" ><img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow 'thegamesdb' on Twitter" title="Follow 'thegamesdb' on Twitter" style="float: right; padding-right: 5px" /></a>
+														
+                            <p style="margin-left: 16px;"><span class="arcade">The Team</span><br />
+							<strong>Owner:</strong> Scott Brant (smidley)<br />
+							<strong>Coding &amp; Design:</strong> Alex Nazaruk (flexage), Matt McLaughlin</p>
+							
+							<p style="text-align: center;"><a href="http://thegamesdb.net/?tab=terms">Terms &amp; Conditions</a></p>
 
-															<a href="http://twitter.com/thegamesdb" class="right tile" target="_blank" >
-                                    <img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow thegamesdb on Twitter" style="float: right; padding-right: 5px" /></a>
-                                <left><font color=#FFFFFF>Owner: Scott Brant (smidley)<br>Coding &amp; Design: Alex Nazaruk (flexage), Matt McLaughlin</left> 
-				<center><a href="http://thegamesdb.net/?tab=terms"><font color=#FFFFFF>Terms and Conditions</font></a></center>
+							<?php //if($tab != 'mainmenu'): ?>
+							<div class="ad">
+								<script type="text/javascript"><!--
+									google_ad_client = "ca-pub-9813914365177844";
+									/* Footer New */
+									google_ad_slot = "1296638344";
+									google_ad_width = 468;
+									google_ad_height = 60;
+									//-->
+								</script>
+								<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+							</div>
+							<?php //endif; ?>
+							<div class="clear"></div>
+							
+						</div>
+						
+				</div>
 
-                <?php if($tab != 'mainmenu'): ?>
-                <div class="ad">
-                    <script type="text/javascript"><!--
-                        google_ad_client = "ca-pub-9813914365177844";
-                        /* Footer New */
-                        google_ad_slot = "1296638344";
-                        google_ad_width = 468;
-                        google_ad_height = 60;
-                        //-->
-                    </script>
-                    <script type="text/javascript"
-                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                    </script>
-                </div>
-                <?php endif; ?>
-                <div class="clear"></div>
-            </div>
-        </div>
+			<script type="text/javascript">
 
-        <script type="text/javascript">
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-16803563-1']);
+				_gaq.push(['_trackPageview']);
 
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-16803563-1']);
-            _gaq.push(['_trackPageview']);
+				(function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
 
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-
-        </script>
+			</script>
 		
-		<!-- Force instant run of cufon to circumvent IE delay -->
+		<!-- Start Force instant run of cufon to circumvent IE delay -->
 		<script type="text/javascript"> Cufon.now(); </script>
+		<!-- End Force instant run of cufon to circumvent IE delay -->
+		
     </body>
 </html>

@@ -160,15 +160,60 @@ if ($user->lastupdatedby_admin) {
                         <tr>
                             <td><strong>Overview (ENGLISH ONLY):</strong></td>
                             <td>
-
                                 <textarea rows="18" cols="48" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
-
-
-                                <br>
-
-
                             </td>
                         </tr>
+						<tr>
+                            <td><strong>CRC:</strong></td>
+                            <td>
+								<input type="text" size="20" name="crc" value="<?=$game->crc?>" />
+                            </td>
+                        </tr>
+						<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
+						<tr>
+                            <td colspan="2"><hr /></td>
+                        </tr>
+						<tr>
+                            <td colspan="2"><h3 class="arcade">System Requirements:</h3></td>
+                        </tr>
+						<tr>
+                            <td><strong>OS:</strong></td>
+                            <td>
+								<input type="text" size="20" name="os" value="<?=$game->os?>" />
+                            </td>
+                        </tr>
+						<tr>
+                            <td><strong>Processor:</strong></td>
+                            <td>
+								<input type="text" size="20" name="processor" value="<?=$game->processor?>" />
+                            </td>
+                        </tr>
+						<tr>
+                            <td><strong>RAM:</strong></td>
+                            <td>
+								<input type="text" size="20" name="ram" value="<?=$game->ram?>" />
+                            </td>
+                        </tr>
+						<tr>
+                            <td><strong>Hard Drive:</strong></td>
+                            <td>
+								<input type="text" size="20" name="hdd" value="<?=$game->hdd?>" />
+                            </td>
+                        </tr>
+						<tr>
+                            <td><strong>Video:</strong></td>
+                            <td>
+								<input type="text" size="20" name="video" value="<?=$game->video?>" />
+                            </td>
+                        </tr>
+						<tr>
+                            <td><strong>Sound:</strong></td>
+                            <td>
+								<input type="text" size="20" name="sound" value="<?=$game->sound?>" />
+                            </td>
+                        </tr>
+						<? } ?>
+						
                         <tr style="display:none">
                             <td valign="top">Auto-Import:</td>
                             <td>
@@ -197,6 +242,11 @@ if ($user->lastupdatedby_admin) {
                         -->
 
                         <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
+						<tr>
+							<td colspan="2">
+								<hr />
+							</td>
+						</tr>
                         <tr>
                             <td><strong>Banner Requests:</strong></td>
                             <td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>

@@ -4,6 +4,7 @@ body{
     font-size:10pt;
     padding: 0;
     margin: 0;
+	margin-bottom: 16px;
 }
 
 img {
@@ -103,6 +104,10 @@ h2{
 #footer{
     background-color: #4F4F4F;
     padding:3px;
+	color: #ffffff;
+}
+#footer a {
+	color: #dddddd;
 }
 
 /* MAIN NEWS */

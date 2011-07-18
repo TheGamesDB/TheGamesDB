@@ -142,7 +142,7 @@
 			$letter = mysql_real_escape_string($letter);			
 
 			if ($function == 'Search')  {
-				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') AND g.Platform = p.id";
+				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%') AND g.Platform = p.id";
 				if(!empty($sortBy))
 				{
 					$query .= " ORDER BY $sortBy, GameTitle ASC";
@@ -154,7 +154,7 @@
 			}
 			## Start Advanced Search Query
 			elseif ($function == 'Advanced Search')  {
-				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%')";
+				$query = "SELECT g.*, p.name FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%')";
 				if($stringPlatform != "")
 				{
 					$query = $query .  " AND g.Platform = '$stringPlatform' ";

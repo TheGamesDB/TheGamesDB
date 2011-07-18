@@ -210,6 +210,15 @@ while ($obj = mysql_fetch_object($result)) {
                     print "<Rating>" . (float) $value . "</Rating>";
                     break;
 					
+				case 'Players':
+					if($value == 4) {
+						print "<$key>4+</$key>";
+					}
+					else {
+						print "<$key>" . $value . "</$key>";
+					}
+                    break;
+					
 				case 'crc':
                     print "<CRC>" . $value . "</CRC>";
                     break;

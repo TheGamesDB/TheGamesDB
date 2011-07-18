@@ -40,8 +40,9 @@
 	}
 ?>
 
-<div class="section">
-<h1><?=$title?> <?=$max?> Most Recent <?=ucwords($bannertype)?> Images <?=$extratitle?></h1>
+<div style="text-align: center;">
+	<h1 class="arcade">Site Reports &amp; Statistics:</h1>	
+	<h2 class="arcade" style="color: #FF4F00;"><?=$title?> <?=$max?> Most Recent <?php if($bannertype == "series") { echo "Banner"; } else { echo ucwords($bannertype); } ?> Images <?=$extratitle?></h2>
 
 <table cellspacing="0" cellpadding=2" border="0" align="center" width="600">
 <tr>

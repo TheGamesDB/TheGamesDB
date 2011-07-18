@@ -49,8 +49,9 @@ if (!(isset($pagenum)))
 ?>
 
 
-<div class="section">
-<h1>User List | <?=$title?></h1>
+<div style="text-align: center;">
+	<h1 class="arcade">Site Reports &amp; Statistics:</h1>	
+	<h2 class="arcade" style="color: #FF4F00;">User List | <?=$title?></h2>
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">
 		<tr>
 			<td class="head">User ID</td>
@@ -96,11 +97,11 @@ if (!(isset($pagenum)))
 		</table>
 </div>
 <?php
-echo "<div class=\"section\">";
+//echo "<div class=\"section\">";
 echo '<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">';
 echo '<tr><td width="33%">';
 // This shows the user what page they are on, and the total number of pages
-echo " --Page $pagenum of $last-- </td>";  ?>
+echo " -- Page $pagenum of $last -- </td>";  ?>
 	<td style="background-image: url(/images/search.png); background-repeat:no-repeat;">
 	<form method="get" id="searchbox" target="_top">
 		<input type="text" name="string" id="usersearch" value="Username Search" onFocus="this.value=''" style="margin-left:25px;">
@@ -114,10 +115,10 @@ echo " --Page $pagenum of $last-- </td>";  ?>
 if ($pagenum == 1) 
 	{} 
 else {
-	echo " <a href='$fullurl&pagenum=1'> <<-First</a> ";
+	echo " <a href='$baseurl/?tab=userlist&pagenum=1'> <<-First</a> ";
 	echo " ";
 	$previous = $pagenum-1;
-	echo " <a href='$fullurl&pagenum=$previous'> <-Previous</a> ";
+	echo " <a href='$baseurl/?tab=userlist&pagenum=$previous'> <-Previous</a> ";
 	} 
 
 	//just a spacer
@@ -127,9 +128,9 @@ if ($pagenum == $last)
 	{} 
 else {
 	$next = $pagenum+1;
-	echo " <a href='$fullurl&pagenum=$next'>Next -></a> ";
+	echo " <a href='$baseurl/?tab=userlist&pagenum=$next'>Next -></a> ";
 	echo " ";
-	echo " <a href='$fullurl&pagenum=$last'>Last ->></a> ";
+	echo " <a href='$baseurl/?tab=userlist&pagenum=$last'>Last ->></a> ";
 	} 
 
 echo "</td></tr></table>";

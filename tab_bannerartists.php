@@ -1,5 +1,6 @@
-<div class="section">
-<h1>Top 50 Art Contributors</h1>
+<div style="text-align: center;">
+	<h1 class="arcade">Site Reports &amp; Statistics:</h1>	
+	<h2 class="arcade" style="color: #FF4F00;">Top 50 Art Contributors</h2>
 
 	<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" id="listtable">
 		<tr>

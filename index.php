@@ -576,7 +576,7 @@ if ($function == 'Update User Information') {
         $favorites_displaymode = mysql_real_escape_string($favorites_displaymode);
         $query = "UPDATE users SET userpass=PASSWORD('$userpass1'), emailaddress='$email', languageid=$languageid, favorites_displaymode='$favorites_displaymode' WHERE id=$user->id";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Account was successfully updated.';
+        $message = 'Account was successfully updated.';
     }
     ## Error.. passwords were entered, but don't match
     else if ($userpass1 || $userpass2) {
@@ -589,7 +589,7 @@ if ($function == 'Update User Information') {
         $favorites_displaymode = mysql_real_escape_string($favorites_displaymode);
         $query = "UPDATE users SET emailaddress='$email', languageid=$languageid, favorites_displaymode='$favorites_displaymode' WHERE id=$user->id";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Account was successfully updated (no password change).';
+        $message = 'Account was successfully updated (no password change).';
     }
     ## Error... empty emailaddress
     else {
@@ -614,7 +614,7 @@ if ($function == 'Admin Update User') {
         $email = mysql_real_escape_string($email);
         $query = "UPDATE users SET username='$username', userpass=PASSWORD('$userpass1'), emailaddress='$email', userlevel='$form_userlevel', languageid='$languageid', bannerlimit='$bannerlimit', active='$form_active', lastupdatedby_admin='$user->id' WHERE id='$id'";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Account was successfully updated.';
+        $message = 'Account was successfully updated.';
     }
     ## Error.. passwords were entered, but don't match
     else if ($userpass1 || $userpass2) {
@@ -626,7 +626,7 @@ if ($function == 'Admin Update User') {
         $email = mysql_real_escape_string($email);
         $query = "UPDATE users SET username='$username', emailaddress='$email', userlevel='$form_userlevel', languageid='$languageid', bannerlimit='$bannerlimit', active='$form_active', lastupdatedby_admin='$user->id' WHERE id=$id";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Account was successfully updated (no password change).';
+        $message = 'Account was successfully updated (no password change).';
     }
     ## Error... empty emailaddress
     else {
@@ -643,6 +643,30 @@ if ($function == 'Terms Agreement') {
         $errormessage = 'Thank you for agreeing to the site terms. You may now upload banners';
         $tab = 'mainmenu';
     }
+}
+
+#####################################################
+## ADMIN CONTROL PANEL FUNCTIONS
+#####################################################
+if ($function == 'Update Site News') {
+	if ($adminuserlevel == 'ADMINISTRATOR') {
+		$sitenewsfile = fopen("sitenews.php", "w");
+		if($sitenewsfile != false) {
+			$sitenewswrite = fwrite($sitenewsfile, $sitenews);
+			if($sitenewswrite != false)
+			{
+				$message = 'Site News Has Been Saved Successfully';
+			}
+			else
+			{
+				$errormessage = 'There was a problem saving the site news';
+			}
+		}
+		fclose($sitenewsfile);
+	}
+	else {
+		$errormessage = 'You must be logged in as an admin to make that change';
+	}
 }
 
 
@@ -930,6 +954,12 @@ if ($tab == '') {
 		<?php } ?>
 		<!-- End xFade2 Include -->
 		
+		<!-- Start jQuery Enabled CKEditor & CKFinder Include -->
+		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
+		<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+		<!-- End jQuery Enabled CKEditor & CKFinder Include -->
+		
         <script type="text/javascript">
             $('document').ready(function(){
                 var index = 0;
@@ -1128,11 +1158,11 @@ if ($tab == '') {
         <div id="main">
             <div id="header">
 				<p>
-					<?php if ($loggedin): ?>
-						<a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
-					<?php else: ?>
+					<?php if ($loggedin) {
+						if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+					<?php } else { ?>
 						<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
-					<?php endif; ?>
+					<?php } ?>
 				</p>
 				<a href="<?= $baseurl ?>" title="An open database of video games">
 					<img src="<?= $baseurl ?>/images/bannerws.png" />

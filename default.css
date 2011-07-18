@@ -283,8 +283,57 @@ h2{
     left: 0;
 }
 
-/* UTILITY CLASSES */
+/* Control Panel */
+#controlPanelWrapper {
+	border: 1px solid #666;
+	background-color: #EFEFEF;
+}
+#controlPanelNav {
+	float: left;
+	width: 150px;
+	background-color: #444;
+	font-size: 16px;
+}
+#controlPanelNav ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+#controlPanelNav li {
+	background-color: #999;
+	border: 1px solid #aaa;
+	margin: 1px;
+	text-align: center;
+	padding: 10px 0px;
+}
+#controlPanelNav li:hover {
+	background-color: #444;
+}
+#controlPanelNav .active {
+	background-color: #333;
+}
+#controlPanelNav .active a {
+	color: darkorange;
+}
+#controlPanelNav a {
+	display: block;
+	color: #fff;
+}
+#controlPanelNav a:hover {
+	color: orange;
+}
+#controlPanelContent {
+	float: left;
+	width: 750px;
+	padding: 13px;
+	border: 1px solid #AAA;
+}
+#controlPanelContent h2 {
+	text-align: center;
+	color: #FF5500;
+}
 
+/* UTILITY CLASSES */
 .left { float: left; }
 .banner {margin-bottom: 20px}
 .right { float: right; }

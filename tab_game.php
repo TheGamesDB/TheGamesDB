@@ -52,7 +52,7 @@ if ($user->lastupdatedby_admin) {
 		$platformIconResult = mysql_query(" SELECT name, icon FROM platforms WHERE id = '$game->Platform' ");
 		$platformIcon = mysql_fetch_assoc($platformIconResult);
 	?>
-	<h1 class="arcade" style="margin-top: 0px; padding-top: 0px;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -16px;" /> <?=stripslashes($game->GameTitle);?></h1>
+	<h1 style="margin-top: 0px; padding-top: 0px; text-align: center;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -14px;" /> <?=stripslashes($game->GameTitle);?></h1>
 	
 <div id="gameLeft">
 	
@@ -157,16 +157,29 @@ if ($user->lastupdatedby_admin) {
                                 </select>
                             </td>
                         </tr>
+						<tr>
+                            <td><strong>Youtube Trailer:</strong></td>
+                            <td>
+								<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', ''));" />&nbsp;<a rel="facebox" href="#youtubeGuide">Guidelines<br />
+								<?php if ($game->Youtube != "") { ?>
+								<div><a rel="shadowbox;width=640;height=390" href="http://www.youtube.com/embed/<?=str_replace("&", "?", "$game->Youtube")?>"><img src="images/common/icons/play_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Watch Here</a><span style="padding: 0px 12px;"><em>or</em></span><a href="http://www.youtube.com/watch?v=<?=$game->Youtube?>" target="_blank"><img src="images/common/icons/link_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Open in Youtube</a></div>
+								<?php } ?>
+								<div id="youtubeGuide" style="display: none; color: #fff;">
+									<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Youtube Trailer Guidelines</h2>
+									<h3>Please read these guidelines carefully before adding a Youtube Trailer.</h3>
+									<p>The only part of the link you need to input from youtube is the video id. We handle everything else automatically.</p>
+									<p style="font-weight: bold;">Example of Valid Youtube Video ID's:</p>
+									<p>Take the url of a standard youtube video page such as this for instance:</p><p style="text-align: center;">http://www.youtube.com/watch?v=<strong><em>BrtpflukHSg</em></strong>&amp;hd=1</p>
+									<p>The Video ID portion of the url above is highlighted <strong><em>like this.</em></strong></p>
+									<p style="text-align: center;"><strong><em>BrtpflukHSg</em></strong> and <strong><em>BrtpflukHSg&amp;hd=1</em></strong> are both valid id's.</p>
+									<p><em>In fact, the one containing <strong><em>&amp;hd=1</em></strong> is preferred as it enables HD playback by default.</em></p>
+								</div>
+                            </td>
+                        </tr>
                         <tr>
                             <td><strong>Overview (ENGLISH ONLY):</strong></td>
                             <td>
                                 <textarea rows="18" cols="48" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>CRC:</strong></td>
-                            <td>
-								<input type="text" size="20" name="crc" value="<?=$game->crc?>" />
                             </td>
                         </tr>
 						<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
@@ -376,16 +389,17 @@ if ($user->lastupdatedby_admin) {
 			if($similarRowCount > 0)
 			{
 				?>
-				<p style="margin: 5px;">This game exists on <?=$similarRowCount?> other platforms.</p>
+				<p style="font-size: 14px; margin: 5px;">This game exists on <?=$similarRowCount?> other platforms.</p>
 				<div id="gameOtherPlatformsList">
 				<?php
 				while($similarRow = mysql_fetch_assoc($similarResult))
 				{
 					?>
-						<div style="margin-top: 10px;"><img src="images/common/consoles/png32/<?=$similarRow['icon']?>" alt="<?=$similarRow['name']?>" style="vertical-align: -8px;" />&nbsp;&nbsp;<a href="<?=$baseurl?>?tab=game&id=<?=$similarRow['id']?>"><?=$similarRow['name']?> - <?=$similarRow['GameTitle']?></a></div>
+						<div style="margin-top: 10px; font-size: 16px;"><img src="images/common/consoles/png32/<?=$similarRow['icon']?>" alt="<?=$similarRow['name']?>" style="vertical-align: -8px;" />&nbsp;&nbsp;<a href="<?=$baseurl?>?tab=game&id=<?=$similarRow['id']?>"><?=$similarRow['name']?> - <?=$similarRow['GameTitle']?></a></div>
 					<?php
 				}
 				?>
+				<p style="font-size: 14px;">If you know that this game exists on another platform, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
 				</div>
 				<?php
 			}
@@ -524,6 +538,52 @@ if ($user->lastupdatedby_admin) {
 				<tr>
 					<td style="text-align: right">
 						<input type="hidden" name="function" value="Upload Fan Art">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+					<?php
+				}
+				?>
+		</form>
+	</div>
+	<?php	}  ?>
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="screenshotUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Screenshot Upload</h2>
+
+				<?php  	## check for agreement to terms
+				if ($user->banneragreement != 1) {
+					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+				} ## Check for disabled banner upload
+				elseif ($user->bannerlimit == 0) {
+					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
+				} ## Check banner limit
+				elseif ($game->disabled == 'Yes') {
+					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+				}
+				else {
+					?>
+			<p>All screenshots <strong>must</strong> be a maximum of <strong>2MB file size.</strong></p>
+			<p>The only accepted image format for screenshots is JPG.</p>
+			<p>Images must be of good quality. We don't want blurry or pixelated images. (But screens of older pixel art style games are ok!)</p>
+			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td><strong>File to Upload:</strong><br /><br />
+						<input type="file" name="bannerfile" size="42">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						<input type="hidden" name="function" value="Upload Screenshot">
 						<input type="submit" name="button" value="Upload" class="submit">
 					</td>
 				</tr>
@@ -819,6 +879,52 @@ if ($user->lastupdatedby_admin) {
 		</div>
 		<!-- End Fanart Panel -->
 		
+		<!-- Start Screenshots Panel -->
+		<div class="miniPanel screenshots">
+			<h2 class="arcade">Screenshots</h2>
+			<?php	## Display all fanart for this show
+			$screenshotcount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='screenshot' AND keyvalue=$id ORDER BY rating DESC,RAND()";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			?>
+			<ul class="screenshotsSlide">
+			<?php
+			if(mysql_num_rows($result) > 0)
+			{
+			while ($banner = mysql_fetch_object($result)) {
+				
+				echo"<li><br />";
+				
+				$banner->language = "N/A";
+				$banner->subkey = $banner->resolution;
+
+				## If this person is allowed to delete the banner, pass that info along
+				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
+					displaybannernew($banner, 1, "");
+				}
+				else {
+					displaybannernew($banner, 0, "");
+				}
+
+				## Increment counter
+				$screenshotcount++;
+				
+				echo "<br /></li>";
+			}
+			?>
+			<?php
+			}
+
+			if ($screenshotcount == 0) {
+				print "<li><p style=\"text-align: center;\">There are no screenshots for this game</p></li>";
+			}
+			?>
+			</ul>
+			<?php	if ($loggedin == 1) {  ?>
+			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#screenshotUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Screenshot" /></a> <a href="#screenshotUpload" rel="facebox" style="font-size: 16px;">Upload Screenshot</a></span></p>
+			<?php  }  ?>
+		</div>
+		<!-- End Screenshots Panel -->
 		
 		<!-- Start Banner Panel -->
 		 <div class="miniPanel banner">
@@ -889,6 +995,15 @@ if ($user->lastupdatedby_admin) {
 				easing: 'easeInOutExpo'
 				});
 				$('.fanartSlide').anythingSlider({
+				width : 300,						// Override the default CSS width
+				//height: 430,
+				delay: 3500,
+				buildNavigation: true,
+				buildArrows: false,
+				resizeContents: false,
+				easing: 'easeInOutExpo'
+				});
+				$('.screenshotsSlide').anythingSlider({
 				width : 300,						// Override the default CSS width
 				//height: 430,
 				delay: 3500,

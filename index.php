@@ -460,6 +460,48 @@ if ($function == 'Upload Fan Art') {
     $tab = 'game';
 }
 
+if ($function == 'Upload Screenshot') {
+    $id = mysql_real_escape_string($id);
+
+    ## Check if the image is the right size
+    list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
+    $resolution = $image_width . 'x' . $image_height;
+    if ($image_type != 2) {
+        $errormessage .= "Your image MUST be in JPG format.<br>";
+    }
+    if ((filesize($_FILES['bannerfile']['tmp_name']) / 1024 > 2000)) {
+        $errormessage .= "Your image exceeds the size restrictions.<br>";
+    }
+
+    ## No errors, so we can process it
+    if ($errormessage == "") {
+
+        ## Generate the new filename
+        $fileid = 1;
+        while (file_exists("banners/screenshots/$id-$fileid.jpg") && $errormessage == "") {
+			if($fileid == 8) {
+				$errormessage = "This game already has the maximum allowed number of screenshots.<br>Please delete an existing screenshot before attempting to upload another.";
+			}
+            $fileid++;
+        }
+		if ($errormessage == "") {
+			$filename = "screenshots/$id-$fileid.jpg";
+			if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
+				## Insert database record
+				$id = mysql_real_escape_string($id);
+				$query = "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid) VALUES ('screenshot', $id, $user->id, $time, '$filename', 1)";
+				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+				## Store the seriesid for the XML updater
+				seriesupdate($id);
+				$message = "Screenshot successfully added";
+			}
+		}
+
+    }
+    $tab = 'game';
+}
+
 if ($function == 'Lock Game') {
     ## Prepare SQL
     $id = mysql_real_escape_string($id);
@@ -712,6 +754,9 @@ if ($function == 'Delete Banner') {
         ## Delete file
         unlink("banners/$deletebanner->filename");
         unlink("banners/_cache/$deletebanner->filename");
+        unlink("banners/_favcache/_banner-view/$deletebanner->filename");
+        unlink("banners/_favcache/_boxart-view/$deletebanner->filename");
+        unlink("banners/_favcache/_tile-view/$deletebanner->filename");
 
         ## Delete vignette for fan art
         if ($deletebanner->keytype == "fanart") {

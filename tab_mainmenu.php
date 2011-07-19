@@ -1,4 +1,4 @@
-<div class="right" style="margin-left: 15px; padding-left: 15px; border-left: 2px dotted #333;">
+<div id="sidebar" class="right" style="margin-left: 15px; padding-left: 15px; border-left: 2px dotted #333;">
 
 <!-- Start Total Game Count -->
 <?php
@@ -89,4 +89,13 @@ if ($result !== FALSE): ?>
 <!-- End Site News -->
 
 <div style="clear:both;"></div>
+
+<script language="javascript">
+$(document).ready(function() {
+	if($("#sidebar").css('height') < $("#news").css('height')) {
+		var newsHeight = $("#news").css('height');
+		$("#sidebar").css('min-height', newsHeight);
+	}
+});
+</script>
 

@@ -1,5 +1,5 @@
 <?php 
-include('SimpleImage.php');
+include('simpleimage.php');
 function imageResize($filename, $cleanFilename, $target)
 {
 	if(!file_exists($cleanFilename))

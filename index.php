@@ -1159,7 +1159,7 @@ if ($tab == '') {
             <div id="header">
 				<p>
 					<?php if ($loggedin) {
-						if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+						?><a href="<?= $baseurl ?>/?tab=favorites&favoritesview=tile">Favorites (<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>)</a> <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
 					<?php } else { ?>
 						<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
 					<?php } ?>

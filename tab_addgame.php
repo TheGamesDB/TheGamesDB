@@ -62,3 +62,22 @@
 		</div>
 		<!-- End Game Add Form -->
 </div>
+
+<script>
+	$(function() {
+		var availableTags = [
+			<?php
+				if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
+				{
+					while($titlesObj = mysql_fetch_object($titlesResult))
+					{
+						echo " '" . htmlentities($titlesObj->GameTitle, ENT_QUOTES) . "', ";
+					}
+				}
+			?>
+		];
+		$( "#GameTitle" ).autocomplete({
+			source: availableTags
+		});
+	});
+</script>

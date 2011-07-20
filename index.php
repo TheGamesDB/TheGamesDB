@@ -951,11 +951,13 @@ if ($tab == '') {
         <link rel="stylesheet" type="text/css" href="/default.css" />
         <link rel="stylesheet" type="text/css" href="/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />
+        <!--<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />-->
+        <link rel="stylesheet" href="js/jquery-ui/css/trontastic/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
 
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
         <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+        <!--<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>-->
+        <script type="text/JavaScript" src="js/jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
 		
 		<!-- Start AnythingSlider Include -->
         <link rel="stylesheet" href="js/anythingslider/css/anythingslider.css" type="text/css" media="all" />
@@ -1215,7 +1217,7 @@ if ($tab == '') {
 				</a>
 				<div id="nav">
 					<form id="search" action="<?= $baseurl ?>/index.php">
-						<input class="left "type="text" name="string" id="search" value="Search..." onFocus="this.value=''" style="color: #333; margin-left: 10px; margin-top: 5px;" />
+						<input class="left" type="text" name="string" id="autosearch" style="color: #333; margin-left: 10px; margin-top: 5px;" />
 						<input type="hidden" name="searchseriesid" id="searchseriesid" />
 						<input type="hidden" name="tab" value="listseries" />
 						<input type="hidden" name="function" value="Search" />
@@ -1278,6 +1280,25 @@ if ($tab == '') {
 						
 				</div>
 
+		<script>
+			$(function() {
+				var availableTags = [
+					<?php
+						if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
+						{
+							while($titlesObj = mysql_fetch_object($titlesResult))
+							{
+								echo " '" . htmlentities($titlesObj->GameTitle, ENT_QUOTES) . "', ";
+							}
+						}
+					?>
+				];
+				$( "#autosearch" ).autocomplete({
+					source: availableTags
+				});
+			});
+		</script>
+		
 			<script type="text/javascript">
 
 				var _gaq = _gaq || [];
@@ -1295,6 +1316,7 @@ if ($tab == '') {
 		<!-- Start Force instant run of cufon to circumvent IE delay -->
 		<script type="text/javascript"> Cufon.now(); </script>
 		<!-- End Force instant run of cufon to circumvent IE delay -->
+		
 		
     </body>
 </html>

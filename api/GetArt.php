@@ -6,6 +6,7 @@
 	
 	## Include base functions, db connection, etc
 	include("include.php");
+	include('../simpleimage.php');
 	
 	## Get requested game id from api call
 	$requestedID = $_REQUEST['id'];
@@ -46,6 +47,46 @@
         imagedestroy($result_id);
 	}
 	
+	## Function to process all screenshots for the requested game id
+	function processScreenshots($gameID)
+	{
+		## Select all fanart rows for the requested game id
+		$ssResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'screenshot' ORDER BY filename ASC ");
+		
+		## Process each fanart row incrementally
+		while($ssRow = mysql_fetch_assoc($ssResult))
+		{
+			## Construct file names
+			$ssOriginal = $ssRow['filename'];
+			$ssThumb = "screenshots/thumb" . str_replace("screenshots", "", $ssRow['filename']);
+		
+			## Check to see if the original fanart file actually exists before attempting to process 
+			if(file_exists("../banners/$ssOriginal"))
+			{			
+				## Check if thumb already exists
+				if(!file_exists("../banners/$ssThumb"))
+				{					
+					## If thumb is non-existant then create it
+				   $image = new SimpleImage();
+				   $image->load("../banners/$ssOriginal");
+				   $image->resizeToWidth(300);
+				   $image->save("../banners/$ssThumb");
+					//makeFanartThumb("../banners/$ssOriginal", "../banners/$ssThumb");
+				}
+				
+				## Get Fanart Image Dimensions
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$ssOriginal");
+				$ssWidth = $image_width;
+				$ssHeight = $image_height;
+				
+				## Output Fanart XML Branch
+				print "<screenshot>\n";
+					print "<original width=\"$ssWidth\" height=\"$ssHeight\">$ssOriginal</original>\n";
+					print "<thumb>$ssThumb</thumb>\n";
+				print "</screenshot>\n";
+			}
+		}
+	}
 	
 	## Function to process all fanart for the requested game id
 	function processFanart($gameID)
@@ -151,6 +192,7 @@
 	processFanart($requestedID);
 	processBoxart($requestedID);
 	processBanner($requestedID);
+	processScreenshots($requestedID);
 	
 	## Close Images XML Branch
 	print "</Images>\n";

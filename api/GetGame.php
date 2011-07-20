@@ -10,6 +10,7 @@
 ##   XML item holding the series id that matches the name
 ## Include functions, db connection, etc
 include("include.php");
+include('../simpleimage.php');
 
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
@@ -84,6 +85,46 @@ $user = $_REQUEST["user"];
 					print "<vignette width=\"$faWidth\" height=\"$faHeight\">$faVignette</vignette>\n";
 					print "<thumb>$faThumb</thumb>\n";
 				print "</fanart>\n";
+			}
+		}
+	}
+	
+	function processScreenshots($gameID)
+	{
+		## Select all fanart rows for the requested game id
+		$ssResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'screenshot' ORDER BY filename ASC ");
+		
+		## Process each fanart row incrementally
+		while($ssRow = mysql_fetch_assoc($ssResult))
+		{
+			## Construct file names
+			$ssOriginal = $ssRow['filename'];
+			$ssThumb = "screenshots/thumb" . str_replace("screenshots", "", $ssRow['filename']);
+		
+			## Check to see if the original fanart file actually exists before attempting to process 
+			if(file_exists("../banners/$ssOriginal"))
+			{			
+				## Check if thumb already exists
+				if(!file_exists("../banners/$ssThumb"))
+				{					
+					## If thumb is non-existant then create it
+				   $image = new SimpleImage();
+				   $image->load("../banners/$ssOriginal");
+				   $image->resizeToWidth(300);
+				   $image->save("../banners/$ssThumb");
+					//makeFanartThumb("../banners/$ssOriginal", "../banners/$ssThumb");
+				}
+				
+				## Get Fanart Image Dimensions
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$ssOriginal");
+				$ssWidth = $image_width;
+				$ssHeight = $image_height;
+				
+				## Output Fanart XML Branch
+				print "<screenshot>\n";
+					print "<original width=\"$ssWidth\" height=\"$ssHeight\">$ssOriginal</original>\n";
+					print "<thumb>$ssThumb</thumb>\n";
+				print "</screenshot>\n";
 			}
 		}
 	}
@@ -235,6 +276,7 @@ while ($obj = mysql_fetch_object($result)) {
 	processFanart($obj->id);
 	processBoxart($obj->id);
 	processBanner($obj->id);
+	processScreenshots($obj->id);
 	
 	print "</Images>\n";
     

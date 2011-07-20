@@ -1021,7 +1021,7 @@ if ($tab == '') {
 
                         $($(images).get(index)).fadeIn('slow');
                     });
-                }, 6000);
+				}, 6000);
             });
 
             function confirmSubmit()  {

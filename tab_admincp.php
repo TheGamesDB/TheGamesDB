@@ -116,7 +116,7 @@
 							/*
 							 * Style sheet for the contents
 							 */
-							contentsCss : 'assets/output_xhtml.css',
+							contentsCss : 'js/ckeditor/assets/output_xhtml.css',
 
 							/*
 							 * Core styles.

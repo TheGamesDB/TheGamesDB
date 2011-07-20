@@ -949,6 +949,7 @@ if ($tab == '') {
         <META name="description" content="An open database of video games" />
         <META name="keywords" content="video, games, database, open, dirctory, thegamesdb, api" />
         <link rel="stylesheet" type="text/css" href="/default.css" />
+        <link rel="stylesheet" type="text/css" href="/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />
 

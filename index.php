@@ -134,7 +134,7 @@ if ($_SESSION['userlevel'] == 'ADMINISTRATOR' OR $_SESSION['userlevel'] == 'SUPE
 
 // Logged in Redirect List
 $secureArea = array(
-    'addgame'
+    //'addgame'
 );
 if (!$loggedin && in_array($tab, $secureArea)) {
     //header("Location:index.php");
@@ -935,6 +935,11 @@ if ($tab == '') {
 }
 ?>
 
+<?php
+if($tab != "mainmenu")
+{
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html>
     <head>
@@ -1201,6 +1206,7 @@ if ($tab == '') {
                     hideElement('tvcom');
             }
         </script>
+		
     </head>
     <body>
         <div id="main">
@@ -1319,4 +1325,261 @@ if ($tab == '') {
 		
 		
     </body>
+<?php
+}
+else
+{
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+   xml:lang="en-gb" lang="en-gb" >
+   
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	
+	<meta name="robots" content="index, follow" />
+	<meta name="keywords" content="thegamesdb, the games db, games, database, meta, metadata, api, video, youtube, trailers, wallpapers, fanart, cover art, box art, fan art, open, source, game, search, forum," />
+	<meta name="language" content="en-US" />
+	<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
+  
+	<title>TheGamesDB.net - An open, online database for video game fans</title>
+	<link rel="stylesheet" type="text/css" href="../js/fullscreenslider/css/style.css"/>
+	<link rel="stylesheet" href="js/jquery-ui/css/trontastic/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
+	<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/fullscreenslider/js/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="js/fullscreenslider/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/fullscreenslider/js/script.js"></script>
+	<script type="text/JavaScript" src="js/jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
+
+	<!-- Start FaceBox Include -->
+	<link rel="stylesheet" href="js/facebox/facebox.css" type="text/css" media="all" />
+	<script src="js/facebox/facebox.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+		   $('a[rel*=facebox]').facebox() 
+		}) 
+	</script>
+	<!-- End FaceBox Include -->
+	
+	<style type="text/css">
+		#frontHeader{
+			color: #fff;
+		}
+		#frontHeader a{
+			color: gold;
+		}
+		#frontnav a {
+			color: #fff;
+			text-decoration: none;
+		}
+		#frontnav a:link {
+			color: #fff;
+			text-decoration: none;
+		}
+		#frontnav a:visited {
+			color: #fff;
+			text-decoration: none;
+		}
+		#frontnav a:hover {
+			color: #fff;
+			text-decoration: underline;
+		}
+	</style>
+	
+	<?php
+		$sql = "SELECT DISTINCT g.GameTitle, p.name, g.id, b.filename FROM games as g, banners as b, platforms as p, ratings as r WHERE r.itemid = b.id AND r.rating = 10 AND g.id = b.keyvalue AND b.keytype = 'fanart' AND g.Platform = p.id ORDER BY RAND() LIMIT 6";
+		$result = mysql_query($sql);
+		if ($result !== FALSE) {
+		$rows = mysql_num_rows($result);
+	?>
+	<script type="text/javascript">
+		var photos = [
+			<?php
+				$colours = array("orange", "blue", "purple", "green", "red", "yellow");
+				$colourCount = 0;
+				$gameRowCount = 0;
+				$imageUrls = array();
+				while ($game = mysql_fetch_object($result)) {
+					if($gameRowCount != $rows - 1) 
+					{
+						$imageUrls[] = "banners/$game->filename";
+					?>
+						{
+							"title" : "<?=$game->GameTitle?>",
+							"cssclass" : "<?=$colours[$colourCount]?>",
+							"image" : "banners/<?=$game->filename?>",
+							"text" : "<?=$game->name?>",
+							"url" : 'index.php?tab=game&id=<?=$game->id?>&lid=1',
+							"urltext" : 'View Game'
+						},
+					<?php
+						if($colourCount != 5)
+						{
+							$colourCount++;
+						}
+						else
+						{
+							$colourCount = 0;
+						}
+						$gameRowCount++;
+					}
+					else
+					{
+						$imageUrls[] = "banners/$game->filename";
+					?>
+						{
+							"title" : "<?=$game->GameTitle?>",
+							"cssclass" : "<?=$colours[$colourCount]?>",
+							"image" : "banners/<?=$game->filename?>",
+							"text" : "<?=$game->name?>",
+							"url" : 'index.php?tab=game&id=<?=$game->id?>&lid=1',
+							"urltext" : 'View Game'
+						}
+					<?php
+						if($colourCount != 2)
+						{
+							$colourCount++;
+						}
+						else
+						{
+							$colourCount = 0;
+						}
+					}
+				}
+	?>
+		];
+	</script>
+	<?php
+		}
+	?>
+</head>
+<body>
+
+	<div id="frontHeader" style="height: 147px; background: url(/images/bg_bannerws-small.png) repeat-x center center">
+		<div id="frontBanner" style="width: 880px; margin: auto;">
+			<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt;">
+				<?php if ($loggedin) {
+					?><a href="<?= $baseurl ?>/?tab=favorites&favoritesview=tile">Favorites (<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>)</a> <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+				<?php } else { ?>
+					<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+				<?php } ?>
+			</p>
+			<a href="index.php?tab=mainmenu" title="An open database of video games">
+				<img src="/images/bannerws-small.png" style="border-width: 0px" />
+			</a>
+		</div>
+	</div>
+	
+	<div style="position: absolute; top: 147px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200;"></div>
+	
+	<div id="frontContentWrapper" style="position: absolute; top: 34%; width: 100%; height: 200px;  z-index: 200;">
+	
+		<div id="frontContent" style="opacity: 1; width: 600px; height: 160px; padding: 10px 30px; margin: auto; background: url(images/bg_frontsearch.png) repeat-x center center; border-radius: 16px; border: 0px solid #333;">
+		
+			<h1 style="text-align: center; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size:26px; text-shadow: 0px 2px 6px #333; color:#fff; letter-spacing: 2px;">
+			<?php
+				$gamecountResult = mysql_query(" SELECT id FROM games ");
+				$gamecount = mysql_num_rows($gamecountResult);
+				echo number_format($gamecount) . " games and counting....";
+			?>
+			</h1>
+			
+			<div id="searchbox" style="padding: 16px 0px; text-align: center;">
+				<form id="search" action="<?= $baseurl ?>/index.php">
+					<input id="frontGameSearch" name="string" type="text" style="height: 30px; padding: 0px; width: 440px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #333; background: url(images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee;" />
+					<input type="submit" value="Search" style="height: 30px; width: 100px; vertical-align: 2px; padding: 0px; font-size: 18px; text-shadow: 0px 2px 6px #666; color: #fff; background: url(images/common/bg_glass.png) no-repeat center center; border-radius: 6px; border: 1px solid #eee;" />
+					<input type="hidden" name="searchseriesid" id="searchseriesid" />
+					<input type="hidden" name="tab" value="listseries" />
+					<input type="hidden" name="function" value="Search" />
+				</form>
+			</div>
+			
+			<div id="frontnav" style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #fff;">
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=news">News</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=listplatform">Browse</a></div>
+				<div style="width: 100px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=addgame">Add Game</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=stats">Stats</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net">Forum</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://code.google.com/p/thegamesdb/">API</a></div>
+				<div style="clear: both;"></div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div id="navigationBoxes">
+		<!-- Navigation boxes will get injected by jQuery -->	
+	</div>
+
+	<div id="pictureSlider">
+		<!-- Pictures will be injected by jQuery -->
+	</div>
+	
+	<div id="footer" style="position:absolute; width: 100%; bottom:0px; z-index: 200; text-align: center;">
+		<div id="footerbarShadow" style="width: 100%; background: url(images/bg_footerbar-shadow.png) repeat-x center center; height: 15px;"></div>
+		<div id="footerbar" style="width: 100%; background: url(images/bg_footerbar.png) repeat-x center center; height: 30px;">
+			<div id="Terms" style="padding-top: 5px; padding-left: 25px; float: left; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 14px; text-shadow: 0px 2px 6px #666;">
+				<a href="<?=$baseurl?>?tab=terms" style="color: #333;">Terms &amp; Conditions</a>
+			</div>
+			
+			<div id="theTeam" style="padding-top: 5px; padding-right: 25px; float: right; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 14px; text-shadow: 0px 2px 6px #666;">
+				<a rel="facebox" href="#credits" style="color: #333;">TheGamesDB Team</a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="credits" style="display: none;">
+	<div style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; text-shadow: 0px 2px 6px #666;">
+		<h1>The Team</h1>
+		<p>Here at TheGamesDB.net we have a small but very passionate and dedicated team.</p>
+		<p>We are always striving to find ways to improve this site to provide our users with the best experience possible.</p>
+		<p>&nbsp;</p>
+		<p><strong>Owner:</strong> Scott Brant <em>(smidley)</em></p>
+		<p><strong>Coding &amp; Design:</strong> Alex Nazaruk <em>(flexage)</em></p>
+		<p><strong>Coding &amp; Design:</strong> Matt McLaughlin</p>
+		<p>&nbsp;</p>
+		<p>We would also like to give a big thanks to all our contributers, without your involvement this site wouldn't be as good as it is today.</p>
+	</div>
+	
+	<div style="display:none;">
+		<?php
+			for($i = 0; $i < count($imageUrls); $i++)
+			{
+			?>
+				<img src="<?=$imageUrls[$i]?>" />
+			<?php
+			}
+			?>
+	</div>
+	
+	<script type="text/javascript">
+		$(function() {
+			var availableTags = [
+				<?php
+					if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
+					{
+						while($titlesObj = mysql_fetch_object($titlesResult))
+						{
+							echo " \"$titlesObj->GameTitle\",\n";
+						}
+					}
+				?>
+			];
+			$( "#frontGameSearch" ).autocomplete({
+				source: availableTags
+			});
+		});
+	</script>
+	
+
+	
+</body>
+</html>
+	
+<?php
+}
+?>
 </html>

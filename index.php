@@ -1392,7 +1392,7 @@ else
 	</style>
 	
 	<?php
-		$sql = "SELECT DISTINCT g.GameTitle, p.name, g.id, b.filename FROM games as g, banners as b, platforms as p, ratings as r WHERE r.itemid = b.id AND r.rating = '10' AND g.id = b.keyvalue AND b.keytype = 'fanart' AND g.Platform = p.id ORDER BY RAND() LIMIT 6";
+		$sql = "SELECT g.GameTitle, p.name, g.id, b.filename FROM games AS g, banners AS b, platforms AS p, ratings AS r WHERE r.itemid = b.id AND g.id = b.keyvalue AND r.itemtype = 'banner' AND b.keytype = 'fanart' AND g.platform = p.id GROUP BY g.GameTitle, p.name, g.id, b.filename    HAVING AVG(r.rating) = 10 ORDER BY RAND() LIMIT 6";
 		$result = mysql_query($sql);
 		if ($result !== FALSE) {
 		$rows = mysql_num_rows($result);

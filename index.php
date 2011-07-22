@@ -1364,6 +1364,9 @@ else
 	<!-- End FaceBox Include -->
 	
 	<style type="text/css">
+		body {
+			background:#111111 url(images/bg-main-background.jpg) repeat-x top center;
+		}
 		#frontHeader{
 			color: #fff;
 		}
@@ -1389,7 +1392,7 @@ else
 	</style>
 	
 	<?php
-		$sql = "SELECT DISTINCT g.GameTitle, p.name, g.id, b.filename FROM games as g, banners as b, platforms as p, ratings as r WHERE r.itemid = b.id AND r.rating = 10 AND g.id = b.keyvalue AND b.keytype = 'fanart' AND g.Platform = p.id ORDER BY RAND() LIMIT 6";
+		$sql = "SELECT DISTINCT g.GameTitle, p.name, g.id, b.filename FROM games as g, banners as b, platforms as p, ratings as r WHERE r.itemid = b.id AND r.rating = '10' AND g.id = b.keyvalue AND b.keytype = 'fanart' AND g.Platform = p.id ORDER BY RAND() LIMIT 6";
 		$result = mysql_query($sql);
 		if ($result !== FALSE) {
 		$rows = mysql_num_rows($result);
@@ -1501,8 +1504,8 @@ else
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=listplatform">Browse</a></div>
 				<div style="width: 100px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=addgame">Add Game</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>?tab=stats">Stats</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net">Forum</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://code.google.com/p/thegamesdb/">API</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net" target="_blank">Forum</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://code.google.com/p/thegamesdb/" target="_blank">API</a></div>
 				<div style="clear: both;"></div>
 			</div>
 			

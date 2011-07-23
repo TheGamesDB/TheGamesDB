@@ -254,7 +254,7 @@ if ($function == 'Save Game') {
         $sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'updated', $id, NULL)";
         mysql_query($sql);
     }
-    $errormessage .= 'Game saved.';
+    $message .= 'Game saved.';
 
     $id = $newshowid;
     $tab = 'game';
@@ -525,7 +525,7 @@ if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
     $id = mysql_real_escape_string($id);
     $query = "UPDATE banners SET languageid=$languageid WHERE id=$id";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-    $errormessage = 'Banner Language Changed.';
+    $message = 'Banner Language Changed.';
 }
 
 
@@ -682,7 +682,7 @@ if ($function == 'Terms Agreement') {
     if ($agreecheck) {
         $query = "UPDATE users SET banneragreement=1 WHERE id=$user->id";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
-        $errormessage = 'Thank you for agreeing to the site terms. You may now upload banners';
+        $message = 'Thank you for agreeing to the site terms. You may now upload banners';
         $tab = 'mainmenu';
     }
 }
@@ -1389,6 +1389,8 @@ else
 			color: #fff;
 			text-decoration: underline;
 		}
+		.error { opacity: 0.7; font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: red; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(images/common/bg_orange.png) repeat-x center center;}
+		.message { opacity: 0.7; font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: #fff; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(images/common/bg_orange.png) repeat-x center center;}
 	</style>
 	
 	<?php
@@ -1476,6 +1478,15 @@ else
 	</div>
 	
 	<div style="position: absolute; top: 147px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200;"></div>
+	
+	<div id="messages" style="position: absolute; top: 160px; width: 100%;">
+	<?php if($errormessage): ?>
+	<div class="error"><?= $errormessage ?></div>
+	<?php endif; ?>
+	<?php if($message): ?>
+	<div class="message"><?= $message ?></div>
+	<?php endif; ?>
+	</div>
 	
 	<div id="frontContentWrapper" style="position: absolute; top: 34%; width: 100%; height: 200px;  z-index: 200;">
 	

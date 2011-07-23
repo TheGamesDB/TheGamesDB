@@ -5,6 +5,7 @@
 $id = mysql_real_escape_string($id);
 $query	= "SELECT * FROM games WHERE id=$id";
 $result = mysql_query($query) or die('Query1 failed: ' . mysql_error());
+$rows = mysql_num_rows($result);
 $game = mysql_fetch_object($result);
 
 global $user;
@@ -31,6 +32,11 @@ if ($user->lastupdatedby_admin) {
     $adminuser	= mysql_fetch_object($result);
 }
 
+?>
+
+<?php
+if($rows != 0)
+{
 ?>
 
 <script type="text/javascript">
@@ -160,16 +166,20 @@ if ($user->lastupdatedby_admin) {
 						<tr>
                             <td><strong>Youtube Trailer:</strong></td>
                             <td>
-								<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', ''));" />&nbsp;<a rel="facebox" href="#youtubeGuide">Guidelines<br />
+								<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('http://youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('http://www.youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtu.be/', '')); " />&nbsp;<a rel="facebox" href="#youtubeGuide">Guidelines<br />
 								<?php if ($game->Youtube != "") { ?>
-								<div><a rel="shadowbox;width=640;height=390" href="http://www.youtube.com/embed/<?=str_replace("&", "?", "$game->Youtube")?>"><img src="images/common/icons/play_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Watch Here</a><span style="padding: 0px 12px;"><em>or</em></span><a href="http://www.youtube.com/watch?v=<?=$game->Youtube?>" target="_blank"><img src="images/common/icons/link_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Open in Youtube</a></div>
+								<div><a rel="shadowbox;width=853;height=510" href="http://www.youtube.com/embed/<?=str_replace("&", "?", "$game->Youtube")?>"><img src="images/common/icons/play_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Watch Here</a><span style="padding: 0px 12px;"><em>or</em></span><a href="http://www.youtube.com/watch?v=<?=$game->Youtube?>" target="_blank"><img src="images/common/icons/link_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Open in Youtube</a></div>
 								<?php } ?>
 								<div id="youtubeGuide" style="display: none; color: #fff;">
 									<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Youtube Trailer Guidelines</h2>
 									<h3>Please read these guidelines carefully before adding a Youtube Trailer.</h3>
-									<p>The only part of the link you need to input from youtube is the video id. We handle everything else automatically.</p>
-									<p style="font-weight: bold;">Example of Valid Youtube Video ID's:</p>
-									<p>Take the url of a standard youtube video page such as this for instance:</p><p style="text-align: center;">http://www.youtube.com/watch?v=<strong><em>BrtpflukHSg</em></strong>&amp;hd=1</p>
+									<p>This facility is for linking to trailers for games which exist on Youtube.</p>
+									<p>For older games that do not have trailers, we will allow linking of a good quality video which demonstrates the gameplay of the game.</p>
+									<h3>Valid URL's</h3>
+									<p>Both standard Youtube URL's and Youtube shorturls are accepted.</p>
+									<p style="font-weight: bold;">Examples:</p>
+									<p style="text-align: center;">http://www.youtube.com/watch?v=<strong><em>BrtpflukHSg</em></strong>&amp;hd=1</p>
+									<p style="text-align: center;">http://youtu.be/<strong><em>BrtpflukHSg</em></strong></p>
 									<p>The Video ID portion of the url above is highlighted <strong><em>like this.</em></strong></p>
 									<p style="text-align: center;"><strong><em>BrtpflukHSg</em></strong> and <strong><em>BrtpflukHSg&amp;hd=1</em></strong> are both valid id's.</p>
 									<p><em>In fact, the one containing <strong><em>&amp;hd=1</em></strong> is preferred as it enables HD playback by default.</em></p>
@@ -1023,3 +1033,16 @@ if ($user->lastupdatedby_admin) {
 				});
 			});
 		</script>
+<?php
+	}
+	else
+	{
+?>
+		<p>&nbsp;</p>
+		<h1 class="arcade" style="text-align: center;">Game Information</h1>
+		<p>&nbsp;</p>
+		<p style="text-align: center;">Sorry, there is no game that exists for game id #<?=$id?>.</p>
+		<p>&nbsp;</p>
+<?php
+	}
+?>

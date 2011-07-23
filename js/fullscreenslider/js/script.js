@@ -30,7 +30,7 @@ $(function() {
 	});*/
 
 	// Add the navigation boxes
-	$.template("navboxTemplate", "<div class='navbox ${cssclass}'><ul></ul><h2>${title}</h2><p>${text}</p><p class='bottom'><a href='${url}' title='${title}'>${urltext}</a></p></div>");
+	$.template("navboxTemplate", "<div class='navbox ${cssclass}'><ul></ul><h2><a href='${url}' title='${title}'>${title}</a></h2><p>${text}</p></div>");
 	$.tmpl("navboxTemplate", photos).appendTo("#navigationBoxes");
 
 	// Add the navigation, based on the Photos
@@ -67,7 +67,7 @@ $(function() {
 	});
 	
 	// Hide all the navigation boxes, except the one from current index
-	$(".navbox:not(:eq(" + activeIndex +"))").css('left', '-450px');
+	$(".navbox:not(:eq(" + activeIndex +"))").css('left', '-550px');
 	
 	// Set the proper background image, based on the active index
 	$("<div />")
@@ -113,7 +113,7 @@ $(function() {
 		// Hide the current navigation box
 		$(".navbox").eq(activeIndex)
 			.css({ 'z-index' : '998' }) // Push back
-			.animate({ left : '-450px' }, animationSpeed, easing);
+			.animate({ left : '-550px' }, animationSpeed, easing);
 		
 		// Show the accompanying navigation box
 		$(".navbox").eq(imageIndex)

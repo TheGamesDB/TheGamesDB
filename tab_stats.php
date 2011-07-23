@@ -28,5 +28,7 @@
 	<p><a href="?tab=adminstats&statstype=missingback">Games Missing Back Boxart</a></p>
 	<p><a href="?tab=adminstats&statstype=missingfanart">Games Missing Fanart</a></p>
 	<p><a href="?tab=adminstats&statstype=missingbanner">Games Missing Banners</a></p>
+	<p><a href="?tab=adminstats&statstype=missingscreenshot">Games Missing Screenshots</a></p>
+	<p><a href="?tab=adminstats&statstype=missingyoutube">Games Missing Youtube Trailers</a></p>
 </div>
 

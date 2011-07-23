@@ -316,7 +316,67 @@ if(isset($_GET['statstype'])) {
 						</tr>
 					</table>
 					<?php
-					break;			
+					break;
+					
+					case "missingscreenshot":
+					?>
+					<h2 class="arcade" style="color: #FF4F00;">Games Missing Screenshots</h2>
+					<table align="center" border="1" cellspacing="0" cellpadding="7">
+						<tr>
+							<th style="background-color: #333; color: #FFF;">Game ID</th>
+							<th style="background-color: #333; color: #FFF;">Game Title</th>
+							<th style="background-color: #333; color: #FFF;">Platform</th>
+						</tr>
+					<?php
+					$missingcount = 0;
+					$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'screenshot') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
+					while($row = mysql_fetch_assoc($result)) {
+						?>
+						<tr>
+							<td><?php echo $row[id]; ?></td>
+							<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
+							<td><?php echo $row[name]; ?></td>
+						</tr>
+						<?php
+						$missingcount++;
+					}
+					?>
+						<tr>
+							<td colspan="3" style="background-color: #EEE; font-weight: bold;" >Total Games Missing Screenshots: <?php echo $missingcount; ?></td>
+						</tr>
+					</table>
+					<?php
+					break;
+					
+					case "missingyoutube":
+					?>
+					<h2 class="arcade" style="color: #FF4F00;">Games Missing Youtube Trailers</h2>
+					<table align="center" border="1" cellspacing="0" cellpadding="7">
+						<tr>
+							<th style="background-color: #333; color: #FFF;">Game ID</th>
+							<th style="background-color: #333; color: #FFF;">Game Title</th>
+							<th style="background-color: #333; color: #FFF;">Platform</th>
+						</tr>
+					<?php
+					$missingcount = 0;
+					$result = mysql_query(" SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE (games.Youtube IS NULL OR games.Youtube = '') AND games.Platform = platforms.id ORDER BY games.GameTitle ASC ");
+					while($row = mysql_fetch_assoc($result)) {
+						?>
+						<tr>
+							<td><?php echo $row[id]; ?></td>
+							<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
+							<td><?php echo $row[name]; ?></td>
+						</tr>
+						<?php
+						$missingcount++;
+					}
+					?>
+						<tr>
+							<td colspan="3" style="background-color: #EEE; font-weight: bold;" >Total Games Missing Youtube Trailers: <?php echo $missingcount; ?></td>
+						</tr>
+					</table>
+					<?php
+					break;
 			}
 		}
 	

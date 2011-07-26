@@ -86,6 +86,14 @@
 	<?php endif ?>
 	<!-- End Most Recent Rotator -->
 	
+	<div style="clear: both;"></div>
+	
+	<hr style="margin: 20px 0px; height: 1px; background-color: #111;" />
+	
+	<!-- Start Facebook Like Box -->
+	<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like-box href="http://www.facebook.com/pages/TheGamesDBnet/196391793750893" width="320" colorscheme="dark" show_faces="true" border_color="#666666" stream="true" header="true"></fb:like-box>
+	<!-- End Facebook Like Box -->
+	
 </div>
 
 <div style="clear:both;"></div>

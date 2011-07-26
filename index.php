@@ -950,9 +950,13 @@ if($tab != "mainmenu")
             print "<noscript><meta http-equiv=\"refresh\" content=\"0; url=index.php?tab=nojs\"/></noscript>\n";
         }
         ?>
-        <title>An open database of video games</title>
-        <META name="description" content="An open database of video games" />
-        <META name="keywords" content="video, games, database, open, dirctory, thegamesdb, api" />
+        <title>TheGamesDB.net - An open, online database for video game fans</title>
+		
+		<meta name="robots" content="index, follow" />
+		<meta name="keywords" content="thegamesdb, the games db, games, database, meta, metadata, api, video, youtube, trailers, wallpapers, fanart, cover art, box art, fan art, open, source, game, search, forum, directory" />
+		<meta name="language" content="en-US" />
+		<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
+		
         <link rel="stylesheet" type="text/css" href="/default.css" />
         <link rel="stylesheet" type="text/css" href="/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
@@ -1209,82 +1213,106 @@ if($tab != "mainmenu")
 		
     </head>
     <body>
-        <div id="main">
-            <div id="header">
-				<p>
+		
+		<div id="frontHeader" style="height: 78px; position: absolute; top 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin.png) repeat-x center center;">
+			<div id="frontBanner" style="width: 880px; margin: auto;">
+				<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">
 					<?php if ($loggedin) {
 						?><a href="<?= $baseurl ?>/?tab=favorites&favoritesview=tile">Favorites (<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>)</a> <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
 					<?php } else { ?>
 						<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
 					<?php } ?>
 				</p>
-				<a href="<?= $baseurl ?>" title="An open database of video games">
-					<img src="<?= $baseurl ?>/images/bannerws.png" />
+				<a href="index.php?tab=mainmenu" title="An open database of video games">
+					<img src="/images/bannerws-thin-glass.png" style="border-width: 0px" />
 				</a>
-				<div id="nav">
-					<form id="search" action="<?= $baseurl ?>/index.php">
-						<input class="left" type="text" name="string" id="autosearch" style="color: #333; margin-left: 10px; margin-top: 5px;" />
-						<input type="hidden" name="searchseriesid" id="searchseriesid" />
+			</div>
+		</div>
+		
+		<div id="nav" style="position: absolute; top: 78px; width: 100%;">
+			<div style="width: 1000px; margin: 0px auto;">
+				<form id="search" action="<?= $baseurl ?>/index.php">
+					<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 30px; margin-top: 5px;" />
+					<input type="hidden" name="searchseriesid" id="searchseriesid" />
+					<input type="hidden" name="tab" value="listseries" />
+					<input type="hidden" name="function" value="Search" />
+					<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
+				</form>
+				<ul>
+					<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
+					<li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
+					<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
+				<?php if ($loggedin): ?>
+						<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
+				<?php endif; ?>
+				</ul>
+			</div>
+		</div>
+
+		<div style="position: absolute; top: 113px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200; opacity: 0.5;"></div>
+
+		<div id="tinyHeader" style="position: fixed; width: 100%; height: 50px; z-index: 299;">			
+			<div style="width: 100%; height: 35px; background: #000 url(images/header-tiny.png) no-repeat center center;">
+				<div style="width: 860px; margin: auto;">
+					<form action="<?= $baseurl ?>/index.php" style="width: 300px; display: inline;">
+						<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 70px; margin-top: 5px; width: 190px;" />
+						<!--<input type="hidden" name="searchseriesid" id="searchseriesid" />-->
 						<input type="hidden" name="tab" value="listseries" />
 						<input type="hidden" name="function" value="Search" />
 						<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 					</form>
-					<ul>
-						<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
-						<li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
-						<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
-					<?php if ($loggedin): ?>
-							<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
-					<?php endif; ?>
-					</ul>
+					<a href="index.php?tab=mainmenu" style="margin-left: 50px;"><img src="images/tiny-logo.png" alt="TheGamesDB.net" /></a>
 				</div>
 			</div>
+			<div style="background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 299; opacity: 0.5;"></div>
+		</div>
+		
+        <div id="main">
 
-                    <div id="content">
-                        <?php if($errormessage): ?>
-                        <div class="error"><?= $errormessage ?></div>
-                        <?php endif; ?>
-                        <?php if($message): ?>
-                        <div class="message"><?= $message ?></div>
-                        <?php endif; ?>
-						
-						<!-- Start Include Page (Tab) Content -->
-						<?php
-							include("tab_$tab.php");
-						?>
-						<!-- End Include Page (Tab) Content -->
-						
-						</div>
+			<div id="content">
+				<?php if($errormessage): ?>
+				<div class="error"><?= $errormessage ?></div>
+				<?php endif; ?>
+				<?php if($message): ?>
+				<div class="message"><?= $message ?></div>
+				<?php endif; ?>
+				
+				<!-- Start Include Page (Tab) Content -->
+				<?php
+					include("tab_$tab.php");
+				?>
+				<!-- End Include Page (Tab) Content -->
+				
+			</div>
 
-						<div id="footer">
-						
-							<a href="http://twitter.com/thegamesdb" target="_blank" ><img src="<?= $baseurl ?>/images/twittertile.png" alt="Follow 'thegamesdb' on Twitter" title="Follow 'thegamesdb' on Twitter" style="float: right; padding-right: 5px" /></a>
-														
-                            <p style="margin-left: 16px;"><span class="arcade">The Team</span><br />
-							<strong>Owner:</strong> Scott Brant (smidley)<br />
-							<strong>Coding &amp; Design:</strong> Alex Nazaruk (flexage), Matt McLaughlin</p>
-							
-							<p style="text-align: center;"><a href="http://thegamesdb.net/?tab=terms">Terms &amp; Conditions</a></p>
-
-							<!--
-							<?php //if($tab != 'mainmenu'): ?>
-							<div class="ad">
-								<script type="text/javascript">
-									google_ad_client = "ca-pub-9813914365177844";
-									/* Footer New */
-									google_ad_slot = "1296638344";
-									google_ad_width = 468;
-									google_ad_height = 60;
-								</script>
-								<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-							</div>
-							<?php //endif; ?>
-							-->
-							<div class="clear"></div>
-							
-						</div>
-						
+		</div>
+		
+		
+		<div id="footer" style="position: fixed; width: 100%; bottom: 0px; z-index: 200; text-align: center;">
+			<div id="footerbarShadow" style="width: 100%; background: url(images/bg_footerbar-shadow.png) repeat-x center center; height: 15px; opacity: 0.5"></div>
+			<div id="footerbar" style="width: 100%; background: url(images/bg_footerbar.png) repeat-x center center; height: 30px;">
+				<div id="Terms" style="padding-top: 5px; padding-left: 25px; float: left; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 14px; text-shadow: 0px 2px 6px #666;">
+					<a href="<?=$baseurl?>?tab=terms" style="color: #333;">Terms &amp; Conditions</a>
 				</div>
+				
+				<div id="theTeam" style="padding-top: 5px; padding-right: 25px; float: right; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 14px; text-shadow: 0px 2px 6px #666;">
+					<a rel="facebox" href="#credits" style="color: #333;">TheGamesDB Team</a>
+				</div>
+			</div>
+		</div>
+		
+		<div id="credits" style="display: none;">
+		<div style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; text-shadow: 0px 2px 6px #666;">
+			<h1>The Team</h1>
+			<p>Here at TheGamesDB.net we have a small but very passionate and dedicated team.</p>
+			<p>We are always striving to find ways to improve this site to provide our users with the best experience possible.</p>
+			<p>&nbsp;</p>
+			<p><strong>Owner:</strong> Scott Brant <em>(smidley)</em></p>
+			<p><strong>Coding &amp; Design:</strong> Alex Nazaruk <em>(flexage)</em></p>
+			<p><strong>Coding &amp; Design:</strong> Matt McLaughlin</p>
+			<p>&nbsp;</p>
+			<p>We would also like to give a big thanks to all our contributers, without your involvement this site wouldn't be as good as it is today.</p>
+		</div>
 
 		<script>
 			$(function() {
@@ -1299,7 +1327,7 @@ if($tab != "mainmenu")
 						}
 					?>
 				];
-				$( "#autosearch" ).autocomplete({
+				$( ".autosearch" ).autocomplete({
 					source: availableTags
 				});
 			});
@@ -1462,7 +1490,7 @@ else
 </head>
 <body>
 
-	<div id="frontHeader" style="height: 147px; background: url(/images/bg_bannerws-small.png) repeat-x center center">
+	<div id="frontHeader" style="height: 78px; position: absolute; top 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin-glass.png) repeat-x center center;">
 		<div id="frontBanner" style="width: 880px; margin: auto;">
 			<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt;">
 				<?php if ($loggedin) {
@@ -1472,12 +1500,12 @@ else
 				<?php } ?>
 			</p>
 			<a href="index.php?tab=mainmenu" title="An open database of video games">
-				<img src="/images/bannerws-small.png" style="border-width: 0px" />
+				<img src="/images/bannerws-thin-glass.png" style="border-width: 0px" />
 			</a>
 		</div>
 	</div>
 	
-	<div style="position: absolute; top: 147px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200;"></div>
+	<div style="position: absolute; top: 78px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200;"></div>
 	
 	<div id="messages" style="position: absolute; top: 160px; width: 100%;">
 	<?php if($errormessage): ?>

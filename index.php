@@ -1232,7 +1232,7 @@ if($tab != "mainmenu")
 		<div id="nav" style="position: absolute; top: 78px; width: 100%;">
 			<div style="width: 1000px; margin: 0px auto;">
 				<form id="search" action="<?= $baseurl ?>/index.php">
-					<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 30px; margin-top: 5px;" />
+					<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
 					<input type="hidden" name="searchseriesid" id="searchseriesid" />
 					<input type="hidden" name="tab" value="listseries" />
 					<input type="hidden" name="function" value="Search" />
@@ -1252,16 +1252,23 @@ if($tab != "mainmenu")
 		<div style="position: absolute; top: 113px; background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200; opacity: 0.5;"></div>
 
 		<div id="tinyHeader" style="position: fixed; width: 100%; height: 50px; z-index: 299;">			
-			<div style="width: 100%; height: 35px; background: #000 url(images/header-tiny.png) no-repeat center center;">
-				<div style="width: 860px; margin: auto;">
+			<div style="width: 100%; height: 35px; background: #000;">
+				<div style="width: 1000px; margin: auto; background: #000 url(images/header-tiny.png) no-repeat center left;">
 					<form action="<?= $baseurl ?>/index.php" style="width: 300px; display: inline;">
-						<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 70px; margin-top: 5px; width: 190px;" />
+						<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
 						<!--<input type="hidden" name="searchseriesid" id="searchseriesid" />-->
 						<input type="hidden" name="tab" value="listseries" />
 						<input type="hidden" name="function" value="Search" />
 						<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 					</form>
 					<a href="index.php?tab=mainmenu" style="margin-left: 50px;"><img src="images/tiny-logo.png" alt="TheGamesDB.net" /></a>
+					<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">
+					<?php if ($loggedin) {
+						?><a href="<?= $baseurl ?>/?tab=favorites&favoritesview=tile">Favorites (<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>)</a> <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/?tab=admincp&cptab=userinfo">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/?tab=userinfo">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+					<?php } else { ?>
+						<a href="<?= $baseurl ?>/?tab=login">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/?tab=register">Register here!</a>
+					<?php } ?>
+				</p>
 				</div>
 			</div>
 			<div style="background: url(images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 299; opacity: 0.5;"></div>
@@ -1490,7 +1497,7 @@ else
 </head>
 <body>
 
-	<div id="frontHeader" style="height: 78px; position: absolute; top 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin-glass.png) repeat-x center center;">
+	<div id="frontHeader" style="height: 78px; position: absolute; top 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin-glass-strips.png) repeat-x center center;">
 		<div id="frontBanner" style="width: 880px; margin: auto;">
 			<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt;">
 				<?php if ($loggedin) {
@@ -1614,6 +1621,18 @@ else
 				source: availableTags
 			});
 		});
+	</script>
+	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-16803563-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
 	</script>
 	
 

@@ -61,6 +61,19 @@ h2{
     text-decoration: none;
 }
 
+#tinyHeader p {
+    color: #fff;
+}
+
+#tinyHeader a {
+    color: gold;
+    text-decoration: none;
+}
+
+#tinyHeader a:hover {
+    text-decoration: underline;
+}
+
 #header a:hover {
     text-decoration: underline;
 }
@@ -139,6 +152,40 @@ h2{
     margin-right: 310px;
     min-height: 500px;
 }*/
+
+/* PAGINATION */
+div.pagination {
+	padding: 3px;
+	margin: 3px;
+	text-align: center;
+}
+
+div.pagination a {
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+	border: 1px solid #666666;
+	text-decoration: none; /* no underline */
+	color: #EE4400;
+}
+div.pagination a:hover, div.pagination a:active {
+	border: 1px solid #000000;
+	color: #000;
+}
+div.pagination span.current {
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+	border: 1px solid #000000;
+	font-weight: bold;
+	background-color: #EE4400;
+	color: #FFF;
+}
+div.pagination span.disabled {
+	padding: 2px 5px 2px 5px;
+	margin: 2px;
+	border: 1px solid #EEE;
+	color: #DDD;
+}
+
 
 /* RECENTLY ADDED */
 #recent {

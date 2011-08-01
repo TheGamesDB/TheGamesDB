@@ -74,7 +74,7 @@ if($rows != 0)
                     <div id="red"><?=$errormessage?></div>
                     <table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
                         <tr>
-                            <td><strong><?=translatetext('Game ID')?>:</strong></td>
+                            <td style="width: 110px;"><strong><?=translatetext('Game ID')?>:</strong></td>
                             <td><?=$game->id?></td>
                         </tr>
                         <tr>
@@ -86,9 +86,31 @@ if($rows != 0)
                                     $readonly = null;
                                 }
                                 ?>
-                                <input name="GameTitle" type="text" <?=$readonly?> style="display: <?=$display?>" value="<?=stripslashes($game->GameTitle);?>" />
+                                <input name="GameTitle" type="text" <?=$readonly?> style="display: <?=$display?>" size="50" value="<?=stripslashes($game->GameTitle);?>" />
 
                                 <br>
+                            </td>
+                        </tr>
+						<?php
+							$alternates = explode(",", $game->Alternates);
+						?>
+						<tr>
+                            <td><strong>Alternate Titles:</strong></td>
+                            <td>
+                                <input id="alt1" type="text" size="40" value="<?=$alternates[0]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
+							</td>
+						</tr>
+						<tr>
+                            <td>&nbsp;</td>
+							<td>
+                                <input id="alt2" type="text" size="40" value="<?=$alternates[1]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
+							</td>
+						</tr>
+						<tr>
+                            <td>&nbsp;</td>
+							<td>
+                                <input id="alt3" type="text" size="40" value="<?=$alternates[2]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
+                                <input id="Alternates" name="Alternates" type="hidden" size="50" value="<?=$game->Alternates?>"/>
                             </td>
                         </tr>
                         <tr>
@@ -189,7 +211,7 @@ if($rows != 0)
                         <tr>
                             <td><strong>Overview (ENGLISH ONLY):</strong></td>
                             <td>
-                                <textarea rows="18" cols="48" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
+                                <textarea rows="18" cols="40" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
                             </td>
                         </tr>
 						<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
@@ -394,7 +416,7 @@ if($rows != 0)
 	<div id="gameOtherPlatforms">
 		<h3 class="arcade">Other Platforms with this Game</h3>
 		<?php
-			$similarResult = mysql_query(" SELECT g.id, g.platform, g.GameTitle, p.name, p.icon FROM games as g, platforms as p WHERE g.GameTitle = '$game->GameTitle' AND g.Platform <> '$game->Platform' AND g.Platform = p.id ORDER BY p.name");
+			$similarResult = mysql_query(" SELECT g.id, g.platform, g.GameTitle, p.name, p.icon FROM games as g, platforms as p WHERE g.GameTitle = \"$game->GameTitle\" AND g.Platform <> '$game->Platform' AND g.Platform = p.id ORDER BY p.name");
 			$similarRowCount = mysql_num_rows($similarResult);
 			if($similarRowCount > 0)
 			{

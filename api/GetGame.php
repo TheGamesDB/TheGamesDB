@@ -228,7 +228,7 @@ while ($obj = mysql_fetch_object($result)) {
     print "<Game>\n";
 
     // Base Info
-    $subquery = "SELECT g.id, g.GameTitle, p.name as Platform, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.coop as 'Co-op', g.Youtube, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid and r.itemtype='game'), platforms as p WHERE g.id={$obj->id} AND p.id = g.platform Group By g.id";
+    $subquery = "SELECT g.id, g.GameTitle, g.Alternates, p.name as Platform, g.ReleaseDate, g.Overview, g.Rating as ESRB, g.Genre, g.Players, g.coop as 'Co-op', g.Youtube, g.Publisher, g.Developer, g.Actors, AVG(r.rating) as Rating FROM games as g LEFT JOIN ratings as r ON (g.id=r.itemid and r.itemtype='game'), platforms as p WHERE g.id={$obj->id} AND p.id = g.platform Group By g.id";
     $baseResult = mysql_query($subquery) or die('Query failed: ' . mysql_error());
     $baseObj = mysql_fetch_object($baseResult);
     foreach ($baseObj as $key => $value) {
@@ -246,7 +246,18 @@ while ($obj = mysql_fetch_object($result)) {
                     }
                     echo '</Genres>';
                     break;
-					
+				
+				case 'Alternates':
+                    echo '<AlternateTitles>';
+                    $alternates = explode(',', $value);
+                    foreach ($alternates as $alternate) {
+                        if (!empty($alternate)) {
+                            echo '<title>' . $alternate . '</title>';
+                        }
+                    }
+                    echo '</AlternateTitles>';
+                    break;
+				
 				case'Youtube':
                     print "<$key>http://www.youtube.com/watch?v=$value</$key>\n";
 					break;

@@ -173,6 +173,7 @@ if ($function == 'Add Game') {
 	
     ## Check for exact matches for seriesname
     $GameTitle = mysql_real_escape_string($GameTitle);
+    $GameTitle = ucfirst($GameTitle);
     $query = "SELECT * FROM games WHERE GameTitle='$GameTitle' AND Platform='$cleanPlatform'";
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 

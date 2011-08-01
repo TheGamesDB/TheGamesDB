@@ -33,6 +33,57 @@
 </div>
 <!-- END GameBrowser Feature -->
 
+<!-- START Advanced Launcher Feature -->
+<div style="width: 800px; background-color: #000; color: #FFF; margin: auto; padding: 5px 30px 30px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
+	<img src="images/showcase/feature-advanced_launcher.png" style="float: left; padding: 20px 30px 0px 30px; padding-bottom: 20px;" />
+	<h1 class="arcade"><span style="color: #FFF;">Advanced</span><span style="color: #00CC3F;">Launcher</span></h1>
+	<div style="float: left; width: 440px;">
+	<p><strong>Features:</strong></p>
+	<ol>
+		<li>Run Windows, Linux and OSX applications with auto-suggested arguments.</li>
+		<li>Start any file from specified directory using selected application. </li>
+		<li>Collect informations of applications and images and using internal module scrapers </li>
+		<li>Folder recursive scan option for new added items (with images and data collect options).</li> 
+		<li>3 collect options : manual, semi-automatic and automatic. </li>
+		<li>Add, remove and edit options of applications directly from XBMC GUI.</li>
+		<li>Thumbnails, Fanarts and Extra Fanarts images support. </li>
+		<li>Search applications and items by name, genre, studio, platform and release date.</li>
+	</ol>
+	</div>
+	<div style="clear: both;"></div>
+	
+	<div style="margin-bottom: 16px;">
+		<h2 class="arcade" style="color: #FF4F00;">Media:</h2>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image1.jpg"><img src="images/showcase/advancedlauncher-image1.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image2.jpg"><img src="images/showcase/advancedlauncher-image2.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image3.jpg"><img src="images/showcase/advancedlauncher-image3.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image4.jpg"><img src="images/showcase/advancedlauncher-image4.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image5.jpg"><img src="images/showcase/advancedlauncher-image5.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[advancedlauncher]" href="images/showcase/advancedlauncher-image1.png"><img src="images/showcase/advancedlauncher-image1.png"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<div style="clear: both;"></div>
+	</div>
+	
+	<div style="width: 740px;">
+		<div style="width: 200px; float: left;">
+			<h2 class="arcade" style="color: #FF004F;">Info:</h2>
+			<p><strong>Type:</strong> XBMC Add-On</p>
+			<p><strong>XBMC:</strong> <a href="http://xbmc.org/" target="_blank" style="color: #FFFFFF;">http://xbmc.org/</a></p>
+		</div>
+		<div style="width: 540px; float: left;">
+			<p>&nbsp;</p>
+			<p><strong>Google Code Project:</strong> <a href="http://code.google.com/p/xbmc-advanced-launcher/" target="_blank" style="color: #FFFFFF;">http://code.google.com/p/xbmc-advanced-launcher/</a></p>
+			<p><strong>XBMC Forum Thread:</strong> <a href="http://forum.xbmc.org/showthread.php?t=85724" target="_blank" style="color: #FFFFFF;">http://forum.xbmc.org/showthread.php?t=85724</a></p>
+			<p><strong>Help &amp; Support Board:</strong> <a href="http://gwenael.org/forum/index.php" target="_blank" style="color: #FFFFFF;">http://gwenael.org/forum/index.php</a></p>
+			<p><strong>Advanced Launcher Wiki:</strong> <a href="http://www.gwenael.org/xbmc/index.php?title=Main_Page" target="_blank" style="color: #FFFFFF;">http://www.gwenael.org/xbmc/index.php?title=Main_Page</a></p>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+</div>
+<!-- END Advanced Launcher Feature -->
+
 <!-- START XBMC-Launcher Feature -->
 <div style="width: 800px; background-color: #000; color: #FFF; margin: auto; padding: 5px 30px 15px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
 	<img src="images/showcase/feature-xbmclauncher.jpg" style="float: left; padding-right: 30px; padding-bottom: 20px;" />

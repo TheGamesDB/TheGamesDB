@@ -136,6 +136,7 @@ h2{
 #content{
     background-color: #fff;
     padding: 140px 35px 35px 35px !important;
+	box-shadow: 8px 15px 40px 5px #000;
 }
 
 /*#footer{
@@ -273,6 +274,7 @@ div.pagination span.disabled {
 	color: #FFF;
 }
 #gameLeft #gameOtherPlatforms {
+	width: 518px !important;
 	color: #FFF;
 	background: #999 url(images/game/bg-othergames.jpg) no-repeat bottom center;
 	margin-top: 10px;

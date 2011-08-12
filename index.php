@@ -1,4 +1,5 @@
 <?php
+
 ## Connect to the database
 include("include.php");
 
@@ -758,6 +759,7 @@ if ($function == 'Delete Banner') {
         unlink("banners/_favcache/_banner-view/$deletebanner->filename");
         unlink("banners/_favcache/_boxart-view/$deletebanner->filename");
         unlink("banners/_favcache/_tile-view/$deletebanner->filename");
+        unlink("banners/_frontcache/$deletebanner->filename");
 
         ## Delete vignette for fan art
         if ($deletebanner->keytype == "fanart") {
@@ -942,7 +944,7 @@ if($tab != "mainmenu")
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <?php
@@ -959,6 +961,7 @@ if($tab != "mainmenu")
 		<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
 		
         <link rel="stylesheet" type="text/css" href="/default.css" />
+		
         <link rel="stylesheet" type="text/css" href="/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
         <!--<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" type="text/css" media="all" />-->
@@ -1321,6 +1324,7 @@ if($tab != "mainmenu")
 			<p>&nbsp;</p>
 			<p>We would also like to give a big thanks to all our contributers, without your involvement this site wouldn't be as good as it is today.</p>
 		</div>
+		</div>
 
 		<script>
 			$(function() {
@@ -1330,7 +1334,7 @@ if($tab != "mainmenu")
 						{
 							while($titlesObj = mysql_fetch_object($titlesResult))
 							{
-								echo " '" . htmlentities($titlesObj->GameTitle, ENT_QUOTES) . "', ";
+								echo " \"$titlesObj->GameTitle\",\n";
 							}
 						}
 					?>
@@ -1442,15 +1446,27 @@ else
 				$colourCount = 0;
 				$gameRowCount = 0;
 				$imageUrls = array();
+				
+				// Include JPEG Reducer Class
+				include('simpleimage42.php');
+
 				while ($game = mysql_fetch_object($result)) {
 					if($gameRowCount != $rows - 1) 
 					{
-						$imageUrls[] = "banners/$game->filename";
+						// Recompress Fanart to 42% Jpeg Quality and save to front page image cache
+						if(!file_exists("banners/_frontcache/$game->filename"))
+						{
+							$image = new SimpleImage();
+							$image->load("banners/$game->filename");
+							$image->save("banners/_frontcache/$game->filename");
+						}
+						
+						$imageUrls[] = "banners/_frontcache/$game->filename";
 					?>
 						{
 							"title" : "<?=$game->GameTitle?>",
 							"cssclass" : "<?=$colours[$colourCount]?>",
-							"image" : "banners/<?=$game->filename?>",
+							"image" : "banners/_frontcache/<?=$game->filename?>",
 							"text" : "<?=$game->name?>",
 							"url" : 'index.php?tab=game&id=<?=$game->id?>&lid=1',
 							"urltext" : 'View Game'
@@ -1468,12 +1484,12 @@ else
 					}
 					else
 					{
-						$imageUrls[] = "banners/$game->filename";
+						$imageUrls[] = "banners/_frontcache/$game->filename";
 					?>
 						{
 							"title" : "<?=$game->GameTitle?>",
 							"cssclass" : "<?=$colours[$colourCount]?>",
-							"image" : "banners/<?=$game->filename?>",
+							"image" : "banners/_frontcache/<?=$game->filename?>",
 							"text" : "<?=$game->name?>",
 							"url" : 'index.php?tab=game&id=<?=$game->id?>&lid=1',
 							"urltext" : 'View Game'

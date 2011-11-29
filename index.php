@@ -644,6 +644,7 @@ if ($function == 'Save Platform') {
                 $key = mysql_real_escape_string($key);
                 $value = strip_tags($value, '');
                 $value = mysql_real_escape_string($value);
+                $value = htmlspecialchars($value, ENT_QUOTES);
                 array_push($updates, "$key='$value'");
             } else {
                 array_push($updates, "$key=NULL");
@@ -1663,11 +1664,11 @@ if($tab != "mainmenu")
 					<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 				</form>
 				<ul>
-					<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
+					<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/donation/"></a></li>
 					<li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
-					<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
+					<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/stats/"></a></li>
 				<?php if ($loggedin): ?>
-						<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
+						<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/addgame/"></a></li>
 				<?php endif; ?>
 				</ul>
 			</div>
@@ -1686,7 +1687,7 @@ if($tab != "mainmenu")
 					<a href="<?php echo $baseurl; ?>/" style="margin-left: 50px;"><img src="<?php echo $baseurl; ?>/images/tiny-logo.png" alt="TheGamesDB.net" /></a>
 					<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">
 					<?php if ($loggedin) {
-						?><a href="<?= $baseurl ?>/favorites/">Favorites (<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>)</a> <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/admincp/">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/userinfo/">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
+						?><a href="<?= $baseurl ?>/messages/">Messages</a> <?php if($msgCount > 0) { echo"<span style=\"color: Chartreuse;\">($msgCount)</span>"; } else { echo "($msgCount)"; } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/favorites/">Favorites</a> <span>(<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>) <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/admincp/">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/userinfo/">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
 					<?php } else { ?>
 						<a href="<?= $baseurl ?>/login/">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/register/">Register here!</a>
 					<?php } ?>

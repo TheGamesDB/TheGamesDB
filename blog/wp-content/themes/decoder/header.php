@@ -70,11 +70,11 @@ include("../config.php");
 			<div id="nav" style="width: 100%;">
 				<div style="width: 960px; margin: 0px auto;">
 					<ul>
-						<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/?tab=donation"></a></li>
+						<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/donation/"></a></li>
 						<li id="nav_forum" class="tab"><a target="_blank" href="http://forums.thegamesdb.net"></a></li>
-						<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/?tab=stats"></a></li>
+						<li id="nav_stats" class="tab"><a href="<?= $baseurl ?>/stats/"></a></li>
 					<?php if ($loggedin): ?>
-							<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/?tab=addgame"></a></li>
+							<li id="nav_submit" class="tab"><a href="<?= $baseurl ?>/addgame/"></a></li>
 					<?php endif; ?>
 					</ul>
 					<form id="search" action="<?= $baseurl ?>/search/">

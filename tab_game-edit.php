@@ -613,7 +613,7 @@
 								{	
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
 							?>
-									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='game-fanart-slideshow.php?id=<?=$fanart->id?>' target='_blank'>Full-screen Slideshow</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$fanart->id'>Delete This Art</a>"; } ?><br /><?= imageRating($fanart->id) ?> | <?= userImageRating($fanart->id, $baseurl, $game->id, $user->id) ?>" />
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$fanart->id'>Delete This Art</a>"; } ?><br /><?= imageRating($fanart->id) ?> | <?= userImageRating($fanart->id, $baseurl, $game->id, $user->id) ?>" />
 							<?php
 									$fanSlideCount++;
 								}

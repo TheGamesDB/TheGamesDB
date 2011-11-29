@@ -1,4 +1,76 @@
-RewriteEngine on
-Redirect permanent /forums http://forums.thetvdb.com
-Redirect permanent /forum http://forums.thetvdb.com
-RewriteRule ^Interfaces/(.*)$ interfaces/$1 [L]
+RewriteEngine On
+RewriteBase /
+
+
+###### SITE URL REWRITING RULES
+
+#### GAME PAGE
+## http://thegamesdb.net/?tab=game&id={90} => http://thegamesdb.net/game/{90}/
+RewriteRule ^game/([0-9]+)(/?)$ index.php?tab=game&id=$1 [NC,QSA,L]
+
+
+#### EDIT GAME PAGE
+## http://thegamesdb.net/?tab=game-edit&id={90} => http://thegamesdb.net/game-edit/{90}/
+RewriteRule ^game-edit/([0-9]+)(/?)$ index.php?tab=game-edit&id=$1 [NC,QSA,L]
+
+
+#### SEARCH PAGE (WITH SEARCH STRING)
+## http://thegamesdb.net/index.php?string={Sonic+the+Hedgehog}&tab=listseries&function=Search => http://thegamesdb.net/search/{Sonic+the+Hedgehog/}
+RewriteRule ^search/([a-z0-9\-\ \+]+)(/?)$ index.php?tab=listseries&string=$1&function=Search [NC,QSA,L]
+
+#### SEARCH PAGE (WITH ANY ADDITIONAL PARAMETERS)
+## http://thegamesdb.net/index.php?tab=listseries&function=Search => http://thegamesdb.net/search/}
+RewriteRule ^search(/?)$ index.php?tab=listseries&function=Search [NC,QSA,L]
+
+#### BROWSE PAGE
+## http://thegamesdb.net/index.php?tab=listplatform => http://thegamesdb.net/browse/
+RewriteRule ^browse/([0-9+]*)(/?)$ index.php?tab=listplatform&stringPlatform=$1&function=Browse+By+Platform [NC,QSA,L]
+
+
+#### PLATFORM PAGE
+## http://thegamesdb.net/?tab=platform&id={90} => http://thegamesdb.net/platform/{90}/
+RewriteRule ^platform/([0-9]+)(/?)$ index.php?tab=platform&id=$1 [NC,QSA,L]
+
+
+#### EDIT PLATFORM PAGE
+## http://thegamesdb.net/?tab=platform-edit&id={90} => http://thegamesdb.net/platform-edit/{90}/
+RewriteRule ^platform-edit/([0-9]+)(/?)$ index.php?tab=platform-edit&id=$1 [NC,QSA,L]
+
+
+#### API PAGE
+## http://thegamesdb.net/?tab=api&apiarea={showcase} => http://thegamesdb.net/api/{showcase}/
+RewriteRule ^api/([a-z0-9]+)(/?)$ index.php?tab=api&apiarea=$1 [NC,QSA,L]
+
+
+#### FAVORITES PAGE
+RewriteRule ^favorites(/?)$ index.php?tab=favorites [NC,QSA,L]
+
+#### MESSAGE PAGE
+## http://thegamesdb.net/?tab=message&id={90} => http://thegamesdb.net/message/{90}/
+RewriteRule ^message/([0-9]+)(/?)$ index.php?tab=message&messageid=$1 [NC,QSA,L]
+
+#### ADMINSTATS PAGE (TO-DO: FLESH OUT WITH ALL STATS PERMIATATIONS)
+## http://thegamesdb.net/?tab=adminstats&statstype={topratedgames} => http://thegamesdb.net/adminstats/{top-rated-games}
+RewriteRule ^adminstats/([a-z0-9\-]+)(/?)$ index.php?tab=adminstats&statstype=$1 [NC,QSA,L]
+
+
+#### BLOG/NEWS (WordPress)
+# http://www.thegamesdb.net/blog => http://thegamesdb.net/blog/
+RewriteRule ^blog(/?)$ blog/ [NC,QSA,L]
+
+
+#### BASIC TAB REWRITING (MUST BE LAST RULE)
+# http://www.thegamesdb.net/?tab={tab-value} => http://thegamesdb.net/{tab-value}/
+RewriteRule ^([a-z0-9\-\ \+]+)(/?)$ index.php?tab=$1 [NC,QSA,L]
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

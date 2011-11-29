@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Ajax Captcha Plugin Example</title>
+	<script type="text/javascript" src="latest-jquery/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="latest-jquery-ui/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="captcha/jquery.captcha.js"></script>
+	<link href="captcha/captcha.css" rel="stylesheet" type="text/css" />
+	<style type="text/css" media="screen">
+		body { background-color: white; }
+	</style>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			$(".ajax-fc-container").captcha({
+				borderColor: "silver",
+				text: "Verify that you are a human,<br />drag <span>scissors</span> into the circle."
+			});
+		});
+	</script>
+</head>
+<body>
+
+<!-- Just an example of your form -->	
+<form action="captcha/captcha.php" method="post" id="myForm">
+	<p><input type="text" name="myField1" value=""></p>
+	<p><input type="text" name="myField2" value=""></p>
+	
+	<!-- Begin of captcha -->	
+	<div class="ajax-fc-container">You must enable javascript to see captcha here!</div>
+	<!-- End of captcha -->
+	
+	<p><input id="submit" type="submit" name="submit" value="Do something!"></p>
+</form>
+<!-- End of form example -->
+
+</body>	
+</html>

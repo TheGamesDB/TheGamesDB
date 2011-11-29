@@ -1,0 +1,799 @@
+/*
+Theme Name: deCoder
+Theme URI: http://webdemar.com/wordpress/wordpress-theme-decoder-09/
+Description: Dark stlye clean WordPress Theme deCoder by <a href="http://webdemar.com">webdemar</a> with multi-level dropdown, threaded comments and sticky posts (backward compatible).
+Version: 0.9.1
+Author: webdemar
+Author URI: http://webdemar.com
+Tags: black, dark, blue, two-columns, fixed-width, right-sidebar, threaded-comments, sticky-post
+*/
+
+/*
+	- GENERAL
+	- BASIC LAYOUT
+	- HEADINGS
+	- HEADER
+	- CONTENT
+		+ CONTENT LEFT
+		+ CONTENT RIGHT
+	- BASIC CSS ELEMENTS
+	- FORMS
+		+ GENERAL
+		+ SEARCHFORM
+		+ COMMENTFORM
+	- FOOTER
+	- USEFUL
+		+ WORDPRESS CSS
+		+ WIDGETS CSS
+
+/*	##################################
+   	GENERAL
+	################################## */
+	
+body {
+	margin: 0px;
+	padding: 0px;
+	background:#777777 url(img/bg-main-background.jpg) repeat-x top center fixed;
+	color: #fff;
+	font-family: "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
+	font-size: 13px;
+}
+
+a {
+	color: #f8dec7;
+}
+
+p {
+	margin: 0 0 20px 0;
+	padding: 0px;
+	line-height: 22px;
+}
+
+img {
+	border: none;
+}
+
+/*	##################################
+   	BASIC LAYOUT
+	################################## */
+	
+#page {
+}
+
+#headerWrapper {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	/*background: url(img/bg-header.png) no-repeat left top;*/
+	background: transparent url(img/bg-body-blue.png) repeat-x left top;
+	z-index: 2; /* IE z-index bug */
+}
+
+#header {
+	margin: auto !important;
+	width: 960px !important;
+	height: 148px;
+	/*background: url(img/bg-header.png) no-repeat left top;*/
+	background: #1f1f1f url(img/bg-body-blue.png) repeat-x left top;
+	z-index: 2; /* IE z-index bug */
+}
+
+#menu {
+	width: 960px !important;
+	margin: auto;
+}
+
+#contentWrapper {
+	position: absolute;
+	top: 148px;
+	width: 100%;
+}
+
+#content {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+	z-index: 1; /* IE z-index bug */
+	padding: 0px 20px 20px 20px;
+	background-color: #111;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#111111', EndColorStr='#131313');
+	background-image: -moz-linear-gradient(top, #111111, #131313);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #111111),color-stop(1, #131313));
+	background-image: -webkit-linear-gradient(#111111, #131313);
+	background-image: linear-gradient(top, #111111, #131313);
+	color: #FFF;
+	box-shadow: 8px 15px 40px 5px #000;
+}
+
+#content-left {
+	float: left;
+	width: 630px;
+	padding: 40px 0;
+}
+
+#content-right {
+	background: url(img/bg-content.gif) repeat-y right top;
+	float: right;
+	width: 290px;
+}
+
+/* NAV */
+
+#nav input {
+	padding: 1px;
+	height: default;
+}
+
+#nav{
+    height: 35px;
+    background: transparent url('img/brushmetal2.png') repeat-x left top;
+}
+
+#nav ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#nav .tab{
+    float: right;
+}
+
+#nav .tab a {
+    display: block;
+    height:35px;
+    width: 162px;
+}
+
+#nav_stats a{
+    background: transparent url('img/button_img_map.jpg') 0 -245px no-repeat;
+}
+
+#nav_stats a:hover{
+    background: transparent url('img/button_img_map.jpg') 0 -210px no-repeat;
+}
+
+#nav_donation a{
+    background: transparent url('img/button_img_map.jpg') 0 -175px no-repeat;
+}
+
+#nav_donation a:hover{
+    background: transparent url('img/button_img_map.jpg') 0 -140px no-repeat;
+}
+
+#nav_submit a{
+    background: transparent url('img/button_img_map.jpg') 0 -105px no-repeat;
+}
+
+#nav_submit a:hover{
+    background: transparent url('img/button_img_map.jpg') 0 -70px no-repeat;
+}
+
+#nav_forum a{
+    background: transparent url('img/button_img_map.jpg') 0 -35px no-repeat;
+}
+
+#nav_forum a:hover{
+    background: transparent url('img/button_img_map.jpg') 0 0 no-repeat;
+}
+
+/*	##################################
+   	HEADINGS
+	################################## */
+	
+h1#blog-title {
+	float: left;
+	margin: 50px 10px 0 0;
+	padding: 0px;
+	font-size: 18px;
+}
+
+h1#blog-title a {
+	color: #fff;
+	text-decoration: none;
+}
+
+h1#blog-title a:hover {
+	text-decoration: underline;
+}
+
+h2#blog-description {
+	float: left;
+	margin: 57px 0 0 0;
+	padding: 0px;
+	color: #f8dec7;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+h2#category-title {
+	margin: -10px 0 30px 0;
+}
+
+h3.post-title {
+	margin: 0 0 20px 0;
+	padding: 0px;
+	color: orange;
+	font-size: 18px;
+}
+
+h3.post-title a {
+	color: orange;
+	text-decoration: none;
+	border-bottom: 1px dotted orange;
+}
+
+h3.post-title a:hover {
+	border-bottom: none;
+}
+
+h4.sidebar-title {
+	margin: 0 0 10px 0;
+	padding: 0px;
+	color: orange;
+	font-size: 14px;
+}
+
+h4.content-title {
+	margin: 0 0 20px 0;
+	padding: 0px;
+	color: orange;
+	font-size: 14px;
+}
+
+/*	##################################
+   	HEADER
+	################################## */
+
+#rss {
+	float: right;
+	position: relative;
+	line-height: normal;
+}
+
+#rss a {
+	padding: 0 30px 0 0;
+	background: url(img/bg-rss.png) no-repeat right center;
+	line-height: 35px;
+	text-align: right;
+	text-decoration: none;
+	color: #eee;
+}
+
+#rss a:hover {
+	text-decoration: underline;
+}
+
+/* For menu styles please edit /lib/superfish.css */
+
+/*	##################################
+   	CONTENT
+	################################## */
+	
+/** CONTENT LEFT */
+
+.box-left, .post, .page {
+	margin: 0 0 40px 0;
+}
+
+.sticky {
+	padding: 20px;
+	background: #2a2a2a;
+	border: 1px solid #3a3a3a;
+}
+
+.tags {
+	padding: 0 0 0 15px;
+	background: url(img/bg-tags.gif) no-repeat left center;
+}
+	
+.meta {
+	padding: 10px 0 0 0;
+	background: url(img/bg-meta.gif) repeat-x left top;
+	color: #f8dec7;
+	border-top: 1px dotted #5d5d5d;
+	clear: both;
+}
+
+.meta-date {
+	padding: 0 10px 0 15px;
+	background: url(img/bg-meta-date.gif) no-repeat 0px 2px;
+}
+
+.meta-categories {
+	padding: 0 10px 0 15px;
+	background: url(img/bg-meta-categories.gif) no-repeat 0px 2px;
+}
+
+.meta-comments {
+	padding: 0 10px 0 15px;
+	background: url(img/bg-meta-comments.gif) no-repeat 0px 2px;
+}
+
+.box-left ul, ol, .post ul, ol, .page ul, ol {
+	margin: 0 0 20px 0;
+	line-height: 22px;
+}
+
+.box-left ul, .post ul, .page ul {
+	padding: 0 0 0 20px;
+	list-style: none;
+}
+
+.box-left ul li, .post ul li, .page ul li {
+	margin: 0px;
+	padding: 0 0 0 20px;
+	background: url(img/bg-list-item-content.png) no-repeat left center;
+}
+
+/** CONTENT RIGHT */
+
+.box-right {
+	margin: 0px;
+	padding: 20px 20px 25px 20px;
+	background: url(img/bg-box-right.gif) repeat-x left bottom;
+}
+
+.box-right ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.box-right li {
+	margin: 0px;
+	padding: 5px 0 5px 10px;
+	background: url(img/bg-list-item-sidebar-blue.gif) no-repeat 0px 8px;
+}
+
+.box-right li a {
+	padding: 5px 0;
+	text-decoration: none;
+}
+
+.box-right li ul {
+	padding: 5px 0 0 0;
+}
+
+/*	##################################
+   	BASIC CSS ELEMENTS
+	################################## */
+	
+hr {
+	height: 1px;
+	margin: 20px 0;
+	background: #3a3a3a;
+	border: none;
+}
+	
+table {
+	width: 100%;
+	margin: 0 0 20px 0;
+}
+
+th, td {
+	padding: 5px 10px;
+}
+
+th {
+	background: orange;
+	color: #fff;
+}
+
+tr.even {
+	background: #2a2a2a;
+}
+
+pre {
+	margin: 0 0 20px 0;
+	padding: 20px;
+	background: #2a2a2a;
+	line-height: 22px;
+	border: 1px solid #3a3a3a;
+	font-family: Courier, serif;
+	overflow-x: scroll;
+	overflow-y: visible;
+}
+
+blockquote {
+	padding: 0 0 0 20px;
+	border-left: 5px solid #2a2a2a;
+}
+
+/*	##################################
+   	FORMS
+	################################## */
+	
+/** GENERAL */
+
+fieldset {
+	margin: 0 0 40px 0;
+	padding: 0 40px 40px 40px;
+	background: #2a2a2a;
+	border: none;
+}
+
+legend {
+	color: orange;
+	font-size: 14px;
+}
+
+label {
+	display: block;
+	margin: 0 0 5px 0;
+}
+	
+/*input, textarea {
+	width: 50%;
+	height: 23px;
+	margin: 0 0 20px 0;
+	padding: 7px 5px 0 5px;
+	color: #5d5d5d;
+	background: #fff url(img/bg-form-input.png) repeat-x left top;
+	border: none;
+}*/
+
+textarea {
+	width: 80%;
+	height: 150px;
+}
+
+select {
+	margin: 0 0 20px 0;
+}
+
+input.radio, input.checkbox {
+	width: auto;
+	height: auto;
+	margin: 0px;
+	padding: 0px;
+	background: #fff;
+}
+
+/*input.submit, input.button {
+	width: auto;
+	height: 30px;
+	margin: 0px;
+	padding: 0 20px;
+	background: url(img/bg-form-submit-blue.png) no-repeat left top;
+	border: none;
+	color: #fff;
+}*/
+	
+/** SEARCHFORM */
+
+#content #searchform {
+	width: 250px;
+}
+	
+#searchform #search {
+	float: left;
+	width: 200px;
+	height: 23px;
+	padding: 7px 5px 0 5px;
+	color: #5d5d5d;
+}
+
+#searchform #search-submit {
+	float: right;
+	width: 30px;
+	height: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+
+/** COMMENTFORM */
+
+#comments, #trackbacks {
+	margin: 40px 0 0 0;
+}
+
+#trackbacks {
+	margin: 20px 0 0 0;
+}
+
+.comment {
+	padding: 0 40px 40px 40px;
+	background: #2a2a2a;
+}
+
+#trackbacks ul {
+	margin: 0 0 40px 0;
+	padding: 40px 40px 30px 40px;
+	background: #2a2a2a;
+	list-style: none;
+}
+
+#trackbacks li {
+	margin: 0 0 10px 0;
+	padding: 0 0 0 20px;
+	line-height: 22px;
+	background: url(img/bg-list-item-content.png) no-repeat 0px 4px;
+}
+
+.first {
+	padding: 40px;
+}
+
+#response {
+	margin: 60px 0 0 0;
+}
+
+#response fieldset {
+	padding: 40px;
+}
+
+.comment-left, #commentform-left {
+	float: left;
+	width: 120px;
+	height: 120px;
+	background: url(img/bg-commentform-left.gif) no-repeat right top;
+}
+
+.comment-right, #commentform-right {
+	float: left;
+	width: 430px;
+	min-height: 120px;
+}
+
+.comment-text {
+	padding: 20px;
+	background: #fff url(img/bg-form-input.png) repeat-x left top;
+	color: #5d5d5d;
+	line-height: 22px;
+}
+
+#response textarea {
+	width: 420px;
+	height: 100px;
+	margin: 0px;
+	padding: 5px;
+}
+
+#response label {
+	display: block;
+	line-height: 20px;
+}
+
+#response input.text {
+	width: 420px;
+	height: 20px;
+	margin: 0px;
+	padding: 5px;
+}
+
+#response input.submit {
+	float: right;
+	height: 30px;
+	margin: 20px 0 0 0;
+	padding: 0 20px;
+}
+
+.comment-author {
+	margin: 0px;
+	padding: 5px 0;
+	color: orange;
+	font-size: 14px;
+}
+
+.comment-author a {
+	color: orange;
+	text-decoration: none;
+}
+
+.comment-author a:hover {
+	text-decoration: underline;
+}
+
+/** COMMENTS IN WP 2.7 */
+
+#commentfieldset {
+	padding: 20px 40px;
+}
+
+.commentlist ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.commentlist li {
+	margin: 20px 0 0 0;
+	padding: 20px 0 20px 20px;
+	background: #2a2a2a;
+	list-style: none;
+}
+
+.commentlist .avatar {
+	float: right;
+	margin: 0 20px 10px 20px;
+}
+
+.commentlist li a {
+	color: #f8dec7;
+}
+
+.commentlist li p {
+	margin: 0 20px 20px 0;
+}
+
+.commentlist .comment-meta {
+	margin: 0 0 20px 0;
+}
+
+.commentlist .comment-author a {
+	padding: 0 0 5px 0;
+	color: #fff;
+	font-weight: bold;
+}
+
+.commentlist ul.children {
+	margin: 0px;
+	padding: 0px;
+}
+
+.commentlist .children li {
+	margin: 20px 0 0 0;
+	padding: 20px 0 20px 20px;
+	background: none;
+	border: 1px solid #3a3a3a;
+	border-right: none;
+}
+
+.reply {
+	width: 50px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	background: #1f1f1f;
+	border: 1px solid #5d5d5d;
+	border-right: none;
+	border-bottom: none;
+}
+
+.reply a {
+	display: block;
+	height: 25px;
+	line-height: 25px;
+}
+
+#cancel-comment-reply {
+	margin: 5px 0 20px 0;
+}
+
+#cancel-comment-reply a {
+	color: #6a6a6a;
+}
+
+.commentlist li.depth-1, .commentlist li.depth-3, .commentlist li.depth-5 {
+	background: #2a2a2a;
+}
+
+.commentlist li.depth-2, .commentlist li.depth-4, .commentlist li.depth-6 {
+	background: #3a3a3a;
+}
+
+/*	##################################
+   	FOOTER
+	################################## */
+	
+#footer-wrap {
+	background: url(img/bg-footer-wrap-blue.png) repeat-x left top;
+	position: fixed;
+	bottom: 0px;
+	margin: auto;
+	width: 100%;
+}
+
+#footer {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#footer p {
+	margin: 0px;
+	padding: 0px;
+	line-height: 30px;
+	color: #333;
+}
+#footer a {
+	color: #000;
+}
+
+#legal {
+	float: left;
+	width: 450px;
+}
+
+#webdemar {
+	float: right;
+	width: 450px;
+	text-align: right;
+}
+
+/*	##################################
+   	USEFUL
+	################################## */
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clear {
+	clear: both;
+}
+
+/** WORDPRESS CSS */
+
+.aligncenter,
+div.aligncenter {
+   	display: block;
+   	margin: 0 auto;
+}
+
+.aligncenter {
+	margin-bottom: 20px!important;
+}
+
+.alignleft {
+   	float: left;
+   	margin: 0 20px 20px 0;
+}
+
+.alignright {
+   	float: right;
+   	margin: 0 0 20px 20px;
+}
+
+.wp-caption {
+	margin-bottom: 20px;
+	padding-top: 4px;
+   	border: 1px solid #3a3a3a;
+   	text-align: center;
+   	background-color: #2a2a2a;
+}
+
+.wp-caption img {
+   	float: none;
+   	margin: 0px;
+   	padding: 0px;
+   	border: none;
+}
+
+.wp-caption p.wp-caption-text {
+   	padding: 0px;
+  	margin: 0px;
+}
+
+/** WIDGETS CSS */
+
+#calendar_wrap table {
+	width: 100%;
+}
+
+#calendar_wrap td {
+	text-align: center;
+}
+
+#wp-calendar caption {
+	margin: 0 0 10px 0;
+	padding: 2px;
+	background: #3a3a3a;
+}

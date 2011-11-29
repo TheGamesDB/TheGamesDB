@@ -35,8 +35,8 @@
 				alert("You have selected too many genres.")
 			}
 			else{
-				opener.document.seriesform.Genre.value = genlist;
-				opener.document.seriesform.Genrefake.value = genlist;
+				opener.document.editGameForm.Genre.value = genlist;
+				opener.document.editGameForm.Genrefake.value = genlist;
 				self.close();
 			}
 			return false;

@@ -1,0 +1,153 @@
+/* global */
+.theatre {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	list-style: none;
+	padding: 0px;
+}
+
+.theatre-actor {
+	margin: 0px;
+}
+
+/* Orbit */
+.theatre-orbit .theatre-actor {
+	position: absolute;
+}
+
+/* 3d */
+.theatre-3d .theatre-actor {
+	position: absolute;
+	border: 1px solid #000 !important;
+	outline: 1px solid #fff !important;
+	box-shadow: 3px 6px 20px 5px #000;
+
+}
+
+/* horizontal, vertical */
+.theatre-vertical .theatre-actor, .theatre-horizontal .theatre-actor {
+	top: 0px;
+	position: absolute;
+}
+
+/* fade */
+.theatre-fade .theatre-actor,
+.theatre-show .theatre-actor,
+.theatre-slide .theatre-actor {
+	display: block;
+}
+
+/* Controls */
+.theatre-control {
+	position: absolute;
+	background-color: black;
+	opacity: 0.6;
+	z-index: 1000;
+	cursor: pointer !important;
+	-moz-user-select: none;
+}
+.theatre-control:hover {
+	opacity: 0.8;
+}
+.theatre-control-horizontal-next {
+	cursor: e-resize;
+}
+.theatre-control-horizontal-prev {
+	cursor: w-resize;
+}
+.theatre-control-vertical-next {
+	cursor: n-resize;
+}
+.theatre-control-vertical-prev {
+	cursor: s-resize;
+}
+.theatre-control span {
+	background-image: url('theatre-controls.png');
+	background-repeat: no-repeat;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -20px;
+	margin-top: -20px;	
+	width: 30px;
+	height: 30px;
+}
+.theatre-next span {
+	background-position: -97px -37px;	
+}
+.theatre-next:hover span {
+	background-position: -97px 0px;	
+}
+.theatre-prev span {
+	background-position: -67px -37px;
+}
+.theatre-prev:hover span {
+	background-position: -67px 0px;
+}
+.theatre-control-vertical-next span {
+	background-position: -32px 8px;	
+}
+.theatre-control-vertical-next:hover span {
+	background-position: -32px -29px;	
+}
+.theatre-control-vertical-prev span {
+	background-position: 0px 8px;
+}
+.theatre-control-vertical-prev:hover span {
+	background-position: 0px -29px;
+}
+.theatre-play span {
+	background-position: -128px -32px;
+}
+.theatre-play:hover span {
+	background-position: -128px 6px;
+}
+.theatre-stop span {
+	background-position: -157px -32px;
+}
+.theatre-stop:hover span {
+	background-position: -157px 6px;
+}
+/* Horizontal */
+.theatre-control-horizontal-next, .theatre-control-horizontal-prev {
+	top: 0px;
+	width: 30px;
+	height: 100%;
+}
+.theatre-control-horizontal-next {
+	right: 0px;
+}
+.theatre-control-horizontal-prev {
+	left: 0px;
+}
+.theatre-control-horizontal-play, .theatre-control-horizontal-stop {
+	bottom: 0px;
+}
+.theatre-control-horizontal-play {
+	right: 50%;
+	width: 30px;
+	height: 30px;	
+}
+.theatre-control-horizontal-stop {
+	left: 50%;
+	width: 30px;
+	height: 30px;	
+}
+/* Vertical */
+.theatre-control-vertical-next, .theatre-control-vertical-prev {
+	right: 0px;
+	width: 100%;
+	height: 30px;
+}
+.theatre-control-vertical-next {
+	top: 0px;
+}
+.theatre-control-vertical-prev {
+	bottom: 0px;
+}
+.theatre-control-vertical-play, .theatre-control-vertical-stop {
+	display: none !important;
+}
+

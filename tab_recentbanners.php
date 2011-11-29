@@ -57,10 +57,10 @@
 			$banner->subkey = $banner->resolution;
 		}
 		if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR')  {
-			displaybannernew($banner, 1, "/?tab=series&id=$banner->keyvalue");
+			displaybannernew($banner, 1, "$baseurl/game/$banner->keyvalue/");
 		}
 		else  {
-			displaybannernew($banner, 0, "/?tab=series&id=$banner->keyvalue");
+			displaybannernew($banner, 0, "$baseurl/game/$banner->keyvalue/");
 		}
 		print "</td>";
 		$count++;

@@ -1,8 +1,20 @@
-<div class="section">
+<div id="gameWrapper">
+	<div id="gameHead">
+	
+	<?php if($errormessage): ?>
+	<div class="error"><?= $errormessage ?></div>
+	<?php endif; ?>
+	<?php if($message): ?>
+	<div class="message"><?= $message ?></div>
+	<?php endif; ?>
+
+<div style="text-align: center; padding: 26px 0px;">
 <h1>Register</h1>
-<form action="<?=$fullurl?>" method="POST">
+<form action="<?=$baseurl?>/" method="POST">
 <div id="red"><?=$errormessage?></div>
-<table cellspacing="2" cellpadding="2" border="0" align="center">
+<p>&nbsp;</p>
+<p>Please fill in your details below to register for an account.</p>
+<table cellspacing="2" cellpadding="2" border="0" align="center" style="text-align: left;">
 <tr>
 	<td><b>Username</b></td>
 	<td><input type="text" name="username" value="<?=$username?>"></td>
@@ -17,7 +29,7 @@
 </tr>
 <tr>
 	<td><b>Email Address</b></td>
-	<td><input type="text" name="email" value="<?=$email?>"> (will only be used to send password reset information)</td>
+	<td><input type="text" name="email" value="<?=$email?>"></td>
 </tr>
 <tr>
 	<td><b>Preferred Language</b></td>
@@ -47,4 +59,7 @@
 </table>
 
 </form>
+</div>
+
+	</div>
 </div>

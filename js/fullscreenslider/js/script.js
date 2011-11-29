@@ -30,7 +30,7 @@ $(function() {
 	});*/
 
 	// Add the navigation boxes
-	$.template("navboxTemplate", "<div class='navbox ${cssclass}'><ul></ul><h2><a href='${url}' title='${title}'>${title}</a></h2><p>${text}</p></div>");
+	$.template("navboxTemplate", "<div class='navbox ${cssclass}'><ul></ul><h2><a href='${url}' title='${title}'>${title}</a></h2><p>{{html rating}}</p><p><a href='platform/${platformid}/'><img src='images/common/consoles/png24/${icon}' style=\"border: 0px;\" />&nbsp;${text}</a></p></div>");
 	$.tmpl("navboxTemplate", photos).appendTo("#navigationBoxes");
 
 	// Add the navigation, based on the Photos

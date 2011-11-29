@@ -1,5 +1,5 @@
 body{
-    background:#111111 url(images/bg-main-background.jpg) repeat-x top center fixed;
+    background:#777777 url(images/bg-main-background.jpg) repeat-x top center fixed;
     font-family:Arial;
     font-size:10pt;
     padding: 0;
@@ -18,9 +18,15 @@ h2{
 #main{
     width: 1000px;
     margin: 0 auto;
-	
 }
 
+.bgBlack {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#444444', EndColorStr='#131313');
+	background-image: -moz-linear-gradient(top, #444444, #131313);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #444444),color-stop(1, #131313));
+	background-image: -webkit-linear-gradient(#444444, #131313);
+	background-image: linear-gradient(top, #444444, #131313);
+}
 #frontHeader{
 	color: #fff;
 }
@@ -167,6 +173,7 @@ div.pagination a {
 	border: 1px solid #666666;
 	text-decoration: none; /* no underline */
 	color: #EE4400;
+	background-color: #dfdfdf;
 }
 div.pagination a:hover, div.pagination a:active {
 	border: 1px solid #000000;
@@ -631,7 +638,7 @@ TABLE#listtable  {
 }
 
 TABLE#listtable TD  {
-	vertical-align: top;
+	/*vertical-align: top;*/
 	font: 9pt Helvetica, Arial, san-serif;
 }
 TABLE#listtable .head {

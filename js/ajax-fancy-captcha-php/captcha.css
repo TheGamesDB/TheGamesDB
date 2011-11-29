@@ -1,0 +1,62 @@
+.captchaForm img { behavior: url(captcha/iepngfix.htc) !important; }
+
+
+.captchaForm input, select {
+    background: url("imgs/input_bg.gif") repeat-x scroll left top transparent !important;
+	border: 1px solid #ADB8C1 !important;
+    color: #ADB8C1 !important;
+    display: block !important;
+    font-family: Arial !important;
+    height: 32px !important;
+    margin: 3px 0 1px !important;
+    padding: 7px 10px !important;
+	width: 316px !important;
+}
+
+.captchaForm input#submit {
+    border: 0 none !important;
+    cursor: pointer !important;
+    display: block !important;
+    height: 32px !important;
+    margin-top: 25px !important;
+    width: 117px !important;
+}
+
+
+/* FANCY CAPTCHA STARTS */
+.captchaForm .ajax-fc-container { width: 316px !important; background:#a8d7ea !important;  color:#fff !important;  margin: auto !important;}
+
+/* rounded corners */
+.captchaForm .ajax-fc-rtop, .ajax-fc-rbottom{ display:block !important; background: white !important; }
+.captchaForm .ajax-fc-rtop *, .ajax-fc-rbottom *{ /*display: block !important; height: 1px !important; overflow: hidden !important; background:#a8d7ea !important; */}
+
+/* describes left and right boxes */
+.captchaForm div#ajax-fc-content { position: absolute !important; margin-top: -3px !important; margin-left: 9px !important; width: 298px !important; height: 105px !important; background: url(imgs/bg-content-div.png) !important; }
+.captchaForm div#ajax-fc-content div#ajax-fc-left { width: 200px !important; height: 100px !important; float: left !important; }
+
+.captchaForm div#ajax-fc-content div#ajax-fc-right { width: 98px !important; height: 100px !important; float: right !important; }
+
+/* block left: task and pictures */
+.captchaForm p#ajax-fc-task { line-height: 16px !important; margin: 0 !important; padding: 11px 0 0 11px !important; font-size: 10px !important; font-family: Verdana, Tahoma, Arial !important; color: #18779d !important; }
+.captchaForm p#ajax-fc-task span { color: #66a70b !important; font-weight: bold !important; }
+
+.captchaForm ul#ajax-fc-task { width: 190px !important; height: 18px !important; list-style-type: none !important; background: url(imgs/bg-items.png) -4px 0px !important; background-repeat: no-repeat !important; margin: 6px 0 0 0 !important; padding: 5px 0 0 2px !important; }
+
+/* block right: cycle and backlink */
+.captchaForm ul#ajax-fc-task li { float: left !important; margin-right: 1px !important; margin-top: 6px !important;}
+.captchaForm p#ajax-fc-circle { position: absolute !important; margin: 18px 0 0 15px !important; width: 79px !important; height: 79px !important; background: url(imgs/circle.png) !important; background-repeat: no-repeat !important; }
+.captchaForm img#ajax-fc-backlink { position: absolute !important; margin-top: 1px !important; margin-left: 6px !important; border: 0px !important; z-index: 101 !important; }
+
+/* left and right png borders */
+.captchaForm div#ajax-fc-corner-spacer { height: 99px !important; }
+.captchaForm img.ajax-fc-border { position: absolute !important; margin-top: -3px !important; }
+.captchaForm img.ajax-fc-border#ajax-fc-left { margin-left: 2px !important; }
+.captchaForm img.ajax-fc-border#ajax-fc-right { margin-left: 307px !important; }
+
+/* items */
+.captchaForm .ajax-fc-highlighted { cursor: pointer !important; z-index: 102 !important}
+
+/* rounded corners */
+.captchaForm .ajax-fc-r1{ margin: 0 5px !important } .ajax-fc-r2{ margin: 0 3px !important } .ajax-fc-r3{ margin: 0 2px !important } .ajax-fc-r4{ margin: 0 1px !important; height: 2px !important }
+
+/* FANCY CAPTCHA ENDS */

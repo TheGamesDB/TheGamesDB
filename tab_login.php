@@ -1,7 +1,18 @@
-<div class="section">
+<div id="gameWrapper">
+	<div id="gameHead">
+
+	<?php if($errormessage): ?>
+	<div class="error"><?= $errormessage ?></div>
+	<?php endif; ?>
+	<?php if($message): ?>
+	<div class="message"><?= $message ?></div>
+	<?php endif; ?>
+	
+<div style="text-align: center; padding: 24px 0px;">
 <h1>User Login</h1>
-<form action="<?=$fullurl?>" method="POST">
-<div id="red"><?=$errormessage?></div>
+<p>&nbsp;</p>
+<p>Please fill in your details below to register for an account.</p>
+<form action="<?=$baseurl;?>/" method="POST">
 
 <table cellspacing="2" cellpadding="2" border="0" align="center">
 <tr>
@@ -12,13 +23,12 @@
 	<td><b>Password</b></td>
 	<td><input type="password" name="password" id="gray"></td>
 </tr>
-<tr>
+<!--<tr>
 	<td><b>Remember Me On This Computer</b></td>
 	<td><input type="checkbox" name="setcookie"></td>
-</tr>
+</tr>-->
 <tr>
-	<td></td>
-	<td>
+	<td colspan="2">
 		<input type="hidden" name="function" value="Log In">
 		<input type="submit" name="submit" value="Log In">
 	</td>
@@ -27,7 +37,10 @@
 </form>
 
 
-<a href="<?php echo $baseurl;?>/?tab=register">Register for an account</a> <br>
-<a href="<?php echo $baseurl;?>/?tab=password">Forgot your username or password?</a>
+<a href="<?php echo $baseurl;?>/register/" style="color: orange">Register for an account</a> <br>
+<a href="<?php echo $baseurl;?>/password/" style="color: orange">Forgot your username or password?</a>
 
+</div>
+
+	</div>
 </div>

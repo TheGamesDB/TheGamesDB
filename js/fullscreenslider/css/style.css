@@ -27,12 +27,13 @@ body { overflow:hidden; }
 .navbox ul li a:hover { background-position:bottom; color:#000; }	
 .navbox ul li a.active { color:#777; }
 
-.navbox h2 { padding:26px 20px 0 20px; font: bold 24px Helvetica, Arial, Sans-serif; height: 58px; text-shadow: 0px 2px 6px #333; color:#eee; }
+.navbox h2 { padding:26px 20px 0 20px; font: bold 24px Helvetica, Arial, Sans-serif; height: 30px; text-shadow: 0px 2px 6px #333; color:#eee; }
 .navbox h2 a{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; text-decoration: none;}
 .navbox h2 a:visited{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; }
 .navbox h2 a:link{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; }
-.navbox p { padding:6px 0px 0px 20px; height: 20px; overflow: hidden; font-family: "Segoe UI","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Arial,Tahoma,Verdana,sans-serif; font-size:17px; text-shadow: 0px 2px 6px #333; color:#eee; }
-.navbox p a { text-decoration:none;  text-transform:uppercase; letter-spacing: 6px; color:#eee; }
+.navbox p { padding:6px 0px 0px 20px; margin: 0px; height: 16px; font-family: "Segoe UI","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Arial,Tahoma,Verdana,sans-serif; font-size:17px; text-shadow: 0px 2px 6px #333; color:#eee; }
+.navbox p img { vertical-align: middle; }
+.navbox p a { text-decoration:none;  color:#eee; }
 .navbox p a:hover { border-bottom:1px dotted; }
 .navbox p.bottom { position:absolute; padding: 0px; height: 20px; bottom:0x; right:5px; font-size: 12px }
 

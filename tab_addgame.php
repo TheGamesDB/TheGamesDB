@@ -1,7 +1,17 @@
+<div id="gameWrapper">
+	<div id="gameHead">
+	
+	<?php if($errormessage): ?>
+	<div class="error"><?= $errormessage ?></div>
+	<?php endif; ?>
+	<?php if($message): ?>
+	<div class="message"><?= $message ?></div>
+	<?php endif; ?>
+	
 <?php
 	if ($loggedin) {
 ?>
-<div class="section" style="text-align: justify;">
+
 <h1 class="arcade" style="text-align: center;">Add A Game</h1>
   <h2 class="arcade" style="color: #00CC3F;">Adding Rules:</h2>
     <p><span style="font-weight: bold;">Always check</span> to make sure a game doesn't already exsist before adding it.  If it is found to be a duplicate, it will be deleted.  If you believe you've found a special case where a duplicate should be allowed, please come to the forums and ask first or it will be deleted.  Use the advanced search tool to try and find your game before adding it.  We may have it listed under a name you aren't aware of, so if you know the ID for it, you may be able to find it that way.</p>
@@ -63,7 +73,7 @@
 		</form>
 		</div>
 		<!-- End Game Add Form -->
-</div>
+
 
 <script>
 	$(function() {
@@ -87,15 +97,15 @@
 	}
 	else {
 ?>
-<div style="text-align: center;">
-	<h1 class="arcade">Add a Game</h1>
-	<p>&nbsp;</p>
-	<h3>Sorry, you must be logged in to add a new game.</h3>
-	<p>&nbsp;</p>
-	<p><a href="<?= $baseurl ?>/?tab=login">Login</a>,  or <a href="<?= $baseurl ?>/?tab=register">Register Here</a> if you're new to the site...</p>
-	<p>&nbsp;</p>
-</div>
+
+			<h1>Oops!</h1>
+			<h2 style="text-align: center;">You must be logged in to add a new game!</h2>
+			<p style="text-align: center;">If you haven't already, please make an account with us and then log in.</p>
+			<p style="text-align: center;"><a href="<?= $baseurl; ?>/login/" style="color: orange;">Click here to log in</a></p>
 	
 <?php
 	}
 ?>
+
+	</div>
+</div>

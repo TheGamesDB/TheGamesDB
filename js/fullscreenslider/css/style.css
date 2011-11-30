@@ -19,7 +19,7 @@ body { overflow:hidden; }
 #pictureSlider div { height:100%; width:100%; position:absolute; z-index:-999; }
 
 /* NAVIGATION BOX */
-.navbox { width:450px; height:124px; position:absolute; left:0px; bottom:50px; opacity: 0.7; }
+.navbox { width:500px; height:150px; position:absolute; left:0px; bottom:50px; opacity: 0.7; }
 .navbox ul { list-style:none; position:absolute; right:10px; top:10px; }
 .navbox ul li { display:inline; cursor:pointer; }
 .navbox ul li a { display:block; float:left; width:17px; height:17px; text-align:center; background-image:url("../images/nav_btns.png"); margin-left:5px;
@@ -27,7 +27,7 @@ body { overflow:hidden; }
 .navbox ul li a:hover { background-position:bottom; color:#000; }	
 .navbox ul li a.active { color:#777; }
 
-.navbox h2 { padding:26px 20px 0 20px; font: bold 24px Helvetica, Arial, Sans-serif; height: 30px; text-shadow: 0px 2px 6px #333; color:#eee; }
+.navbox h2 { padding:26px 20px 0 20px; font: bold 24px Helvetica, Arial, Sans-serif; height: 60px; text-shadow: 0px 2px 6px #333; color:#eee; }
 .navbox h2 a{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; text-decoration: none;}
 .navbox h2 a:visited{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; }
 .navbox h2 a:link{ font: bold 24px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color:#eee; }

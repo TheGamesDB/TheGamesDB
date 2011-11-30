@@ -1356,7 +1356,7 @@ if($tab != "mainmenu")
         <?php
 ## Redirect if no javascript
         if ($tab != "nojs") {
-            print "<noscript><meta http-equiv=\"refresh\" content=\"0; url=index.php?tab=nojs\"/></noscript>\n";
+            print "<noscript><meta http-equiv=\"refresh\" content=\"0; url=$baseurl/nojs/\"/></noscript>\n";
         }
         ?>
         <title>TheGamesDB.net - An open, online database for video game fans</title>
@@ -1368,7 +1368,7 @@ if($tab != "mainmenu")
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/default.css" />
 		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase") { ?>
+		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs") { ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		<?php } ?>
 		

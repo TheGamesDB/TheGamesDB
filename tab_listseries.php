@@ -69,7 +69,7 @@ function imageResize($filename, $cleanFilename, $target)
 		$letter = mysql_real_escape_string($letter);			
 
 		if ($function == 'Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%') AND g.Platform = p.id";
+			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%') AND g.Platform = p.id";
 			if(!empty($sortBy))
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
@@ -81,7 +81,7 @@ function imageResize($filename, $cleanFilename, $target)
 		}
 		## Start Advanced Search Query
 		elseif ($function == 'Advanced Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%')";
+			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%')";
 			if($stringPlatform != "")
 			{
 				$query = $query .  " AND g.Platform = '$stringPlatform' ";
@@ -444,7 +444,7 @@ function imageResize($filename, $cleanFilename, $target)
 								</span>
 								<h3 style="margin-top: 0px;"><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
 								<p style="text-align: justify;"><?php if(!empty($game->Overview)) { echo substr($game->Overview, 0, 300) . "..."; } else { echo "<em><br />There is no overview available for this game.</em><br /><br />"; } ?></p>
-									<p style="font-size: 16px; color: #333;"><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?= $game->platformid; ?>/"><?=$game->name?></a>&nbsp;|&nbsp;
+									<p style="font-size: 16px; color: #333;"><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a>&nbsp;|&nbsp;
 								<?php
 									$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 									$boxartResult = mysql_num_rows($boxartQuery);
@@ -487,7 +487,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3 style="margin-top: 0px;"><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-											<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<?=$game->name?></p>
+											<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
 										<?php
 											$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 											$boxartResult = mysql_num_rows($boxartQuery);
@@ -536,7 +536,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<?=$game->name?></p>
+										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
 										<div style="clear: both;"></div>
 									</div>
 								<?php
@@ -577,7 +577,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<?=$game->name?></p>
+										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
 										<div style="clear: both;"></div>
 									</div>
 								<?php
@@ -621,7 +621,7 @@ function imageResize($filename, $cleanFilename, $target)
 				<?php
 				while($game = mysql_fetch_object($result))
 				{
-					if($gameResult = mysql_query(" SELECT g.id, g.GameTitle, g.Genre, g.Rating, p.name, p.icon FROM games as g, platforms as p WHERE g.id = '$game->id' AND g.Platform = p.id"))
+					if($gameResult = mysql_query(" SELECT g.id, g.GameTitle, g.Genre, g.Rating, p.name, p.alias AS PlatformAlias, p.icon FROM games as g, platforms as p WHERE g.id = '$game->id' AND g.Platform = p.id"))
 					{
 						if($game = mysql_fetch_object($gameResult))
 						{
@@ -639,7 +639,7 @@ function imageResize($filename, $cleanFilename, $target)
 							<tr>
 								<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
 								<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/game/<?= $game->id ?>/"><?php echo $game->GameTitle; ?></a></td>
-								<td class="<?php echo $class; ?>"><img src="<?= $baseurl ?>/images/common/consoles/png16/<?php echo $game->icon; ?>" alt="<?php echo $game->name; ?>" style="vertical-align: middle;" /> <?php echo $game->name; ?></td>
+								<td class="<?php echo $class; ?>"><img src="<?= $baseurl ?>/images/common/consoles/png16/<?php echo $game->icon; ?>" alt="<?php echo $game->name; ?>" style="vertical-align: middle;" /> <a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></td>
 								<td class="<?php echo $class; ?>">
 									<?php if(!empty($game->Genre))
 									{

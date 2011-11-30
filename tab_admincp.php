@@ -31,6 +31,7 @@ if (isset($function) && $function == "Edit Publisher Keywords")
 			<li<?php if($cptab == "addplatform"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=addplatform">Add New Platform</a></li>
 			<li<?php if($cptab == "publishers"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=publishers">Manage Publishers &amp; Developers</a></li>
 			<li<?php if($cptab == "sendpm"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=sendpm">Send PM</a></li>
+			<li<?php if($cptab == "platformalias"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=platformalias">Generate Platform Alias's</a></li>
 		</ul>
 	</div>
 	<div id="controlPanelContent">
@@ -190,6 +191,50 @@ if (isset($function) && $function == "Edit Publisher Keywords")
 							</p>
 						</div>
 					</div>
+				<?php
+					break;
+				
+				default:
+					?>
+					<p>&nbsp;</p>
+					<h2 class="arcade">Please select a section to administrate...</h2>
+					<p>&nbsp;</p>
+					<?php
+					break;
+					
+				case "platformalias":
+				?>
+					<h2>Generate Platform Alias's</h2>
+					
+					<form action="<?= $baseurl; ?>/admincp/?cptab=platformalias" method="post" style="text-align: center; padding: 16px; border: 1px solid #666; background-color: #333; color: #fff; margin: 16px;">
+						<p style="font-size: 18px;">Press the button below to auto-generate alias's for platforms missing an alias.</p>
+						<input type="submit" name="function" value="Generate Platform Alias's" style="padding: 16px;" />
+					</form>
+					
+					<table id="listtable" style="margin: auto;" cellpadding="6">
+						<tr class="head">
+							<th width="14%">ID</th>
+							<th width="43%">Name</th>
+							<th width="43%">Alias</th>
+						</tr>
+						
+						<?php
+							$platformsResult = mysql_query(" SELECT p.id, p.name, p.alias FROM platforms AS p ORDER BY p.id ");
+							while($platforms = mysql_fetch_object($platformsResult))
+							{
+								if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
+						?>
+						<tr class="<?= $class; ?>">
+							<td align="center"><?= $platforms->id; ?></td>
+							<td><?= $platforms->name; ?></td>
+							<td><?php if($platforms->alias == "") { echo "N/A"; } else { echo $platforms->alias; } ?></td>
+						</tr>
+						<?php
+							}
+						?>
+						
+					</table>
+					
 				<?php
 					break;
 				

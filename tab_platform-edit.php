@@ -179,14 +179,18 @@
 
 		<div id="gameTitle">
 		<span style="float: left;">
-			<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
+			Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
 		</span>
-			
-
+		
 				<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a><br />
 				<br />
 				<img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox'>Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox'>Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox'>Upload Banner</a>
 			</span>
+			
+		<span style="float: left; clear: left;">
+			URL Alias:<input type="text" name="alias" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->alias; ?>" /><br />
+			<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
+		</span>
 			<div style="clear: both;"></div>
 		</div>
 		<div id="gameCoversWrapper">

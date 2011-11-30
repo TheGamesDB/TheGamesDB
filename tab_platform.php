@@ -87,8 +87,16 @@
 
 	<?php
 		// Fetch Platform Information from DB
-		$id = mysql_real_escape_string($id);
-		$query	= "SELECT p.* FROM platforms as p WHERE p.id=$id";
+		if(isset($alias))
+		{
+			$alias = mysql_real_escape_string($alias);
+			$query	= "SELECT p.* FROM platforms as p WHERE p.alias='$alias'";			
+		}
+		else
+		{
+			$id = mysql_real_escape_string($id);
+			$query	= "SELECT p.* FROM platforms as p WHERE p.id=$id";
+		}
 		$result = mysql_query($query) or die('Fetch Platform Info Query Failed: ' . mysql_error());
 		$rows = mysql_num_rows($result);
 		$platform = mysql_fetch_object($result);
@@ -186,7 +194,7 @@
 
 				<div id="gameRating">
 					<?php
-						$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='platform' AND itemid=$id";
+						$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='platform' AND itemid=$platform->id";
 							$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 							$rating = mysql_fetch_object($result);
 
@@ -207,7 +215,7 @@
 							<?php	if ($loggedin == 1) {  ?>
 							&nbsp;&nbsp;|&nbsp;&nbsp;Your Rating:&nbsp;
 							<?php
-								$query	= "SELECT rating FROM ratings WHERE itemtype='platform' AND itemid=$id AND userid=$user->id";
+								$query	= "SELECT rating FROM ratings WHERE itemtype='platform' AND itemid=$platform->id AND userid=$user->id";
 								$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 								$rating = mysql_fetch_object($result);
 								if (!$rating->rating) {
@@ -216,10 +224,10 @@
 
 								for ($i = 1; $i <= 10; $i++) {
 									if ($i <= $rating->rating) {
-										print "<a href=\"$baseurl/platform/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 									}
 									else {
-										print "<a href=\"$baseurl/platform/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 									}
 								}
 								?>

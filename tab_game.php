@@ -88,7 +88,7 @@
 <?php
 	// Fetch Game Information from DB
 	$id = mysql_real_escape_string($id);
-	$query	= "SELECT g.*, p.name as PlatformName, p.icon as PlatformIcon FROM games as g, platforms as p WHERE g.id=$id AND g.Platform = p.id";
+	$query	= "SELECT g.*, p.name as PlatformName, p.alias AS PlatformAlias, p.icon as PlatformIcon FROM games as g, platforms as p WHERE g.id=$id AND g.Platform = p.id";
 	$result = mysql_query($query) or die('Fetch Game Info Query Failed: ' . mysql_error());
 	$rows = mysql_num_rows($result);
 	$game = mysql_fetch_object($result);
@@ -225,9 +225,12 @@
 			</span>
 			
 			<h2><img src="<?php echo $baseurl; ?>/images/common/consoles/png32/<?php echo $game->PlatformIcon; ?>" alt="<?php echo $game->PlatformName; ?>" title="<?php echo $game->PlatformName; ?>" style="vertical-align: -8px;" />&nbsp;<?php if (!empty($game->PlatformName)) { ?>
-			<a style="color: #fff;" href="<?= $baseurl ?>/platform/<?= $game->Platform ?>/"><?= $game->PlatformName ?></a>
+			
+			<a style="color: #fff;" href="<?= $baseurl ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?= $game->PlatformName ?></a>
+			
 			<?php } else { echo "N/A"; } ?></h2>
 			<hr />
+			
 			<div id="gameRating">
 				<?php
 					$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";

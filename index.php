@@ -303,6 +303,37 @@ if ($function == 'Delete PM') {
 	}
 }
 
+if ($function == "Generate Platform Alias's") {
+	if($aliasResult = mysql_query(" SELECT p.id, p.name, p.alias FROM platforms AS p WHERE p.alias IS NULL OR p.alias = '' "))
+	{
+		$successflag = true;
+		while($alias = mysql_fetch_object($aliasResult))
+		{
+			$platformName = trim($alias->name);
+			$platformName = strtolower($platformName);
+			$platformName = str_ireplace(" ", "-", $platformName);
+			$platformAlias = preg_replace("/[^a-z0-9\-]/", "", $platformName);
+			if(!mysql_query(" UPDATE platforms SET alias = '$platformAlias' WHERE id = '$alias->id' "))
+			{
+				$successflag = false;
+			}
+		}
+		
+		if($successflag == true)
+		{
+			$message = "Missing Platform Alias's Generated Successfully";
+		}
+		else
+		{
+			$errormessage = "There was a problem generating the Platform Alias's,<br />please carefully check the list and try again.";
+		}
+	}
+	else {
+		$errormessage = "There was a problem generating the Platform Alias's,<br />please carefully check the list and try again.";
+	}
+}
+
+
 /*
  * Game Functions
  */
@@ -637,7 +668,7 @@ if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
 if ($function == 'Save Platform') {
     $updates = array();
     foreach ($_POST AS $key => $value) {
-        if ($key != 'function' && $key != 'platformid') {
+        if ($key != 'function' && $key != 'platformid' && $key != 'alias') {
             $value = rtrim($value);
             $value = ltrim($value);
             if ($value) {
@@ -652,6 +683,23 @@ if ($function == 'Save Platform') {
         }
     }
 
+	$alias = trim($alias);
+	$alias = strtolower($alias);
+	$alias = str_ireplace(" ", "-", $alias);
+	$alias = preg_replace("/[^a-z0-9\-]/", "", $alias);
+	
+	if($aliasResult = mysql_query(" SELECT p.id FROM platforms AS p WHERE p.alias = '$alias' AND p.id != $platformid "))
+	{
+		if(mysql_num_rows($aliasResult) == 0)
+		{
+			array_push($updates, "alias='$alias'");
+		}
+		else
+		{
+			$errormessage = "Alias ($alias) already exists... please choose another.";
+		}
+	}
+	
     ## Join the fields and run the query
     $updatestring = implode(', ', $updates);
     $query = "UPDATE platforms SET $updatestring WHERE id=$platformid";

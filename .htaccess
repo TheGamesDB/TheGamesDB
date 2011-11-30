@@ -27,9 +27,13 @@ RewriteRule ^search(/?)$ index.php?tab=listseries&function=Search [NC,QSA,L]
 RewriteRule ^browse/([0-9+]*)(/?)$ index.php?tab=listplatform&stringPlatform=$1&function=Browse+By+Platform [NC,QSA,L]
 
 
-#### PLATFORM PAGE
+#### PLATFORM PAGE (ID)
 ## http://thegamesdb.net/?tab=platform&id={90} => http://thegamesdb.net/platform/{90}/
 RewriteRule ^platform/([0-9]+)(/?)$ index.php?tab=platform&id=$1 [NC,QSA,L]
+
+#### PLATFORM PAGE (ALIAS)
+## http://thegamesdb.net/?tab=platform&id={alias} => http://thegamesdb.net/platform/{alias}/
+RewriteRule ^platform/([a-z0-9\-]+)(/?)$ index.php?tab=platform&alias=$1 [NC,QSA,L]
 
 
 #### EDIT PLATFORM PAGE

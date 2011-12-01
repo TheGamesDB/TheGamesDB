@@ -146,10 +146,10 @@
 				return $str;
 	}
 	
-	function imageUsername($fanartID)
+	function imageUsername($artID)
 	{
 		## Get the site banner rating
-		$query  = "SELECT u.id, u.username FROM users AS u, banners AS b WHERE b.id = 6713 AND u.id = b.userid";
+		$query  = "SELECT u.id, u.username FROM users AS u, banners AS b WHERE b.id = '$artID' AND u.id = b.userid";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		$imageUser = mysql_fetch_object($result);
 		
@@ -222,7 +222,7 @@
 								while($front = mysql_fetch_object($frontCoverResult))
 								{	
 							?>
-									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
+									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($front->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
 							<?php
 									$frontBoxartSlideCount++;
 								}
@@ -260,7 +260,7 @@
 								while($front = mysql_fetch_object($frontCoverResult))
 								{	
 							?>
-									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
+									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($front->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
 							<?php
 									$frontBoxartSlideCount++;
 								}
@@ -613,7 +613,7 @@
 								{	
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
 							?>
-									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$fanart->id'>Delete This Art</a>"; } ?><br /><?= imageRating($fanart->id) ?> | <?= userImageRating($fanart->id, $baseurl, $game->id, $user->id) ?>" />
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?><br /><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$fanart->id'>Delete This Art</a>"; } ?><br /><?= imageRating($fanart->id) ?> | <?= userImageRating($fanart->id, $baseurl, $game->id, $user->id) ?>" />
 							<?php
 									$fanSlideCount++;
 								}
@@ -649,7 +649,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{	
 							?>
-									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($banner->id) ?><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$screen->id'>Delete This Art</a>"; } ?><br /><?= imageRating($screen->id) ?> | <?= userImageRating($screen->id, $baseurl, $game->id, $user->id) ?>" />
+									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$screen->id'>Delete This Art</a>"; } ?><br /><?= imageRating($screen->id) ?> | <?= userImageRating($screen->id, $baseurl, $game->id, $user->id) ?>" />
 							<?php
 									$screenSlideCount++;
 								}

@@ -288,7 +288,7 @@
 					<div id="consoleArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
 						<h3 class="grey">Console Art</h3>
 						<img src="<?= $baseurl ?>/banners/platform/consoleart/<?= $platform->console ?>" alt="<?= $platform->name ?> Console Art" title="<?= $platform->name ?> Console Art" style="margin-top: 12px;"/>
-						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $fullurl ?>?function=Delete+Console+Art" style="color: gold; text-decoration: underline;">Delete Console Art</a></p>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Console+Art" style="color: gold; text-decoration: underline;">Delete Console Art</a></p>
 					</div>
 			<?php
 				}
@@ -300,7 +300,7 @@
 				<div id="controllerArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
 					<h3 class="grey">Controller Art</h3>
 						<img src="<?= $baseurl ?>/banners/platform/controllerart/<?= $platform->controller ?>" alt="<?= $platform->name ?> Controller Art" title="<?= $platform->name ?> Controller Art" style="margin-top: 12px;"/>
-						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $fullurl ?>?function=Delete+Controller+Art" style="color: gold; text-decoration: underline;">Delete Controller Art</a></p>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Controller+Art" style="color: gold; text-decoration: underline;">Delete Controller Art</a></p>
 				</div>
 				<?php
 					}

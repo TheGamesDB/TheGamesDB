@@ -852,6 +852,109 @@ if ($function == 'Upload Platform Banner') {
 	$message .= "Banner sucessfully added.";
 }
 
+if ($function == 'Upload Controller Art') {
+    ## Get image Dimensions, Format Type & Attributes
+    list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['controllerartfile']['tmp_name']);
+	
+    ## Check if the image is the right size
+    if ($image_width == 300 && $image_height == 300) {
+		
+		## Check if it's a PNG format image
+        if ($image_type == '3') {
+			
+			## Generate the new filename
+			if (file_exists("banners/platform/controllerart/$id.png"))
+			{
+				unlink("banners/platform/controllerart/$id.png");
+			}
+
+			## Rename/move the file
+			if (move_uploaded_file($_FILES['controllerartfile']['tmp_name'], "banners/platform/controllerart/$id.png")) {
+
+				## Insert database record
+				$id = mysql_real_escape_string($id);
+				$query = "UPDATE platforms SET controller = '$id.png' WHERE id = $id";
+				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+				
+				$message .= "Controller art sucessfully added.";
+			}
+
+        }
+		else
+		{
+            $errormessage = 'Controller art MUST be in PNG format.';
+        }
+    } else {
+        $errormessage = 'Controller art MUST be 300px wide by 300px tall';
+    }
+}
+
+if ($function == 'Upload Console Art') {
+    ## Get image Dimensions, Format Type & Attributes
+    list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['consoleartfile']['tmp_name']);
+	
+    ## Check if the image is the right size
+    if ($image_width == 300 && $image_height == 300) {
+		
+		## Check if it's a PNG format image
+        if ($image_type == '3') {
+			
+			## Generate the new filename
+			if (file_exists("banners/platform/consoleart/$id.png"))
+			{
+				unlink("banners/platform/consoleart/$id.png");
+			}
+
+			## Rename/move the file
+			if (move_uploaded_file($_FILES['consoleartfile']['tmp_name'], "banners/platform/consoleart/$id.png")) {
+
+				## Insert database record
+				$id = mysql_real_escape_string($id);
+				$query = "UPDATE platforms SET console = '$id.png' WHERE id = $id";
+				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+				
+				$message .= "Console art sucessfully added.";
+			}
+
+        }
+		else
+		{
+            $errormessage = 'Console art MUST be in PNG format.';
+        }
+    } else {
+        $errormessage = 'Console art MUST be 300px wide by 300px tall';
+    }
+}
+
+
+if ($function == 'Delete Controller Art') {
+	if ($adminuserlevel == 'ADMINISTRATOR')
+	{
+		if(unlink("banners/platform/controllerart/$id.png"))
+		{		
+			$query = "UPDATE platforms SET controller = NULL WHERE id = $id";
+			if($result = mysql_query($query))
+			{
+				$message .= "Controller art sucessfully deleted.";
+			}
+		}
+	}
+}
+
+if ($function == 'Delete Console Art') {
+	if ($adminuserlevel == 'ADMINISTRATOR')
+	{
+		if(unlink("banners/platform/consoleart/$id.png"))
+		{		
+			$query = "UPDATE platforms SET console = NULL WHERE id = $id";
+			if($result = mysql_query($query))
+			{
+				$message .= "Console art sucessfully deleted.";
+			}
+		}
+	}
+}
+
 /*
  * Comments Functions
  */
@@ -1416,7 +1519,7 @@ if($tab != "mainmenu")
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/default.css" />
 		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs") { ?>
+		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames") { $newlayout = true; ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		<?php } ?>
 		
@@ -1489,6 +1592,11 @@ if($tab != "mainmenu")
 		<link type="text/css" rel="stylesheet" href="<?php echo $baseurl; ?>/js/theatre/theatre.css" />
 		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/theatre/jquery.theatre-1.0.js"></script>
 		<!-- End Platform View Page Scripts -->
+		
+		<!-- Start jQuery Snow Script -->
+		<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-snowfall/styles.css" type="text/css" media="all" />
+		<script src="<?php echo $baseurl; ?>/js/jquery-snowfall/snowfall.min.jquery.js" type="text/javascript"></script>
+		<!-- End jQuery Snow Script -->
 		
         <script type="text/javascript">
             $('document').ready(function(){
@@ -1748,7 +1856,7 @@ if($tab != "mainmenu")
         <div id="main">
 
 			<div id="content">
-                <?php if($tab != game) { ?>
+                <?php if(!$newlayout) { ?>
 				<?php if($errormessage): ?>
 				<div class="error"><?= $errormessage ?></div>
 				<?php endif; ?>
@@ -1836,6 +1944,11 @@ if($tab != "mainmenu")
 
 			</script>
 		
+		<script type="text/javascript">
+			// jQuery Snow Script Instance
+			// $('#main').snowfall({ flakeCount : 100, maxSpeed : 10, round: true, shadow: true, minSize: 2, maxSize: 4 });
+		</script>
+		
 		<!-- Start Force instant run of cufon to circumvent IE delay -->
 		<script type="text/javascript"> Cufon.now(); </script>
 		<!-- End Force instant run of cufon to circumvent IE delay -->
@@ -1879,6 +1992,11 @@ else
 		}) 
 	</script>
 	<!-- End FaceBox Include -->
+	
+	<!-- Start jQuery Snow Script -->
+	<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-snowfall/styles.css" type="text/css" media="all" />
+	<script src="<?php echo $baseurl; ?>/js/jquery-snowfall/snowfall.min.jquery.js" type="text/javascript"></script>
+	<!-- End jQuery Snow Script -->
 	
 	<style type="text/css">
 		body {
@@ -2158,7 +2276,10 @@ else
 		})();
 	</script>
 	
-
+	<script type="text/javascript">
+		// jQuery Snow Script Instance
+		// $(document).snowfall({ flakeCount : 200, maxSpeed : 10, round: true, shadow: true, collection: '#footer', minSize: 2, maxSize: 4 });
+	</script>
 	
 </body>
 </html>

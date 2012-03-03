@@ -236,6 +236,38 @@
 				<hr />
 				<p><?php if (!empty($platform->overview)) { echo $platform->overview; } else { echo "\"No overview is currently available for this platform.\""; } ?></p>
 				<hr />
+				<?php
+					if(!empty($platform->console))
+					{
+				?>
+						<div id="consoleArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
+							<h3 class="grey">Console Art</h3>
+							<img src="<?= $baseurl ?>/banners/platform/consoleart/<?= $platform->console ?>" alt="<?= $platform->name ?> Console Art" title="<?= $platform->name ?> Console Art" style="margin-top: 12px;"/>
+						</div>
+				<?php
+					}
+				?>
+				<?php
+					if(!empty($platform->controller))
+					{
+				?>
+						<div id="controllerArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
+							<h3 class="grey">Controller Art</h3>
+							<img src="<?= $baseurl ?>/banners/platform/controllerart/<?= $platform->controller ?>" alt="<?= $platform->name ?> Controller Art" title="<?= $platform->name ?> Controller Art" style="margin-top: 12px;"/>
+						</div>
+				<?php
+					}
+				?>
+				<div style="clear: both;"></div>
+				<?php
+					if(!empty($platform->console) || !empty($platform->controller))
+					{
+				?>
+						<div style="clear: both;"></div>
+						<hr />
+				<?php
+					}
+				?>
 				<div id="gameVitals">
 					<p><span class="grey">Developer</span>&nbsp;&nbsp;<?php if (!empty($platform->developer)) { echo $platform->developer; } else { echo "N/A"; } ?></p>
 					<p><span class="grey">Manufacturer</span>&nbsp;&nbsp;<?php if (!empty($platform->manufacturer)) { echo $platform->manufacturer; } else { echo "N/A"; } ?></p>

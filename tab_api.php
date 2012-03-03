@@ -75,6 +75,14 @@
 						<p>[None]</p>
 						<hr />
 						
+						<h3 style="color: gold;">&laquo;GetPlatformsList&raquo;</h3>
+						<p>3-2-12: Created GetPlatformsList API method.</p>
+						<hr />
+						
+						<h3 style="color: gold;">&laquo;GetPlatform&raquo;</h3>
+						<p>3-2-12: Created GetPlatform API method.</p>
+						<hr />
+						
 						<h3 style="color: gold;">&laquo;User_Favorites&raquo;</h3>
 						<p>[None]</p>
 						<hr />
@@ -99,7 +107,9 @@
 						<ul>
 							<li>Search for specific games: &laquo;GetGamesList&raquo;</li>
 							<li>Search for a loose list of games.</li>
-							<li>Retrieve artwork for games.</li>
+							<li>Retrieve metadata &amp; artwork for games.</li>
+							<li>Retrieve a list of all platforms on the site</li>
+							<li>Retrieve metadata &amp; artwork for platforms.</li>
 							<li>Update user favorites.</li>
 							<li>Request all updated or new content since a given date.</li>
 							<li>Update user ratings.</li>
@@ -143,6 +153,27 @@
 						</ul>
 						<p><b>Example Request:</b></p>
 						<p>A request for the artwork data for game ID '170' <em>(New Super Mario Bros. Wii)</em>: <a style="color: orange;" href="<?= $baseurl; ?>/api/GetArt.php?id=170" target="_blank"><?= $baseurl; ?>/api/GetArt.php?id=170</a></p>
+						<hr />
+						
+						<h3 style="color: gold;">&laquo;GetPlatformsList&raquo;</h3>
+						<p><b>Desc:</b> Returns a listing of all platforms available on the site.</p>
+						<p><b>Available Parameters:</b></p>
+						<ul>
+							<li>none</li>
+						</ul>
+						<p><b>Example:</b></p>
+						<p>To retrieve a full list of platforms, along with their id and url alias:<br />
+						<a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatformsList.php" target="_blank"><?= $baseurl; ?>/api/GetPlatformsList.php</a></p>
+						<hr />
+						
+						<h3 style="color: gold;">&laquo;GetPlatform&raquo;</h3>
+						<p><b>Desc:</b> Returns all data for a specific platform.</p>
+						<p><b>Available Parameters:</b></p>
+						<ul>
+							<li>id (int) - The platform ID to return data for (can be found by using <em>GetPlatformsList</em>).</li>
+						</ul>
+						<p><b>Example Request:</b></p>
+						<p>A request for platform ID '15' <em>(Microsoft Xbox 360)</em>: <a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatform.php?id=15" target="_blank"><?= $baseurl; ?>/api/GetPlatform.php?id=15</a></p>
 						<hr />
 						
 						<h3 style="color: gold;">&laquo;User_Favorites&raquo;</h3>

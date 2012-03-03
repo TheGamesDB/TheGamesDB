@@ -918,10 +918,10 @@ if(isset($_GET['statstype'])) {
 						?>
 						<tr>
 							<td><?php echo $row[id]; ?></td>
-							<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
+							<td align="left"><a href="<?php echo "$baseurl/game/" . $row[id] . "/"; ?>"><?php echo $row[GameTitle]; ?></a></td>
 							<td><?php echo $row[name]; ?></td>
 							<td><?php echo $row[toprating]; ?></td>
-							<td><?php imageResize("banners/" . $row[filename], "banners/_statscache/" . $row[filename], 150); echo "<a href=\"banners/$row[filename]\" target=\"_blank\"><img src=\"banners/_statscache/$row[filename]\" alt=\"$row[GameTitle] Fanart\" /></a>";?></td>
+							<td><?php imageResize("banners/" . $row[filename], "banners/_statscache/" . $row[filename], 150); echo "<a href=\"$baseurl/banners/$row[filename]\" target=\"_blank\"><img src=\"$baseurl/banners/_statscache/$row[filename]\" alt=\"$row[GameTitle] Fanart\" /></a>";?></td>
 						</tr>
 						<?php
 						$missingcount++;

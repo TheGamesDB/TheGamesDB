@@ -178,19 +178,20 @@
 	<form id="editPlatformForm" name="editPlatformForm" action="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/" method="post" onsubmit="">
 
 		<div id="gameTitle">
-		<span style="float: left;">
-			Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
-		</span>
-		
-				<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a><br />
-				<br />
-				<img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox'>Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox'>Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox'>Upload Banner</a>
+			<span style="float: left;">
+				Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
 			</span>
 			
-		<span style="float: left; clear: left;">
-			URL Alias:<input type="text" name="alias" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->alias; ?>" /><br />
-			<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
-		</span>
+			<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a></span>
+			
+			<span style="float: left; clear: left;">
+				URL Alias:<input type="text" name="alias" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->alias; ?>" /><br />
+				<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
+			</span>
+			
+			<span style="float: right; clear: right; color: gold;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Controller Art</a>
+			</span>
+			
 			<div style="clear: both;"></div>
 		</div>
 		<div id="gameCoversWrapper">
@@ -280,6 +281,39 @@
 			<p><span class="grey">Overview</span></p>
 			<p><textarea name="overview" style="width: 630px; height: 200px;"><?= $platform->overview ?></textarea></p>
 			<hr />
+			<?php
+				if(!empty($platform->console))
+				{
+			?>
+					<div id="consoleArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
+						<h3 class="grey">Console Art</h3>
+						<img src="<?= $baseurl ?>/banners/platform/consoleart/<?= $platform->console ?>" alt="<?= $platform->name ?> Console Art" title="<?= $platform->name ?> Console Art" style="margin-top: 12px;"/>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $fullurl ?>?function=Delete+Console+Art" style="color: gold; text-decoration: underline;">Delete Console Art</a></p>
+					</div>
+			<?php
+				}
+			?>
+			<?php
+					if(!empty($platform->controller))
+					{
+				?>
+				<div id="controllerArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
+					<h3 class="grey">Controller Art</h3>
+						<img src="<?= $baseurl ?>/banners/platform/controllerart/<?= $platform->controller ?>" alt="<?= $platform->name ?> Controller Art" title="<?= $platform->name ?> Controller Art" style="margin-top: 12px;"/>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $fullurl ?>?function=Delete+Controller+Art" style="color: gold; text-decoration: underline;">Delete Controller Art</a></p>
+				</div>
+				<?php
+					}
+				?>
+			<?php
+				if(!empty($platform->console) || !empty($platform->controller))
+				{
+			?>
+					<div style="clear: both;"></div>
+					<hr />
+			<?php
+				}
+			?>
 			<div id="gameVitals">
 				<table>
 					<tr>
@@ -515,8 +549,8 @@
 	
 	
 	<!-- Start of Upload Dialogs -->
-	<?php if ($loggedin == 1) {  ?>
 	<div style="display: none;">
+	<?php if ($loggedin == 1) {  ?>
 	<div id="frontBoxartUpload" class="miniPanel">
 		<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Platform Art Upload</h2>
 		<?php  	## check for agreement to terms
@@ -616,9 +650,50 @@
 			</p>
 		</form>
 	</div>
+	<?php	}  ?>
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="controllerartUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Controller Art Upload</h2>
+			<p>All controller art <strong>must</strong> be 300x300px.</p>
+			<p>The only accepted image format for controller art is PNG.</p>
+			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+			<p>We only want images with <strong>transparent</strong> backgrounds.</p>
+			<p>Solid, gradiated or textured backgrounds are not permitted.</p>
+			<p>More information can be found on the <a href="<?= $baseurl ?>/terms/" target="_blank">Terms and Conditions page</a>.</p>
+			<p><strong>File:</strong> <input type="file" name="controllerartfile" size="36"></p>
+			<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+			<p style="text-align: right;">
+				<input type="hidden" name="function" value="Upload Controller Art">
+				<input type="submit" name="button" value="Upload" class="submit">
+			</p>
+		</form>
+	</div>
+	<?php	}  ?>	
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="consoleartUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Console Art Upload</h2>
+			<p>All controller art <strong>must</strong> be 300x300px.</p>
+			<p>The only accepted image format for controller art is PNG.</p>
+			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
+			<p>We only want images with <strong>transparent</strong> backgrounds.</p>
+			<p>Solid, gradiated or textured backgrounds are not permitted.</p>
+			<p>More information can be found on the <a href="<?= $baseurl ?>/terms/" target="_blank">Terms and Conditions page</a>.</p>
+			<p><strong>File:</strong> <input type="file" name="consoleartfile" size="36"></p>
+			<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+			<p style="text-align: right;">
+				<input type="hidden" name="function" value="Upload Console Art">
+				<input type="submit" name="button" value="Upload" class="submit">
+			</p>
+		</form>
 	</div>
 	<?php	}  ?>	
 	<!-- END of Upload Dialogs -->
+	
+	</div>
 
 <!-- Start #panelNav Scripts -->
 <script type="text/javascript">

@@ -27,11 +27,11 @@ h2{
 	background-image: -webkit-linear-gradient(#444444, #131313);
 	background-image: linear-gradient(top, #444444, #131313);
 }
-#frontHeader{
+#frontHeader {
 	color: #fff;
 }
 #frontHeader a{
-	color: gold;
+	color: orange;
 }
 #frontnav a {
 	color: #fff;
@@ -53,6 +53,7 @@ h2{
 /* HEADER */
 #header {
     /*position: relative;*/
+	box-shadow: 0px 0px 6px 0px #333;
 }
 
 #header p {
@@ -63,7 +64,7 @@ h2{
 }
 
 #header a {
-    color: gold;
+    color: orange;
     text-decoration: none;
 }
 
@@ -72,7 +73,7 @@ h2{
 }
 
 #tinyHeader a {
-    color: gold;
+    color: orange;
     text-decoration: none;
 }
 
@@ -84,11 +85,79 @@ h2{
     text-decoration: underline;
 }
 
+#autocompleteContainer a {
+	color: #ffffff !important;
+}
+
+/* NAV MAIN*/
+#navMain {
+	height: 31px;
+	background: #333 url('images/bg_footerbar.png') repeat-x left top;
+	position: relative;
+	top: 78px;
+	left: 0px;
+	width: 95%;
+	overflow: visible;
+	padding-left: 5%;
+	z-index: 10;
+	box-shadow: 0px 0px 20px 0px #000;
+	font-size: 18px;
+}
+
+#navMain div {
+	width: 160px;
+	float: left;
+	height: 31px;
+	line-height: 31px;
+	text-align: center;
+}
+
+#navMain .active {
+	height: 36px;
+	background: transparent url('images/bg_mainnav-active.jpg') repeat-x left top;
+	border-radius: 0px 0px 6px 6px;
+	box-shadow: 0px 0px 4px 0px #000;
+	line-height: 36px;
+	margin-right: 10px;
+}
+
+#navMain .active a {
+	color: #FFF;
+}
+
+#navMain div a {
+	color: #111;
+	text-decoration: none;
+}
+
+/* NAV SUB*/
+.navSub {
+	height: 31px;
+	background-color: #808080;
+	/*background: transparent url('images/bg_subnav.jpg') repeat-x left top;*/
+	border-bottom: 1px solid #222;
+	position: absolute;
+	top: 109px;
+	left: 0px;
+	width: 95%;
+	overflow: visible;
+	padding-left: 5%;
+	box-shadow: 0px 0px 20px 0px #000;
+}
+
+.navSub .navSubLinks a {
+	line-height: 31px;
+	color: #fff;
+	font-size: 16px;
+	text-decoration: none;
+}
+
 /* NAV */
 
 #nav{
     height: 35px;
     background: transparent url('/images/brushmetal2.png') repeat-x left top;
+	display: none;
 }
 
 #nav ul{

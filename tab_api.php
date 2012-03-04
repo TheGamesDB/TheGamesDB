@@ -61,37 +61,37 @@
 						<p>Here you find news pertaining to all updates to the API:</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetGamesList&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetGamesList&raquo;</h3>
 						<p>7-17-11: Added Genre Filtering Support.</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetGame&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetGame&raquo;</h3>
 						<p>7-19-11: Added Youtube Trailer Support. Removed CRC Support.<br />
 						7-17-11: Added CRC Support.<br />
 						6-13-11: Added Co-op tag. Games that are checked with having Co-op capability can now be returned via the API.</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetArt&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetArt&raquo;</h3>
 						<p>[None]</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetPlatformsList&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetPlatformsList&raquo;</h3>
 						<p>3-2-12: Created GetPlatformsList API method.</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetPlatform&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetPlatform&raquo;</h3>
 						<p>3-2-12: Created GetPlatform API method.</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;User_Favorites&raquo;</h3>
+						<h3 style="color: orange;">&laquo;User_Favorites&raquo;</h3>
 						<p>[None]</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;User_Rating&raquo;</h3>
+						<h3 style="color: orange;">&laquo;User_Rating&raquo;</h3>
 						<p>[None]</p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;Updates&raquo;</h3>
+						<h3 style="color: orange;">&laquo;Updates&raquo;</h3>
 						<p>[None]</p>
 						<hr />
 						
@@ -119,7 +119,7 @@
 						<p><b>Example Game Search:</b> <a href="<?= $baseurl; ?>/api/GetGamesList.php?name=halo" target="_blank" style="color: orange"><?= $baseurl; ?>/api/GetGamesList.php?name=halo</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetGamesList&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetGamesList&raquo;</h3>
 						<p><b>Desc:</b> Returns a listing of games matched up with loose search terms.</p>
 						<p><em>Note: We have implemented special character stripping and loose word order searching in an attempt to provide better matching and a return a greater number of relevant hits.</em></p>
 						<p><b>Available Parameters:</b></p>
@@ -132,7 +132,7 @@
 						<p>A search for "x-men": <a style="color: orange;" href="<?= $baseurl; ?>/api/GetGamesList.php?name=x-men" target="_blank"><?= $baseurl; ?>/api/GetGamesList.php?name=x-men</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetGame&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetGame&raquo;</h3>
 						<p><b>Desc:</b> If 'name' is specified, returns a list of games including data that match the string, or if a game ID is given it returns the data for that specific game.</p>
 						<p><em>Note: An id overrides a name search.</em></p>
 						<p><b>Available Parameters:</b></p>
@@ -145,7 +145,7 @@
 						<p>A request for game ID '170' <em>(New Super Mario Bros. Wii)</em>: <a style="color: orange;" href="<?= $baseurl; ?>/api/GetGame.php?id=170" target="_blank"><?= $baseurl; ?>/api/GetGame.php?id=170</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetArt&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetArt&raquo;</h3>
 						<p><b>Desc:</b> This API feature returns a list of available artwork types and locations specific to the requested game ID in the database. It also lists the resolution of any images available. Scrapers can be set to use a minimum or maximum resolution for specific images.</p>
 						<p><b>Available Parameters:</b></p>
 						<ul>
@@ -155,7 +155,7 @@
 						<p>A request for the artwork data for game ID '170' <em>(New Super Mario Bros. Wii)</em>: <a style="color: orange;" href="<?= $baseurl; ?>/api/GetArt.php?id=170" target="_blank"><?= $baseurl; ?>/api/GetArt.php?id=170</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetPlatformsList&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetPlatformsList&raquo;</h3>
 						<p><b>Desc:</b> Returns a listing of all platforms available on the site.</p>
 						<p><b>Available Parameters:</b></p>
 						<ul>
@@ -166,7 +166,7 @@
 						<a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatformsList.php" target="_blank"><?= $baseurl; ?>/api/GetPlatformsList.php</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;GetPlatform&raquo;</h3>
+						<h3 style="color: orange;">&laquo;GetPlatform&raquo;</h3>
 						<p><b>Desc:</b> Returns all data for a specific platform.</p>
 						<p><b>Available Parameters:</b></p>
 						<ul>
@@ -176,7 +176,7 @@
 						<p>A request for platform ID '15' <em>(Microsoft Xbox 360)</em>: <a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatform.php?id=15" target="_blank"><?= $baseurl; ?>/api/GetPlatform.php?id=15</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;User_Favorites&raquo;</h3>
+						<h3 style="color: orange;">&laquo;User_Favorites&raquo;</h3>
 						<p><b>Desc:</b> Allows you to get, set and remove a favorite game from/to a users profile. Always returns a list of the current favorite game ID's.</p>
 						<p><em>Note: To use this method, a user must provide their unique 'account identifier' which can be found on their 'My User Info' page.</em></p>
 						<p><b>Available Parameters:</b></p>
@@ -189,7 +189,7 @@
 						<p>Adds game ID '2' <em>(Crysis)</em> to user's favorites:<br /><a style="color: orange;" href="<?= $baseurl; ?>/api/User_Favorites.php?accountid=58536D31278176DA&type=add&gameid=2" target="_blank"><?= $baseurl; ?>/api/User_Favorites.php?accountid=58536D31278176DA&amp;type=add&amp;gameid=2</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;User_Rating&raquo;</h3>
+						<h3 style="color: orange;">&laquo;User_Rating&raquo;</h3>
 						<p><b>Desc:</b> Allows you to get and set a user rating on a game.</p>
 						<p><em>Note: To use this method, a user must provide their unique 'account identifier' which can be found on their 'My User Info' page.</em></p>
 						<p><b>Available Parameters:</b></p>
@@ -202,7 +202,7 @@
 						<p>Gets rating for game ID '2' <em>(Crysis)</em> :<br /><a style="color: orange;" href="<?= $baseurl; ?>/api/User_Rating.php?accountid=58536D31278176DA&itemid=2" target="_blank"><?= $baseurl; ?>/api/User_Rating.php?accountid=58536D31278176DA&amp;itemid=2</a></p>
 						<hr />
 						
-						<h3 style="color: gold;">&laquo;Updates&raquo;</h3>
+						<h3 style="color: orange;">&laquo;Updates&raquo;</h3>
 						<p><b>Desc:</b> Returns a list (game ID's) of all games updated since a given time in seconds (max. 30 days back).</p>
 						<p><b>Available Parameters:</b></p>
 						<ul>

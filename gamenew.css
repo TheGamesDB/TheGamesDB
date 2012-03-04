@@ -22,7 +22,7 @@
 	text-align: right;
 }
 #gameWrapper #gameTitle #gameUserLinks a {
-	color: gold;
+	color: orange;
 }
 #gameWrapper #gameHead {
 	padding: 130px 20px 20px 20px;
@@ -170,7 +170,7 @@
 	color: #fff;
 }
 #gameWrapper #gameContent #platforms a {
-	color: gold;
+	color: orange;
 }
 #gameWrapper #gameContent #trailer {
 	display: none;
@@ -207,7 +207,7 @@
 	box-shadow: 1px 1px 10px 0px #000;
 }
 #gameWrapper #gameContent #gameContentBottom #comments .comment a {
-	color: gold;
+	color: orange;
 }
 #gameWrapper #gameFooter {
 	min-height: 40px;

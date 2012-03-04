@@ -189,7 +189,7 @@
 				<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
 			</span>
 			
-			<span style="float: right; clear: right; color: gold;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: gold; text-decoration: underline;">Upload Controller Art</a>
+			<span style="float: right; clear: right; color: orange;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Controller Art</a>
 			</span>
 			
 			<div style="clear: both;"></div>
@@ -288,7 +288,7 @@
 					<div id="consoleArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
 						<h3 class="grey">Console Art</h3>
 						<img src="<?= $baseurl ?>/banners/platform/consoleart/<?= $platform->console ?>" alt="<?= $platform->name ?> Console Art" title="<?= $platform->name ?> Console Art" style="margin-top: 12px;"/>
-						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Console+Art" style="color: gold; text-decoration: underline;">Delete Console Art</a></p>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Console+Art" style="color: orange; text-decoration: underline;">Delete Console Art</a></p>
 					</div>
 			<?php
 				}
@@ -300,7 +300,7 @@
 				<div id="controllerArt" style="float: left; width: 300px; padding: 6px; margin: 0px 3px;">
 					<h3 class="grey">Controller Art</h3>
 						<img src="<?= $baseurl ?>/banners/platform/controllerart/<?= $platform->controller ?>" alt="<?= $platform->name ?> Controller Art" title="<?= $platform->name ?> Controller Art" style="margin-top: 12px;"/>
-						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Controller+Art" style="color: gold; text-decoration: underline;">Delete Controller Art</a></p>
+						<p style="text-align: center;"><span style="text-decoration: none; color: red;">[x]&nbsp;</span><a href="<?= $baseurl ?>/platform-edit/<?= $platform->id ?>/?function=Delete+Controller+Art" style="color: orange; text-decoration: underline;">Delete Controller Art</a></p>
 				</div>
 				<?php
 					}

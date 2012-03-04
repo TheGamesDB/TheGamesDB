@@ -1517,9 +1517,9 @@ if($tab != "mainmenu")
 		<meta name="language" content="en-US" />
 		<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
 		
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/default.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
 		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames") { $newlayout = true; ?>
+		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms") { $newlayout = true; ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		<?php } ?>
 		
@@ -1598,204 +1598,15 @@ if($tab != "mainmenu")
 		<script src="<?php echo $baseurl; ?>/js/jquery-snowfall/snowfall.min.jquery.js" type="text/javascript"></script>
 		<!-- End jQuery Snow Script -->
 		
-        <script type="text/javascript">
-            $('document').ready(function(){
-                var index = 0;
-                var images = $('#recent li');
-                $($(images).get(index)).fadeIn('slow');
-                window.setInterval(function(){
-                    $($(images).get(index)).fadeOut('slow', function(){
-                        if(index == images.length - 1){
-                            index = 0;
-                        }else{
-                            index++;
-                        }
-
-                        $($(images).get(index)).fadeIn('slow');
-                    });
-				}, 6000);
-            });
-
-            function confirmSubmit()  {
-                var agree=confirm("Are you sure you wish to delete this?");
-                if (agree)
-                    return true ;
-                else
-                    return false ;
-            }
-            function deniedcommentClose() {
-                document.getElementById("denied_popup").style.display = "none";
-            }
-            function requestcommentClose() {
-                document.getElementById("request_popup").style.display = "none";
-            }
-            function TAlimit(s) {
-                var maxlength = 255; // Change number to your max length.
-                if (s.value.length > maxlength)
-                    s.value = s.value.substring(0,maxlength);
-            }
-            function ShowSeriesName(id) {
-                // First, hide all of the series names
-<?php
-## Make a hide statement for each language
-        foreach ($languages AS $langid => $langname) {
-            print "document.seriesform.SeriesName_" . $langid . ".style.display='none';\n";
-        }
-?>
-        // Then, display the one we want
-        var objectname = eval("document.seriesform.SeriesName_" + id);
-        objectname.style.display='inline';
-    }
-    function ShowSeriesOverview(id) {
-        // First, hide all of the series overviews
-<?php
-## Make a hide statement for each language
-        foreach ($languages AS $langid => $langname) {
-            print "document.seriesform.Overview_" . $langid . ".style.display='none';\n";
-        }
-?>
-        // Then, display the one we want
-        var objectname = eval("document.seriesform.Overview_" + id);
-        objectname.style.display='inline';
-    }
-    function ShowEpisodeName(id) {
-        // First, hide all of the series names
-<?php
-## Make a hide statement for each language
-        foreach ($languages AS $langid => $langname) {
-            print "document.episodeform.EpisodeName_" . $langid . ".style.display='none';\n";
-        }
-?>
-        // Then, display the one we want
-        var objectname = eval("document.episodeform.EpisodeName_" + id);
-        objectname.style.display='inline';
-    }
-    function ShowEpisodeOverview(id) {
-        // First, hide all of the series overviews
-<?php
-## Make a hide statement for each language
-        foreach ($languages AS $langid => $langname) {
-            print "document.episodeform.Overview_" . $langid . ".style.display='none';\n";
-        }
-?>
-        // Then, display the one we want
-        var objectname = eval("document.episodeform.Overview_" + id);
-        objectname.style.display='inline';
-    }
-    var globalShowSeriesName = this.ShowSeriesName;
-    var globalShowSeriesOverview = this.ShowSeriesOverview;
-    var globalShowEpisodeName = this.ShowEpisodeName;
-    var globalShowEpisodeOverview = this.ShowEpisodeOverview;
-
-    // Function to open a popup and allow child to send data back
-    function openChild(file,window, dimX, dimY) {
-        childWindow=open(file,window,'resizable=1,location=0,status=0,scrollbars=1,width=' + dimX + ',height=' + dimY);
-        if (childWindow.opener == null) childWindow.opener = self;
-    }
-
-    var checkobj
-
-    // User ratings (turns stars on and off)
-    function UserRating(rating)  {
-        for (i=1; i<=10; i++)  {
-            if (i <= rating)  {
-                var thisimage = eval("document.images.userrating" + i);
-                thisimage.src = '<?= $baseurl ?>/images/star_on.png';
-            }
-            else  {
-                var thisimage = eval("document.images.userrating" + i);
-                thisimage.src = '<?= $baseurl ?>/images/star_off.png';
-            }
-        }
-    }
-    // User ratings (turns stars on and off)
-    function UserRating2(prefix,rating)  {
-        for (i=1; i<=10; i++)  {
-            if (i <= rating)  {
-                var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?= $baseurl ?>/images/game/star_on.png';
-            }
-            else  {
-                var thisimage = eval("document.images." + prefix + i);
-                thisimage.src = '<?= $baseurl ?>/images/game/star_off.png';
-            }
-        }
-    }
-
-    //Function to toggle an element
-    function toggleDiv(divid){
-        // if(document.getElementById(divid).style.display == 'none'){
-            // document.getElementById(divid).style.display = 'block';
-        // }else{
-            // document.getElementById(divid).style.display = 'none';
-        // }
-		$('#' + divid).slideToggle(500);
-    }
-
-    // Site Terms Agreement Function
-    function agreesubmit(el){
-        checkobj=el
-        if (document.all||document.getElementById){
-            for (i=0;i<checkobj.form.length;i++){  //hunt down submit button
-                var tempobj=checkobj.form.elements[i]
-                if(tempobj.type.toLowerCase()=="submit")
-                    tempobj.disabled=!checkobj.checked
-            }
-        }
-    }
-    // Site Terms Agreement Function
-    function defaultagree(el){
-        if (!document.all&&!document.getElementById){
-            if (window.checkobj&&checkobj.checked)
-                return true
-            else{
-                alert("Please read/accept terms to submit form")
-                return false
-            }
-        }
-    }
-    // -->
-        </script>
-
-        <script type="text/javascript" src="<?php echo $baseurl; ?>/niftycube.js"></script>
-        <script type="text/javascript">
-            window.onload=function(){
-                Nifty("DIV.section","big");
-                Nifty("DIV.footer","big");
-                Nifty("DIV.titlesection","big");
-            }
-        </script>
-        <script type="text/javascript">
-            function hideElement (elementId) {
-                var element;
-                if (document.all)
-                    element = document.all[elementId];
-                else if (document.getElementById)
-                    element = document.getElementById(elementId);
-                if (element && element.style)
-                    element.style.display = 'none';
-            }
-            function showElement (elementId) {
-                var element;
-                if (document.all)
-                    element = document.all[elementId];
-                else if (document.getElementById)
-                    element = document.getElementById(elementId);
-                if (element && element.style)
-                    element.style.display = '';
-            }
-            function DisplayImporterRow (importerValue)  {
-                if (importerValue == 'tv.com')
-                    showElement('tvcom');
-                else
-                    hideElement('tvcom');
-            }
-        </script>
+		<?php
+			## Connect to the database
+			include("js/core-js.php");
+		?>
 		
     </head>
     <body>
 		
-		<div id="frontHeader" style="height: 78px; position: absolute; top: 0px; left: 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin.png) repeat-x center center;">
+		<div id="frontHeader" style="height: 78px; position: absolute; top: 0px; left: 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin.png) repeat-x center center; box-shadow: 0px 0px 6px 0px #000;">
 			<div id="frontBanner" style="width: 880px; margin: auto;">
 				<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">
 					<?php if ($loggedin) {
@@ -1829,8 +1640,63 @@ if($tab != "mainmenu")
 				</ul>
 			</div>
 		</div>
+		
+		<div id="navMain">
+			<?php if ($tab == "game" || $tab == "listseries" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
+			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "listplatform" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
+			<?php if ($tab == "stats" || $tab == "adminstats" || $tab == "userlist" || $tab == "bannerartists" || $tab == "recentbanners") { $subnav = "stats"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/stats/">Stats</a></div>
+			<a href="<?= $baseurl ?>/addgame/" style="position: absolute; padding: 3px 8px 4px 3px; margin: 3px 4px 4px 20px; border: 1px solid #eee; border-radius: 6px; background-color: #333; color: #eee; font-size: 14px; text-decoration: none; font-weight: bold;"><img src="<?= $baseurl ?>/images/common/icons/star_14.png" style="margin: 0px 5px; 0px 0px; padding: 0px; vertical-align: middle;" />Add New Game</a>
+			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
+				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px; display: inline;">
+					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee;" />
+					<input type="hidden" name="function" value="Search" />
+				</form>
+			</div>
+			<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
+		</div>
+		
+		<?php
+			if ($subnav == "games")
+			{
+		?>
+			<div id="navSubGames" class="navSub">
+				<span class="navSubLinks">
+					<a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<a href="<?=$baseurl ?>/recentgames/">Recently Added/Updated Games</a>
+				</span>
+			</div>
+		<?php
+			}
+		?>
+		
+		<?php
+			if ($subnav == "platforms")
+			{
+		?>
+			<div id="navSubPlatforms" class="navSub">
+				<span class="navSubLinks">
+					<a href="<?=$baseurl ?>/platforms/">All Platforms</a>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<a href="<?=$baseurl ?>/topratedplatforms/">Top 10 Rated Platforms</a>
+				</span>
+			</div>
+		<?php
+			}
+		?>
+		
+		<?php
+			if ($subnav == "stats")
+			{
+		?>
+			<!--<div id="navSubStats" class="navSub">
+			
+			</div>-->
+		<?php
+			}
+		?>
 
-		<div style="position: absolute; top: 113px; background: url(<?php echo $baseurl; ?>/images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200; opacity: 0.5;"></div>
+		<div style=" display: none; position: absolute; top: 113px; background: url(<?php echo $baseurl; ?>/images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200; opacity: 0.5;"></div>
 
 		<div id="tinyHeader" style="position: fixed; width: 100%; left: 0px; top: 0px; height: 50px; z-index: 299;">			
 			<div style="width: 100%; height: 35px; background: #000;">
@@ -1925,6 +1791,8 @@ if($tab != "mainmenu")
 			];
 			$( ".autosearch" ).autocomplete({
 				source: availableTags,
+				position: { offset: "-30 3" },
+				appendTo: '#autocompleteContainer',
 				select: function(event, ui) { this.form.submit(); }
 			});
 		});
@@ -2006,7 +1874,7 @@ else
 			color: #fff;
 		}
 		#frontHeader a{
-			color: gold;
+			color: orange;
 		}
 		#frontnav a {
 			color: #fff;
@@ -2177,10 +2045,10 @@ else
 			</div>
 			
 			<div id="frontnav" style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #fff;">
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/blog/">Blog</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/browse/">Browse</a></div>
-				<div style="width: 100px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/addgame/">Add Game</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/topratedgames/">Games</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/platforms/">Platforms</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/stats/">Stats</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/blog/">Blog</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net" target="_blank">Forum</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/api/">API</a></div>
 				<div style="clear: both;"></div>

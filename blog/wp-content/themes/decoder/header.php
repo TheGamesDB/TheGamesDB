@@ -67,7 +67,7 @@ include("../config.php");
 				<a href="<?= $baseurl; ?>"><img src="<?php bloginfo('template_directory'); ?>/img/banner-thin-glass.png" alt="<?php bloginfo( 'name' ) ?>" /></a>
 			</div>
 			
-			<div id="nav" style="width: 100%;">
+			<div id="nav" style="width: 100%; display: none;">
 				<div style="width: 960px; margin: 0px auto;">
 					<ul>
 						<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/donation/"></a></li>
@@ -85,15 +85,50 @@ include("../config.php");
 				</div>
 			</div>
 			
-			<div id="rss">
-				<a href="<?php bloginfo('rss2_url'); ?>">Subscribe to RSS Feed</a>
-			</div>
+			<div id="navMain">
+		
+				<!-- GAMES NAV ITEM -->
+				<div><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
 
-			<ul id="menu" class="sf-menu clearfix">
-				<li><span style="color: orange; font-weight: bold; line-height: 35px;">Blog Navigation ></span></li>
-				<li class="cat_item<?php if(is_home()) echo ' current-cat'; ?>"><a href="<?php bloginfo('url'); ?>">Home</a></li>
-				<?php wp_list_categories('title_li=&sort_column=menu_order'); ?>
-			</ul>
+				<!-- PLATFORMS NAV ITEM -->
+				<div><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
+
+				<!-- STATS NAV ITEM -->
+				<div><a href="<?= $baseurl ?>/stats/">Stats</a></div>
+
+				<!-- FORUMS NAV ITEM -->
+				<div><a href="http://forums.thegamesdb.net">Forums</a></div>
+				
+				<!-- BLOG NAV ITEM -->
+				<div class="active"><a href="<?= $baseurl ?>/blog/">Stats</a></div>
+
+				<!-- SEARCH NAV ITEM -->
+				<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
+					<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px; display: inline;">
+						<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee;" />
+						<input type="hidden" name="function" value="Search" />
+					</form>
+				</div>
+				<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
+				
+			</div>
+			
+			<div id="navSubBlog" class="navSub">
+				<span class="navSubLinks">
+					
+					<div id="rss">
+						<a href="<?php bloginfo('rss2_url'); ?>">Subscribe to RSS Feed</a>
+					</div>
+
+					<ul id="menu" class="sf-menu clearfix">
+						<li><span style="color: orange; font-weight: bold; line-height: 35px;">Blog Navigation ></span></li>
+						<li class="cat_item<?php if(is_home()) echo ' current-cat'; ?>"><a href="<?php bloginfo('url'); ?>">Home</a></li>
+						<?php wp_list_categories('title_li=&sort_column=menu_order'); ?>
+					</ul>
+					
+				</span>
+			</div>
+			
 
 		</div>
 		<div style="background: url(<?php bloginfo('template_directory'); ?>/img/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 299; opacity: 0.5;"></div>

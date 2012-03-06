@@ -1107,7 +1107,7 @@ if ($function == 'Update User Image') {
 		$filename = $_FILES['userimage']['name'];
 		$image = WideImage::load($_FILES['userimage']['tmp_name']);
 		$resized = $image->resize(64, 64);
-		$resized->saveToFile("banners/users/$user->id-" . date("YmdHis") . ".jpg");
+		$resized->saveToFile("banners/users/" . $user->id . "-" . date("YmdHis") . ".jpg");
 		$message = "Successfully Uploaded User Image";
 	}
 	else
@@ -1642,10 +1642,23 @@ if($tab != "mainmenu")
 		</div>
 		
 		<div id="navMain">
+		
+			<!-- GAMES NAV ITEM -->
 			<?php if ($tab == "game" || $tab == "listseries" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
+
+			<!-- PLATFORMS NAV ITEM -->
 			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "listplatform" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
+
+			<!-- STATS NAV ITEM -->
 			<?php if ($tab == "stats" || $tab == "adminstats" || $tab == "userlist" || $tab == "bannerartists" || $tab == "recentbanners") { $subnav = "stats"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/stats/">Stats</a></div>
+
+			<!-- FORUMS NAV ITEM -->
+			<div><a href="http://forums.thegamesdb.net">Forums</a></div>
+			
+			<!-- ADD NEW GAME NAV ITEM -->
 			<a href="<?= $baseurl ?>/addgame/" style="position: absolute; padding: 3px 8px 4px 3px; margin: 3px 4px 4px 20px; border: 1px solid #eee; border-radius: 6px; background-color: #333; color: #eee; font-size: 14px; text-decoration: none; font-weight: bold;"><img src="<?= $baseurl ?>/images/common/icons/star_14.png" style="margin: 0px 5px; 0px 0px; padding: 0px; vertical-align: middle;" />Add New Game</a>
+
+			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
 				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px; display: inline;">
 					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee;" />
@@ -1653,6 +1666,7 @@ if($tab != "mainmenu")
 				</form>
 			</div>
 			<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
+			
 		</div>
 		
 		<?php

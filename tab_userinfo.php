@@ -14,7 +14,7 @@ if($loggedin == 1)
 ?>
 	
 <h1 style="text-transform: capitalize;">User Information | <?=$user->username?></h1>
-<div style="width: 640px; margin: auto;">
+<div style="width: 720px; margin: auto;">
 	<p>&nbsp;</p>
 	<div style="float:left;">
 		<form style="padding: 14px; border: 1px solid #999; background-color: #333;" method="post" action="<?= $baseurl; ?>/userinfo/" enctype="multipart/form-data">

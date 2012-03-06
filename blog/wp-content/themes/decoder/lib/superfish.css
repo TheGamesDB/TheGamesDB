@@ -70,6 +70,8 @@ ul#menu li a:hover, ul#menu li.current-cat a {
 	background: url(../img/bg-menu-hover-blue.png) repeat-x left top;
 	color: #fff;
 	font-weight: bold;
+	border-radius: 0px 0px 6px 6px;
+	margin-left: 15px;
 }
 
 ul.children li a:hover, ul.children li.current-cat a {

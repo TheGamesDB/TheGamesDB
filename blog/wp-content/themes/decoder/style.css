@@ -72,7 +72,7 @@ img {
 #header {
 	margin: auto !important;
 	width: 960px !important;
-	height: 148px;
+	height: 138px;
 	/*background: url(img/bg-header.png) no-repeat left top;*/
 	background: #1f1f1f url(img/bg-body-blue.png) repeat-x left top;
 	z-index: 2; /* IE z-index bug */
@@ -85,7 +85,7 @@ img {
 
 #contentWrapper {
 	position: absolute;
-	top: 148px;
+	top: 138px;
 	width: 100%;
 }
 
@@ -117,8 +117,7 @@ img {
 	width: 290px;
 }
 
-/* NAV */
-
+/* NAV (OLD)*/
 #nav input {
 	padding: 1px;
 	height: default;
@@ -175,6 +174,69 @@ img {
 
 #nav_forum a:hover{
     background: transparent url('img/button_img_map.jpg') 0 0 no-repeat;
+}
+
+/* NAV MAIN*/
+#navMain {
+	height: 31px;
+	background: #333 url('img/bg_footerbar.png') repeat-x left top;
+	position: absolute;
+	top: 78px;
+	left: 0px;
+	width: 95%;
+	overflow: visible;
+	padding-left: 5%;
+	z-index: 10;
+	box-shadow: 0px 0px 20px 0px #000;
+	font-size: 18px;
+}
+
+#navMain div {
+	width: 160px;
+	float: left;
+	height: 31px;
+	line-height: 31px;
+	text-align: center;
+}
+
+#navMain .active {
+	height: 36px;
+	background: transparent url('img/bg_mainnav-active.jpg') repeat-x left top;
+	border-radius: 0px 0px 6px 6px;
+	box-shadow: 0px 0px 4px 0px #000;
+	line-height: 36px;
+	margin-right: 10px;
+}
+
+#navMain .active a {
+	color: #FFF;
+}
+
+#navMain div a {
+	color: #111;
+	text-decoration: none;
+}
+
+
+/* NAV SUB*/
+.navSub {
+	height: 31px;
+	background-color: #808080;
+	border-bottom: 1px solid #222;
+	position: absolute;
+	top: 109px;
+	left: 0px;
+	width: 95%;
+	overflow: visible;
+	padding-left: 5%;
+	box-shadow: 0px 0px 20px 0px #000;
+}
+
+.navSub .navSubLinks a {
+	line-height: 31px;
+	color: #fff;
+	font-size: 16px;
+	text-decoration: none;
 }
 
 /*	##################################

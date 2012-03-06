@@ -45,7 +45,7 @@ function imageResize($filename, $cleanFilename, $target)
 	<h1>Top Rated Games</h1>
 	
 	<?php
-		$recentResult = mysql_query(" SELECT g.*, p. name, p.icon, g.id, AVG(r.rating) as toprating FROM games AS g, platforms AS p, ratings AS r WHERE r.itemid = g.id AND r.itemtype = 'game' AND g.platform = p.id GROUP BY g.GameTitle ORDER BY toprating DESC, GameTitle ASC LIMIT 50 ");
+		$recentResult = mysql_query(" SELECT g.*, p.name, p.icon, AVG(r.rating) as toprating, COUNT(r.rating) as countrating FROM games AS g, platforms AS p, ratings AS r WHERE r.itemid = g.id AND r.itemtype = 'game' AND g.platform = p.id GROUP BY g.GameTitle ORDER BY toprating DESC, countrating DESC LIMIT 50 ");
 		$count = 1;
 		$recent = mysql_fetch_object($recentResult)
 			//echo "$recent->id, $recent->GameTitle, $recent->lastupdated <br />";
@@ -95,7 +95,7 @@ function imageResize($filename, $cleanFilename, $target)
 				}
 			}
 			?>
-			</span></p>
+			&nbsp;<em>(<?= $recent->countrating ?>&nbsp;votes)</em></span></p>
 			<p style="text-align: justify;"><?php if ($recent->Overview != "") { echo substr($recent->Overview, 0, 410) . "..."; } else { echo "<br />No Overview Available...<br /><br />"; } ?></p>
 			<div>
 				<p>
@@ -171,16 +171,16 @@ function imageResize($filename, $cleanFilename, $target)
 						}
 					}
 					?>
-					</span></p>
+					&nbsp;<em>(<?= $recent->countrating ?>&nbsp;votes)</em></span></p>
 					<p style="margin: 0px; padding: 0px 10px 10px 10px; text-align: justify;"><?php if ($recent->Overview != "") { echo substr($recent->Overview, 0, 140) . "..."; } else { echo "No Overview Available..."; } ?></p>
 					<?php
-						$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
+						$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$recent->id' AND banners.filename LIKE '%front%' LIMIT 1");
 						$boxartResult = mysql_num_rows($boxartQuery);
 						
-						$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'fanart' LIMIT 1");
+						$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$recent->id' AND keytype = 'fanart' LIMIT 1");
 						$fanartResult = mysql_num_rows($fanartQuery);
 
-						$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'series' LIMIT 1");
+						$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$recent->id' AND keytype = 'series' LIMIT 1");
 						$bannerResult = mysql_num_rows($bannerQuery);
 						
 						$screenQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$recent->id' AND keytype = 'screenshot' LIMIT 1");

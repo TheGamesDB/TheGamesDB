@@ -208,7 +208,15 @@ else
 			$platformRow = mysql_fetch_assoc($platformResult);
 			$platformId = $platformRow['id'];
 			
-			$query = "SELECT id FROM games WHERE GameTitle REGEXP '$name' AND Platform = '$platformId'";
+			$arr = array();
+			preg_match('/[0-9]+/', $name, $arr);
+			$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
+			foreach($arr as $numeric)
+			{
+					$query .= " AND GameTitle LIKE '%$numeric%'";
+			}
+			
+			$query .= " AND Platform = '$platformId'";
 		}
 		else
 		{
@@ -218,7 +226,13 @@ else
 	}
 	else
 	{
-		$query = "SELECT id FROM games WHERE GameTitle REGEXP '$name'";
+		$arr = array();
+		preg_match('/[0-9]+/', $name, $arr);
+		$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
+		foreach($arr as $numeric)
+		{
+				$query .= " AND GameTitle LIKE '%$numeric%'";
+		}
 	}
 }
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());

@@ -213,7 +213,16 @@ if ($function == "Search")
 	}
 	else
 	{
-		$searchQuery = mysql_query("SELECT g.id FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%') AND g.Platform = p.id");
+		$searchQuery = "SELECT g.id FROM games as g WHERE MATCH(g.GameTitle) AGAINST ('$string')";
+		$arr = array();
+		preg_match('/[0-9]+/', $string, $arr);
+		foreach($arr as $numeric)
+		{
+				$searchQuery .= " AND g.GameTitle LIKE '%$numeric%'";
+		}
+		
+		$searchQuery = mysql_query($searchQuery);
+		
 		if (mysql_num_rows($searchQuery) == 1)
 		{
 			$searchResult = mysql_fetch_object($searchQuery);

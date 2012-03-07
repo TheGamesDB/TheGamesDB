@@ -35,14 +35,12 @@ $query;
 if (isset($name) && !empty($name))
 {
 	$cleanName = clean($name);
-	$nameKeys = explode(" ", $cleanName);
-	$query = "SELECT id FROM games WHERE GameTitle LIKE '%$nameKeys[0]%'";
-	for($i = 1; $i <= count($nameKeys); $i++)
+	$arr = array();
+    preg_match('/[0-9]+/', $name, $arr);
+	$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
+	foreach($arr as $numeric)
 	{
-		if($nameKeys[$i] != "" || $nameKeys[$i] != " " || $nameKeys[$i] != "  " || $nameKeys[$i] != "   ")
-		{
-			$query .= " AND GameTitle LIKE '%$nameKeys[$i]%'";
-		}
+			$query .= " AND GameTitle LIKE '%$numeric%'";
 	}
 	if(isset($platform) && !empty($platform))
 	{
@@ -64,7 +62,6 @@ if (isset($name) && !empty($name))
 	{
 		$query = $query . " AND Genre Like '%$genre%'";
 	}	
-	$query = $query . " ORDER BY GameTitle ASC";
 }
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());

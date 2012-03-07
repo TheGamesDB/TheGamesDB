@@ -69,19 +69,27 @@ function imageResize($filename, $cleanFilename, $target)
 		$letter = mysql_real_escape_string($letter);			
 
 		if ($function == 'Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%') AND g.Platform = p.id";
-			if(!empty($sortBy))
+			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE MATCH(g.GameTitle) AGAINST ('$string') AND g.Platform = p.id";
+			$arr = array();
+			preg_match('/[0-9]+/', $string, $arr);
+			foreach($arr as $numeric)
+			{
+					$query .= " AND g.GameTitle LIKE '%$numeric%'";
+			}
+			if(!empty($sortBy) && $sortBy != "relevance")
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
-			}
-			else
-			{
-				$query .= " ORDER BY GameTitle";
 			}
 		}
 		## Start Advanced Search Query
 		elseif ($function == 'Advanced Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE (SOUNDEX(g.GameTitle) LIKE CONCAT('%', SOUNDEX('$string'), '%') OR g.GameTitle LIKE '%$string%')";
+			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE MATCH(g.GameTitle) AGAINST ('$string') AND g.Platform = p.id";
+			$arr = array();
+			preg_match('/[0-9]+/', $string, $arr);
+			foreach($arr as $numeric)
+			{
+					$query .= " AND g.GameTitle LIKE '%$numeric%'";
+			}
 			if($stringPlatform != "")
 			{
 				$query = $query .  " AND g.Platform = '$stringPlatform' ";
@@ -98,14 +106,9 @@ function imageResize($filename, $cleanFilename, $target)
 			{
 				$query = $query .  " AND g.coop = '$stringCoop' ";
 			}
-			$query = $query .  "AND g.Platform = p.id ";
-			if(!empty($sortBy))
+			if(!empty($sortBy) && $sortBy != "relevance")
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
-			}
-			else
-			{
-				$query .= " ORDER BY GameTitle";
 			}
 		}
 		## End Advanced Search Query
@@ -359,6 +362,7 @@ function imageResize($filename, $cleanFilename, $target)
 		<input name="stringRating" type="hidden" value="<?=$stringRating?>" />
 		<input name="stringGenres" type="hidden" value="<?=$stringGenres?>" />
 		<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
+			<option <?php if($sortBy == "relevance"){ echo "selected"; } ?> value="relevance">Relevance</option>
 			<option <?php if($sortBy == "g.GameTitle"){ echo "selected"; } ?> value="g.GameTitle">Name</option>
 			<option <?php if($sortBy == "p.name"){ echo "selected"; } ?> value="p.name">Platform</option>
 			<option <?php if($sortBy == "g.Genre"){ echo "selected"; } ?> value="g.Genre">Genre</option>

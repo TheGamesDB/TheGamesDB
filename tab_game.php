@@ -346,7 +346,7 @@
 					
 					for($i = 0; $i < count($devArray); $i++)
 					{
-						$developerQuery = mysql_query(" SELECT logo FROM publishers WHERE keyword LIKE '%$devArray[$i]%' ");
+						$developerQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$devArray[$i]%' ");
 						if($developerQuery)
 						{
 							if(mysql_num_rows($developerQuery) != 0)
@@ -361,7 +361,7 @@
 					{
 						if(!file_exists("banners/_gameviewcache/publishers/$developerResult->logo"))
 						{
-							WideImage::load("banners/publishers/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
+							WideImage::load("banners/publisher-logos/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
 						}
 					?>
 						<span class="grey">Developer:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" /><br />
@@ -392,7 +392,7 @@
 					
 					for($i = 0; $i < count($pubArray); $i++)
 					{
-						$publisherQuery = mysql_query(" SELECT logo FROM publishers WHERE keyword LIKE '%$pubArray[$i]%' ");
+						$publisherQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$pubArray[$i]%' ");
 						if($publisherQuery)
 						{
 							if(mysql_num_rows($publisherQuery) != 0)
@@ -407,7 +407,7 @@
 					{
 						if(!file_exists("banners/_gameviewcache/publishers/$publisherResult->logo"))
 						{
-							WideImage::load("banners/publishers/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
+							WideImage::load("banners/publisher-logos/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
 						}
 					?>
 						<span class="grey">Publisher:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />

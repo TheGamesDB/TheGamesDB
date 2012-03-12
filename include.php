@@ -282,49 +282,6 @@ function displaybannernew ($banner, $allowdelete, $link) {
 		}
 		print "<tr><td>Language:</td><td align=right>$banner->language</td></tr>\n";
 	}
-	
-	## Display colors if fan art
-	if ($banner->keytype == "fanart")  {
-		print "<tr><td>Auto-Colors:</td><td align=right>\n";
-		$allcolors = explode("|", $banner->colors);
-		foreach ($allcolors AS $color)  {
-			if ($color)  {
-				$colorarray=split(",",$color);
-				$color = rgb2hex($colorarray);
-				print "<div style=\"width:20px; height:10px; background-color:#$color; float:right; margin:1px; border: 1px solid white\"></div>\n";
-			}
-		}
-		print "</td></tr>";
-	}
-
-	## Display artist colors if available
-	if ($banner->keytype == "fanart")  {
-		if (!$banner->artistcolors)  {
-			$allcolors = explode("|", $banner->colors);
-			$banner->artistcolors = implode("|", array("", $allcolors[1], $allcolors[3], $allcolors[6], ""));
-			$banner->artistcolors = "|0,29,45|0,29,45|0,29,45|";
-			$banner->artistcolors = "|255,255,255|255,255,255|255,255,255|";
-		}
-		print "<tr><td>Artist Colors:</td><td align=right>\n";
-		$allcolors = explode("|", $banner->artistcolors);
-		$allcolors = array_reverse($allcolors);
-		$colorcount = 0;
-		foreach ($allcolors AS $color)  {
-			if ($color)  {
-				$colorarray=split(",",$color);
-				$color = rgb2hex($colorarray);
-				print "<div style=\"width:20px; height:10px; background-color:#$color; float:right; margin:1px; border: 1px solid white\")\"></div>\n";
-				$colorcount++;
-			}
-		}
-		print "</td></tr>";
-
-
-		## Print the color chooser
-		if ($allowdelete || $banner->artistcolors == "|255,255,255|255,255,255|255,255,255|")  {
-			print "<tr><td></td><td align=right>You can <a href=\"javascript:return false\" OnClick=\"window.open('colorchooser.php?id=$banner->id','colorchooser','width=660,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,copyhistory=no,resizable=no')\">modify the artist colors</a>.</td></tr>\n";
-		}
-	}
 
 
 	## Print the delete banner link

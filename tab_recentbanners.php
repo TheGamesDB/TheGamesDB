@@ -40,35 +40,43 @@
 	}
 ?>
 
-<div style="text-align: center;">
-	<h1 class="arcade">Site Reports &amp; Statistics:</h1>	
-	<h2 class="arcade" style="color: #FF4F00;"><?=$title?> <?=$max?> Most Recent <?php if($bannertype == "series") { echo "Banner"; } else { echo ucwords($bannertype); } ?> Images <?=$extratitle?></h2>
+<div id="gameWrapper">
+	<div id="gameHead">
 
-<table cellspacing="0" cellpadding=2" border="0" align="center" width="600">
-<tr>
-<?php	## Display banners
-	$count = 0;
-	$bannercount = 0;
-	$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount, (SELECT name FROM languages WHERE id=banners.languageid) AS language, (SELECT translation FROM translation_seriesname WHERE seriesid=banners.keyvalue AND (languageid=$lid OR languageid=7) ORDER BY languageid DESC LIMIT 1) AS seriesname FROM banners WHERE keytype='$bannertype' $piggyback ORDER BY dateadded DESC LIMIT $max";
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	while ($banner = mysql_fetch_object($result))  {
-		print "<td><h2>$banner->seriesname</h2>";
-		if ($banner->keytype == "fanart")  {
-			$banner->subkey = $banner->resolution;
-		}
-		if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR')  {
-			displaybannernew($banner, 1, "$baseurl/game/$banner->keyvalue/");
-		}
-		else  {
-			displaybannernew($banner, 0, "$baseurl/game/$banner->keyvalue/");
-		}
-		print "</td>";
-		$count++;
-		if ($count % 2 == 0)  {
-			print "</tr><tr>\n";
-		}
-	}
-?>
-</tr>
-</table>
+		<div class="links">
+			<h1>Site Reports and Statistics</h1>	
+			<p>&nbsp;</p>
+			<h2 style="text-align: center; color: #FF4F00;"><?=$title?> <?=$max?> Most Recent <?php if($bannertype == "series") { echo "Banner"; } else { echo ucwords($bannertype); } ?> Images <?=$extratitle?></h2>
+			<p>&nbsp;</p>
+
+		<table cellspacing="10" cellpadding="2" border="0" align="center" width="600">
+		<tr>
+		<?php	## Display banners
+			$count = 0;
+			$bannercount = 0;
+			$query	= "SELECT *, (SELECT username FROM users WHERE id=banners.userid) AS creator, (SELECT AVG(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS rating, (SELECT COUNT(rating) FROM ratings WHERE itemtype='banner' AND itemid=banners.id) AS ratingcount, (SELECT name FROM languages WHERE id=banners.languageid) AS language, (SELECT translation FROM translation_seriesname WHERE seriesid=banners.keyvalue AND (languageid=$lid OR languageid=7) ORDER BY languageid DESC LIMIT 1) AS seriesname FROM banners WHERE keytype='$bannertype' $piggyback ORDER BY dateadded DESC LIMIT $max";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			while ($banner = mysql_fetch_object($result))  {
+				print "<td valign=\"bottom\"><h2>$banner->seriesname</h2>";
+				if ($banner->keytype == "fanart")  {
+					$banner->subkey = $banner->resolution;
+				}
+				if ($banner->userid == $user->id || $adminuserlevel == 'ADMINISTRATOR')  {
+					displaybannernew($banner, 1, "$baseurl/game/$banner->keyvalue/");
+				}
+				else  {
+					displaybannernew($banner, 0, "$baseurl/game/$banner->keyvalue/");
+				}
+				print "<p>&nbsp;</p>	<hr /><p>&nbsp;</p></td>";
+				$count++;
+				if ($count % 3 == 0)  {
+					print "</tr><tr>\n";
+				}
+			}
+		?>
+		</tr>
+		</table>
+		</div>
+
+	</div>
 </div>

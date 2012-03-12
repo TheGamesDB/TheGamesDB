@@ -1220,16 +1220,46 @@ if ($function == 'Add Platform') {
     }
 }
 
-if ($function == 'Save Keywords') {
+if ($function == "Add New Publisher") {
 	if ($adminuserlevel == 'ADMINISTRATOR') {
-		if(mysql_query(" UPDATE publishers SET keyword = '$keyword' WHERE id = '$publisherid' "))
+	
+		if(empty($_FILES["publisherlogo"]["name"]))
 		{
-			$message = "Pulisher/Developer Keywords Updated Sucessfully";
+			$errormessage = "You cannot add a new publisher without selecting a logo.";
 		}
 		else
-		{
-			$errormessage = "There was a problem updating Pulisher/Developer Keywords, please try again...";
+		{	
+			if($_FILES['publisherlogo']['error'] == 0)
+			{
+				$filenamecount = 0;
+				while(file_exists("banners/publisher-logos/$filenamecount-" . $_FILES['publisherlogo']['name']))
+				{
+					$filenamecount++;
+				}
+				$logofilename = "$filenamecount-" . $_FILES['publisherlogo']['name'];
+				
+				if(move_uploaded_file($_FILES["publisherlogo"]["tmp_name"], "banners/publisher-logos/$logofilename"))
+				{
+					if(mysql_query(" INSERT INTO pubdev (keywords, logo) VALUES ('$publisherKeywords', '$logofilename') ") or die (mysql_error()))
+					{
+						$message = "Pulisher/Developer Added Sucessfully";
+					}
+					else
+					{
+						$errormessage = "There was a problem updating Pulisher/Developer Keywords, please try again...";
+					}
+				}
+				else
+				{
+					$errormessage = "There was a problem uploading the new Publisher/Developer logo, please try again...";
+				}
+			}
+			else
+			{
+				$errormessage = "There was a problem uploading the image. Try again or use a different image.";
+			}
 		}
+	
 	}
 	else
 	{
@@ -1237,40 +1267,58 @@ if ($function == 'Save Keywords') {
 	}
 }
 
-if ($function == 'Upload New Logo') {
+if($function == "Update Publisher")
+{
 	if ($adminuserlevel == 'ADMINISTRATOR') {
-		if($_FILES['logoimage']['error'] == 0)
+	
+		if(empty($_FILES["publisherlogo"]["name"]))
 		{
-			$currentQuery = mysql_query(" SELECT logo FROM publishers WHERE id = '$publisherid' ");
-			$currentResult = mysql_fetch_object($currentQuery);
-			
-			if(file_exists("banners/publishers/$currentResult->logo"))
+			if(mysql_query(" UPDATE pubdev SET keywords='$publisherKeywords' WHERE id=$publisherID "))
 			{
-				unlink("banners/publishers/$currentResult->logo");
-			}
-			
-			if(file_exists("banners/_admincpcache/publishers/$currentResult->logo"))
-			{
-				unlink("banners/_admincpcache/publishers/$currentResult->logo");
-			}
-			
-			$filename = $_FILES['logoimage']['name'];
-			if(move_uploaded_file($_FILES["logoimage"]["tmp_name"], "banners/publishers/" . $_FILES["logoimage"]["name"]))
-			{
-				if(mysql_query(" UPDATE publishers SET logo = '$filename' WHERE id = $publisherid "))
-				{
-					$message = "Successfully Uploaded User Image";
-				}
+				$message = "Publisher keywords updated successfully.";
 			}
 			else
 			{
-				$errormessage = "There was a problem uploading the new Publisher/Developer logo, please try again...";
+				$errormessage="There was a problem updating the keywords in the database. Please try again.";
 			}
 		}
 		else
 		{
-			$errormessage = "There was a problem uploading the image. Try again or use a different image.";
+			if ($_FILES["publisherlogo"]["error"] > 0)
+			{
+				$errormessage = "There was a problem uploading the logo. Please try again.";
+			}
+			elseif ( 1 == 1)
+			{
+				$filenamecount = 0;
+				while(file_exists("banners/publisher-logos/$filenamecount-" . $_FILES['publisherlogo']['name']))
+				{
+					$filenamecount++;
+				}
+				$logofilename = "$filenamecount-" . $_FILES['publisherlogo']['name'];
+			
+				if (move_uploaded_file($_FILES["publisherlogo"]["tmp_name"], "banners/publisher-logos/$logofilename"))
+				{	
+					if(mysql_query(" UPDATE pubdev SET keywords='$publisherKeywords', logo='$logofilename' WHERE id=$publisherID "))
+					{
+						$message = "Publisher keywords and logo updated successfully.";
+					}
+					else
+					{
+						$errormessage="There was a problem updating the database. Please try again.";
+					}
+				}
+				else
+				{
+					$errormessage = "There was a problem saving the logo on the server. Please try again.";
+				}
+			}
+			else
+			{
+				$errormessage = "The image MUST be in JPG, PNG or GIF format";
+			}
 		}
+		
 	}
 	else
 	{
@@ -1528,7 +1576,7 @@ if($tab != "mainmenu")
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
 		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms") { $newlayout = true; ?>
+		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms" || $tab == "recentbanners" || $tab == "stats" || $tab == "bannerartists" || $tab == "adminstats" || $tab == "terms" || $tab == "agreement" || $tab == "admincp" || $tab == "updatepub" || $tab == "addpub") { $newlayout = true; ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		<?php } ?>
 		

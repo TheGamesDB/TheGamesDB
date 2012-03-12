@@ -216,6 +216,9 @@
 .grey {
 	color: #555;
 }
+.links a {
+	color: orange;
+}
 .imgShadow {
 	box-shadow: 3px 6px 20px 5px #000;
 }

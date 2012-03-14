@@ -1136,12 +1136,7 @@
 			<p>The only accepted image formats for banners are JPG and PNG.</p>
 			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>
 			<p>More information can be found on the <a href="<?= $baseurl ?>/terms/" target="_blank">Terms and Conditions page</a>.</p>
-			<p><strong>Banner Type:</strong>
-				<select name="subkey" size="1">
-					<option value="graphical">Graphical</option>
-					<option value="text">Text</option>
-					<option value="blank">Blank</option>
-				</select></p>
+			<input type="hidden" name="subkey" value="graphical" />
 			<p><nobr><strong>Banner Language:</strong></nobr>
 				<select name="languageid" size="1">
 					<?php

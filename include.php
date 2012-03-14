@@ -226,10 +226,6 @@ function displaybannernew ($banner, $allowdelete, $link) {
 	## Skip most stuff for episode images
 	if ($tab != 'episode')  {
 		print "<tr><td></td><td align=right><a href=\"$baseurl/banners/$banner->filename\" target=\"_blank\">View Full Size</a></td></tr>\n";
-		if ($banner->keytype == 'fanart')  {
-			$banner->vignette = str_replace("original", "vignette", $banner->filename);
-			print "<tr><td></td><td align=right><a href=\"$baseurl/banners/$banner->vignette\" target=\"_blank\">View Full Size Vignette</a></td></tr>\n";
-		}
 		print "<tr><td>Site Rating:</td><td align=\"right\">\n";
 
 
@@ -451,45 +447,6 @@ function imagecolors($filename) {
 
 	## Export the formatted colors
 	return "|" . implode("|", $outpalette) . "|";
-}
-
-## Fan art vignette function (upper left)
-function vignette($sourcefile, $targetfile) {
-
-        ## Get the image sizes and read it into an image object
-        $sourcefile_id  = imagecreatefromjpeg($sourcefile);
-        $width          = imageSX($sourcefile_id);
-        $height         = imageSY($sourcefile_id);
-
-        ## Settings
-        $vignette_file  = "images/vignette" . $height . ".png";
-        $scale          = 0.75;
-
-        ## Create a new destination image object
-        $result_id      = imagecreatetruecolor($width, $height);
-        $black          = imagecolorallocate($result_id, 0, 0, 0);
-        imagefill($result_id, 0, 0, $black);
-
-        ## Read the vignette into an image object
-        $vignette_id    = imagecreatefrompng($vignette_file);
-
-        ## Make sure they merge correctly
-        imageAlphaBlending($vignette_id, false);
-        imageSaveAlpha($vignette_id, true);
-
-        ## Create the image
-        imagecopy($sourcefile_id, $vignette_id, 0, 0, 0, 0, $width, $height);
-
-        ## Copy our source image resized into the destination object
-        imagecopyresampled($result_id, $sourcefile_id, 0, 0, 0, 0, $width * $scale, $height * $scale, $width, $height);
-
-        ## Return the JPG
-        imagejpeg ($result_id, $targetfile, 90);
-
-        ## Wrap it up
-        imagedestroy($sourcefile_id);
-        imagedestroy($vignette_id);
-        imagedestroy($result_id);
 }
 
 function rgb2hex($arrColors = null) {

@@ -61,7 +61,6 @@ $user = $_REQUEST["user"];
 		{
 			## Construct file names
 			$faOriginal = $faRow['filename'];
-			$faVignette = str_replace("original", "vignette", $faRow['filename']);
 			$faThumb = str_replace("original", "thumb", $faRow['filename']);
 		
 			## Check to see if the original fanart file actually exists before attempting to process 
@@ -82,7 +81,6 @@ $user = $_REQUEST["user"];
 				## Output Fanart XML Branch
 				print "<fanart>\n";
 					print "<original width=\"$faWidth\" height=\"$faHeight\">$faOriginal</original>\n";
-					print "<vignette width=\"$faWidth\" height=\"$faHeight\">$faVignette</vignette>\n";
 					print "<thumb>$faThumb</thumb>\n";
 				print "</fanart>\n";
 			}

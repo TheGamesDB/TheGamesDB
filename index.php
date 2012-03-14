@@ -418,16 +418,6 @@ if ($function == 'Upload Game Banner') {
 					} else {
 						$filename = "$subkey/$id-g.jpg";
 					}
-				} else {
-					if (file_exists("banners/$subkey/$id.jpg") || file_exists("banners/$subkey/$id.png")) {
-						$filekey = 2;
-						while (file_exists("banners/$subkey/$id-$filekey.jpg") || file_exists("banners/$subkey/$id-$filekey.png")) {
-							$filekey++;
-						}
-						$filename = "$subkey/$id-$filekey.jpg";
-					} else {
-						$filename = "$subkey/$id.jpg";
-					}
 				}
 			}
 			elseif ($image_type == '3') { ## If it's a PNG name the extesion accordingly
@@ -441,16 +431,6 @@ if ($function == 'Upload Game Banner') {
 						$filename = "$subkey/$id-g$filekey.png";
 					} else {
 						$filename = "$subkey/$id-g.png";
-					}
-				} else {
-					if (file_exists("banners/$subkey/$id.jpg") || file_exists("banners/$subkey/$id.png")) {
-						$filekey = 2;
-						while (file_exists("banners/$subkey/$id-$filekey.jpg") || file_exists("banners/$subkey/$id-$filekey.png")) {
-							$filekey++;
-						}
-						$filename = "$subkey/$id-$filekey.png";
-					} else {
-						$filename = "$subkey/$id.png";
 					}
 				}
 			}
@@ -577,11 +557,7 @@ if ($function == 'Upload Fan Art') {
             $fileid++;
         }
         $filename = "fanart/original/$id-$fileid.jpg";
-        $vignettefilename = "fanart/vignette/$id-$fileid.jpg";
         if (move_uploaded_file($_FILES['bannerfile']['tmp_name'], "banners/$filename")) {
-
-            ## Generate the vignette file
-            vignette("banners/$filename", "banners/$vignettefilename");
 
             ## Calculate the colors
             $colors = imagecolors("banners/$filename");
@@ -1375,12 +1351,6 @@ if ($function == 'Delete Banner') {
 		if(file_exists("banners/_favcache/_boxart-view/$deletebanner->filename")) { unlink("banners/_favcache/_boxart-view/$deletebanner->filename"); }
 		if(file_exists("banners/_favcache/_tile-view/$deletebanner->filename")) { unlink("banners/_favcache/_tile-view/$deletebanner->filename"); }
 
-        ## Delete vignette for fan art
-        if ($deletebanner->keytype == "fanart") {
-            $vignettefilename = str_replace("original", "vignette", $deletebanner->filename);
-            unlink("banners/$vignettefilename");
-        }
-
         ## Store deletion record
         $query = "INSERT INTO deletions (path) VALUES ('banners/$deletebanner->filename')";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
@@ -1573,6 +1543,8 @@ if($tab != "mainmenu")
 		<meta name="keywords" content="thegamesdb, the games db, games, database, meta, metadata, api, video, youtube, trailers, wallpapers, fanart, cover art, box art, fan art, open, source, game, search, forum, directory" />
 		<meta name="language" content="en-US" />
 		<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
+		
+		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
 		
@@ -1914,6 +1886,9 @@ else
 	<meta name="description" content="TheGamesDB is an open, online database for video game fans. We are driven by a strong community to provide the best place to find information, covers, backdrops screenshots and videos for games, both modern and classic." />
   
 	<title>TheGamesDB.net - An open, online database for video game fans</title>
+	
+	<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
+	
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/fullscreenslider/css/style.css"/>
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-ui/css/trontastic/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
 	<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>

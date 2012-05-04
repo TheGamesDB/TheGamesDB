@@ -7,7 +7,7 @@
 <head>
 	<title>Genres Selector</title>
 	<link rel=stylesheet href="<?= $baseurl ?>/pngHack/pngHack.css" type="text/css">
-	<link rel="stylesheet" type="text/css" href="<?= $baseurl ?>/default.css">
+	<link rel="stylesheet" type="text/css" href="<?= $baseurl ?>/standard.css">
 	<script type="text/javascript" src="<?= $baseurl ?>/xfade2.js"></script>
 	<script type="text/javascript" src="<?= $baseurl ?>/niftycube.js"></script>
 	<script type="text/javascript">
@@ -43,12 +43,12 @@
 		}
 	</script>
 </head>
-<body style="color:#fff;">
+<body style="background-color: #333; color: #fff; font-family: ">
 <table width="95%" cellspacing="0" cellpadding="0" border="0" align="center">
 <tr><td>
 	<div class="titlesection">
 		<h1>Genres</h1>
-		<h3>Please select the genres for <?=$SeriesName?>.</h3>
+		<h3>Please select the genres for <?=$GameTitle?>.</h3>
 	</div>
 
 	<div class="section">
@@ -62,8 +62,8 @@
 				while ($genres = mysql_fetch_object($result)) {
 					if ($tr == 1){echo "				<tr>\n";}
 ?>
-					<td><?=$genres->genre?>: </td>
 					<td><INPUT TYPE="checkbox" NAME="chkgenres" VALUE="<?=$genres->genre?>" <?if (strstr($Genre,"$genres->genre")){echo "checked";}?>></td>
+					<td><?=$genres->genre?> </td>
 <?
 					if ($tr == 2){echo "				</tr>\n"; $tr = 1;}else{$tr = 2;}
 				}

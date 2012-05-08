@@ -701,6 +701,76 @@ if ($function == 'Save Platform') {
     $tab = 'platform-edit';
 }
 
+if ($function == 'Upload Platform Icon') {
+    $id = mysql_real_escape_string($id);
+    list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['iconfile']['tmp_name']);
+    $resolution = $image_width . 'x' . $image_height;
+	
+	if ($image_type == 3)
+	{
+        $errormessage = "";
+    }
+	else
+	{
+		$errormessage = "Your image MUST be in PNG format.<br>";
+	}
+
+    ## No errors, so we can process it
+    if ($errormessage == "") 
+	{	
+		if(!empty($platformAlias))
+		{
+			$fileid = $platformAlias . "-" . time();
+		}
+		else
+		{
+			$fileid = $platformId . "-" . time();
+		}
+		
+		$filename = "$fileid.png";
+		
+		$dimensions = array(16, 24, 32, 48);
+		
+		$prevIconQuery = mysql_query(" SELECT icon FROM platforms WHERE id = $platformId LIMIT 1 ");
+		$prevIconResults = mysql_fetch_object($prevIconQuery);
+		$prevIconFilename = $prevIconResults->icon;
+		
+		if($prevIconFilename != "console_default.png")
+		{
+			foreach($dimensions AS $dim)
+			{
+				unlink("images/common/consoles/png$dim/$prevIconFilename");
+			}
+		}
+		
+		include_once('simpleimage.php');
+		
+		foreach($dimensions AS $dim)
+		{
+			$image = new SimpleImage();
+			$image->load($_FILES['iconfile']['tmp_name']);
+			$image->resize($dim, $dim);
+			$image->save("images/common/consoles/png$dim/$filename");
+			$image = null;
+		}
+
+		if ($errormessage == false) {
+			## Insert database record
+			$query = " UPDATE platforms SET icon = '$filename' WHERE id = $platformId ";
+			if($result = mysql_query($query))
+			{
+				$message .= "Platform Icon Sucessfully Updated.";
+			}
+			else
+			{
+				$errormessage = "There was a problem whilst updating the database entry for this platform icon.";
+			}
+		}
+
+		$tab = 'platform-edit';
+	}
+}
+
 if ($function == 'Upload Platform Box Art') {
     $id = mysql_real_escape_string($id);
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
@@ -1181,7 +1251,7 @@ if ($function == 'Add Platform') {
 
     ## Insert if it doesnt exist already
     if (mysql_num_rows($result) == 0) {
-        $query = "INSERT INTO platforms (name, icon) VALUES ('$PlatformTitle', 'console_atari.png')";
+        $query = "INSERT INTO platforms (name, icon) VALUES ('$PlatformTitle', 'console_default.png')";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
         $id = mysql_insert_id();
 

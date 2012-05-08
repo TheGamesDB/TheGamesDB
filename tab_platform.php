@@ -1,5 +1,5 @@
 	<?php
-		include('simpleimage.php');
+		include_once('simpleimage.php');
 		function imageResize($filename, $cleanFilename, $target, $axis)
 		{
 			if(!file_exists($cleanFilename))
@@ -161,7 +161,7 @@
 					
 				</span>
 				
-				<h1 style="margin: 0px; padding: 0px;"><img src="<?php echo $baseurl; ?>/images/common/consoles/png48/<?php echo $platform->icon; ?>" alt="<?php echo $platform->name; ?>" title="<?php echo $platform->name; ?>" style="vertical-align: middle;" />&nbsp;<?php echo $platform->name; ?></h1>
+				<h1 style="margin: 0px; padding: 0px;"><img src="<?php echo $baseurl; ?>/images/common/consoles/png48/<?php if(!empty($platform->icon)){ echo $platform->icon; } else { echo "console_default.png"; } ?>" alt="<?php echo $platform->name; ?>" title="<?php echo $platform->name; ?>" style="vertical-align: middle;" />&nbsp;<?php echo $platform->name; ?></h1>
 				<?php if(!empty($game->Alternates)) { ?>
 					<h3><span style="color: #888; font-size: 13px;"><em>
 				<?php echo "a.k.a. ' " . str_replace(",", ", ", $game->Alternates) . " ' "; ?>

@@ -10,7 +10,7 @@
 ?>
 
 <?php
-	include('simpleimage.php');
+	include_once('simpleimage.php');
 	function imageResize($filename, $cleanFilename, $target, $axis)
 	{
 		if(!file_exists($cleanFilename))
@@ -179,6 +179,7 @@
 
 		<div id="gameTitle">
 			<span style="float: left;">
+				<img src="<?php echo $baseurl; ?>/images/common/consoles/png48/<?php if(!empty($platform->icon)){ echo $platform->icon; } else { echo "console_default.png"; } ?>" alt="<?php echo $platform->name; ?>" title="<?php echo $platform->name; ?>" style="vertical-align: middle;" />&nbsp;
 				Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
 			</span>
 			
@@ -189,8 +190,8 @@
 				<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
 			</span>
 			
-			<span style="float: right; clear: right; color: orange;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Controller Art</a>
-			</span>
+			<p style="text-align: center; clear: both; padding: 10px; 0px;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#platformIconUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Icon</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Controller Art</a>
+			</p>
 			
 			<div style="clear: both;"></div>
 		</div>
@@ -550,6 +551,43 @@
 	
 	<!-- Start of Upload Dialogs -->
 	<div style="display: none;">
+	<?php if ($loggedin == 1) {  ?>
+	<div id="platformIconUpload" class="miniPanel">
+		<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Platform Icon Upload</h2>
+		<?php  	## check for agreement to terms
+		if ($user->banneragreement != 1) {
+			print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+		}
+		else {
+			?>
+		<p>The only accepted image format for platform icons is PNG.</p>
+		<p>Preferable images will have a transparent background and square dimensions.</p>
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td>File:
+						<input type="file" name="iconfile" size="36">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						<input type="hidden" name="function" value="Upload Platform Icon">
+						<input type="hidden" name="platformId" value="<?=  $platform->id ?>">
+						<input type="hidden" name="platformAlias" value="<?=  $platform->alias ?>">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+		</form>
+			<?php } ?>
+	</div>
+	<?php } ?>
+	
 	<?php if ($loggedin == 1) {  ?>
 	<div id="frontBoxartUpload" class="miniPanel">
 		<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> Platform Art Upload</h2>

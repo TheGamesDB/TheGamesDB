@@ -42,10 +42,10 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php endif; ?>
 	
 	
-	<h1>Recently Updated Games</h1>
+	<h1>Recently Added Games</h1>
 	
 	<?php
-		$recentResult = mysql_query(" SELECT g.*, p.name, p.icon, p.alias AS PlatformAlias FROM games AS g, platforms AS p WHERE g.Platform = p.id ORDER BY lastupdated DESC LIMIT 50 ");
+		$recentResult = mysql_query(" SELECT g.*, p.name, p.icon, p.alias AS PlatformAlias FROM games AS g, platforms AS p WHERE g.Platform = p.id AND g.created IS NOT NULL ORDER BY g.created DESC LIMIT 50 ");
 		$count = 1;
 		$recent = mysql_fetch_object($recentResult)
 			//echo "$recent->id, $recent->GameTitle, $recent->lastupdated <br />";

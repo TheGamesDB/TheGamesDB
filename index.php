@@ -182,11 +182,11 @@ if ($function == 'Add Game') {
 
     ## Insert if it doesnt exist already
     if (mysql_num_rows($result) == 0) {
-        $query = "INSERT INTO games (GameTitle, Platform, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time)";
+        $query = "INSERT INTO games (GameTitle, Platform, created, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time, NULL)";
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
         $id = mysql_insert_id();
         // TODO: trace this back and change the name
-        seriesupdate($id); ## Update the XML data
+        //seriesupdate($id); ## Update the XML data
         // Add Audit
         $sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'created', $id, NULL)";
         mysql_query($sql);
@@ -692,8 +692,8 @@ if ($function == 'Save Platform') {
 
     // Add Audit
     if (!empty($updatestring)) {
-        $sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'updated', $id, NULL)";
-        mysql_query($sql);
+        //$sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'updated', $id, NULL)";
+        //mysql_query($sql);
     }
     $message .= 'Platform Saved.';
 
@@ -1618,7 +1618,7 @@ if($tab != "mainmenu")
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
 		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms" || $tab == "recentbanners" || $tab == "stats" || $tab == "bannerartists" || $tab == "adminstats" || $tab == "terms" || $tab == "agreement" || $tab == "admincp" || $tab == "updatepub" || $tab == "addpub") { $newlayout = true; ?>
+		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms" || $tab == "recentbanners" || $tab == "stats" || $tab == "bannerartists" || $tab == "adminstats" || $tab == "terms" || $tab == "agreement" || $tab == "admincp" || $tab == "updatepub" || $tab == "addpub") { $newlayout = true; ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		<?php } ?>
 		
@@ -1743,7 +1743,7 @@ if($tab != "mainmenu")
 		<div id="navMain">
 		
 			<!-- GAMES NAV ITEM -->
-			<?php if ($tab == "game" || $tab == "listseries" || $tab == "recentgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
+			<?php if ($tab == "game" || $tab == "listseries" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
 
 			<!-- PLATFORMS NAV ITEM -->
 			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "listplatform" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
@@ -1776,7 +1776,9 @@ if($tab != "mainmenu")
 				<span class="navSubLinks">
 					<a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a>
 					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/recentgames/">Recently Added/Updated Games</a>
+					<a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<a href="<?=$baseurl ?>/recentgames/">Recently Updated Games</a>
 				</span>
 			</div>
 		<?php

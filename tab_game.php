@@ -176,7 +176,13 @@
 			if (!empty($front))
 			{
 			?>
-			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>
+			<?php
+			}
+			if (!empty($front) && !empty($back))
+			{
+			?>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<?php
 			}
 			if (!empty($back))
@@ -273,6 +279,20 @@
 						<?php } ?>
 			</div>
 			<hr />
+			<?php
+			$clearlogoQuery = mysql_query(" SELECT * FROM banners WHERE keytype='clearlogo' AND keyvalue='$game->id' LIMIT 1 ");
+			if(mysql_num_rows($clearlogoQuery) != 0)
+			{
+				$clearlogoResult = mysql_fetch_object($clearlogoQuery);
+			?>
+			<div style="margin: auto; padding-top: 10px;">
+				<h2 class="grey">ClearLogo</h2>
+				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /></p>
+			</div>
+			<hr />
+			<?php
+			}
+			?>
 			<p><?php if (!empty($game->Overview)) { echo $game->Overview; } else { echo "\"No overview is currently available for this title.\""; } ?></p>
 			<hr />
 			<div id="gameVitals">

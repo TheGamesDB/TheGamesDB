@@ -618,6 +618,48 @@ if ($function == 'Upload Screenshot') {
     }
     $tab = 'game-edit';
 }
+	
+if ($function == 'Upload Clear Logo') {
+## Get image Dimensions, Format Type & Attributes
+	list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['clearlogofile']['tmp_name']);
+	
+	## Check if the image is the right size
+	if ($image_width == 400 && $image_height <= 250) {
+		
+		$resolution = $image_width . "x" . $image_height;
+		
+		## Check if it's a PNG format image
+		if ($image_type == '3') {
+			
+			 ## Check if this game already has a ClearLOGO uploaded
+			if(file_exists("banners/clearlogo/$id.png"))
+			{
+				$errormessage = "This game already has a ClearLOGO uploaded.<br>Please delete the current image before attempting to upload another.";
+			}
+			else
+			{
+				## Rename/move the file
+				if (move_uploaded_file($_FILES['clearlogofile']['tmp_name'], "banners/clearlogo/$id.png"))
+				{
+					## Insert database record
+					$id = mysql_real_escape_string($id);
+					$query = "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('clearlogo', $id, $user->id, $time, 'clearlogo/$id.png', 1, '$resolution')";
+					$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+					
+					$message .= "ClearLOGO sucessfully added.";
+				}
+			}
+		}
+		else
+		{
+			$errormessage = 'ClearLOGO\'s MUST be in PNG format.';
+		}
+	}
+	else
+	{
+		$errormessage = 'ClearLOGO\'s MUST be 400 pixels wide by a maximum of 250px tall';
+	}
+}
 
 if ($function == 'Lock Game') {
     ## Prepare SQL
@@ -1743,7 +1785,7 @@ if($tab != "mainmenu")
 		<div id="navMain">
 		
 			<!-- GAMES NAV ITEM -->
-			<?php if ($tab == "game" || $tab == "listseries" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
+			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
 
 			<!-- PLATFORMS NAV ITEM -->
 			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "listplatform" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>

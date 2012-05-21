@@ -153,7 +153,7 @@
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		$imageUser = mysql_fetch_object($result);
 		
-		$str = "Uploader:&nbsp;<a href='$baseurl/artistbanners/?id=$imageUser->id'>$imageUser->username</a>";
+		$str = "Uploader:&nbsp;<a href='$baseurl/artistbanners/?id=$imageUser->id' style='color: orange;'>$imageUser->username</a>";
 		
 		return $str;
 	}
@@ -178,30 +178,32 @@
 	<form id="editGameForm" name="editGameForm" action="<?= $baseurl ?>/game-edit/<?= $game->id ?>/" method="post" onsubmit="mergeAltTitles(); if(editGameForm.coopfake.checked == false) {$('#coop').val('No');} else if(editGameForm.coopfake.checked == true){ $('#coop').val('Yes');}">
 
 		<div id="gameTitle">
-		<span style="float: left;">
-			<input type="text" name="GameTitle" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $game->GameTitle; ?>" /><br />
-		</span>
+			<div style="float: left; width: 300px; height: 38px;">
+				<input type="text" name="GameTitle" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $game->GameTitle; ?>" />
+			</div>
 			
-			<?php	if ($loggedin == 1) {  ?>
-				<span id ="gameUserLinks"><a href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/game/<?=$game->id?>/">View this Game</a>&nbsp;&nbsp;|&nbsp;
-				<?php	## First, generate their userfavorites array
-					$userfavorites = explode(",", $user->favorites);
+			<div style="float: left; width: 600px; text-align: right; height: 16px; padding: 11px 0px; ">
+				<?php	if ($loggedin == 1) {  ?>
+					<a href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a style="color: orange;" href="<?=$baseurl?>/game/<?=$game->id?>/">View this Game</a>&nbsp;&nbsp;|&nbsp;
+					<?php	## First, generate their userfavorites array
+						$userfavorites = explode(",", $user->favorites);
 
-					## If the user has this as a favorite, display a message and a button
-					## to "Un-favorite".
-					if (in_array($id, $userfavorites, 1)) {
-						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Unfavorite this Game</a>";
-					}
-					## If the user doesn't have this as a favorite, display a button to
-					## mark it as a favorite.
-					else {
-						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Favorite this Game</a>";
-					}
-				?>
-			<?php } ?><br /><br />
-				<img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox'>Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox'>Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox'>Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox'>Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox'>Upload Banner</a>
-			</span>
-			<div style="clear: both;"></div>
+						## If the user has this as a favorite, display a message and a button
+						## to "Un-favorite".
+						if (in_array($id, $userfavorites, 1)) {
+							print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\" style=\"color: orange;\">Unfavorite this Game</a>";
+						}
+						## If the user doesn't have this as a favorite, display a button to
+						## mark it as a favorite.
+						else {
+							print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\" style=\"color: orange;\">Favorite this Game</a>";
+						}
+					?>
+				<?php } ?>
+			</div>
+			
+			
+			<p style="clear: both; text-align: center;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange;">Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox' style="color: orange;">Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#clearartUpload' rel='facebox' style="color: orange;">Upload ClearLOGO</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox' style="color: orange;">Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange;">Upload Banner</a></p>
 		</div>
 		<div id="gameCoversWrapper">
 			<div>
@@ -412,6 +414,25 @@
 						<?php } ?>
 			</div>
 			<hr />
+			<?php
+			$clearlogoQuery = mysql_query(" SELECT * FROM banners WHERE keytype='clearlogo' AND keyvalue='$game->id' LIMIT 1 ");
+			if(mysql_num_rows($clearlogoQuery) != 0)
+			{
+				$clearlogoResult = mysql_fetch_object($clearlogoQuery);
+			?>
+			<div style="margin: auto; padding-top: 10px;">
+				<div style="width: 400px; padding: 5px; margin: 0px auto 20px auto; border: 1px solid #555; border-radius: 5px; background-color: #090909; box-shadow: 3px 6px 20px 5px #000;">
+					<h2 class="grey">ClearLogo</h2>
+					<img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" />
+					<div style="text-align: center; !important"><?= imageUsername($clearlogoResult->id); ?>&nbsp;|&nbsp;Resolution: <?= $clearlogoResult->resolution ?><br />
+					<a href='<?= "$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$clearlogoResult->id" ?>' style="color: orange;">Delete This Art</a><br />
+					<?= imageRating($clearlogoResult->id) ?><br /><?= userImageRating($clearlogoResult->id, $baseurl, $game->id, $user->id) ?></div>
+					</div>
+			</div>
+			<hr />
+			<?php
+			}
+			?>
 			<p><span class="grey">Overview</span></p>
 			<p><textarea name="Overview" style="width: 630px; height: 200px;"><?= $game->Overview ?></textarea></p>
 			<hr />
@@ -1058,6 +1079,46 @@
 				<tr>
 					<td style="text-align: right">
 						<input type="hidden" name="function" value="Upload Fan Art">
+						<input type="submit" name="button" value="Upload" class="submit">
+					</td>
+				</tr>
+			</table>
+					<?php
+				}
+				?>
+		</form>
+	</div>
+	<?php	}  ?>
+	
+	<?php	if ($loggedin == 1) {  ?>
+	<div id="clearartUpload" class="miniPanel">
+		<form action="<?=$fullurl?>" method="POST" enctype="multipart/form-data">
+			<h2><img src="<?= $baseurl ?>/images/common/icons/upload-black_32.png" alt="Upload" style="vertical-align: -7px;" /> ClearLOGO Upload</h2>
+
+				<?php  	## check for agreement to terms
+				if ($user->banneragreement != 1) {
+					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
+				}
+				else {
+					?>
+			<p>All ClearLOGO images must be 400px wide, and may be up to a maximum height of 250px.</p>
+			<p>The only accepted image format for ClearLOGO art is PNG.</p>
+			<p>As the name suggests, ClearLOGO artwork must be on a clear (transparent) background. Solid background colors and gradients are strictly not allowed.</p>
+			<p>More information can be found on the <a href="http://wiki.thegamesdb.net" target="_blank">Site Wiki</a>.</p>
+			<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" class="info">
+				<tr>
+					<td><strong>File to Upload:</strong><br /><br />
+						<input type="file" name="clearlogofile" size="42">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p><em>Please Note: Uploading an image with out saving game info first will result in data loss.</em></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						<input type="hidden" name="function" value="Upload Clear Logo">
 						<input type="submit" name="button" value="Upload" class="submit">
 					</td>
 				</tr>

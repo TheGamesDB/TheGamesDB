@@ -47,6 +47,8 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php
 		$recentResult = mysql_query(" SELECT g.*, p.name, p.icon, p.alias AS PlatformAlias FROM games AS g, platforms AS p WHERE g.Platform = p.id AND g.created IS NOT NULL ORDER BY g.created DESC LIMIT 50 ");
 		$count = 1;
+		if(mysql_num_rows($recentResult) > 0)
+		{
 		$recent = mysql_fetch_object($recentResult)
 			//echo "$recent->id, $recent->GameTitle, $recent->lastupdated <br />";
 	?>
@@ -195,8 +197,17 @@ function imageResize($filename, $cleanFilename, $target)
 			}
 			$count++;
 		}
+		}
+		else
+		{
 	?>
+			<div style=" width: 90%; padding: 16px; margin: 10px auto 20px auto; border-radius: 4px; border: 1px solid #4f4f4f; background-color: #333;">
+			<p>There are not enough games added recently to display, please check back in a little while.</p>
+			</div>
 	
+	<?php
+		}
+	?>
 		<div style="clear: both;"></div>
 	
 	</div>

@@ -650,6 +650,70 @@
 							<?php
 							break;
 							
+							case "missingclearlogo":
+								$query = " SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'clearlogo') AND games.Platform = platforms.id ";
+								if(!empty($sortBy))
+								{
+									$query = $query . " ORDER BY $sortBy, games.GameTitle ASC";
+								}
+								else
+								{
+									$query = $query . " ORDER BY games.GameTitle ASC";
+								}
+								
+								$pagResult = incPagination($query, $limit, $statstype, $sortBy, $page);
+								$pagination = $pagResult["pagination"];
+								$query = $pagResult["query"];
+								$total = $pagResult["total"];
+								$limit = $pagResult["limit"];
+							?>
+							<h2 style="color: #FF4F00;">Games Missing ClearLOGO's</h2>
+							<!-- Start Sort By -->
+							<form style="text-align: right;">
+								<input type="hidden" name="tab" value="<?=$tab?>" />
+								<input type="hidden" name="statstype" value="<?=$statstype?>" />
+								<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
+									<option <?php if($sortBy == "games.GameTitle"){ echo "selected"; } ?> value="games.GameTitle">Name</option>
+									<option <?php if($sortBy == "platforms.name"){ echo "selected"; } ?> value="platforms.name">Platform</option>
+								</select>
+								&nbsp;&nbsp;&nbsp;&nbsp;Show: <select name="limit" onchange="this.form.submit();">
+									<option <?php if($limit == 10){ echo "selected"; } ?> value="10">10 Rows</option>
+									<option <?php if($limit == 20){ echo "selected"; } ?> value="20">20 Rows</option>
+									<option <?php if($limit == 40){ echo "selected"; } ?> value="40">40 Rows</option>
+									<option <?php if($limit == 80){ echo "selected"; } ?> value="80">80 Rows</option>
+									<option <?php if($limit == 100){ echo "selected"; } ?> value="100">100 Rows</option>
+								</select></p>
+							</form>
+							<!-- End Sort By -->
+							<?=$pagination?>
+							<table align="center" border="1" cellspacing="0" cellpadding="7">
+								<tr>
+									<th style="background-color: #333; color: #FFF;">Game ID</th>
+									<th style="background-color: #333; color: #FFF;">Game Title</th>
+									<th style="background-color: #333; color: #FFF;">Platform</th>
+								</tr>
+							<?php
+							$missingcount = 0;
+							$result = mysql_query($query);
+							while($row = mysql_fetch_assoc($result)) {
+								?>
+								<tr>
+									<td><?php echo $row[id]; ?></td>
+									<td align="left"><a href="?tab=game&id=<?php echo $row[id]; ?>&lid=1"><?php echo $row[GameTitle]; ?></a></td>
+									<td><?php echo $row[name]; ?></td>
+								</tr>
+								<?php
+								$missingcount++;
+							}
+							?>
+								<tr>
+									<td colspan="3" style="font-weight: bold;" >Total Games Missing Banners: <?php echo $total; ?></td>
+								</tr>
+							</table>
+							<?=$pagination?>
+							<?php
+							break;
+							
 							case "missingscreenshot":
 								$query = " SELECT games.id, games.GameTitle, platforms.name FROM games, platforms WHERE NOT EXISTS (SELECT keyvalue FROM banners WHERE banners.keyvalue = games.id AND banners.keytype = 'screenshot') AND games.Platform = platforms.id ";
 								if(!empty($sortBy))

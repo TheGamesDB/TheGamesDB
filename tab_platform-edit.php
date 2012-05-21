@@ -634,14 +634,9 @@
 				if ($user->banneragreement != 1) {
 					print "You must agree to the site terms and conditions before you can upload. Go to the <a href=\"/?tab=agreement\">Agreement Page</a>";
 				} ## Check for disabled banner upload
-				elseif ($user->bannerlimit == 0) {
-					print "Your ability to upload has been removed. If you believe this has happened in error contact <a href=\"mailto:$adminuser->emailaddress\">$adminuser->username</a>";
-				} ## Check banner limit
-				elseif ($game->disabled == 'Yes') {
-					print "The ability to upload has been removed, because an admin has flagged this record as a duplicate or inaccurate";
-				}
-				else {
-					?>
+				else
+				{
+				?>
 			<p>All fan art resolutions <strong>must</strong> be 1920x1080 <em>(2MB Max Size)</em> or 1280x720.<em>(600KB Max Size)</em></p>
 			<p>The only accepted image format for fan art is JPG.</p>
 			<p>Images must be of good quality. We don't want blurry or pixelated images.</p>

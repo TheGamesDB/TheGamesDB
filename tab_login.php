@@ -29,8 +29,9 @@
 </tr>-->
 <tr>
 	<td colspan="2">
-		<input type="hidden" name="function" value="Log In">
-		<input type="submit" name="submit" value="Log In">
+		<input type="hidden" name="function" value="Log In" />
+		<input type="hidden" name="redirect" value="<?= $redirect ?>" />
+		<input type="submit" name="submit" value="Log In" />
 	</td>
 </tr>
 </table>

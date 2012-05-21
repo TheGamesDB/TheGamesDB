@@ -9,7 +9,7 @@ include("extentions/wideimage/WideImage.php"); ## Image Manipulation Library
 session_start();
 $time = time();
 
-$message = null;
+//$message = null;
 
 #####################################################
 ## COOKIE STUFF - AUTOMATIC LOGIN
@@ -348,6 +348,9 @@ if ($function == "Generate Platform Alias's") {
  */
 
 if ($function == 'Save Game') {
+	$message = null;
+	$errormessage = null;
+	
     $updates = array();
     foreach ($_POST AS $key => $value) {
         if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_') && $key != 'comments' && $key != 'requestcomments' && $key != 'requestreason') {
@@ -398,10 +401,15 @@ if ($function == 'Save Game') {
     $message .= 'Game saved.';
 
     $id = $newshowid;
-    $tab = 'game-edit';
+    //$tab = 'game-edit';
+	header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Game Banner') {
+	$message = null;
+	$errormessage = null;
+	
     ## Check if the image is the right size
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     if ($image_width == 760 && $image_height == 140) {
@@ -460,6 +468,9 @@ if ($function == 'Upload Game Banner') {
         $errormessage = 'Game banners MUST be 760px wide by 140px tall';
     }
 	$message .= "Banner sucessfully added.";
+	
+	header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
@@ -485,6 +496,9 @@ if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
 }
 
 if ($function == 'Upload Box Art') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     $resolution = $image_width . 'x' . $image_height;
@@ -533,6 +547,9 @@ if ($function == 'Upload Box Art') {
 }
 
 if ($function == 'Upload Fan Art') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
 
     ## Check if the image is the right size
@@ -575,9 +592,15 @@ if ($function == 'Upload Fan Art') {
         $message = "Fan art successfully added";
     }
     $tab = 'game-edit';
+	
+	header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Screenshot') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
 
     ## Check if the image is the right size
@@ -617,10 +640,16 @@ if ($function == 'Upload Screenshot') {
 
     }
     $tab = 'game-edit';
+	
+	header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 	
 if ($function == 'Upload Clear Logo') {
-## Get image Dimensions, Format Type & Attributes
+	$message = null;
+	$errormessage = null;
+	
+	## Get image Dimensions, Format Type & Attributes
 	list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['clearlogofile']['tmp_name']);
 	
 	## Check if the image is the right size
@@ -659,6 +688,9 @@ if ($function == 'Upload Clear Logo') {
 	{
 		$errormessage = 'ClearLOGO\'s MUST be 400 pixels wide by a maximum of 250px tall';
 	}
+	
+	header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Lock Game') {
@@ -693,6 +725,9 @@ if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
  */
 
 if ($function == 'Save Platform') {
+	$message = null;
+	$errormessage = null;
+	
     $updates = array();
     foreach ($_POST AS $key => $value) {
         if ($key != 'function' && $key != 'platformid' && $key != 'alias') {
@@ -741,9 +776,15 @@ if ($function == 'Save Platform') {
 
     $id = $platformid;
     $tab = 'platform-edit';
+	
+	header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Platform Icon') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['iconfile']['tmp_name']);
     $resolution = $image_width . 'x' . $image_height;
@@ -810,10 +851,16 @@ if ($function == 'Upload Platform Icon') {
 		}
 
 		$tab = 'platform-edit';
+		
+		header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+		exit;
 	}
 }
 
 if ($function == 'Upload Platform Box Art') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     $resolution = $image_width . 'x' . $image_height;
@@ -855,10 +902,16 @@ if ($function == 'Upload Platform Box Art') {
 
 		$message .= "Platform Art Sucessfully Added.";
 		$tab = 'platform-edit';
+		
+		header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+		exit;
 	}
 }
 
 if ($function == 'Upload Platform Fan Art') {
+	$message = null;
+	$errormessage = null;
+	
     $id = mysql_real_escape_string($id);
 
     ## Check if the image is the right size
@@ -899,9 +952,15 @@ if ($function == 'Upload Platform Fan Art') {
         $message = "Fan art successfully added";
     }
     $tab = 'platform-edit';
+	
+	header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Platform Banner') {
+	$message = null;
+	$errormessage = null;
+	
     ## Check if the image is the right size
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['bannerfile']['tmp_name']);
     if ($image_width == 760 && $image_height == 140) {
@@ -947,9 +1006,15 @@ if ($function == 'Upload Platform Banner') {
         $errormessage = 'Game banners MUST be 760px wide by 140px tall';
     }
 	$message .= "Banner sucessfully added.";
+	
+	header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Controller Art') {
+	$message = null;
+	$errormessage = null;
+	
     ## Get image Dimensions, Format Type & Attributes
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['controllerartfile']['tmp_name']);
 	
@@ -984,9 +1049,15 @@ if ($function == 'Upload Controller Art') {
     } else {
         $errormessage = 'Controller art MUST be 300px wide by 300px tall';
     }
+	
+	header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 if ($function == 'Upload Console Art') {
+	$message = null;
+	$errormessage = null;
+	
     ## Get image Dimensions, Format Type & Attributes
     list($image_width, $image_height, $image_type, $image_attr) = getimagesize($_FILES['consoleartfile']['tmp_name']);
 	
@@ -1021,6 +1092,9 @@ if ($function == 'Upload Console Art') {
     } else {
         $errormessage = 'Console art MUST be 300px wide by 300px tall';
     }
+	
+	header("Location: $baseurl/platform-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+	exit;
 }
 
 
@@ -1628,6 +1702,12 @@ if ($function == "Submit Takedown Request") {
     }
 }
 
+if ($tab != "login" && isset($redirect))
+{
+	header("Location: $baseurl$redirect");
+	exit;
+}
+
 ## Default tab
 if ($tab == "") {
     $tab = 'mainmenu';
@@ -1755,7 +1835,7 @@ if($tab != "mainmenu")
 						$msgCount = mysql_num_rows($msgQuery);
 					?><a href="<?= $baseurl ?>/messages/">Messages</a> <?php if($msgCount > 0) { echo"<span style=\"color: Chartreuse;\">($msgCount)</span>"; } else { echo "($msgCount)"; } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/favorites/">Favorites</a> <span>(<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>) <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/admincp/">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/userinfo/">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>
 					<?php } else { ?>
-						<a href="<?= $baseurl ?>/login/">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/register/">Register here!</a>
+						<a href="<?= $baseurl ?>/login/?redirect=<?= urlencode($_SERVER["REQUEST_URI"]) ?>">Login</a> <span style="color: #ccc;">|</span> New to the site? <a href="<?= $baseurl ?>/register/">Register here!</a>
 					<?php } ?>
 				</p>
 				<a href="<?php echo $baseurl; ?>/" title="An open database of video games">

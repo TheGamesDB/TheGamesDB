@@ -286,7 +286,7 @@
 				$clearlogoResult = mysql_fetch_object($clearlogoQuery);
 			?>
 			<div style="margin: auto; padding-top: 10px;">
-				<h2 class="grey">ClearLogo</h2>
+				<h2 class="grey">ClearLOGO</h2>
 				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /></p>
 			</div>
 			<hr />

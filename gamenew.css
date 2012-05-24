@@ -3,6 +3,8 @@
 }
 #gameWrapper {
 	margin-bottom: 30px;
+	position: absolute;
+	width: 1000px;
 }
 #gameWrapper img{
 	/*box-shadow: 3px 6px 20px 5px #000;*/
@@ -240,6 +242,9 @@
 	margin: 0px 5px 0px 2px;
 	padding: 4px 8px;
 	cursor: pointer;
+}
+.boxShadow {
+	box-shadow: 3px 6px 20px 5px #000;
 }
 #gameWrapper input {
 	border: 1px solid #555;

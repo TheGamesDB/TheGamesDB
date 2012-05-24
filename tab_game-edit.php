@@ -202,9 +202,9 @@
 				<?php } ?>
 			</div>
 			
-			
-			<p style="clear: both; text-align: center;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange;">Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox' style="color: orange;">Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#clearartUpload' rel='facebox' style="color: orange;">Upload ClearLOGO</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox' style="color: orange;">Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange;">Upload Banner</a></p>
+			<p style="display: none; clear: both; text-align: center;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange;">Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox' style="color: orange;">Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#clearartUpload' rel='facebox' style="color: orange;">Upload ClearLOGO</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox' style="color: orange;">Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange;">Upload Banner</a></p>
 		</div>
+		<div style="clear: left; padding: 10px 0px 0px 0px;"></div>
 		<div id="gameCoversWrapper">
 			<div>
 			
@@ -308,6 +308,9 @@
 			?>
 		</div>
 		<div id="gameInfo">
+		
+		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="button boxShadow" style="float: right; font-size: 16px; line-height: 32px; text-decoration: none; display: inline-block; padding: 9px; color: orange;"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
+		
 		<div id="altTitleWrapper">
 		<span class="grey">Alt. Titles</span>&nbsp;<span class="button altAdd" onclick="altAdd(this);">+</span><br /><br />
 		<input type="hidden" id="alternatives" name="Alternates" />
@@ -422,7 +425,7 @@
 			?>
 			<div style="margin: auto; padding-top: 10px;">
 				<div style="width: 400px; padding: 5px; margin: 0px auto 20px auto; border: 1px solid #555; border-radius: 5px; background-color: #090909; box-shadow: 3px 6px 20px 5px #000;">
-					<h2 class="grey">ClearLogo</h2>
+					<h2 class="grey">ClearLOGO</h2>
 					<img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" />
 					<div style="text-align: center; !important"><?= imageUsername($clearlogoResult->id); ?>&nbsp;|&nbsp;Resolution: <?= $clearlogoResult->resolution ?><br />
 					<a href='<?= "$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$clearlogoResult->id" ?>' style="color: orange;">Delete This Art</a><br />

@@ -173,6 +173,29 @@ $user = $_REQUEST["user"];
 			}
 		}
 	}
+	
+	function processClearLOGO($gameID)
+	{
+		## Select all boxart rows for the requested game id
+		$clResult = mysql_query(" SELECT filename, resolution FROM banners WHERE keyvalue = $gameID AND keytype = 'clearlogo' LIMIT 1 ");
+		
+		## Process each boxart row incrementally
+		while($clRow = mysql_fetch_assoc($clResult))
+		{
+			## Construct file names
+			$clOriginal = $clRow['filename'];
+			$clResolution = $clRow['resolution'];
+			
+			$clResolution = explode("x", $clResolution, 2);
+		
+			## Check to see if the original boxart file actually exists before attempting to process 
+			if(file_exists("../banners/$clOriginal"))
+			{			
+				## Output Boxart XML Branch
+				echo "<clearlogo width=\"$clResolution[0]\" height=\"$clResolution[1]\">$clOriginal</clearlogo>";
+			}
+		}
+	}
 
 if (empty($name) && empty($id)) {
     print "<Error>A name or id is required</Error>\n";
@@ -300,6 +323,7 @@ while ($obj = mysql_fetch_object($result)) {
 	processBoxart($obj->id);
 	processBanner($obj->id);
 	processScreenshots($obj->id);
+	processClearLOGO($obj->id);
 	
 	print "</Images>\n";
     

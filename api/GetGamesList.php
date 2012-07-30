@@ -23,25 +23,13 @@ $user = $_REQUEST["user"];
 if (empty($name)) {
     print "<Error>A name is required</Error>\n";
     exit;
-} else {
-    if (isset($name)) {
-        if (strpos($name, ", The")) {
-            $name = "The " . substr($name, 0, strpos($name, ", The"));
-        }
-    }
 }
 
 $query;
 if (isset($name) && !empty($name))
 {
-	$cleanName = clean($name);
-	$arr = array();
-    preg_match('/[0-9]+/', $name, $arr);
-	$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
-	foreach($arr as $numeric)
-	{
-			$query .= " AND GameTitle LIKE '%$numeric%'";
-	}
+	$query = "SELECT *, ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) AS MatchValueBoolean, MATCH (GameTitle) AGAINST ('$name') AS MatchValue FROM games WHERE ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) OR ( MATCH (Alternates) AGAINST ('$name') OR Alternates SOUNDS LIKE '$name' ) HAVING MatchValueBoolean > 0 ";
+
 	if(isset($platform) && !empty($platform))
 	{
 		$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
@@ -62,6 +50,8 @@ if (isset($name) && !empty($name))
 	{
 		$query = $query . " AND Genre Like '%$genre%'";
 	}	
+
+	$query = $query . " ORDER BY MatchValue DESC, MatchValueBoolean DESC LIMIT 20";
 }
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());

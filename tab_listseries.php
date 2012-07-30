@@ -69,27 +69,20 @@ function imageResize($filename, $cleanFilename, $target)
 		$letter = mysql_real_escape_string($letter);			
 
 		if ($function == 'Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE MATCH(g.GameTitle) AGAINST ('$string') AND g.Platform = p.id";
-			$arr = array();
-			preg_match('/[0-9]+/', $string, $arr);
-			foreach($arr as $numeric)
-			{
-					$query .= " AND g.GameTitle LIKE '%$numeric%'";
-			}
+		
+			$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
 			if(!empty($sortBy) && $sortBy != "relevance")
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
 			}
+			else
+			{
+				$query .= " ORDER BY MatchValue DESC, MatchValueBoolean DESC";
+			}
 		}
 		## Start Advanced Search Query
 		elseif ($function == 'Advanced Search')  {
-			$query = "SELECT g.*, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games as g, platforms as p WHERE MATCH(g.GameTitle) AGAINST ('$string') AND g.Platform = p.id";
-			$arr = array();
-			preg_match('/[0-9]+/', $string, $arr);
-			foreach($arr as $numeric)
-			{
-					$query .= " AND g.GameTitle LIKE '%$numeric%'";
-			}
+			$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
 			if($stringPlatform != "")
 			{
 				$query = $query .  " AND g.Platform = '$stringPlatform' ";
@@ -109,6 +102,10 @@ function imageResize($filename, $cleanFilename, $target)
 			if(!empty($sortBy) && $sortBy != "relevance")
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
+			}
+			else
+			{
+				$query .= " ORDER BY MatchValue DESC, MatchValueBoolean DESC";
 			}
 		}
 		## End Advanced Search Query
@@ -379,7 +376,7 @@ function imageResize($filename, $cleanFilename, $target)
 	<!-- End Sort By -->
 	
 	<div style="clear: both;"></div>
-
+	
 	<?php			
 			##  START RUN SEARCH QUERY!!!!
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());

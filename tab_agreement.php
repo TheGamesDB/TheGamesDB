@@ -1,4 +1,4 @@
-<div id="gameWrapper">
+
 	<div id="gameHead">
 		
 		<div class="links">

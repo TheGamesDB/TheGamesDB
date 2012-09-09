@@ -52,7 +52,7 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 
 <?php if (!isset($cptab)) { $cptab = "userinfo"; } ?>
 		
-<div id="gameWrapper">
+
 	<div id="gameHead">
 	
 		<?php if($errormessage): ?>

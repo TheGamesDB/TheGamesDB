@@ -1,5 +1,10 @@
-<div id="gameWrapper">
+
 	<div id="gameHead">
+	
+		<?php
+			//Google AdSense - Right of Main Content Skyscraper
+			include_once("adverts/adsense-leaderboard_content-top.php");
+		?>
 	
 		<div class="links">
 
@@ -21,7 +26,7 @@
 			?>
 			<!-- End Admin Only Stats & Reports -->
 			
-			<h1>Site Reports and Statistics</h1>
+			<h1 style="text-align: center;">Site Reports and Statistics</h1>
 
 			<div style="text-align: center;">
 				

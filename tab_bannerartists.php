@@ -1,4 +1,4 @@
-<div id="gameWrapper">
+
 	<div id="gameHead">
 
 		<h1>Site Reports and Statistics</h1>	

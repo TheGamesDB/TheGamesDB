@@ -31,7 +31,7 @@ function imageResize($filename, $cleanFilename, $target)
 	return "src=\"$baseurl/$cleanFilename\"";
 }
 ?>
-<div id="gameWrapper">
+
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -40,6 +40,12 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php if($message): ?>
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
+	
+	
+	<?php
+		//Google AdSense - Right of Main Content Skyscraper
+		include_once("adverts/adsense-leaderboard_content-top.php");
+	?>	
 	
 	
 	<h1>Recently Updated Games</h1>

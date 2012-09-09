@@ -1,6 +1,6 @@
 <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?>
 		
-<div id="gameWrapper">
+
 	<div id="gameHead">
 	
 		<?php if($errormessage): ?>

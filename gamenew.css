@@ -3,6 +3,7 @@
 }
 #gameWrapper {
 	margin-bottom: 30px;
+	padding-bottom: 30px;
 	position: absolute;
 	width: 1000px;
 }

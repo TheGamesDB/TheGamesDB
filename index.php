@@ -1881,10 +1881,7 @@ if(!isset($headless))
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
-		
-		<?php if ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit" || $tab == "messages" || $tab == "message" || $tab == "favorites" || $tab == "listseries" || $tab == "listplatform" || $tab == "addgame" || $tab == "login" || $tab == "register" || $tab == "password" || $tab == "userinfo" || $tab == "api" || $tab == "showcase" || $tab == "nojs" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "platforms" || $tab == "topratedplatforms" || $tab == "recentbanners" || $tab == "stats" || $tab == "bannerartists" || $tab == "adminstats" || $tab == "terms" || $tab == "agreement" || $tab == "admincp" || $tab == "updatepub" || $tab == "addpub" || $tab == "uploader") { $newlayout = true; ?>
-			<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
-		<?php } ?>
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/gamenew.css" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
@@ -1967,7 +1964,8 @@ if(!isset($headless))
 		?>
 		
     </head>
-    <body>
+	
+    <body style="overflow-x:hidden;">
 		
 		<div id="frontHeader" style="height: 78px; position: absolute; top: 0px; left: 0px; width: 100%; z-index: 300; background: url(/images/bg_bannerws-thin.png) repeat-x center center; box-shadow: 0px 0px 6px 0px #000;">
 			<div id="frontBanner" style="width: 880px; margin: auto;">
@@ -2099,26 +2097,39 @@ if(!isset($headless))
 		</div>
 		
         <div id="main">
-
+		
 			<div id="content">
-                <?php if(!$newlayout) { ?>
+
+				<?php if(!$newlayout) { ?>
 				<?php if($errormessage): ?>
 				<div class="error"><?= $errormessage ?></div>
 				<?php endif; ?>
 				<?php if($message): ?>
 				<div class="message"><?= $message ?></div>
 				<?php endif; ?>
-                <?php } ?>
+				<?php } ?>
 				
-				<!-- Start Include Page (Tab) Content -->
-				<?php
-					include("tab_$tab.php");
-				?>
-				<!-- End Include Page (Tab) Content -->
+				<div id="gameWrapper">
+				
+					<?php
+						//Google AdSense - Right of Main Content Skyscraper
+						include_once("adverts/adsense-skyscraper_content-right.php");
+					?>
+					
+					<!-- Start Include Page (Tab) Content -->
+					<?php
+						include("tab_$tab.php");
+					?>
+					<!-- End Include Page (Tab) Content -->
+					
+				</div>
 				
 			</div>
 
 		</div>
+		
+		
+		
 		</div>
 		
 		

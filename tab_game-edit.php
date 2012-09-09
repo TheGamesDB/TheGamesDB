@@ -159,9 +159,7 @@
 	}
 ?>
 
-<div id="gameWrapper">
 	<div id="gameHead">
-
 	
 	<?php if($errormessage): ?>
 	<div class="error"><?= $errormessage ?></div>
@@ -1355,8 +1353,6 @@
 		<h2 style="text-align: center;">We can't find the game you requested...</h2>
 		<p style="text-align: center;">If you believe you have recieved this message in error, please let us know.</p>
 		<p style="text-align: center;"><a href="<?= $baseurl; ?>/" style="color: orange;">Click here to return to the homepage</a></p>
-	</div>
-</div>
 <?php
 	}
 ?>
@@ -1369,7 +1365,7 @@
 	else
 	{
 ?>
-	<div id="gameWrapper">
+	
 		<div id="gameHead">
 			
 			<h1>Oops!</h1>

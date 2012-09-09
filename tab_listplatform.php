@@ -183,7 +183,6 @@ function imageResize($filename, $cleanFilename, $target)
 	<!-- End Pagination -->
 
 
-<div id="gameWrapper">
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -611,4 +610,3 @@ function imageResize($filename, $cleanFilename, $target)
 		</script>
 		
 	</div>
-</div>

@@ -32,7 +32,6 @@ function imageResize($filename, $cleanFilename, $target)
 }
 ?>
 
-<div id="gameWrapper">
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -415,4 +414,3 @@ function imageResize($filename, $cleanFilename, $target)
 	}
 ?>
 	</div>
-</div>

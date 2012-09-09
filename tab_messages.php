@@ -1,4 +1,3 @@
-<div id="gameWrapper">
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -68,4 +67,3 @@
 		}
 	?>
 	</div>
-</div>

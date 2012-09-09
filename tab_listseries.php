@@ -226,7 +226,6 @@ function imageResize($filename, $cleanFilename, $target)
 	?>
 	<!-- End Pagination -->
 
-<div id="gameWrapper">
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -235,6 +234,13 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php if($message): ?>
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
+	
+	
+	<?php
+		//Google AdSense - Right of Main Content Skyscraper
+		include_once("adverts/adsense-leaderboard_content-top.php");
+	?>
+	
 	
 	<h1 style="float: left;">Search: <?=$string?></h1>
 
@@ -700,4 +706,3 @@ function imageResize($filename, $cleanFilename, $target)
 		</div>
 		
 	</div>
-</div>

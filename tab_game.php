@@ -83,6 +83,18 @@
 		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
+	
+	function imageUsername($artID)
+	{
+		## Get the site banner rating
+		$query  = "SELECT u.id, u.username FROM users AS u, banners AS b WHERE b.id = '$artID' AND u.id = b.userid";
+		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		$imageUser = mysql_fetch_object($result);
+		
+		$str = "Uploader:&nbsp;<a href='$baseurl/artistbanners/?id=$imageUser->id' style='color: orange;'>$imageUser->username</a>";
+		
+		return $str;
+	}
 ?>
 
 <?php
@@ -136,7 +148,7 @@
 		<div id="gameCoversWrapper">
 			<div id="gameCovers">
 				<?php
-					if ($frontCoverResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' LIMIT 1 "))
+					if ($frontCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' LIMIT 1 "))
 					{
 						$front = mysql_fetch_object($frontCoverResult);
 						if (!empty($front))
@@ -144,7 +156,7 @@
 							?>
 							<img id="frontCover" class="frontCover imgShadow" <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
 							<?php
-							if ($backCoverResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%back%' LIMIT 1 "))
+							if ($backCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%back%' LIMIT 1 "))
 							{
 								$back = mysql_fetch_object($backCoverResult);
 								if (!empty($back))
@@ -191,6 +203,11 @@
 			<?php
 			}
 			?>
+			<p style="text-align: center;"><?php
+						if (!empty($front)) { echo "Front Boxart " . imageUsername($front->id); }
+						if (!empty($front) && !empty($back)) { echo "<br />"; }
+						if (!empty($back)) { echo "Rear Boxart " . imageUsername($back->id); }
+					?></p>
 		</div>
 		<div id="gameInfo">
 			<span style="float: right;">
@@ -286,7 +303,7 @@
 			?>
 			<div style="margin: auto; padding-top: 10px;">
 				<h2 class="grey">ClearLOGO</h2>
-				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /></p>
+				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($front->id) ?></p>
 			</div>
 			<hr />
 			<?php
@@ -491,7 +508,7 @@
 					<div class="slider-wrapper theme-default">
 						<div id="fanartRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-fanart.png) no-repeat; z-index: 10"></div>
 						<?php
-						if ($fanartResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'fanart' "))
+						if ($fanartResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'fanart' "))
 						{
 							$fanSlideCount = 0;
 							if(mysql_num_rows($fanartResult) > 0)
@@ -503,7 +520,7 @@
 								{	
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
 							?>
-									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
 							<?php
 									$fanSlideCount++;
 								}
@@ -528,7 +545,7 @@
 					<div class="slider-wrapper theme-default">
 						<div id="screensRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-screens.png) no-repeat; z-index: 10"></div>
 						<?php
-						if ($screenResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'screenshot' "))
+						if ($screenResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'screenshot' "))
 						{
 							if(mysql_num_rows($screenResult) > 0)
 							{
@@ -539,7 +556,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{	
 							?>
-									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
+									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
 							<?php
 									$screenSlideCount++;
 								}
@@ -566,7 +583,7 @@
 				<div class="slider-wrapper theme-default">
 					<div id="bannerRibbon" style="display: none; position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-banners.png) no-repeat; z-index: 10"></div>
 					<?php
-					if ($bannerResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'series' ") or die ("banner query failed" . mysql_error()))
+					if ($bannerResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.keytype = 'series' ") or die ("banner query failed" . mysql_error()))
 					{
 						if(mysql_num_rows($bannerResult) > 0)
 						{
@@ -577,7 +594,7 @@
 							while($banner = mysql_fetch_array($bannerResult))
 							{	
 						?>
-								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" />
+								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?>"/>
 						<?php
 								$bannerSlideCount++;
 							}
@@ -657,7 +674,7 @@
 			
 			<hr style="margin: 10px 0px 14px 0px;" />
 
-			<div id="comments" style="display: none;">
+			<div id="comments">
 					<?php
 						$commentsQuery = mysql_query(" SELECT c.*, u.username FROM comments AS c , users AS u WHERE c.gameid='$game->id' AND c.userid = u.id ORDER BY c.timestamp ASC");
 						if(mysql_num_rows($commentsQuery))

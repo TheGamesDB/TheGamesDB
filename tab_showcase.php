@@ -45,6 +45,66 @@
 </div>
 <!-- END GameBrowser Feature -->
 
+<!-- START Funisher Feature -->
+<div style="width: 800px; background-color: #000; color: #FFF; margin: auto; margin-top: 26px; padding: 5px 30px 15px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(<?= $baseurl; ?>//images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
+	<img src="<?= $baseurl; ?>/images/showcase/feature-funisher.jpg" style="float: left; padding-right: 30px; padding-bottom: 20px;" />
+	<h1 class="arcade"><span style="color: #FFF;">Funisher</span><span style="color: #00CC3F;">.com</span></h1>
+	<p><br />Funisher is a new website that allows users to create an account and create collections of games they own. It boasts a modern, clean and easy interface presents you with your games collection, complete with cover art, and playing statistics.</p>
+	<p>You get your own, manageable collection of games that you own, played, beaten, loaned out, etc. Your own wall for showing off all your trials and tribulations! The ability to friend and follow other users. Access to the forums, where you can make feature suggestions, ask for help, and perform general discussions with other members.</p>
+	
+	<div style="clear: both;"></div>
+	
+	<div style="float: left; width: 315px;">
+		<h2 class="arcade" style="color: #FF004F;">Info:</h2>
+		<p><strong>Type:</strong> Website</p>
+		<p><strong>Funisher Website</strong> <a href="http://www.funisher.com" target="_blank" style="color: #FFFFFF;">www.funisher.com</a></p>
+		<p><strong>Funisher Forums</strong> <a href="http://www.funisher.com/forum/" target="_blank" style="color: #FFFFFF;">http://www.funisher.com/forum/</a></p>
+	</div>
+	
+	<div style="float: left;">
+		<h2 class="arcade" style="color: #FF4F00;">Media:</h2>
+		<a rel="shadowbox[funisher]" href="<?= $baseurl; ?>/images/showcase/funisher-image1.jpg"><img src="<?= $baseurl; ?>/images/showcase/funisher-image1.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[funisher]" href="<?= $baseurl; ?>/images/showcase/funisher-image2.jpg"><img src="<?= $baseurl; ?>/images/showcase/funisher-image2.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[funisher]" href="<?= $baseurl; ?>/images/showcase/funisher-image3.jpg"><img src="<?= $baseurl; ?>/images/showcase/funisher-image3.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[funisher]" href="<?= $baseurl; ?>/images/showcase/funisher-image4.jpg"><img src="<?= $baseurl; ?>/images/showcase/funisher-image4.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<div style="clear: both;"></div>
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+</div>
+<!-- END Funisher Feature -->
+
+<!-- START Photon GameManager Feature -->
+<div style="width: 800px; background-color: #000; color: #FFF; margin: auto; margin-top: 26px; padding: 5px 30px 15px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(<?= $baseurl; ?>//images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
+	<img src="<?= $baseurl; ?>/images/showcase/feature-gamemanager.jpg" style="float: left; padding-right: 30px; padding-bottom: 20px;" />
+	<h1 class="arcade"><span style="color: #FFF;">Photon</span><span style="color: #00CC3F;">GameManager</span></h1>
+	<p><br />GameManager is a program that is designed for Windows PC to automate the process of downloading game fan art, box art, screenshots, game info, official patches and organise the data in a functional and sleak interface, allowing you to browse, sort, filter, patch, mount and run your games.</p>
+	<p>Includes PhotonExplorer, a replacement gui with an improved feature set for Windows Games Explorer, and also includes PhotonFrontend, a fullscreen interface that makes your game collection look stunning!</p>
+	
+	<div style="clear: both;"></div>
+	
+	<div style="float: left; width: 315px;">
+		<h2 class="arcade" style="color: #FF004F;">Info:</h2>
+		<p><strong>Type:</strong> Windows App</p>
+		<p style="text-align: left;"><strong>GameManager Website</strong> <a href="http://photongamemanager.com/" target="_blank" style="color: #FFFFFF;">http://photongamemanager.com/</a></p>
+		<p style="text-align: left;"><strong>GameManager Forums</strong> <a href="http://photongamemanager.com/Forum/" target="_blank" style="color: #FFFFFF;">http://photongamemanager.com/Forum/</a></p>
+	</div>
+	
+	<div style="float: left;">
+		<h2 class="arcade" style="color: #FF4F00;">Media:</h2>
+		<a rel="shadowbox[gamemanager]" href="<?= $baseurl; ?>/images/showcase/gamemanager-image1.jpg"><img src="<?= $baseurl; ?>/images/showcase/gamemanager-image1.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[gamemanager]" href="<?= $baseurl; ?>/images/showcase/gamemanager-image2.jpg"><img src="<?= $baseurl; ?>/images/showcase/gamemanager-image2.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[gamemanager]" href="<?= $baseurl; ?>/images/showcase/gamemanager-image3.jpg"><img src="<?= $baseurl; ?>/images/showcase/gamemanager-image3.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<a rel="shadowbox[gamemanager]" href="<?= $baseurl; ?>/images/showcase/gamemanager-image4.jpg"><img src="<?= $baseurl; ?>/images/showcase/gamemanager-image4.jpg"  style="float:left; width: 100px; height: 100px; padding-left: 10px;" /></a>
+		<div style="clear: both;"></div>
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+</div>
+<!-- END Photon GameManager Feature -->
+
 <!-- START Advanced Launcher Feature -->
 <div style="width: 800px; background-color: #000; color: #FFF; margin: auto; padding: 5px 30px 30px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(<?= $baseurl; ?>//images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">
 	<img src="<?= $baseurl; ?>/images/showcase/feature-advanced_launcher.png" style="float: left; padding: 20px 30px 0px 30px; padding-bottom: 20px;" />

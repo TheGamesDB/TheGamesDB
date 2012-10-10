@@ -244,10 +244,106 @@
 	padding: 4px 8px;
 	cursor: pointer;
 }
+.darkorangeButton {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #ffffff;
+	padding: 10px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#ffa600 0%,
+		#ff5900);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#ffa600),
+		to(#ff5900));
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #000000;
+	-moz-box-shadow:
+		0px 1px 4px rgba(000,000,000,0.4),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 4px rgba(000,000,000,0.4),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 4px rgba(000,000,000,0.4),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+.orangeButton {
+	-moz-box-shadow:inset 0px 0px 6px 0px #ff4400;
+	-webkit-box-shadow:inset 0px 0px 6px 0px #ff4400;
+	box-shadow:inset 0px 0px 6px 0px #ff4400;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffe524), color-stop(1, #ffa600) );
+	background:-moz-linear-gradient( center top, #ffe524 5%, #ffa600 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe524', endColorstr='#ffa600');
+	background-color:#ffe524;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #c74b1e;
+	display:inline-block;
+	color:#424242;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 20px;
+	text-decoration:none;
+	text-shadow:2px 2px 9px #ffffff;
+}
+.orangeButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffa600), color-stop(1, #ffe524) );
+	background:-moz-linear-gradient( center top, #ffa600 5%, #ffe524 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa600', endColorstr='#ffe524');
+	background-color:#ffa600;
+}
+.orangeButton:active {
+	position:relative;
+	top:1px;
+}
+.greyButton {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: orange;
+	text-decoration: none;
+	padding: 6px 8px;
+	background: -moz-linear-gradient(
+		top,
+		#a3a3a3 0%,
+		#3b3b3b 50%,
+		#242424 50%,
+		#000000);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#505050),
+		color-stop(0.50, #4b4b4b),
+		color-stop(0.50, #343434),
+		to(#101010));
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #000000;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.6);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,1),
+		0px 1px 0px rgba(255,255,255,0.2);
+}
 .boxShadow {
 	box-shadow: 3px 6px 20px 5px #000;
 }
-#gameWrapper input {
+#gameWrapper input[type=text] {
 	border: 1px solid #555;
 	border-radius: 5px;
 	box-shadow: 0px 0px 1px 0px #FFF;
@@ -261,6 +357,7 @@
 	border-radius: 5px;
 	box-shadow: 0px 0px 1px 0px #FFF;
 	color: #fff;
+	font-family: Arial, sans-serif;
 	background-color: #222;
 	padding: 2px;
 }

@@ -175,30 +175,28 @@
 	
 	<form id="editGameForm" name="editGameForm" action="<?= $baseurl ?>/game-edit/<?= $game->id ?>/" method="post" onsubmit="mergeAltTitles(); if(editGameForm.coopfake.checked == false) {$('#coop').val('No');} else if(editGameForm.coopfake.checked == true){ $('#coop').val('Yes');}">
 
-		<div id="gameTitle">
-			<div style="float: left; width: 300px; height: 38px;">
-				<input type="text" name="GameTitle" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $game->GameTitle; ?>" />
-			</div>
 			
-			<div style="float: left; width: 600px; text-align: right; height: 16px; padding: 11px 0px; ">
-				<?php	if ($loggedin == 1) {  ?>
-					<a href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a style="color: orange;" href="<?=$baseurl?>/game/<?=$game->id?>/">View this Game</a>&nbsp;&nbsp;|&nbsp;
+		<div id="gameTitle">
+			<?php if ($loggedin == 1) {  ?>
+				<span id ="gameUserLinks"><a class="greyButton"  href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?= $baseurl ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;View this Game</a>
 					<?php	## First, generate their userfavorites array
 						$userfavorites = explode(",", $user->favorites);
 
 						## If the user has this as a favorite, display a message and a button
 						## to "Un-favorite".
 						if (in_array($id, $userfavorites, 1)) {
-							print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\" style=\"color: orange;\">Unfavorite this Game</a>";
+							print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Unfavorite this Game</a>";
 						}
 						## If the user doesn't have this as a favorite, display a button to
 						## mark it as a favorite.
 						else {
-							print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\" style=\"color: orange;\">Favorite this Game</a>";
+							print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Favorite this Game</a>";
 						}
 					?>
-				<?php } ?>
-			</div>
+				</span>
+			<?php } ?>
+			
+			<input type="text" name="GameTitle" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $game->GameTitle; ?>" />
 			
 			<p style="display: none; clear: both; text-align: center;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange;">Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox' style="color: orange;">Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#clearartUpload' rel='facebox' style="color: orange;">Upload ClearLOGO</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox' style="color: orange;">Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange;">Upload Banner</a></p>
 		</div>
@@ -307,7 +305,7 @@
 		</div>
 		<div id="gameInfo">
 		
-		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="button boxShadow" style="float: right; font-size: 16px; line-height: 32px; text-decoration: none; display: inline-block; padding: 9px; color: orange;"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
+		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="greyButton boxShadow" style="float: right; font-size: 16px; line-height: 32px; display: inline-block; padding: 9px; color: orange; margin-top: 14px;"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
 		
 		<div id="altTitleWrapper">
 		<span class="grey">Alt. Titles</span>&nbsp;<span class="button altAdd" onclick="altAdd(this);">+</span><br /><br />
@@ -580,14 +578,14 @@
 					if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')
 					{
 			?>
-						<input type="submit" name="function" value="Save Game">
+						<input class="greyButton" type="submit" name="function" value="Save Game">
 						<input type="hidden" name="newshowid" value="<?=$game->id?>">
 
 					<?php
 						if ($adminuserlevel == 'ADMINISTRATOR')
 						{
 					?>
-							<input type="submit" name="function" value="Delete Game" onClick="return confirmSubmit()"><br>
+							<input class="greyButton" type="submit" name="function" value="Delete Game" onClick="return confirmSubmit()"><br>
 					<?php
 						}
 					}

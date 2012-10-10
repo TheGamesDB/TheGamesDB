@@ -122,19 +122,19 @@
 	
 		<div id="gameTitle">
 			<?php	if ($loggedin == 1) {  ?>
-				<span id ="gameUserLinks"><a href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/game-edit/<?=$game->id?>/">Edit this Game</a>&nbsp;&nbsp;|&nbsp;
+				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 
 					## If the user has this as a favorite, display a message and a button
 					## to "Un-favorite".
 					if (in_array($id, $userfavorites, 1)) {
-						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Unfavorite this Game</a>";
+						print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Unfavorite this Game</a>";
 					}
 					## If the user doesn't have this as a favorite, display a button to
 					## mark it as a favorite.
 					else {
-						print "<a href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: middle;\" /></a>&nbsp;<a href=\"/?function=ToggleFavorite&id=$id\">Favorite this Game</a>";
+						print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Favorite this Game</a>";
 					}
 				?>
 			<?php } ?></span>
@@ -303,7 +303,7 @@
 			?>
 			<div style="margin: auto; padding-top: 10px;">
 				<h2 class="grey">ClearLOGO</h2>
-				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($front->id) ?></p>
+				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($clearlogoResult->id) ?></p>
 			</div>
 			<hr />
 			<?php
@@ -676,6 +676,7 @@
 
 			<div id="comments">
 					<?php
+						// SHOW ALL CURRENT COMMENTS
 						$commentsQuery = mysql_query(" SELECT c.*, u.username FROM comments AS c , users AS u WHERE c.gameid='$game->id' AND c.userid = u.id ORDER BY c.timestamp ASC");
 						if(mysql_num_rows($commentsQuery))
 						{
@@ -714,34 +715,50 @@
 								</div>
 					<?php
 							}
+						}
 							if($loggedin == 1)
 							{
+							// LEAVE COMMENT LOGGED IN
 					?>
 							<div class="comment">
 								<?php
-								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
+								$filename = glob("banners/users/" . $user->id . "-*.jpg");
 								if(file_exists($filename[0]))
 								{
 								?>
-									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
+									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $user->username; ?>" title="<?= $user->username; ?>" /></div>
 								<?php
 									$filename = null;
 								}
 								else
 								{
 								?>
-									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $user->username; ?>" title="<?= $user->username; ?>" />
 								<?php
 								}
 								?>
-								<h2>Leave a comment...</h2>
+								<?php
+									if(!mysql_num_rows($commentsQuery))
+									{
+								?>
+									<h2>No one has left a comment yet...</h2>
+									<p>Be the first to leave a comment!</p>
+									<?php
+									}
+									else
+									{
+									?>
+									<h2>Leave a comment...</h2>
+								<?php
+									}
+								?>
 								<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
 								<form method="post" action="<?= $baseurl; ?>/game/<?= $game->id; ?>/">
 									<textarea name="comment" style="width: 100%; height: 60px;"></textarea>
 									<input type="hidden" name="userid" value="<?= $user->id; ?>" />
 									<input type="hidden" name="gameid" value="<?= $game->id; ?>" />
 									<input type="hidden" name="function" value="Add Game Comment" />
-									<p style="text-align: right;"><input type="submit" name="button" value="Leave Comment..." /></p>
+									<p style="text-align: right;"><input class="greyButton" type="submit" name="button" value="Leave Comment..." /></p>
 								</form>
 								<div style="clear: both;"></div>
 							</div>
@@ -749,81 +766,32 @@
 							}
 							else
 							{
+							// LEAVE COMMENT NOT LOGGED IN
 					?>
 							<div class="comment">
+								<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" />
 								<?php
-								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
-								if(file_exists($filename[0]))
-								{
-								?>
-									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
-								<?php
-									$filename = null;
-								}
-								else
-								{
-								?>
-									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
-								<?php
-								}
-								?>
-									<h2>Leave a comment...</h2>
-									<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
-									<div style="clear: both;"></div>
-									<p style="font-size: 14px; text-align: center"><em>You must be logged in to leave a comment,<br />click <a href="<?= $baseurl; ?>/login/">here</a> to log in...</em></p>
-									<div style="clear: both;"></div>
-								</div>
-					<?php
-							}
-						}
-						else
-						{
-					?>
-							<div class="comment">
-								<?php
-								$filename = glob("banners/users/" . $comments->userid . "-*.jpg");
-								if(file_exists($filename[0]))
-								{
-								?>
-									<div style="float: left; width: 64px; height: 64px; padding: 0px 15px 15px 0px; text-align: center;"><img src="<?= $baseurl; ?>/<?= $filename[0]; ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" /></div>
-								<?php
-									$filename = null;
-								}
-								else
-								{
-								?>
-									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
-								<?php
-								}
-								?>
-								<h2>No one has left a comment yet...</h2>
-								<p>Be the first to leave a comment!</p>
-								<?php
-									if ($loggedin == 1)
+									if(!mysql_num_rows($commentsQuery))
 									{
 								?>
-										<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
-										<form method="post" action="<?= $baseurl; ?>/game/<?= $game->id; ?>/">
-											<textarea name="comment" style="width: 100%; height: 60px;"></textarea>
-											<input type="hidden" name="userid" value="<?= $user->id; ?>" />
-											<input type="hidden" name="gameid" value="<?= $game->id; ?>" />
-											<input type="hidden" name="function" value="Add Game Comment" />
-											<p style="text-align: right;"><input type="submit" name="button" value="Leave Comment..." /></p>
-										</form>
-								<?php
+									<h2>No one has left a comment yet...</h2>
+									<p>Be the first to leave a comment!</p>
+									<?php
 									}
 									else
 									{
 									?>
-										<div style="clear: both;"></div>
-										<p style="font-size: 14px; text-align: center"><em>You must be logged in to leave a comment,<br />click <a href="<?= $baseurl; ?>/login/">here</a> to log in...</em></p>
-									<?php
+									<h2>Leave a comment...</h2>
+								<?php
 									}
 								?>
+								<p>Comments are plain-text only: bb-code, html and so forth are not allowed.</p>
+								<div style="clear: both;"></div>
+								<p style="font-size: 14px; text-align: center"><em>You must be logged in to leave a comment,<br />click <a href="<?= $baseurl ?>/login/?redirect=<?= urlencode($_SERVER["REQUEST_URI"]) ?>">here</a> to log in...</em></p>
 								<div style="clear: both;"></div>
 							</div>
 					<?php
-						}
+							}
 					?>
 				<div style="width: 96%; margin: auto; background: #333; box-shadow: 0px 0px 22px #000; border-radius: 16px; text-align: center;">
 				</div>

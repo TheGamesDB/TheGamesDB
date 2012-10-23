@@ -263,21 +263,54 @@ if($function == "Share via Email")
 		$toaddress = mysql_real_escape_string($toaddress);
 		$url = mysql_real_escape_string($url);
 		
-		## Email it to the user
-		$from = "$fromname <$fromaddress>";
-		$host = $mail_server;
-		$to = "'$toaddress <$toaddress>";
-		$subject = "TheGamesDB.net - $fromname has shared a link with you";
 		if($messagecontent != false)
 		{
-			$quote = "Message From Your Friend:\n\"$messagecontent\"\n\n";
+			$quote = "<h3>Message From Your Friend:</h3><p><i>$messagecontent</i></p>";
 		}
-		$emailmessage = "TheGamesDB.net \n\n$fromname visited thegamesdb.net and wanted to share a link with you \n\n$quote\nYour Link Details:\n$urlsubject: $url \n\nWe hope you enjoy your visit with us, \n\nTheGamesDB.net Crew.";
-		$headers = 'From: ' . $from;
+		
+		## Email it to the user
+		
+		$from = "$fromname <$fromaddress>";
+		
+		$host = $mail_server;
+		
+		$to = "'$toaddress <$toaddress>";
+		
+		$subject = "[TheGamesDB.net] $fromname has shared a link with you";
+		
+		$emailmessage = "
+		<html>
+			<head>
+				<title>TheGamesDB.net</title>
+			</head>
+			<body>
+				<table width=\"802\" align=\"center\" border=\"0\">
+					<img src=\"http://thegamesdb.net/email/email-header.jpg\" />
+					<div style=\"background-color: #333333; color: #ffffff; padding: 15px; border: 1px solid #000;\">
+						<h2>TheGamesDB.net Shared Link.</h2>
+						<p>$fromname visited <a href=\"http://thegamesdb.net\" style=\"color: orange;\">TheGamesDB.net</a> and wanted to share a link with you.</p>
+						$quote
+						<h3>Your link details:</h3>
+						<p><a href=\"$url\" style=\"color: orange;\">$url</a></p>
+						<hr />
+						<p>We hope you enjoy your visit with us.</p>
+						<p><i>TheGamesDB.net Admins</i></p>
+					</div>
+				</table>
+			</body>
+		</html>
+		";
+		
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		
+		$headers .= 'From:' . $from . "\r\n";
+		
 		mail($to, $subject, wordwrap($emailmessage, 70), $headers);
 		
 		// Display success message and finish up session
 		$message = "Message Sent to $toaddress!";
+		
 		unset($_SESSION['captcha']); /* this line makes session free, we recommend you to keep it */
 	} 
 	elseif($_SERVER['REQUEST_METHOD'] == "POST" && !isset($_POST['captcha']))
@@ -1318,12 +1351,43 @@ if ($function == 'Register') {
                 $message = '<p style=\"font-size: x-small !important;\"><strong><em>Thank you for registering with TheGamesDB!</em></strong><p>You will receive an email confirmation with your account information shortly.  Please proceed to the <a href=\"$baseurl/?tab=login\">Login</a> screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
 				
 				## Email it to the user
-				$from = "TheGamesDB <$mail_username>";
+	
+				$from = "TheGamesDB.net <$mail_username>";
+				
 				$host = $mail_server;
+				
 				$to = $username . '<' . $email . '>';
-				$subject = "Thank you for registering with TheGamesDB.net";
-				$emailmessage = "Thank you for registering with TheGamesDB.net.\n\nHere is your new login information:\nusername: $username\npassword: $userpass1\n\nIf you have forgotten your password you can reset it by visiting: http://www.thegamesdb.net/?tab=password\n\nIf you have any questions, please let us know.\n\nTheGamesDB Crew.";
-				$headers = 'From: ' . $from;
+				
+				$subject = "[TheGamesDB.net] Your Account Information";
+				
+				$emailmessage = "
+				<html>
+					<head>
+						<title>TheGamesDB.net</title>
+					</head>
+					<body>
+						<table width=\"802\" align=\"center\" border=\"0\">
+							<img src=\"http://thegamesdb.net/email/email-header.jpg\" />
+							<div style=\"background-color: #333333; color: #ffffff; padding: 15px; border: 1px solid #000;\">
+								<h2>Thank you for registering with TheGamesDB.net.</h2>
+								<p>We are proud that you have decided to join our growing community, our focus is on providing a freely accesible wealth of content, and as an entirely open database we rely on users such as yourself for artwork and content contributions.</p>
+								<h3 style=\"text-align: center;\">Here is your new login information:</h3>
+								<p style=\"text-align: center;\">Username: $username<br />Password: $userpass1</p>
+								<p>You may now log in to the site by visiting: <a href=\"http://thegamesdb.net\" style=\"color: orange;\">http://thegamesdb.net</a></p>
+								<hr />
+								<p>If you have any questions, or would just like to say hello, come visit us on the <a href=\"http://forums.thegamesdb.net\" style=\"color: orange;\">forums</a>.</p>
+								<p><i>TheGamesDB.net Admins</i></p>
+							</div>
+						</table>
+					</body>
+				</html>
+				";
+				
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				
+				$headers .= 'From:' . $from . "\r\n";
+				
 				mail($to, $subject, wordwrap($emailmessage, 70), $headers);
             } else {
                 $errormessage = 'Email address is required.';
@@ -1355,13 +1419,46 @@ if ($function == 'Reset Password') {
         $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
         ## Email it to the user
-        $from = "TheGamesDB <$mail_username>";
-        $host = $mail_server;
-        $to = $db->username . '<' . $db->emailaddress . '>';
-        $subject = "Your account information";
-        $message = "This is an automated message.\n\nYour GamesDB password has been reset.\n\nHere is your new login information:\nusername: $db->username\npassword: $newpass\n\nIf you have any questions, please let us know.\n\nTheGamesDB Crew\n";
-        $headers = 'From: ' . $from;
-        mail($to, $subject, wordwrap($message, 70), $headers);
+		
+		$from = "TheGamesDB.net <$mail_username>";
+		
+		$host = $mail_server;
+		
+		$to = $db->username . '<' . $db->emailaddress . '>';
+		
+		$subject = "[TheGamesDB.net] Password Reset";
+		
+		$emailmessage = "
+		<html>
+			<head>
+				<title>TheGamesDB.net</title>
+			</head>
+			<body>
+				<table width=\"802\" align=\"center\" border=\"0\">
+					<img src=\"http://thegamesdb.net/email/email-header.jpg\" />
+					<div style=\"background-color: #333333; color: #ffffff; padding: 15px; border: 1px solid #000;\">
+						<h2>TheGamesDB.net Password Reset.</h2>
+						<p>This is an automated message.</p>
+						<p>Your password for TheGamesDB.net has been reset.</p>
+						<h3 style=\"text-align: center;\">Here is your new login information:</h3>
+						<p style=\"text-align: center;\">Username: $db->username<br />Password: $newpass</p>
+						<p>You may now log in to the site using your new credentials by visiting: <a href=\"http://thegamesdb.net\" style=\"color: orange;\">http://thegamesdb.net</a></p>
+						<p><i>For security reasons, we advise you change your password immediately after logging in on this occasion.</i></p>
+						<hr />
+						<p>If you have any questions, or are still having issues logging in, please speak to us on the <a href=\"http://forums.thegamesdb.net\" style=\"color: orange;\">forums</a>.</p>
+						<p><i>TheGamesDB.net Admins</i></p>
+					</div>
+				</table>
+			</body>
+		</html>
+		";
+		
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		
+		$headers .= 'From:' . $from . "\r\n";
+		
+		mail($to, $subject, wordwrap($emailmessage, 70), $headers);
 
         $message = 'Login information has been sent.';
     } else {

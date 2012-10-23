@@ -62,6 +62,18 @@ RewriteRule ^adminstats/([a-z0-9\-]+)(/?)$ index.php?tab=adminstats&statstype=$1
 # http://www.thegamesdb.net/blog => http://thegamesdb.net/blog/
 RewriteRule ^blog(/?)$ blog/ [NC,QSA,L]
 
+#### Wiki (MediaWiki)
+# http://www.thegamesdb.net/wiki => http://thegamesdb.net/wiki/
+RewriteRule ^wiki(/?)$ wiki/ [NC,QSA,L]
+
+#### Forum (PhpBB)
+# http://www.thegamesdb.net/forums => http://thegamesdb.net/forums/
+RewriteRule ^forums(/?)$ forums/ [NC,QSA,L]
+
+#### PhpMyAdmin
+# http://www.thegamesdb.net/phpmyadmin => http://thegamesdb.net/phpmyadmin/
+RewriteRule ^phpmyadmin(/?)$ phpmyadmin/ [NC,QSA,L]
+
 
 #### BASIC TAB REWRITING (MUST BE LAST RULE)
 # http://www.thegamesdb.net/?tab={tab-value} => http://thegamesdb.net/{tab-value}/

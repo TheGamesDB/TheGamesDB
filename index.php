@@ -2219,14 +2219,16 @@ if(!isset($headless))
 					?>
 					<!-- End Include Page (Tab) Content -->
 					
-				</div>
-				
-			</div>
+					<!--/* Ad4Game iFrame Tag */-->
+					<div style="padding: 10px; text-align: center; background-color: #0F0F0F;">
+						<iframe id='a199c979' name='a199c979' src='http://ads.ad4game.com/www/delivery/afr.php?n=a199c979&amp;zoneid=27520&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='728' height='90' allowtransparency='true'><a href='http://ads.ad4game.com/www/delivery/ck.php?n=ab890b4b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.ad4game.com/www/delivery/avw.php?zoneid=27520&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab890b4b' border='0' alt='' /></a></iframe>
+						<script type='text/javascript' src='http://ads.ad4game.com/www/delivery/ag.php'></script>
+					</div>
+					
+				</div>				
 
-		</div>
-		
-		
-		
+			</div>
+			
 		</div>
 		
 		
@@ -2308,6 +2310,20 @@ if(!isset($headless))
 		<script type="text/javascript"> Cufon.now(); </script>
 		<!-- End Force instant run of cufon to circumvent IE delay -->
 		
+		<!--/* Ad4Game Site-Skin Tag */-->
+		<script type='text/javascript'><!--//<![CDATA[
+		var ad4game_siteskin = {
+			'contentWidth' : '1000px', // size of the regular content in pixel
+			'leftOffset'   : '0px',   // left ad position adjustment -/+ pixel left/right
+			'topOffset'    : '141px',   // top position of the ads
+			'rightOffset'  : '0px',   // right ad adjustment
+			'zIndex'       : '4',     // css style z-index for the ads
+			'fixed'        : '0',     // 0=>ads scroll with content, 1=>ads stay fixed
+			'hide'         : 'none',  // hide a banner: one of 'none', 'left', 'right'
+			'random'       : Math.floor(Math.random() * 99999999999)
+		};
+		document.write('\x3cscript type="text/javascript" src="http://ads.ad4game.com/www/delivery/siteskin.php?zoneid=27522&target=_blank&charset=UTF-8&withtext=1&cb='+ad4game_siteskin.random+'"\x3e\x3c/script\x3e');
+		//]]>--></script>
 		
     </body>
 	

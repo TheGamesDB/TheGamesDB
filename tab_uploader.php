@@ -12,4 +12,3 @@
 		<iframe src="<?= $baseurl ?>/uploadarea.php?gameid=<?= $gameid ?>" frameborder="0" width="100%" height="1500" align="middle"></iframe>
 	
 	</div>
-</div>

@@ -206,4 +206,3 @@ function imageResize($filename, $cleanFilename, $target)
 		<div style="clear: both;"></div>
 	
 	</div>
-</div>

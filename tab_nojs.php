@@ -20,4 +20,3 @@
 			<p style="font-size: 18px;"><img src="<?= $baseurl; ?>/images/common/icons/browsers/Safari-32.png" style="vertical-align: middle;" />&nbsp;<a style="color: orange;" href="http://www.apple.com/safari/" target="_blank">Apple Safari</a></p>
 		</div>
 	</div>
-</div>

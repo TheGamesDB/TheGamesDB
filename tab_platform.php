@@ -487,9 +487,10 @@
 					<?php } ?>
 				</div>
 			
-			</div>
+		</div>
+		</div>
 			
-			<div style="clear: both;"></div>
+		<div style="clear: both;"></div>
 
 			<!--<div id="gameContentBottom">
 

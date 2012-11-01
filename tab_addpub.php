@@ -24,6 +24,5 @@
 				</form>
 		
 	</div>
-</div>
 
 <?php } ?>

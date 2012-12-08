@@ -1371,8 +1371,6 @@ if ($function == 'Register') {
 							<div style=\"background-color: #333333; color: #ffffff; padding: 15px; border: 1px solid #000;\">
 								<h2>Thank you for registering with TheGamesDB.net.</h2>
 								<p>We are proud that you have decided to join our growing community, our focus is on providing a freely accesible wealth of content, and as an entirely open database we rely on users such as yourself for artwork and content contributions.</p>
-								<h3 style=\"text-align: center;\">Here is your new login information:</h3>
-								<p style=\"text-align: center;\">Username: $username<br />Password: $userpass1</p>
 								<p>You may now log in to the site by visiting: <a href=\"http://thegamesdb.net\" style=\"color: orange;\">http://thegamesdb.net</a></p>
 								<hr />
 								<p>If you have any questions, or would just like to say hello, come visit us on the <a href=\"http://forums.thegamesdb.net\" style=\"color: orange;\">forums</a>.</p>

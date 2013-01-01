@@ -36,7 +36,7 @@
 			$image->save($cleanFilename);
 			$image = null;
 		}
-		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
+		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the src attribute
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
 	
@@ -80,7 +80,7 @@
 			$image->save($cleanFilename);
 			$image = null;
 		}
-		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
+		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the src attribute
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
 	
@@ -203,12 +203,40 @@
 			<?php
 			}
 			?>
-			<p style="text-align: center;"><?php
-						if (!empty($front)) { echo "Front Boxart " . imageUsername($front->id); }
-						if (!empty($front) && !empty($back)) { echo "<br />"; }
-						if (!empty($back)) { echo "Rear Boxart " . imageUsername($back->id); }
-					?></p>
+			
+			<? if (!empty($front) || !empty($back)) { ?>
+			<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #333; color: #FFF; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
+				<tr>
+					<? if (!empty($front)) { ?>
+					<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444; color: #333;">Front Boxart</th>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444; color: #333;">Rear Boxart</th>
+					<? } ?>
+				</tr>
+				<tr>
+					<? if (!empty($front)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><?= imageUsername($front->id) ?></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><?= imageUsername($back->id) ?></td>
+					<? } ?>
+				</tr>                                           
+				<? if ($loggedin == 1) { ?>
+				<tr>                                            
+					<? if (!empty($front) && $loggedin = 1) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$front->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$back->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<? } ?>
+				</tr>
+				<? } ?>
+			</table>
+			<? } ?>
+
 		</div>
+		
 		<div id="gameInfo">
 			<span style="float: right;">
 				
@@ -303,7 +331,7 @@
 			?>
 			<div style="margin: auto; padding-top: 10px;">
 				<h2 class="grey">ClearLOGO</h2>
-				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($clearlogoResult->id) ?></p>
+				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($clearlogoResult->id) ?> | <a href='<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$clearlogoResult->id" ?>' rel='facebox' style='color: orange;'>Report Image</a></p>
 			</div>
 			<hr />
 			<?php
@@ -486,13 +514,13 @@
 	
 	<div id="gameContent">
 		<div id="gameContentTop">
-		
+			<a name="midPanel"></a>
 			<div id="panelNav">
 				<ul>
-					<li><a id="nav_fanartScreens" class="active" href="#gameContentTop" onclick="contentShow('fanartScreens');">Fanart &amp; Screenshots</a></li>
-					<li><a id="nav_banners" href="#gameContentTop" onclick="contentShow('banners');">Banners</a></li>
-					<li><a id="nav_platforms" href="#gameContentTop" onclick="contentShow('platforms');">Other Platforms</a></li>
-					<li><a id="nav_trailer" href="#gameContentTop" onclick="contentShow('trailer');">Game Trailer</a></li>
+					<li><a id="nav_fanartScreens" class="active" href="#midPanel" onclick="contentShow('fanartScreens');">Fanart &amp; Screenshots</a></li>
+					<li><a id="nav_banners" href="#midPanel" onclick="contentShow('banners');">Banners</a></li>
+					<li><a id="nav_platforms" href="#midPanel" onclick="contentShow('platforms');">Other Platforms</a></li>
+					<li><a id="nav_trailer" href="#midPanel" onclick="contentShow('trailer');">Game Trailer</a></li>
 				</ul>
 				<div style="clear: both;"></div>
 			</div>
@@ -520,7 +548,7 @@
 								{	
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
 							?>
-									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$fanart->id" ?>);' style='color: orange;'>Report Image</a><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
 							<?php
 									$fanSlideCount++;
 								}
@@ -556,7 +584,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{	
 							?>
-									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
+									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$screen->id" ?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
 							<?php
 									$screenSlideCount++;
 								}
@@ -594,8 +622,8 @@
 							while($banner = mysql_fetch_array($bannerResult))
 							{	
 						?>
-								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?>"/>
-						<?php
+								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= $banner[id] ?>)' style='color: orange;'>Report Image</a>"/>
+						<?php						
 								$bannerSlideCount++;
 							}
 						?>
@@ -945,6 +973,13 @@
 	function scrollableElement(els) {    for (var i = 0, argLength = arguments.length; i <argLength; i++) {      var el = arguments[i],          $scrollElement = $(el);      if ($scrollElement.scrollTop()> 0) {        return el;      } else {        $scrollElement.scrollTop(1);        var isScrollable = $scrollElement.scrollTop()> 0;        $scrollElement.scrollTop(0);        if (isScrollable) {          return el;        }      }    }    return [];  }});
 </script>
 <!-- End jQuery Smooth Vertical Page Scrolling -->
+
+<script type="text/javascript">
+	function faceboxReport(reportid)
+	{
+		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportqueue_submit.php?reportimageid=' + reportid });
+	}
+</script>
 
 <?php
 	}

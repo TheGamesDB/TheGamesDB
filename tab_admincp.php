@@ -1,57 +1,56 @@
-<?php if ($adminuserlevel == 'ADMINISTRATOR') { ?>
-
 <?php
-##Image Resizing and caching script
-
-include('simpleimage.php');
-
-function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
+if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 {
-	if(!file_exists($cleanFilename))
-	{
-		$dims = getimagesize($filename);
-		$width = $dims[0];
-		$height = $dims[1];
-		
-		while($width > $wtarget || $height > $htarget)
-		{
-			if($width > $wtarget)
-			{
-				$percentage = ($wtarget / $width);
-			}
-		
-			if($height > $htarget)
-			{
-				$percentage = ($htarget / $height);
-			}
-		
-			/*if($width > $height)
-			{
-				$percentage = ($target / $width);
-			}
-			else
-			{
-				$percentage = ($target / $height);
-			}*/
-			
-			//gets the new value and applies the percentage, then rounds the value
-			$width = round($width * $percentage);
-			$height = round($height * $percentage); 
-		}
-		
-		$image = new SimpleImage();
-		$image->load($filename);
-		$image->resize($width, $height);
-		$image->save($cleanFilename);
-		$image = null;
-	}
-	//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
-	return "src=\"$baseurl/$cleanFilename\"";
-}
-?>
+	##Image Resizing and caching script
 
-<?php if (!isset($cptab)) { $cptab = "userinfo"; } ?>
-		
+	include('simpleimage.php');
+
+	function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
+	{
+		if(!file_exists($cleanFilename))
+		{
+			$dims = getimagesize($filename);
+			$width = $dims[0];
+			$height = $dims[1];
+			
+			while($width > $wtarget || $height > $htarget)
+			{
+				if($width > $wtarget)
+				{
+					$percentage = ($wtarget / $width);
+				}
+			
+				if($height > $htarget)
+				{
+					$percentage = ($htarget / $height);
+				}
+			
+				/*if($width > $height)
+				{
+					$percentage = ($target / $width);
+				}
+				else
+				{
+					$percentage = ($target / $height);
+				}*/
+				
+				//gets the new value and applies the percentage, then rounds the value
+				$width = round($width * $percentage);
+				$height = round($height * $percentage); 
+			}
+			
+			$image = new SimpleImage();
+			$image->load($filename);
+			$image->resize($width, $height);
+			$image->save($cleanFilename);
+			$image = null;
+		}
+		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
+		return "src=\"$baseurl/$cleanFilename\"";
+	}
+	
+	if (!isset($cptab)) { $cptab = "userinfo"; }
+	?>
 
 	<div id="gameHead">
 	
@@ -66,11 +65,23 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 			<h1>Admin Control Panel</h1>
 			<p>&nbsp;</p>
 		</div>
-
+		
+		<?php
+			// Fetch number of uploads to be moderated
+			$modQueueResult = mysql_query("SELECT id FROM moderation_uploads");
+			$modQueueCount = mysql_num_rows($modQueueResult);
+			
+			// Fetch number of reported images to be moderated
+			$repQueueResult = mysql_query("SELECT id FROM moderation_reported");
+			$repQueueCount = mysql_num_rows($repQueueResult);
+		?>
+		
 		<div id="controlPanelWrapper">
 			<div id="controlPanelNav">
 				<ul>
 					<li<?php if($cptab == "userinfo"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=userinfo">My User Info</a></li>
+					<li<?php if($cptab == "moderationqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart">Uploaded Images Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $modQueueCount ?></span></a></li>
+					<li<?php if($cptab == "reportedqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart">Reported Images Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $repQueueCount ?></span></a></li>
 					<li<?php if($cptab == "addplatform"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=addplatform">Add New Platform</a></li>
 					<li<?php if($cptab == "publishers"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=pubdev">Manage Publishers &amp; Developers</a></li>
 					<li<?php if($cptab == "sendpm"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=sendpm">Send PM</a></li>
@@ -162,6 +173,492 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 							<?php
 							break;
 						
+						case "moderationqueue":
+						?>
+								<style>
+									button.approve {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#c8ffbf 0%,
+											#72cc72 25%,
+											#22a800);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#c8ffbf),
+											color-stop(0.25, #72cc72),
+											to(#22a800));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+									
+									.deny {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										text-decoration: none;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#ffbfbf 0%,
+											#cc7272 25%,
+											#a80000);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#ffbfbf),
+											color-stop(0.25, #cc7272),
+											to(#a80000));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+									
+									.compare {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										text-decoration: none;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#bfcaff 0%,
+											#82a1ff 25%,
+											#4646fa);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#bfcaff),
+											color-stop(0.25, #82a1ff),
+											to(#4646fa));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+								</style>
+								
+								<?php
+									// Fetch number of uploads to be moderated
+									$frontQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'front'");
+									$frontQueueCount = mysql_num_rows($frontQueueResult);
+									if( empty($frontQueueCount)) { $frontQueueCount = 0; }
+									
+									$backQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'back'");
+									$backQueueCount = mysql_num_rows($backQueueResult);
+									if( empty($backQueueCount)) { $backQueueCount = 0; }
+									
+									$clearlogoQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'clearlogo'");
+									$clearlogoQueueCount = mysql_num_rows($clearlogoQueueResult);
+									if( empty($clearlogoQueueCount)) { $clearlogoQueueCount = 0; }
+								?>
+								
+								<p><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $frontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=backboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $backQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $clearlogoQueueCount ?></span></p>
+								
+								<?php
+									if ($queuetype == "frontboxart")
+									{
+										$modQueueResult = mysql_query("SELECT m.*, u.username, g.GameTitle, p. NAME AS PlatformName, p.id AS PlatformID FROM moderation_uploads AS m, users AS u, games AS g, platforms AS p WHERE imagekey = 'front' AND m.userID = u.id AND m.gameID = g.id AND g.Platform = p.id ORDER BY dateadded");
+										$queueheader = "Front Boxart Moderation Queue";
+									}
+									else if ($queuetype == "backboxart")
+									{
+										$modQueueResult = mysql_query("SELECT m.*, u.username, g.GameTitle, p. NAME AS PlatformName, p.id AS PlatformID FROM moderation_uploads AS m, users AS u, games AS g, platforms AS p WHERE imagekey = 'back' AND m.userID = u.id AND m.gameID = g.id AND g.Platform = p.id ORDER BY dateadded");
+										$queueheader = "Rear Boxart Moderation Queue";
+									}
+									else if ($queuetype == "clearlogo")
+									{
+										$modQueueResult = mysql_query("SELECT m.*, u.username, g.GameTitle, p. NAME AS PlatformName, p.id AS PlatformID FROM moderation_uploads AS m, users AS u, games AS g, platforms AS p WHERE imagekey = 'clearlogo' AND m.userID = u.id AND m.gameID = g.id AND g.Platform = p.id ORDER BY dateadded");
+										$queueheader = "ClearLOGO Moderation Queue";
+									}
+									
+									$modQueueCount = mysql_num_rows($modQueueResult);
+								?>
+								
+								<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #EEEEEE; color: #333333; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
+									<thead style="text-align: left;">
+										<tr>
+											<th colspan="3" style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 18px; text-align: center; border-bottom: 1px solid #444;"><?= $queueheader; ?></th>
+										</tr>
+										<tr>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Art</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Info</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Date</th>
+										</tr>
+									</thead>
+									<tfoot style="text-align: left;">
+										<tr>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Art</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Info</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Date</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<?php
+											if ($modQueueCount > 0)
+											{
+												while ($modQueueObject = mysql_fetch_object($modQueueResult))
+												{
+										?>
+										<tr id="modItem-<?= $modQueueObject->id ?>">
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top; text-align: center;">
+												<?php
+													if(!file_exists("moderationqueue/_cache/$modQueueObject->filename"))
+													{
+														WideImage::load("moderationqueue/$modQueueObject->filename")->resize(200, 200)->saveToFile("moderationqueue/_cache/$modQueueObject->filename");
+													}
+												?>											
+													<a href="<?= "$baseurl/moderationqueue/$modQueueObject->filename" ?>" rel="facebox"><img src="<?= "$baseurl/moderationqueue/_cache/$modQueueObject->filename" ?>" /></a>
+											</td>
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top;"><span style="font-weight: bold;">Game:</span> <a href="<?= $baseurl . "/game/" . $modQueueObject->gameID; ?>" style="color: darkorange;"><?= $modQueueObject->GameTitle; ?></a><br />
+												<span style="font-weight: bold;">Platform:</span> <a href="<?= $baseurl . "/platform/" . $modQueueObject->PlatformID; ?>" style="color: darkorange;"><?= $modQueueObject->PlatformName; ?></a><br />
+												<span style="font-weight: bold;">Filename:</span> <?= $modQueueObject->filename; ?> <br />
+												<span style="font-weight: bold;">Dimensions:</span> <?= $modQueueObject->resolution; ?>px<br />
+												<span style="font-weight: bold;">Uploader:</span> <a href="<?= $baseurl . "/artistbanners/?id=" . $modQueueObject->userID; ?>" style="color: darkorange;"><?= $modQueueObject->username; ?></a>
+												<p>&nbsp;</p>
+												<p style="text-align: right;"><button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/modqueue_approve.php?modID=<?= $modQueueObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $modQueueObject->id ?> img').css('display', 'none'); $('#modItem-<?= $modQueueObject->id ?>').slideUp(); } else { alert(data); } });">Approve</button>&nbsp;&nbsp;<a class="compare" rel="facebox" href="<?= "$baseurl/scripts/modqueue_compare.php?modimageid=$modQueueObject->id" ?>">Compare</a>&nbsp;&nbsp;<button type="button" class="deny" onclick="$('#deny-<?= $modQueueObject->id ?>').slideToggle();">Deny</button></p>
+												<div id="deny-<?= $modQueueObject->id ?>" style="display: none;">
+													<hr />
+													<p style="font-weight: bold;">Reason for denial:</p>
+													<select id="deny-select-<?= $modQueueObject->id ?>">
+														<option>Submitted image is pixellated, of poor quality, or has artifacts.</option>
+														<option>Submitted image is of smaller dimensions than the current.</option>
+														<option>Submitted image does not possess a transparent background.</option>
+														<option>Submitted image is of an non-english language.</option>
+														<option>Submitted image is for the wrong platform.</option>
+														<option>Submitted image is for the wrong game.</option>
+														<option>Submitted image is heavily stained.</option>
+														<option>Submitted image is watermarked.</option>
+													</select>
+													<p style="font-weight: bold;">Additional comments:</p>
+													<textarea id="deny-additional-<?= $modQueueObject->id ?>" style="width: 100%; height: 100px;"></textarea>
+													<p style="text-align: center;"><a class="deny" href="javascript:void();" onclick="var reason = $('#deny-select-<?= $modQueueObject->id ?>').val(); var additional = $('#deny-additional-<?= $modQueueObject->id ?>').val(); $.get('<?= $baseurl; ?>/scripts/modqueue_deny.php?modID=<?= $modQueueObject->id; ?>&denyreason=' + reason + '&denyadditional=' + additional, function(data){ if(data == 'Success') { $('#modItem-<?= $modQueueObject->id ?> img').css('display', 'none'); $('#modItem-<?= $modQueueObject->id ?>').slideUp(); } else { alert(data); } });">Confirm Denial</a>
+													<!--<p style="text-align: center;"><a class="deny" href="javascript:void();" onclick="$.get('<?= $baseurl; ?>/scripts/modqueue_deny.php?modID=<?= $modQueueObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $modQueueObject->id ?> img').css('display', 'none'); $('#modItem-<?= $modQueueObject->id ?>').slideUp(); } else { alert(data); } });">Confirm Denial</a> -->
+												</div></td>
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top;"><?= $modQueueObject->dateadded ?></td>
+										</tr>
+										<?php
+												}
+											}
+											else
+											{
+										?>
+											<tr>
+												<td colspan="3" style="padding: 10px 10px; font-size: 18px; text-align: center;">This moderation queue is empty.</td>
+											</tr>
+										<?php
+											}
+										?>
+									</tbody>
+								</table>
+						<?php
+							break;
+						
+						case "reportedqueue":
+						?>
+								<style>
+									button.approve {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#c8ffbf 0%,
+											#72cc72 25%,
+											#22a800);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#c8ffbf),
+											color-stop(0.25, #72cc72),
+											to(#22a800));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(43,255,0,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+									
+									.deny {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										text-decoration: none;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#ffbfbf 0%,
+											#cc7272 25%,
+											#a80000);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#ffbfbf),
+											color-stop(0.25, #cc7272),
+											to(#a80000));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(255,0,0,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+									
+									.compare {
+										font-family: Arial, Helvetica, sans-serif;
+										font-size: 12px;
+										text-decoration: none;
+										color: #ffffff;
+										padding: 6px 12px;
+										background: -moz-linear-gradient(
+											top,
+											#bfcaff 0%,
+											#82a1ff 25%,
+											#4646fa);
+										background: -webkit-gradient(
+											linear, left top, left bottom, 
+											from(#bfcaff),
+											color-stop(0.25, #82a1ff),
+											to(#4646fa));
+										-moz-border-radius: 11px;
+										-webkit-border-radius: 11px;
+										border-radius: 11px;
+										border: 2px solid #ffffff;
+										-moz-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										-webkit-box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										box-shadow:
+											0px 3px 11px rgba(000,000,000,0.5),
+											inset 0px 0px 8px rgba(0,13,255,1);
+										text-shadow:
+											0px -1px 0px rgba(000,000,000,0.2),
+											0px 1px 0px rgba(255,255,255,0.3);
+										cursor: pointer;
+									}
+								</style>
+								
+								<?php
+									// Fetch number of reported images to be moderated
+									
+									//Front Boxart
+									$reportedFrontQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%'");
+									$reportedFrontQueueCount = mysql_num_rows($reportedFrontQueueResult);
+									
+									//Rear Boxart
+									$reportedRearQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%'");
+									$reportedRearQueueCount = mysql_num_rows($reportedRearQueueResult);
+									
+									//ClearLOGO
+									$reportedClearlogoQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'clearlogo'");
+									$reportedClearlogoQueueCount = mysql_num_rows($reportedClearlogoQueueResult);
+									
+									//Fanart
+									$reportedFanartQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'fanart'");
+									$reportedFanartQueueCount = mysql_num_rows($reportedFanartQueueResult);
+									
+									//Screenshot
+									$reportedScreenshotQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'screenshot'");
+									$reportedScreenshotQueueCount = mysql_num_rows($reportedScreenshotQueueResult);
+									
+									//Banner
+									$reportedBannerQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'series'");
+									$reportedBannerQueueCount = mysql_num_rows($reportedBannerQueueResult);
+								?>
+								
+								<p><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFrontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=rearboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedRearQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedClearlogoQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=fanart" style="color: orange; font-size: 16;">Fanart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFanartQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=screenshot" style="color: orange; font-size: 16;">Screenshot</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedScreenshotQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=banner" style="color: orange; font-size: 16;">Banner</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedBannerQueueCount ?></span></p>
+								
+								<?php
+									switch ($queuetype)
+									{
+										case "frontboxart":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%' ORDER BY m.dateadded");
+											$queueheader = "Reported Front Boxart Queue";
+										break;
+										
+										case "rearboxart":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%' ORDER BY m.dateadded");
+											$queueheader = "Reported Rear Boxart Queue";
+										break;
+										
+										case "clearlogo":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'clearlogo' ORDER BY m.dateadded");
+											$queueheader = "Reported ClearLOGO Queue";
+										break;
+										
+										case "fanart":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'fanart' ORDER BY m.dateadded");
+											$queueheader = "Reported Fanart Queue";
+										break;
+
+										case "screenshot":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'screenshot' ORDER BY m.dateadded");
+											$queueheader = "Reported Screenshot Queue";
+										break;
+										
+										case "banner":
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'series' ORDER BY m.dateadded");
+											$queueheader = "Reported Banner Queue";
+										break;
+										
+									}
+									
+									$reportedCount = mysql_num_rows($reportedResult);
+								?>
+								
+								<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #EEEEEE; color: #333333; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
+									<thead style="text-align: left;">
+										<tr>
+											<th colspan="3" style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 18px; text-align: center; border-bottom: 1px solid #444;"><?= $queueheader; ?></th>
+										</tr>
+										<tr>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Art</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Art Info</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Report Info</th>
+										</tr>
+									</thead>
+									<tfoot style="text-align: left;">
+										<tr>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Art</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Art Info</th>
+											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Report Info</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<?php
+											if ($reportedCount > 0)
+											{
+												while ($reportedObject = mysql_fetch_object($reportedResult))
+												{
+										?>
+										<tr id="modItem-<?= $reportedObject->id ?>">
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top; text-align: center;">
+												<?php
+													if(!file_exists("reportedqueue/_cache/$reportedObject->filename"))
+													{
+														WideImage::load("banners/$reportedObject->filename")->resize(200, 200)->saveToFile("reportedqueue/_cache/$reportedObject->filename");
+													}
+												?>											
+													<a href="<?= "$baseurl/banners/$reportedObject->filename" ?>" rel="facebox"><img src="<?= "$baseurl/reportedqueue/_cache/$reportedObject->filename" ?>" /></a>
+											</td>
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top;"><span style="font-weight: bold;">Game:</span> <a href="<?= $baseurl . "/game/" . $reportedObject->gameID; ?>" style="color: darkorange;"><?= $reportedObject->GameTitle; ?></a><br />
+												<span style="font-weight: bold;">Platform:</span> <a href="<?= $baseurl . "/platform/" . $reportedObject->PlatformID; ?>" style="color: darkorange;"><?= $reportedObject->PlatformName; ?></a><br />
+												<span style="font-weight: bold;">Filename:</span> <?= $reportedObject->filename; ?> <br />
+												<span style="font-weight: bold;">Dimensions:</span> <? if (!empty($reportedObject->resolution)) { echo $reportedObject->resolution . "px"; } else{ echo "N/A"; } ?>
+												<p>&nbsp;</p>
+												<p style="text-align: right;">
+													<button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_keep.php?reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Keep Image</button>&nbsp;&nbsp;
+													<button type="button" class="deny" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_delete.php?reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Delete Image</button>
+												</p>
+												<div id="deny-<?= $reportedObject->id ?>" style="display: none;">
+													<hr />
+													<p style="font-weight: bold;">Reason for denial:</p>
+													<select id="deny-select-<?= $reportedObject->id ?>">
+														<option>Submitted image is pixellated, of poor quality, or has artifacts.</option>
+														<option>Submitted image is of smaller dimensions than the current.</option>
+														<option>Submitted image does not possess a transparent background.</option>
+														<option>Submitted image is of an non-english language.</option>
+														<option>Submitted image is for the wrong platform.</option>
+														<option>Submitted image is for the wrong game.</option>
+														<option>Submitted image is heavily stained.</option>
+														<option>Submitted image is watermarked.</option>
+													</select>
+													<p style="font-weight: bold;">Additional comments:</p>
+													<textarea id="deny-additional-<?= $reportedObject->id ?>" style="width: 100%; height: 100px;"></textarea>
+													<p style="text-align: center;"><a class="deny" href="javascript:void();" onclick="var reason = $('#deny-select-<?= $reportedObject->id ?>').val(); var additional = $('#deny-additional-<?= $reportedObject->id ?>').val(); $.get('<?= $baseurl; ?>/scripts/modqueue_deny.php?modID=<?= $reportedObject->id; ?>&denyreason=' + reason + '&denyadditional=' + additional, function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Confirm Denial</a>
+													<!--<p style="text-align: center;"><a class="deny" href="javascript:void();" onclick="$.get('<?= $baseurl; ?>/scripts/modqueue_deny.php?modID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Confirm Denial</a> -->
+												</div></td>
+											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top; width: 30%;">
+												<span style="font-weight: bold;">Date Reported:</span><br /><?= $reportedObject->dateadded ?><br />
+												<span style="font-weight: bold;">Reported By:</span><br /><a href="<?= $baseurl . "/artistbanners/?id=" . $reportedObject->userid; ?>" style="color: darkorange;"><?= $reportedObject->username; ?></a><br />
+												<span style="font-weight: bold;">Reason For Report:</span><br /><?= $reportedObject->reason ?><br />
+												<span style="font-weight: bold;">Additional:</span><br /><?= $reportedObject->additional ?>
+											</td>
+										</tr>
+										<?php
+												}
+											}
+											else
+											{
+										?>
+											<tr>
+												<td colspan="3" style="padding: 10px 10px; font-size: 18px; text-align: center;">This moderation queue is empty.</td>
+											</tr>
+										<?php
+											}
+										?>
+									</tbody>
+								</table>
+						<?php
+							break;
+						
 						case "addplatform":
 							?>					
 								<h2>Add a Platform...</h2>
@@ -176,7 +673,6 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 								</form>
 							<?php
 							break;
-							
 							
 						case "pubdev":
 							?>
@@ -247,14 +743,6 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 							</div>
 						<?php
 							break;
-						
-						default:
-							?>
-							<p>&nbsp;</p>
-							<h2 class="arcade">Please select a section to administrate...</h2>
-							<p>&nbsp;</p>
-							<?php
-							break;
 							
 						case "platformalias":
 						?>
@@ -295,7 +783,7 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 						default:
 							?>
 							<p>&nbsp;</p>
-							<h2 class="arcade">Please select a section to administrate...</h2>
+							<h2>Please select a section to administrate...</h2>
 							<p>&nbsp;</p>
 							<?php
 							break;
@@ -309,8 +797,8 @@ function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 		else {
 		?>
 			<div style="text-align: center;">
-				<h2 class="arcade">Sorry...</h2>
-				<h2>Only administrators are allowed access to this section.</h2>
+				<h2>Sorry...</h2>
+				<h2>Only administrators are permitted access to this section.</h2>
 			</div>
 		<?php
 		}

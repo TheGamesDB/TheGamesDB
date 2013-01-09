@@ -8,7 +8,7 @@
 			$width = $dims[0];
 			$height = $dims[1];
 			//takes the larger size of the width and height and applies the formula accordingly...this is so this script will work dynamically with any size image
-			
+
 			if($axis == "width")
 			{
 				$percentage = ($target / $width);
@@ -25,11 +25,11 @@
 			{
 				$percentage = ($target / $height);
 			}
-			
+
 			//gets the new value and applies the percentage, then rounds the value
 			$width = round($width * $percentage);
-			$height = round($height * $percentage); 
-			
+			$height = round($height * $percentage);
+
 			$image = new SimpleImage();
 			$image->load($filename);
 			$image->resize($width, $height);
@@ -39,7 +39,7 @@
 		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the src attribute
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
-	
+
 	function imageDualResize($filename, $cleanFilename, $wtarget, $htarget)
 	{
 		if(!file_exists($cleanFilename))
@@ -47,19 +47,19 @@
 			$dims = getimagesize($filename);
 			$width = $dims[0];
 			$height = $dims[1];
-			
+
 			while($width > $wtarget || $height > $htarget)
 			{
 				if($width > $wtarget)
 				{
 					$percentage = ($wtarget / $width);
 				}
-			
+
 				if($height > $htarget)
 				{
 					$percentage = ($htarget / $height);
 				}
-			
+
 				/*if($width > $height)
 				{
 					$percentage = ($target / $width);
@@ -68,12 +68,12 @@
 				{
 					$percentage = ($target / $height);
 				}*/
-				
+
 				//gets the new value and applies the percentage, then rounds the value
 				$width = round($width * $percentage);
-				$height = round($height * $percentage); 
+				$height = round($height * $percentage);
 			}
-			
+
 			$image = new SimpleImage();
 			$image->load($filename);
 			$image->resize($width, $height);
@@ -83,16 +83,16 @@
 		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the src attribute
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
-	
+
 	function imageUsername($artID)
 	{
 		## Get the site banner rating
 		$query  = "SELECT u.id, u.username FROM users AS u, banners AS b WHERE b.id = '$artID' AND u.id = b.userid";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		$imageUser = mysql_fetch_object($result);
-		
+
 		$str = "Uploader:&nbsp;<a href='$baseurl/artistbanners/?id=$imageUser->id' style='color: orange;'>$imageUser->username</a>";
-		
+
 		return $str;
 	}
 ?>
@@ -114,12 +114,12 @@
 	<?php if($message): ?>
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
-	
+
 	<?php
 	if(mysql_num_rows($result) != 0)
 	{
 	?>
-	
+
 		<div id="gameTitle">
 			<?php	if ($loggedin == 1) {  ?>
 				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
@@ -203,7 +203,7 @@
 			<?php
 			}
 			?>
-			
+
 			<? if (!empty($front) || !empty($back)) { ?>
 			<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #333; color: #FFF; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
 				<tr>
@@ -221,9 +221,9 @@
 					<? if (!empty($back)) { ?>
 					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><?= imageUsername($back->id) ?></td>
 					<? } ?>
-				</tr>                                           
+				</tr>
 				<? if ($loggedin == 1) { ?>
-				<tr>                                            
+				<tr>
 					<? if (!empty($front) && $loggedin = 1) { ?>
 					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$front->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
 					<? } ?>
@@ -236,10 +236,10 @@
 			<? } ?>
 
 		</div>
-		
+
 		<div id="gameInfo">
 			<span style="float: right;">
-				
+
 				<!-- Google plus share button -->
 				<span style="float: right;">
 				<!-- Place this tag where you want the +1 button to render -->
@@ -254,33 +254,33 @@
 				  })();
 				</script>
 				</span>
-				
+
 				<!-- Twitter share button -->
 				<span style="float: right;">
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="<?= "$baseurl/game/$game->id/" ?>" data-text="<?= "$game->GameTitle on TheGamesDB.net" ?>" data-count="horizontal" data-via="thegamesdb">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 				</span>
-				
+
 				<!-- Facebook share button -->
 				<span style="float: right; padding-top: 1px;">
-				<a name="fb_share"></a> 
-				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" 
+				<a name="fb_share"></a>
+				<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share"
 						type="text/javascript">
 				</script>
 				&nbsp;
 				</span>
-				
+
 				<!-- Share via Email button -->
 				<a href="<?= $baseurl; ?>/mailshare.php?urlsubject=<?= urlencode("TheGamesDB.net - $game->GameTitle"); ?>&url=<?= urlencode("$baseurl/game/$game->id/"); ?>" rel="facebox" style="float: right; margin-right: 10px; padding: 1px 6px 1px 3px; color: #fff; text-decoration: none; background-color: #333; border: 1px solid #444; border-radius: 3px; font-size: 11px; font-weight: bold;" onmouseover="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_active.png')" onmouseout="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_dark.png')"><img id="mailIcon" src="<?= $baseurl ?>/images/common/icons/social/24/share_dark.png" alt="Share via Email" title="Share via Email" style="vertical-align: middle; width: 18px; height: 18px;" />&nbsp;Share via Email</a>
-				
+
 			</span>
-			
+
 			<h2><img src="<?php echo $baseurl; ?>/images/common/consoles/png32/<?php echo $game->PlatformIcon; ?>" alt="<?php echo $game->PlatformName; ?>" title="<?php echo $game->PlatformName; ?>" style="vertical-align: -8px;" />&nbsp;<?php if (!empty($game->PlatformName)) { ?>
-			
+
 			<a style="color: #fff;" href="<?= $baseurl ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?= $game->PlatformName ?></a>
-			
+
 			<?php } else { echo "N/A"; } ?></h2>
 			<hr />
-			
+
 			<div id="gameRating">
 				<?php
 					$query	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$id";
@@ -337,7 +337,7 @@
 			<?php
 			}
 			?>
-			<p><?php if (!empty($game->Overview)) { echo $game->Overview; } else { echo "\"No overview is currently available for this title.\""; } ?></p>
+			<p><?php if (!empty($game->Overview)) { echo nl2br(strip_tags($game->Overview)); } else { echo "\"No overview is currently available for this title.\""; } ?></p>
 			<hr />
 			<div id="gameVitals">
 				<div id="esrbIcon" style ="float: right; width: 72px; height: 100px;">
@@ -349,31 +349,31 @@
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-ec.png" />
 								<?php
 							break;
-							
+
 							case "E - Everyone":
 								?>
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-everyone.png" />
 								<?php
 							break;
-							
+
 							case "E10+ - Everyone 10+":
 								?>
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-e10.png" />
 								<?php
 							break;
-							
+
 							case "T - Teen":
 								?>
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-teen.png" />
 								<?php
 							break;
-							
+
 							case "M - Mature":
 								?>
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-mature.png" />
 								<?php
 							break;
-							
+
 							case "RP - Rating Pending":
 								?>
 									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-rp.png" />
@@ -384,9 +384,9 @@
 				</div>
 				<p><span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
 					<span class="grey" style="padding-left: 20px;">Co-op:</span>&nbsp;&nbsp;<?php if($game->coop != false) { echo $game->coop; } else { echo "N/A"; } ?><br />
-				<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) { 
+				<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) {
 					$genres = explode("|", $game->Genre);
-					$genreCount = 1; 
+					$genreCount = 1;
 					while($genreCount < count($genres) - 1)
 					{
 						echo $genres[$genreCount];
@@ -399,15 +399,15 @@
 					}
 					else { echo "N/A"; } ?><br />
 				<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
-				
+
 				<?php
 				// Start Developer Logo Replacement
 				if (!empty($game->Developer))
-				{ 
+				{
 					$developerBool = false;
 					$devArray = explode(" ", $game->Developer);
 					$i = 0;
-					
+
 					for($i = 0; $i < count($devArray); $i++)
 					{
 						$developerQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$devArray[$i]%' ");
@@ -445,7 +445,7 @@
 				<?php
 				}
 				?>
-				
+
 				<?php
 				// Start Publisher Logo Replacement
 				if (!empty($game->Publisher))
@@ -453,7 +453,7 @@
 					$publisherBool = false;
 					$pubArray = explode(" ", $game->Publisher);
 					$i = 0;
-					
+
 					for($i = 0; $i < count($pubArray); $i++)
 					{
 						$publisherQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$pubArray[$i]%' ");
@@ -491,7 +491,7 @@
 				<?php
 				}
 				?>
-				
+
 				</p>
 				<div style="clear: both;"></div>
 			</div>
@@ -507,11 +507,11 @@
 					<span class="grey">Sound:</span> <?php if($game->sound == ""){echo "N/A";} else{echo $game->sound;} ?></p>
 				</div>
 			<? } ?>
-			
+
 		</div>
 		<div style="clear:both"></div>
 	</div>
-	
+
 	<div id="gameContent">
 		<div id="gameContentTop">
 			<a name="midPanel"></a>
@@ -524,15 +524,15 @@
 				</ul>
 				<div style="clear: both;"></div>
 			</div>
-			
+
 			<div style="clear: both;"></div>
-			
+
 			<hr />
-			
+
 			<div id="fanartScreens">
-				
+
 				<div id="fanart">
-				
+
 					<div class="slider-wrapper theme-default">
 						<div id="fanartRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-fanart.png) no-repeat; z-index: 10"></div>
 						<?php
@@ -545,8 +545,8 @@
 								<div id="fanartSlider" class="nivoSlider">
 							<?php
 								while($fanart = mysql_fetch_object($fanartResult))
-								{	
-									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]"; 
+								{
+									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]";
 							?>
 									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$fanart->id" ?>);' style='color: orange;'>Report Image</a><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
 							<?php
@@ -563,13 +563,13 @@
 								<?php
 							}
 						}
-						?>	
+						?>
 					</div>
-					
+
 				</div>
-				
+
 				<div id="screens">
-					
+
 					<div class="slider-wrapper theme-default">
 						<div id="screensRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-screens.png) no-repeat; z-index: 10"></div>
 						<?php
@@ -582,7 +582,7 @@
 							<?php
 								$screenSlideCount = 0;
 								while($screen = mysql_fetch_object($screenResult))
-								{	
+								{
 							?>
 									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$screen->id" ?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
 							<?php
@@ -599,14 +599,14 @@
 								<?php
 							}
 						}
-						?>	
+						?>
 					</div>
 				</div>
 
 				<div style="clear: both;"></div>
 
 			</div>
-			
+
 			<div id="banners">
 				<div class="slider-wrapper theme-default">
 					<div id="bannerRibbon" style="display: none; position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-banners.png) no-repeat; z-index: 10"></div>
@@ -620,10 +620,10 @@
 						<?php
 							$bannerSlideCount = 0;
 							while($banner = mysql_fetch_array($bannerResult))
-							{	
+							{
 						?>
 								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= $banner[id] ?>)' style='color: orange;'>Report Image</a>"/>
-						<?php						
+						<?php
 								$bannerSlideCount++;
 							}
 						?>
@@ -637,13 +637,13 @@
 						<?php
 						}
 					}
-					?>	
+					?>
 				</div>
-			
+
 				<div style="clear: both;"></div>
-			
+
 			</div>
-		
+
 			<div id="platforms">
 				<div style="margin: auto; width: 500px; box-shadow: 0px 0px 22px #000; border-radius: 16px; background-color: #1e1e1e; text-align: center; margin-top: 20px;">
 					<div style="padding: 20px;">
@@ -678,7 +678,7 @@
 				</div>
 				<div style="clear: both;"></div>
 			</div>
-			
+
 			<div id="trailer">
 				<?php if ($game->Youtube != "") { ?>
 				<div style="margin: auto; width: 853px; box-shadow: 0px 0px 22px #000;">
@@ -691,15 +691,15 @@
 				</div>
 				<?php } ?>
 			</div>
-		
+
 		</div>
-		
+
 		<div style="clear: both;"></div>
-		
+
 		<div id="gameContentBottom">
 
 			<div style="text-align: center;"><a style="font-size: 18px; color: #fff; text-decoration: none; text-shadow: 0px 0px 10px #000;" href="#gameContentBottom"  onclick="$('#comments').slideToggle();">Comments&nbsp;&nbsp;<img style="vertical-align: middle;" src="<?= $baseurl; ?>/images/common/icons/collapse-alt_16.png" alt="Show Comments" title="Show Comments" /></a></div>
-			
+
 			<hr style="margin: 10px 0px 14px 0px;" />
 
 			<div id="comments">
@@ -825,12 +825,12 @@
 				</div>
 				<div style="clear: both;"></div>
 			</div>
-			
+
 		</div>
-		
+
 		<!--
 		<div id="gameFooter">
-		
+
 		</div>
 		-->
 
@@ -849,20 +849,20 @@
 				$("#fanartRibbon").slideDown("400");
 				$("#screensRibbon").slideDown("400");
 			break;
-			
+
 			case "banners":
 				contentHide();
 				$("#nav_banners").addClass("active");
 				$("#banners").slideDown("400");
 				$("#bannerRibbon").slideDown("400");
 			break;
-			
+
 			case "platforms":
 				contentHide();
 				$("#nav_platforms").addClass("active");
 				$("#platforms").slideDown("400");
 			break;
-			
+
 			case "trailer":
 				contentHide();
 				$("#nav_trailer").addClass("active");
@@ -870,12 +870,12 @@
 			break;
 		}
 	}
-	
+
 	function contentHide(id)
 	{
 		// Remove active class from nav item
 		$("#panelNav ul li a").each( function(index) { $(this).removeClass("active"); } );
-		
+
 		// Hide all panels
 		$("#fanartScreens").slideUp("400");
 		$("#fanartRibbon").slideUp("400");
@@ -887,16 +887,16 @@
 	}
 </script>
 <!-- End #panelNav Scripts -->
-	
-	
-	
+
+
+
 <!-- Start Boxart Flip Script -->
 <script type="text/javascript">
 	$('#frontCover').css({display: "none"});
-	
+
 	$(document).ready(function(){
 		$('#frontCover').fadeIn(2000);
-	});	
+	});
 </script>
 
 <?php
@@ -906,10 +906,10 @@
 <script type="text/javascript">
 	$('#gameCovers').css({cursor : "pointer"});
 
-	$(document).ready(function(){		
-		$('.gameCoversFlip').bind("click",function(){		 
+	$(document).ready(function(){
+		$('.gameCoversFlip').bind("click",function(){
 			var elem = $('#gameCovers');
-			 
+
 			if(elem.data('flipped'))
 			{
 				elem.revertFlip();
@@ -927,10 +927,10 @@
 				});
 				elem.data('flipped',true);
 			}
-		});	
-		$('#gameCovers').bind("click",function(){		 
+		});
+		$('#gameCovers').bind("click",function(){
 			var elem = $(this);
-			 
+
 			if(elem.data('flipped'))
 			{
 				elem.revertFlip();
@@ -948,7 +948,7 @@
 				});
 				elem.data('flipped',true);
 			}
-		});	
+		});
 	});
 </script>
 <!-- End Boxart Flip Script -->
@@ -968,7 +968,7 @@
 
 <!-- Start jQuery Smooth Vertical Page Scrolling -->
 <script type="text/javascript">
-    $(document).ready(function() {  function filterPath(string) {  return string    .replace(/^\//,'')    .replace(/(index|default).[a-zA-Z]{3,4}$/,'')    .replace(/\/$/,'');  }  var locationPath = filterPath(location.pathname);  var scrollElem = scrollableElement('html', 'body');  $('a[href*=#]').each(function() {    var thisPath = filterPath(this.pathname) || locationPath;    if (  locationPath == thisPath    && (location.hostname == this.hostname || !this.hostname)    && this.hash.replace(/#/,'') ) {      var $target = $(this.hash), target = this.hash;      if (target) {        var targetOffset = $target.offset().top;        $(this).click(function(event) {          event.preventDefault();          $(scrollElem).animate({scrollTop: targetOffset}, 400, function() {            location.hash = target;          });        });      }    }  }); 
+    $(document).ready(function() {  function filterPath(string) {  return string    .replace(/^\//,'')    .replace(/(index|default).[a-zA-Z]{3,4}$/,'')    .replace(/\/$/,'');  }  var locationPath = filterPath(location.pathname);  var scrollElem = scrollableElement('html', 'body');  $('a[href*=#]').each(function() {    var thisPath = filterPath(this.pathname) || locationPath;    if (  locationPath == thisPath    && (location.hostname == this.hostname || !this.hostname)    && this.hash.replace(/#/,'') ) {      var $target = $(this.hash), target = this.hash;      if (target) {        var targetOffset = $target.offset().top;        $(this).click(function(event) {          event.preventDefault();          $(scrollElem).animate({scrollTop: targetOffset}, 400, function() {            location.hash = target;          });        });      }    }  });
 	// use the first element that is "scrollable"
 	function scrollableElement(els) {    for (var i = 0, argLength = arguments.length; i <argLength; i++) {      var el = arguments[i],          $scrollElement = $(el);      if ($scrollElement.scrollTop()> 0) {        return el;      } else {        $scrollElement.scrollTop(1);        var isScrollable = $scrollElement.scrollTop()> 0;        $scrollElement.scrollTop(0);        if (isScrollable) {          return el;        }      }    }    return [];  }});
 </script>

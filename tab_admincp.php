@@ -12,19 +12,19 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 			$dims = getimagesize($filename);
 			$width = $dims[0];
 			$height = $dims[1];
-			
+
 			while($width > $wtarget || $height > $htarget)
 			{
 				if($width > $wtarget)
 				{
 					$percentage = ($wtarget / $width);
 				}
-			
+
 				if($height > $htarget)
 				{
 					$percentage = ($htarget / $height);
 				}
-			
+
 				/*if($width > $height)
 				{
 					$percentage = ($target / $width);
@@ -33,12 +33,12 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 				{
 					$percentage = ($target / $height);
 				}*/
-				
+
 				//gets the new value and applies the percentage, then rounds the value
 				$width = round($width * $percentage);
-				$height = round($height * $percentage); 
+				$height = round($height * $percentage);
 			}
-			
+
 			$image = new SimpleImage();
 			$image->load($filename);
 			$image->resize($width, $height);
@@ -48,34 +48,34 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 		//returns the new sizes in html image tag format...this is so you can plug this function inside an image tag and just get the
 		return "src=\"$baseurl/$cleanFilename\"";
 	}
-	
+
 	if (!isset($cptab)) { $cptab = "userinfo"; }
 	?>
 
 	<div id="gameHead">
-	
+
 		<?php if($errormessage): ?>
 		<div class="error"><?= $errormessage ?></div>
 		<?php endif; ?>
 		<?php if($message): ?>
 		<div class="message"><?= $message ?></div>
 		<?php endif; ?>
-		
+
 		<div>
 			<h1>Admin Control Panel</h1>
 			<p>&nbsp;</p>
 		</div>
-		
+
 		<?php
 			// Fetch number of uploads to be moderated
 			$modQueueResult = mysql_query("SELECT id FROM moderation_uploads");
 			$modQueueCount = mysql_num_rows($modQueueResult);
-			
+
 			// Fetch number of reported images to be moderated
 			$repQueueResult = mysql_query("SELECT id FROM moderation_reported");
 			$repQueueCount = mysql_num_rows($repQueueResult);
 		?>
-		
+
 		<div id="controlPanelWrapper">
 			<div id="controlPanelNav">
 				<ul>
@@ -95,9 +95,9 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 						case "userinfo":
 							?>
 							<h2>User Information | <?=$user->username?></h2>
-							
+
 							<p>&nbsp;</p>
-							
+
 							<div style="float:left;">
 								<form style="padding: 14px; border: 1px solid #999; background-color: #444444;" method="post" action="<?= $baseurl; ?>/admincp/" enctype="multipart/form-data">
 								<h2>User Image...</h2>
@@ -123,7 +123,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 									<input type="submit" name="submit" value="Upload Image" /></p>
 								</form>
 							</div>
-							
+
 							<form action="<?=$fullurl?>" method="POST" style="float:left; border-left: 1px solid #333; padding-left: 16px; margin-left: 16px;">
 								<table cellspacing="2" cellpadding="2" border="0" align="center">
 									<tr>
@@ -172,7 +172,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 							</form>
 							<?php
 							break;
-						
+
 						case "moderationqueue":
 						?>
 								<style>
@@ -187,7 +187,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#72cc72 25%,
 											#22a800);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#c8ffbf),
 											color-stop(0.25, #72cc72),
 											to(#22a800));
@@ -209,7 +209,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											0px 1px 0px rgba(255,255,255,0.3);
 										cursor: pointer;
 									}
-									
+
 									.deny {
 										font-family: Arial, Helvetica, sans-serif;
 										font-size: 12px;
@@ -222,7 +222,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#cc7272 25%,
 											#a80000);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#ffbfbf),
 											color-stop(0.25, #cc7272),
 											to(#a80000));
@@ -244,7 +244,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											0px 1px 0px rgba(255,255,255,0.3);
 										cursor: pointer;
 									}
-									
+
 									.compare {
 										font-family: Arial, Helvetica, sans-serif;
 										font-size: 12px;
@@ -257,7 +257,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#82a1ff 25%,
 											#4646fa);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#bfcaff),
 											color-stop(0.25, #82a1ff),
 											to(#4646fa));
@@ -280,24 +280,24 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 										cursor: pointer;
 									}
 								</style>
-								
+
 								<?php
 									// Fetch number of uploads to be moderated
 									$frontQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'front'");
 									$frontQueueCount = mysql_num_rows($frontQueueResult);
 									if( empty($frontQueueCount)) { $frontQueueCount = 0; }
-									
+
 									$backQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'back'");
 									$backQueueCount = mysql_num_rows($backQueueResult);
 									if( empty($backQueueCount)) { $backQueueCount = 0; }
-									
+
 									$clearlogoQueueResult = mysql_query("SELECT id FROM moderation_uploads WHERE imagekey = 'clearlogo'");
 									$clearlogoQueueCount = mysql_num_rows($clearlogoQueueResult);
 									if( empty($clearlogoQueueCount)) { $clearlogoQueueCount = 0; }
 								?>
-								
+
 								<p><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $frontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=backboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $backQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $clearlogoQueueCount ?></span></p>
-								
+
 								<?php
 									if ($queuetype == "frontboxart")
 									{
@@ -314,10 +314,10 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 										$modQueueResult = mysql_query("SELECT m.*, u.username, g.GameTitle, p. NAME AS PlatformName, p.id AS PlatformID FROM moderation_uploads AS m, users AS u, games AS g, platforms AS p WHERE imagekey = 'clearlogo' AND m.userID = u.id AND m.gameID = g.id AND g.Platform = p.id ORDER BY dateadded");
 										$queueheader = "ClearLOGO Moderation Queue";
 									}
-									
+
 									$modQueueCount = mysql_num_rows($modQueueResult);
 								?>
-								
+
 								<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #EEEEEE; color: #333333; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
 									<thead style="text-align: left;">
 										<tr>
@@ -350,7 +350,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 													{
 														WideImage::load("moderationqueue/$modQueueObject->filename")->resize(200, 200)->saveToFile("moderationqueue/_cache/$modQueueObject->filename");
 													}
-												?>											
+												?>
 													<a href="<?= "$baseurl/moderationqueue/$modQueueObject->filename" ?>" rel="facebox"><img src="<?= "$baseurl/moderationqueue/_cache/$modQueueObject->filename" ?>" /></a>
 											</td>
 											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top;"><span style="font-weight: bold;">Game:</span> <a href="<?= $baseurl . "/game/" . $modQueueObject->gameID; ?>" style="color: darkorange;"><?= $modQueueObject->GameTitle; ?></a><br />
@@ -367,11 +367,13 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 														<option>Submitted image is pixellated, of poor quality, or has artifacts.</option>
 														<option>Submitted image is of smaller dimensions than the current.</option>
 														<option>Submitted image does not possess a transparent background.</option>
+														<option>Submitted image is the incorrect type/category.</option>
 														<option>Submitted image is of an non-english language.</option>
 														<option>Submitted image is for the wrong platform.</option>
 														<option>Submitted image is for the wrong game.</option>
 														<option>Submitted image is heavily stained.</option>
 														<option>Submitted image is watermarked.</option>
+														<option>Other (specify in comments).</option>
 													</select>
 													<p style="font-weight: bold;">Additional comments:</p>
 													<textarea id="deny-additional-<?= $modQueueObject->id ?>" style="width: 100%; height: 100px;"></textarea>
@@ -396,7 +398,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								</table>
 						<?php
 							break;
-						
+
 						case "reportedqueue":
 						?>
 								<style>
@@ -411,7 +413,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#72cc72 25%,
 											#22a800);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#c8ffbf),
 											color-stop(0.25, #72cc72),
 											to(#22a800));
@@ -433,7 +435,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											0px 1px 0px rgba(255,255,255,0.3);
 										cursor: pointer;
 									}
-									
+
 									.deny {
 										font-family: Arial, Helvetica, sans-serif;
 										font-size: 12px;
@@ -446,7 +448,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#cc7272 25%,
 											#a80000);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#ffbfbf),
 											color-stop(0.25, #cc7272),
 											to(#a80000));
@@ -468,7 +470,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											0px 1px 0px rgba(255,255,255,0.3);
 										cursor: pointer;
 									}
-									
+
 									.compare {
 										font-family: Arial, Helvetica, sans-serif;
 										font-size: 12px;
@@ -481,7 +483,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											#82a1ff 25%,
 											#4646fa);
 										background: -webkit-gradient(
-											linear, left top, left bottom, 
+											linear, left top, left bottom,
 											from(#bfcaff),
 											color-stop(0.25, #82a1ff),
 											to(#4646fa));
@@ -504,37 +506,37 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 										cursor: pointer;
 									}
 								</style>
-								
+
 								<?php
 									// Fetch number of reported images to be moderated
-									
+
 									//Front Boxart
 									$reportedFrontQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%'");
 									$reportedFrontQueueCount = mysql_num_rows($reportedFrontQueueResult);
-									
+
 									//Rear Boxart
 									$reportedRearQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%'");
 									$reportedRearQueueCount = mysql_num_rows($reportedRearQueueResult);
-									
+
 									//ClearLOGO
 									$reportedClearlogoQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'clearlogo'");
 									$reportedClearlogoQueueCount = mysql_num_rows($reportedClearlogoQueueResult);
-									
+
 									//Fanart
 									$reportedFanartQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'fanart'");
 									$reportedFanartQueueCount = mysql_num_rows($reportedFanartQueueResult);
-									
+
 									//Screenshot
 									$reportedScreenshotQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'screenshot'");
 									$reportedScreenshotQueueCount = mysql_num_rows($reportedScreenshotQueueResult);
-									
+
 									//Banner
 									$reportedBannerQueueResult = mysql_query("SELECT m.id FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND b.keytype = 'series'");
 									$reportedBannerQueueCount = mysql_num_rows($reportedBannerQueueResult);
 								?>
-								
+
 								<p><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFrontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=rearboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedRearQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedClearlogoQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=fanart" style="color: orange; font-size: 16;">Fanart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFanartQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=screenshot" style="color: orange; font-size: 16;">Screenshot</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedScreenshotQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=banner" style="color: orange; font-size: 16;">Banner</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedBannerQueueCount ?></span></p>
-								
+
 								<?php
 									switch ($queuetype)
 									{
@@ -542,17 +544,17 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%' ORDER BY m.dateadded");
 											$queueheader = "Reported Front Boxart Queue";
 										break;
-										
+
 										case "rearboxart":
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%' ORDER BY m.dateadded");
 											$queueheader = "Reported Rear Boxart Queue";
 										break;
-										
+
 										case "clearlogo":
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'clearlogo' ORDER BY m.dateadded");
 											$queueheader = "Reported ClearLOGO Queue";
 										break;
-										
+
 										case "fanart":
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'fanart' ORDER BY m.dateadded");
 											$queueheader = "Reported Fanart Queue";
@@ -562,17 +564,17 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'screenshot' ORDER BY m.dateadded");
 											$queueheader = "Reported Screenshot Queue";
 										break;
-										
+
 										case "banner":
 											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.bannerid = b.id AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'series' ORDER BY m.dateadded");
 											$queueheader = "Reported Banner Queue";
 										break;
-										
+
 									}
-									
+
 									$reportedCount = mysql_num_rows($reportedResult);
 								?>
-								
+
 								<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #EEEEEE; color: #333333; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
 									<thead style="text-align: left;">
 										<tr>
@@ -605,7 +607,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 													{
 														WideImage::load("banners/$reportedObject->filename")->resize(200, 200)->saveToFile("reportedqueue/_cache/$reportedObject->filename");
 													}
-												?>											
+												?>
 													<a href="<?= "$baseurl/banners/$reportedObject->filename" ?>" rel="facebox"><img src="<?= "$baseurl/reportedqueue/_cache/$reportedObject->filename" ?>" /></a>
 											</td>
 											<td style="padding: 10px 10px; border-bottom: 1px solid #444; vertical-align: top;"><span style="font-weight: bold;">Game:</span> <a href="<?= $baseurl . "/game/" . $reportedObject->gameID; ?>" style="color: darkorange;"><?= $reportedObject->GameTitle; ?></a><br />
@@ -658,13 +660,13 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								</table>
 						<?php
 							break;
-						
+
 						case "addplatform":
-							?>					
+							?>
 								<h2>Add a Platform...</h2>
-								
+
 								<p>&nbsp;</p>
-								
+
 								<form method="post" action="<?= $baseurl; ?>/admincp/" enctype="multipart/form-data">
 									<p style="text-align: center;"><img src="<?= $baseurl; ?>/images/common/consoles/png24/console_default.png" style="vertical-align: middle;" />&nbsp;To create a new platform, enter it's name below.</p>
 									<p style="text-align: center; font-weight: bold;">Platform Name:&nbsp;<input type="text" name="PlatformTitle" size="60" /><br />
@@ -673,22 +675,22 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								</form>
 							<?php
 							break;
-							
+
 						case "pubdev":
 							?>
 								<h2>Manage Publishers and Developers</h2>
-								
+
 								<p>&nbsp;</p>
-								
+
 								<p style="text-align: center;"><a style="color: orange;" href="<?= $baseurl ?>/addpub/">Add new Publisher/Developer</a></p>
-								
+
 								<table align="center" border="1" cellspacing="0" cellpadding="7" bgcolor="#888888">
 									<tr>
 										<th style="background-color: #333; color: #FFF;">Keywords</th>
 										<th style="background-color: #333; color: #FFF;">Logo</th>
 										<th style="background-color: #333; color: #FFF;">Action</th>
 									</tr>
-									
+
 								<?php
 								$pubdevQuery = mysql_query(" SELECT * FROM pubdev ORDER BY keywords ASC");
 								while($pubdevResult = mysql_fetch_object($pubdevQuery))
@@ -711,12 +713,12 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								</table>
 							<?php
 							break;
-							
-							
+
+
 						case "sendpm":
 						?>
 							<h2>Send PM to User...</h2>
-							
+
 							<form action="<?= $baseurl; ?>/admincp/?cptab=sendpm" method="post">
 								<span style="float: right;"><input type="submit" name="function" value="Send PM" /></span>
 								<p><b>Send To:</b>&nbsp;<input type="text" name="pmto" id="pm-to" size="36" /> <a href="#pm-userlist" rel="facebox">User List</a></p>
@@ -724,7 +726,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								<p><b>Message:</b><br />
 								<textarea name="pmmessage" style="width: 100%; height: 300px;"></textarea></p>
 							</form>
-							
+
 							<!-- User List-->
 							<div id="pm-userlist" style="display: none;">
 								<div style="height: 400px; overflow: auto;">
@@ -743,23 +745,23 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 							</div>
 						<?php
 							break;
-							
+
 						case "platformalias":
 						?>
 							<h2>Generate Platform Alias'...</h2>
-							
+
 							<form action="<?= $baseurl; ?>/admincp/?cptab=platformalias" method="post" style="text-align: center; padding: 16px; border: 1px solid #666; background-color: #333; color: #fff; margin: 16px;">
 								<p style="font-size: 18px;">Press the button below to auto-generate alias's for platforms missing an alias.</p>
 								<input type="submit" name="function" value="Generate Platform Alias's" style="padding: 16px;" />
 							</form>
-							
+
 							<table align="center" border="1" cellspacing="0" cellpadding="7" bgcolor="#888888">
 								<tr>
 									<th style="background-color: #333; color: #FFF;" width="14%">ID</th>
 									<th style="background-color: #333; color: #FFF;" width="43%">Name</th>
 									<th style="background-color: #333; color: #FFF;" width="43%">Alias</th>
 								</tr>
-								
+
 								<?php
 									$platformsResult = mysql_query(" SELECT p.id, p.name, p.alias FROM platforms AS p ORDER BY p.id ");
 									while($platforms = mysql_fetch_object($platformsResult))
@@ -774,12 +776,12 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 								<?php
 									}
 								?>
-								
+
 							</table>
-							
+
 						<?php
 							break;
-						
+
 						default:
 							?>
 							<p>&nbsp;</p>
@@ -803,5 +805,5 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 		<?php
 		}
 		?>
-		
+
 	</div>

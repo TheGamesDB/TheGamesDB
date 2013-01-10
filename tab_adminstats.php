@@ -256,6 +256,42 @@
 						</table>
 						<?php
 						break;
+						
+                    case "newgametitles":
+
+                        // Fetch the number of new games titles
+                        $timediff = time() - (60 * 60 * 24 * 30); //30 days
+                        $newGamesResult = mysql_query(" SELECT g.id, g.GameTitle, g.created FROM games AS g WHERE g.created > " . $timediff . " ORDER BY g.created DESC ");
+                        $newGamesCount = mysql_num_rows($newGamesResult);
+                        ?>
+                        <h2 style="color: #FF4F00;">New Games Titles (<?= $newGamesCount ?>)</h2>
+
+                            <table align="center" border="1" cellspacing="0" cellpadding="7">
+								<tr>
+									<th style="background-color: #333; color: #FFF;" width="14%">Created</th>
+									<th style="background-color: #333; color: #FFF;" width="43%">Name</th>
+									<th style="background-color: #333; color: #FFF;" width="13%">User</th>
+									<th style="background-color: #333; color: #FFF;" width="10%"></th>
+								</tr>
+
+								<?php
+									while($game = mysql_fetch_object($newGamesResult))
+									{
+										if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
+								?>
+								<tr class="<?= $class; ?>">
+									<td><?= date("m-d g:i a", $game->created) ?></td>
+									<td style="text-align: left"><?= $game->GameTitle; ?></td>
+									<td>-</td>
+									<td><a href="/?tab=game-edit&id=<?= $game->id; ?>" style="color: orange;">Edit</a></td>
+								</tr>
+								<?php
+									}
+								?>
+
+							</table>
+                        <?php 
+                        
 					} 
 				}
 				// End Admin Only Stats & Reports

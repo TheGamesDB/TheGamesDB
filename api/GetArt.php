@@ -88,7 +88,7 @@
 		}
 	}
 	
-	## Function to process all fanart for the requested game id
+## Function to process all fanart for the requested game id
 	function processFanart($gameID)
 	{
 		## Select all fanart rows for the requested game id
@@ -133,21 +133,32 @@
 		## Process each boxart row incrementally
 		while($baRow = mysql_fetch_assoc($baResult))
 		{
-			## Construct file names
-			$baOriginal = $baRow['filename'];
-			
-			$type  = (preg_match('/front/', $baOriginal)) ? 'front' : 'back';
+    		## Construct file names
+    		$baOriginal = $baRow['filename'];
+	        $baThumb = "boxart/thumb" . str_replace("boxart", "", $baRow['filename']);
 		
-			## Check to see if the original boxart file actually exists before attempting to process 
-			if(file_exists("../banners/$baOriginal"))
-			{
-				## Get boxart image dimensions
-				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$baOriginal");
-				$baWidth = $image_width;
-				$baHeight = $image_height;
-				
-				## Output Boxart XML Branch
-				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\">$baOriginal</boxart>\n";
+	        $type  = (preg_match('/front/', $baOriginal)) ? 'front' : 'back';
+
+	        ## Check to see if the original boxart file actually exists before attempting to process
+	        if(file_exists("../banners/$baOriginal"))
+	        {
+	            ## Check if thumb already exists
+	            if(!file_exists("../banners/$baThumb"))
+	            {
+    	            ## If thumb is non-existant then create it
+    	            $image = new SimpleImage();
+    	            $image->load("../banners/$baOriginal");
+    	            $image->resizeToWidth(300);
+    	            $image->save("../banners/$baThumb");
+    	        }
+
+    	        ## Get boxart image dimensions
+    	        list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$baOriginal");
+    	        $baWidth = $image_width;
+    	        $baHeight = $image_height;
+    
+    	        ## Output Boxart XML Branch
+    			echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\" thumb=\"$baThumb\">$baOriginal</boxart>\n";
 			}
 		}
 	}

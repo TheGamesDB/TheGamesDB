@@ -113,7 +113,7 @@ function imageResize($filename, $cleanFilename, $target)
 
 	<!-- Start Pagination -->
 	<?php
-
+	    
 		$adjacents = 3;
 		
 		/* 
@@ -152,7 +152,7 @@ function imageResize($filename, $cleanFilename, $target)
 			$pagination .= "<div class=\"pagination\">";
 			//previous button
 			if ($page > 1) 
-				$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$prev\">&laquo; prev</a>";
+				$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$prev&stringPlatform=$stringPlatform\">&laquo; prev</a>";
 			else
 				$pagination.= "<span class=\"disabled\">&laquo; prev</span>";	
 			
@@ -164,7 +164,7 @@ function imageResize($filename, $cleanFilename, $target)
 					if ($counter == $page)
 						$pagination.= "<span class=\"current\">$counter</span>";
 					else
-						$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter\">$counter</a>";					
+						$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter&stringPlatform=$stringPlatform\">$counter</a>";					
 				}
 			}
 			elseif($lastpage > 5 + ($adjacents * 2))	//enough pages to hide some
@@ -177,48 +177,48 @@ function imageResize($filename, $cleanFilename, $target)
 						if ($counter == $page)
 							$pagination.= "<span class=\"current\">$counter</span>";
 						else
-							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter\">$counter</a>";					
+							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter&stringPlatform=$stringPlatform\">$counter</a>";					
 					}
 					$pagination.= "...";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lpm1\">$lpm1</a>";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lastpage\">$lastpage</a>";		
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lpm1&stringPlatform=$stringPlatform\">$lpm1</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lastpage&stringPlatform=$stringPlatform\">$lastpage</a>";		
 				}
 				//in middle; hide some front and some back
 				elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
 				{
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=1\">1</a>";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=2\">2</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=1&stringPlatform=$stringPlatform\">1</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=2&stringPlatform=$stringPlatform\">2</a>";
 					$pagination.= "...";
 					for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
 					{
 						if ($counter == $page)
 							$pagination.= "<span class=\"current\">$counter</span>";
 						else
-							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter\">$counter</a>";					
+							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter&stringPlatform=$stringPlatform\">$counter</a>";					
 					}
 					$pagination.= "...";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lpm1\">$lpm1</a>";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lastpage\">$lastpage</a>";		
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lpm1&stringPlatform=$stringPlatform\">$lpm1</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$lastpage&stringPlatform=$stringPlatform\">$lastpage</a>";		
 				}
 				//close to end; only hide early pages
 				else
 				{
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=1\">1</a>";
-					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=2\">2</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=1&stringPlatform=$stringPlatform\">1</a>";
+					$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=2&stringPlatform=$stringPlatform\">2</a>";
 					$pagination.= "...";
 					for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
 					{
 						if ($counter == $page)
 							$pagination.= "<span class=\"current\">$counter</span>";
 						else
-							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter\">$counter</a>";					
+							$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$counter&stringPlatform=$stringPlatform\">$counter</a>";					
 					}
 				}
 			}
 			
 			//next button
 			if ($page < $counter - 1) 
-				$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$next\">next &raquo;</a>";
+				$pagination.= "<a href=\"$baseurl/search/?searchview=$searchview&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$next&stringPlatform=$stringPlatform\">next &raquo;</a>";
 			else
 				$pagination.= "<span class=\"disabled\">next &raquo;</span>";
 			$pagination.= "</div>";		
@@ -247,24 +247,24 @@ function imageResize($filename, $cleanFilename, $target)
 	<!-- Start View Mode Links -->
 	<div>
 		<div style="width: 80px; text-align: center; float: right;">
-			<a href="<?= "$baseurl/search/?searchview=table&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/table.png" alt="table"/></a>
-			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=table&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>" style="color: #dd4400">Table</a></p>
+			<a href="<?= "$baseurl/search/?searchview=table&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/table.png" alt="table"/></a>
+			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=table&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>" style="color: #dd4400">Table</a></p>
 		</div>
 		<div style="width: 80px; text-align: center; float: right;">
-			<a href="<?= "$baseurl/search/?searchview=banner&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/banner.png" alt="banner"/></a>
-			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=banner&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>" style="color: #dd4400">Banner</a></p>
+			<a href="<?= "$baseurl/search/?searchview=banner&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/banner.png" alt="banner"/></a>
+			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=banner&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>" style="color: #dd4400">Banner</a></p>
 		</div>
 		<div style="width: 80px; text-align: center; float: right;">
-			<a href="<?= "$baseurl/search/?searchview=boxart&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/boxart.png" alt="boxart"/></a>
-			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=boxart&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>" style="color: #dd4400">Boxart</a></p>
+			<a href="<?= "$baseurl/search/?searchview=boxart&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/boxart.png" alt="boxart"/></a>
+			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=boxart&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>" style="color: #dd4400">Boxart</a></p>
 		</div>
 		<div style="width: 80px; text-align: center; float: right;">
-			<a href="<?= "$baseurl/search/?searchview=tile&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/tile.png" alt="tile"/></a>
-			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=tile&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>" style="color: #dd4400">Tile</a></p>
+			<a href="<?= "$baseurl/search/?searchview=tile&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/tile.png" alt="tile"/></a>
+			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=tile&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>" style="color: #dd4400">Tile</a></p>
 		</div>
 		<div style="width: 80px; text-align: center; float: right;">
-			<a href="<?= "$baseurl/search/?searchview=listing&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/listing.png" alt="listing"/></a>
-			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=listing&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes" ?>" style="color: #dd4400">Listing</a></p>
+			<a href="<?= "$baseurl/search/?searchview=listing&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>"><img src="<?=$baseurl?>/images/common/icons/viewicons/listing.png" alt="listing"/></a>
+			<p style="margin-top: 2px;"><a href="<?= "$baseurl/search/?searchview=listing&string=$string&function=$function&sortBy=$sortBy&limit=$limit&page=$page&updateview=yes&stringPlatform=$stringPlatform" ?>" style="color: #dd4400">Listing</a></p>
 		</div>
 		<div style="clear: both;"></div>
 	</div>

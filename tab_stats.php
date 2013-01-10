@@ -19,6 +19,7 @@
 					<p><a href="?tab=adminstats&statstype=morefront">Games With 2 or More Front Boxart</a></p>
 					<p><a href="?tab=adminstats&statstype=multipleplatform">Games With Multiple Platforms</a></p>
 					<p><a href="?tab=adminstats&statstype=locked">Locked Games</a></p>
+					<p><a href="?tab=adminstats&statstype=newgametitles">New Games Titles</a></p>
 				</div>
 				<hr />
 			<?php

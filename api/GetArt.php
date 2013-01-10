@@ -94,33 +94,35 @@
 		## Select all fanart rows for the requested game id
 		$faResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'fanart' ORDER BY filename ASC ");
 		
-		## Process each fanart row incrementally
-		while($faRow = mysql_fetch_assoc($faResult))
+	    ## Process each boxart row incrementally
+		while($baRow = mysql_fetch_assoc($baResult))
 		{
 			## Construct file names
-			$faOriginal = $faRow['filename'];
-			$faThumb = str_replace("original", "thumb", $faRow['filename']);
-		
-			## Check to see if the original fanart file actually exists before attempting to process 
-			if(file_exists("../banners/$faOriginal"))
-			{			
-				## Check if thumb already exists
-				if(!file_exists("../banners/$faThumb"))
-				{					
-					## If thumb is non-existant then create it
-					makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
-				}
-				
-				## Get Fanart Image Dimensions
-				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$faOriginal");
-				$faWidth = $image_width;
-				$faHeight = $image_height;
-				
-				## Output Fanart XML Branch
-				print "<fanart>\n";
-					print "<original width=\"$faWidth\" height=\"$faHeight\">$faOriginal</original>\n";
-					print "<thumb>$faThumb</thumb>\n";
-				print "</fanart>\n";
+			$baOriginal = $baRow['filename'];
+			$baThumb = "boxart/thumb" . str_replace("boxart", "", $baRow['filename']);
+
+			$type  = (preg_match('/front/', $baOriginal)) ? 'front' : 'back';
+
+			## Check to see if the original boxart file actually exists before attempting to process
+			if(file_exists("../banners/$baOriginal"))
+			{
+			    ## Check if thumb already exists
+			    if(!file_exists("../banners/$baThumb"))
+			    {
+			    ## If thumb is non-existant then create it
+			        $image = new SimpleImage();
+			        $image->load("../banners/$baOriginal");
+			        $image->resizeToWidth(300);
+			        $image->save("../banners/$baThumb");
+			    }
+
+				## Get boxart image dimensions
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$baOriginal");
+				$baWidth = $image_width;
+				$baHeight = $image_height;
+
+				## Output Boxart XML Branch
+				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\" thumb=\"$baThumb\">$baOriginal</boxart>\n";
 			}
 		}
 	}

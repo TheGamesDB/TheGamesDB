@@ -23,7 +23,7 @@ $user = $_REQUEST["user"];
 	###==============###
 	###VITAL FUNCTIONS###
 	###----------------------------###
-	
+
 	## Function to generate a fanart thumb image if does not already exist
 	function makeFanartThumb($sourcefile, $targetfile) {
 
@@ -50,34 +50,34 @@ $user = $_REQUEST["user"];
         imagedestroy($sourcefile_id);
         imagedestroy($result_id);
 	}
-	
+
 	function processFanart($gameID)
 	{
 		## Select all fanart rows for the requested game id
 		$faResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'fanart' ORDER BY filename ASC ");
-		
+
 		## Process each fanart row incrementally
 		while($faRow = mysql_fetch_assoc($faResult))
 		{
 			## Construct file names
 			$faOriginal = $faRow['filename'];
 			$faThumb = str_replace("original", "thumb", $faRow['filename']);
-		
-			## Check to see if the original fanart file actually exists before attempting to process 
+
+			## Check to see if the original fanart file actually exists before attempting to process
 			if(file_exists("../banners/$faOriginal"))
-			{			
+			{
 				## Check if thumb already exists
 				if(!file_exists("../banners/$faThumb"))
-				{					
+				{
 					## If thumb is non-existant then create it
 					makeFanartThumb("../banners/$faOriginal", "../banners/$faThumb");
 				}
-				
+
 				## Get Fanart Image Dimensions
 				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$faOriginal");
 				$faWidth = $image_width;
 				$faHeight = $image_height;
-				
+
 				## Output Fanart XML Branch
 				print "<fanart>\n";
 					print "<original width=\"$faWidth\" height=\"$faHeight\">$faOriginal</original>\n";
@@ -86,25 +86,25 @@ $user = $_REQUEST["user"];
 			}
 		}
 	}
-	
+
 	function processScreenshots($gameID)
 	{
 		## Select all fanart rows for the requested game id
 		$ssResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'screenshot' ORDER BY filename ASC ");
-		
+
 		## Process each fanart row incrementally
 		while($ssRow = mysql_fetch_assoc($ssResult))
 		{
 			## Construct file names
 			$ssOriginal = $ssRow['filename'];
 			$ssThumb = "screenshots/thumb" . str_replace("screenshots", "", $ssRow['filename']);
-		
-			## Check to see if the original fanart file actually exists before attempting to process 
+
+			## Check to see if the original fanart file actually exists before attempting to process
 			if(file_exists("../banners/$ssOriginal"))
-			{			
+			{
 				## Check if thumb already exists
 				if(!file_exists("../banners/$ssThumb"))
-				{					
+				{
 					## If thumb is non-existant then create it
 				   $image = new SimpleImage();
 				   $image->load("../banners/$ssOriginal");
@@ -112,12 +112,12 @@ $user = $_REQUEST["user"];
 				   $image->save("../banners/$ssThumb");
 					//makeFanartThumb("../banners/$ssOriginal", "../banners/$ssThumb");
 				}
-				
+
 				## Get Fanart Image Dimensions
 				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$ssOriginal");
 				$ssWidth = $image_width;
 				$ssHeight = $image_height;
-				
+
 				## Output Fanart XML Branch
 				print "<screenshot>\n";
 					print "<original width=\"$ssWidth\" height=\"$ssHeight\">$ssOriginal</original>\n";
@@ -126,71 +126,82 @@ $user = $_REQUEST["user"];
 			}
 		}
 	}
-	
+
 	function processBoxart($gameID)
 	{
 		## Select all boxart rows for the requested game id
 		$baResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'boxart' ORDER BY filename ASC ");
-		
+
 		## Process each boxart row incrementally
 		while($baRow = mysql_fetch_assoc($baResult))
 		{
 			## Construct file names
 			$baOriginal = $baRow['filename'];
-			
+			$baThumb = "boxart/thumb" . str_replace("boxart", "", $baRow['filename']);
+
 			$type  = (preg_match('/front/', $baOriginal)) ? 'front' : 'back';
-		
-			## Check to see if the original boxart file actually exists before attempting to process 
+
+			## Check to see if the original boxart file actually exists before attempting to process
 			if(file_exists("../banners/$baOriginal"))
 			{
+			    ## Check if thumb already exists
+			    if(!file_exists("../banners/$baThumb"))
+			    {
+			    ## If thumb is non-existant then create it
+			        $image = new SimpleImage();
+			        $image->load("../banners/$baOriginal");
+			        $image->resizeToWidth(300);
+			        $image->save("../banners/$baThumb");
+			    }
+
 				## Get boxart image dimensions
 				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../banners/$baOriginal");
 				$baWidth = $image_width;
 				$baHeight = $image_height;
-				
+
 				## Output Boxart XML Branch
-				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\">$baOriginal</boxart>\n";
+				echo "<boxart side=\"$type\" width=\"$baWidth\" height=\"$baHeight\" thumb=\"$baThumb\">$baOriginal</boxart>\n";
 			}
 		}
 	}
-	
+
 	function processBanner($gameID)
 	{
 		## Select all boxart rows for the requested game id
 		$banResult = mysql_query(" SELECT filename FROM banners WHERE keyvalue = $gameID AND keytype = 'series' ORDER BY filename ASC ");
-		
+
 		## Process each boxart row incrementally
 		while($banRow = mysql_fetch_assoc($banResult))
 		{
 			## Construct file names
 			$banOriginal = $banRow['filename'];
-		
-			## Check to see if the original boxart file actually exists before attempting to process 
+
+			## Check to see if the original boxart file actually exists before attempting to process
 			if(file_exists("../banners/$banOriginal"))
-			{			
+			{
 				## Output Boxart XML Branch
 				echo "<banner width=\"760\" height=\"140\">$banOriginal</banner>";
 			}
 		}
 	}
-	
+
 	function processClearLOGO($gameID)
 	{
 		## Select all boxart rows for the requested game id
 		$clResult = mysql_query(" SELECT filename, resolution FROM banners WHERE keyvalue = $gameID AND keytype = 'clearlogo' LIMIT 1 ");
-		
+
 		## Process each boxart row incrementally
 		while($clRow = mysql_fetch_assoc($clResult))
 		{
 			## Construct file names
 			$clOriginal = $clRow['filename'];
 			$clResolution = $clRow['resolution'];
-			
+
 			$clResolution = explode("x", $clResolution, 2);
-		
-			## Check to see if the original boxart file actually exists before attempting to process 
+
+			## Check to see if the original boxart file actually exists before attempting to process
 			if(file_exists("../banners/$clOriginal"))
-			{			
+			{
 				## Output Boxart XML Branch
 				echo "<clearlogo width=\"$clResolution[0]\" height=\"$clResolution[1]\">$clOriginal</clearlogo>";
 			}
@@ -228,7 +239,7 @@ else
 		{
 			$platformRow = mysql_fetch_assoc($platformResult);
 			$platformId = $platformRow['id'];
-			
+
 			$arr = array();
 			preg_match('/[0-9]+/', $name, $arr);
 			$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
@@ -236,7 +247,7 @@ else
 			{
 					$query .= " AND GameTitle LIKE '%$numeric%'";
 			}
-			
+
 			$query .= " AND Platform = '$platformId'";
 		}
 		else
@@ -281,7 +292,7 @@ while ($obj = mysql_fetch_object($result)) {
                     }
                     echo '</Genres>';
                     break;
-				
+
 				case 'Alternates':
                     echo '<AlternateTitles>';
                     $alternates = explode(',', $value);
@@ -292,15 +303,15 @@ while ($obj = mysql_fetch_object($result)) {
                     }
                     echo '</AlternateTitles>';
                     break;
-				
+
 				case'Youtube':
                     print "<$key>http://www.youtube.com/watch?v=$value</$key>\n";
 					break;
-					
+
                 case 'Rating':
                     print "<Rating>" . (float) $value . "</Rating>";
                     break;
-					
+
 				case 'Players':
 					if($value == 4) {
 						print "<$key>4+</$key>";
@@ -309,7 +320,7 @@ while ($obj = mysql_fetch_object($result)) {
 						print "<$key>" . $value . "</$key>";
 					}
                     break;
-					
+
                 default:
                     print "<$key>$value</$key>\n";
             }
@@ -318,15 +329,15 @@ while ($obj = mysql_fetch_object($result)) {
 
     ## Process Images
 	print "<Images>\n";
-	
+
 	processFanart($obj->id);
 	processBoxart($obj->id);
 	processBanner($obj->id);
 	processScreenshots($obj->id);
 	processClearLOGO($obj->id);
-	
+
 	print "</Images>\n";
-    
+
 
     ## End XML item
     print "</Game>\n";

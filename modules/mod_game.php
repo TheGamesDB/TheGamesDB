@@ -3,12 +3,12 @@
 	/*
 	 * Game Functions
 	 */
-	
+
 	if ($function == 'Add Game') {
 		## Get Platform POSTDATA
 		//$selectedPlatform = $_POST['Platform'];
-		
-		
+
+
 		## Check for exact matches for seriesname
 		$GameTitle = mysql_real_escape_string($GameTitle);
 		$GameTitle = ucfirst($GameTitle);
@@ -33,11 +33,11 @@
 			$errormessage = "Sorry, \"$GameTitle\" Already Exists For That Platform.";
 		}
 	}
-	
+
 	if ($function == 'Save Game') {
 		$message = null;
 		$errormessage = null;
-		
+
 		$updates = array();
 		foreach ($_POST AS $key => $value) {
 			if ($key != 'function' && $key != 'button' && $key != 'newshowid' && $key != 'comments' && $key != 'email' && !strstr($key, 'GameTitle_') && !strstr($key, 'Overview_') && $key != 'comments' && $key != 'requestcomments' && $key != 'requestreason') {
@@ -89,7 +89,7 @@
 
 		$id = $newshowid;
 		//$tab = 'game-edit';
-		header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+		header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		exit;
 	}
 
@@ -97,7 +97,7 @@
 		$message = null;
 		$errormessage = null;
 		$subkey = "graphical";
-		
+
 		if(isset($bannerfile))
 		{
 			$uploadedfile = $bannerfile;
@@ -106,7 +106,7 @@
 		{
 			$uploadedfile = $_FILES['bannerfile']['tmp_name'];
 		}
-		
+
 		## Check if the image is the right size
 		list($image_width, $image_height, $image_type, $image_attr) = getimagesize($uploadedfile);
 		if ($image_width == 760 && $image_height == 140) {
@@ -180,10 +180,10 @@
 			$errormessage = 'Game banners MUST be 760px wide by 140px tall';
 		}
 		$message .= "Banner sucessfully added.";
-		
+
 		$tab = "game-edit";
-		
-		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+
+		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		//exit;
 	}
 
@@ -212,7 +212,7 @@
 	if ($function == 'Upload Box Art') {
 		$message = null;
 		$errormessage = null;
-		
+
 		$id = mysql_real_escape_string($id);
 
 		if(isset($bannerfile))
@@ -225,7 +225,7 @@
 		}
 		list($image_width, $image_height, $image_type, $image_attr) = getimagesize($uploadedfile);
 		$resolution = $image_width . 'x' . $image_height;
-		
+
 		if ($image_type == 2 || $image_type == 3)
 		{
 			$errormessage = "";
@@ -236,11 +236,11 @@
 		}
 
 		## No errors, so we can process it
-		if ($errormessage == "") 
-		{	
+		if ($errormessage == "")
+		{
 			$fileid = 1;
 			if (file_exists("banners/boxart/original/$cover_side/$id-$fileid.jpg") || file_exists("banners/boxart/original/$cover_side/$id-$fileid.png")) {
-				
+
 				// Name = GameID-Timestamp
 				if($image_type == 2)
 				{
@@ -251,9 +251,9 @@
 				{
 					$modName = $id . "-" . time() . ".png";
 				}
-				
+
 				$filename = "$cover_side/$modName";
-				
+
 				// Move to relavant moderation queue folder (front or back)
 				if (rename($uploadedfile, "moderationqueue/$filename"))
 				{
@@ -275,7 +275,7 @@
 				}
 			}
 			else
-			{		
+			{
 				## See if image is jpeg format
 				if($image_type == 2)
 				{
@@ -310,28 +310,28 @@
 
 					## Store the seriesid for the XML updater
 					seriesupdate($id);
-					
+
 					$message .= "Box art sucessfully added.";
 				}
 				else
 				{
 					$errormessage = "Unable to move uploaded file from temp folder.";
 				}
-			
+
 			}
 			$tab = 'game-edit';
 		}
-		
-		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+
+		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		//exit;
 	}
 
 	if ($function == 'Upload Fan Art') {
 		$message = null;
 		$errormessage = null;
-		
+
 		$id = mysql_real_escape_string($id);
-		
+
 		if(isset($bannerfile))
 		{
 			$uploadedfile = $bannerfile;
@@ -363,7 +363,7 @@
 				$fileid++;
 			}
 			$filename = "fanart/original/$id-$fileid.jpg";
-			
+
 			if(isset($bannerfile))
 			{
 				if(rename($uploadedfile, "banners/$filename"))
@@ -378,7 +378,7 @@
 					$moveSuccess = true;
 				}
 			}
-			
+
 			if ($moveSuccess == true)
 			{
 				## Calculate the colors
@@ -397,17 +397,17 @@
 			$message = "Fan art successfully added";
 		}
 		$tab = 'game-edit';
-		
-		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+
+		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		//exit;
 	}
 
 	if ($function == 'Upload Screenshot') {
 		$message = null;
 		$errormessage = null;
-		
+
 		$id = mysql_real_escape_string($id);
-		
+
 		if(isset($bannerfile))
 		{
 			$uploadedfile = $bannerfile;
@@ -416,7 +416,7 @@
 		{
 			$uploadedfile = $_FILES['bannerfile']['tmp_name'];
 		}
-		
+
 		## Check if the image is the right size
 		list($image_width, $image_height, $image_type, $image_attr) = getimagesize($uploadedfile);
 		$resolution = $image_width . 'x' . $image_height;
@@ -455,7 +455,7 @@
 						$moveSuccess = true;
 					}
 				}
-				
+
 				if ($moveSuccess == true)
 				{
 					## Insert database record
@@ -471,15 +471,15 @@
 
 		}
 		$tab = 'game-edit';
-		
-		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+
+		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		//exit;
 	}
-		
+
 	if ($function == 'Upload Clear Logo') {
 		$message = null;
 		$errormessage = null;
-		
+
 		if(isset($bannerfile))
 		{
 			$uploadedfile = $bannerfile;
@@ -488,20 +488,20 @@
 		{
 			$uploadedfile = $_FILES['bannerfile']['tmp_name'];
 		}
-		
+
 		## Get image Dimensions, Format Type & Attributes
 		list($image_width, $image_height, $image_type, $image_attr) = getimagesize($uploadedfile);
-		
+
 		## Check if the image is the right size
-		if ($image_width == 400 && $image_height <= 250) {
-			
+		if ($image_width == 400 && $image_height <= 300) {
+
 			$resolution = $image_width . "x" . $image_height;
-			
+
 			## Check if it's a PNG format image
 			if ($image_type == '3') {
-				
+
 				$filename = "clearlogo/$id.png";
-				
+
 				 ## Check if this game already has a ClearLOGO uploaded
 				if(file_exists("banners/clearlogo/$id.png"))
 				{
@@ -526,7 +526,7 @@
 					}
 				}
 				else
-				{					
+				{
 					## Rename/move the file
 					if(isset($bannerfile))
 					{
@@ -542,14 +542,14 @@
 							$moveSuccess = true;
 						}
 					}
-					
+
 					if ($moveSuccess == true)
 					{
 						## Insert database record
 						$id = mysql_real_escape_string($id);
 						$query = "INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('clearlogo', $id, $user->id, $time, 'clearlogo/$id.png', 1, '$resolution')";
 						$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-						
+
 						$message .= "ClearLOGO sucessfully added.";
 					}
 				}
@@ -563,10 +563,10 @@
 		{
 			$errormessage = 'ClearLOGO\'s MUST be 400 pixels wide by a maximum of 250px tall';
 		}
-		
+
 		$tab = "game-edit";
-		
-		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage)); 
+
+		//header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		//exit;
 	}
 

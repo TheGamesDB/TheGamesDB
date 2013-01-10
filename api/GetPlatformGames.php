@@ -53,21 +53,9 @@ while ($obj = mysql_fetch_object($result)) {
         ## Prepare the string for output
         if (!empty($value)) {
             $value = xmlformat($value, $key);
-			if($key == "platform")
-			{
-				$key = "Platform";
-			}
             print "<$key>$value</$key>\n";
         }
-	}
-	
-	// Get Thumbnail if exists
-	$thumbQuery = mysql_query(" SELECT banners.filename AS thumb FROM games, banners WHERE banners.keyvalue={$obj->id} AND banners.filename LIKE '%front%' LIMIT 1 ");
-	if($thumbResult = mysql_fetch_object($thumbQuery))
-	{
-		$thumb = $thumbResult->thumb;
-		print "<thumb>$thumb</thumb>";
-	}
+	}	
 
     ## End XML item
     print "</Game>\n";

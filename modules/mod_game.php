@@ -561,7 +561,7 @@
 		}
 		else
 		{
-			$errormessage = 'ClearLOGO\'s MUST be 400 pixels wide by a maximum of 250px tall';
+			$errormessage = 'ClearLOGO\'s MUST be 400 pixels wide by a maximum of 300px tall.';
 		}
 
 		$tab = "game-edit";

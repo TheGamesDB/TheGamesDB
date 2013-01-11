@@ -604,7 +604,7 @@
 				<ul>
 					<li><a id="nav_fanartScreens" class="active" href="#gameContentTop" onclick="contentShow('fanartScreens');">Fanart &amp; Screenshots</a></li>
 					<li><a id="nav_banners" href="#gameContentTop" onclick="contentShow('banners');">Banners</a></li>
-					<li><!-- <a id="nav_platforms" href="#gameContentTop" onclick="contentShow('platforms');">Other Platforms</a> --></li>
+					<li><a id="nav_platforms" href="#gameContentTop" onclick="contentShow('platforms');">Other Platforms</a></li>
 					<li><!-- <a id="nav_trailer" href="#gameContentTop" onclick="contentShow('trailer');">Game Trailer</a> --></li>
 				</ul>
 				<div style="clear: both;"></div>
@@ -748,14 +748,14 @@
 									<?php
 								}
 								?>
-								<p>If you know this game exists on another platform, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
+								<p>If you know this game exists on another platform, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=urlencode($game->GameTitle)?>">add it</a>.</p>
 								<?php
 							}
 							else
 							{
 								?>
 								<p>There are currently no other platforms that have this game yet...</p>
-								<p>If you know of one, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=$game->GameTitle?>">add it</a>.</p>
+								<p>If you know of one, why not <a href="<?=$baseurl?>?tab=addgame&passTitle=<?=urlencode($game->GameTitle)?>">add it</a>.</p>
 								<?php
 							}
 						?>

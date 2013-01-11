@@ -35,11 +35,17 @@ if($tab != "mainmenu")
 {
 	if(!isset($headless))
 	{
+	    $tabFile = "tab_$tab.php";
+	    if (!file_exists($tabFile)) {
+	        header("HTTP/1.0 404 Not Found");
+	        $tabFile = "tab_404.php";
+	    }
+	    
 		// Load Template Header
 		include("templates/default/header.php");
 		
 		// Load Tab Content
-		include("tab_$tab.php");
+		include($tabFile);
 		
 		// Load Template Header
 		include("templates/default/footer.php");

@@ -22,6 +22,14 @@
 	mysql_select_db($db_database) or die('Could not select database');
 	$result = mysql_query("SET NAMES 'utf8'") or die('Query failed: ' . mysql_error());
 
+	function shutdown()
+	{
+	    global $database;
+	    mysql_close($database);
+	}
+	
+	register_shutdown_function('shutdown');
+
 	## Prevent SQL injection attacks
 	$_REQUEST  = array_map('mysql_real_escape_string', $_REQUEST);
 

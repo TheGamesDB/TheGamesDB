@@ -12,7 +12,14 @@
 	$database = mysql_connect($db_server, $db_user, $db_password) or die('Could not connect: ' . mysql_error());
 	mysql_select_db($db_database) or die('Could not select database');
 	$result	= mysql_query("SET NAMES 'utf8'") or die('Query failed: ' . mysql_error());
-
+    
+	function shutdown()
+	{
+	    global $database;
+	    mysql_close($database);
+	}
+	
+	register_shutdown_function('shutdown');
 
 	## Function to create the series name for the URL.  This removes all non alphanumeric characters
 	## and converts spaces to underscores.

@@ -83,6 +83,10 @@
 						<p>3-2-12: Created GetPlatform API method.</p>
 						<hr />
 						
+						<h3 style="color: orange;">&laquo;GetPlatformGames&raquo;</h3>
+						<p>1-10-13: Created GetPlatformGames API method.</p>
+						<hr />
+						
 						<h3 style="color: orange;">&laquo;User_Favorites&raquo;</h3>
 						<p>[None]</p>
 						<hr />
@@ -109,6 +113,7 @@
 							<li>Search for a loose list of games.</li>
 							<li>Retrieve metadata &amp; artwork for games.</li>
 							<li>Retrieve a list of all platforms on the site</li>
+							<li>Retrieve a list of all games for a given platform on the site</li>
 							<li>Retrieve metadata &amp; artwork for platforms.</li>
 							<li>Update user favorites.</li>
 							<li>Request all updated or new content since a given date.</li>
@@ -164,6 +169,17 @@
 						<p><b>Example:</b></p>
 						<p>To retrieve a full list of platforms, along with their id and url alias:<br />
 						<a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatformsList.php" target="_blank"><?= $baseurl; ?>/api/GetPlatformsList.php</a></p>
+						<hr />
+						
+						<h3 style="color: orange;">&laquo;GetPlatformGames&raquo;</h3>
+						<p><b>Desc:</b> Returns a listing of all games (like GetGamesList) available on the site for the given platform.</p>
+						<p><b>Available Parameters:</b></p>
+						<ul>
+							<li>platform (int / required) - The platform ID as retrieved from GetPlatformsList</li>
+						</ul>
+						<p><b>Example:</b></p>
+						<p>To retrieve a full list of games for the PC platform:<br />
+						<a style="color: orange;" href="<?= $baseurl; ?>/api/GetPlatformsList.php" target="_blank"><?= $baseurl; ?>/api/GetPlatformsList.php?platform=1</a></p>
 						<hr />
 						
 						<h3 style="color: orange;">&laquo;GetPlatform&raquo;</h3>

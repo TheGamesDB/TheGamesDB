@@ -23,10 +23,10 @@
 	<td><b>Password</b></td>
 	<td><input type="password" name="password" id="gray"></td>
 </tr>
-<!--<tr>
+<tr>
 	<td><b>Remember Me On This Computer</b></td>
 	<td><input type="checkbox" name="setcookie"></td>
-</tr>-->
+</tr>
 <tr>
 	<td colspan="2">
 		<input type="hidden" name="function" value="Log In" />

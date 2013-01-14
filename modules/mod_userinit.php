@@ -24,6 +24,10 @@
 			unset($_SESSION['userlevel']);
 			$loggedin = 0;
 		}
+	} else {
+	    //remove in case just one of the 2 is present
+	    setcookie('cookiepass','', -1);
+	    setcookie('cookieid', '', -1);
 	}
 
 

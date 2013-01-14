@@ -22,12 +22,12 @@
 			
 			if ($key == "front")
 			{
-				$query = "SELECT id, filename FROM banners WHERE keytype = 'boxart' AND filename LIKE 'boxart/original/front/$gameid-1.%' LIMIT 1";
+				$query = "SELECT id, filename FROM banners WHERE keytype = 'boxart' AND filename LIKE 'boxart/original/front/$gameid-%.%' LIMIT 1";
 				$keytype = "boxart";
 			}
 			else if ($key == "back")
 			{
-				$query = "SELECT id, filename FROM banners WHERE keytype = 'boxart' AND filename LIKE 'boxart/original/back/$gameid-1.%' LIMIT 1";
+				$query = "SELECT id, filename FROM banners WHERE keytype = 'boxart' AND filename LIKE 'boxart/original/back/$gameid-%.%' LIMIT 1";
 				$keytype = "boxart";
 			}
 			else if ($key == "clearlogo")

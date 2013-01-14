@@ -10,9 +10,7 @@
 
 <div style="padding: 30px 0px;">
 	
-<h1 style="text-align: center;">Showcase</h1>
-
-<p style="text-align: center;">TheGamesDB.net is proud to provide services for the following featured projects that utilise our data to bring the world of gaming to life.</p>
+<h1 style="text-align: center;"><img src="http://thegamesdb.net/images/showcase.png" alt="Showcase" /></h1>
 
 <!-- START GameBrowser Feature -->
 <div style="width: 800px; background-color: #000; color: #FFF; margin: auto; margin-top: 26px; padding: 5px 30px 15px 30px; border: 2px solid #666; outline: 0px solid #666; text-align: justify; background-image: url(<?= $baseurl; ?>//images/showcase/bg-featured-panel.jpg); background-repeat: no-repeat; background-position: bottom center; border-radius: 25px; outline-radius: 25px; margin-bottom: 20px;">

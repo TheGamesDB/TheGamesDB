@@ -222,7 +222,7 @@
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/stats/">Stats</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/blog/">Blog</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net" target="_blank">Forum</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/api/">API</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://wiki.thegamesdb.net">Wiki</a></div>
 				<div style="clear: both;"></div>
 			</div>
 			
@@ -247,7 +247,7 @@
 			</div>
 			
 			<div id="theTeam" style="padding-top: 5px; padding-right: 25px; float: right; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 14px; text-shadow: 0px 2px 6px #666;">
-				<a href="http://wiki.thegamesdb.net" style="color: #333;">TheGamesDB Wiki</a>
+				<a href="http://wiki.thegamesdb.net" style="color: #333;">TheGamesDB Wiki</a> | <a href="<?php echo $baseurl; ?>/showcase" style="color: #333;">Showcase</a>  
 			</div>
 			
 			<div style="padding-top: 4px;">

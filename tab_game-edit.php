@@ -288,6 +288,16 @@
 					<? } ?>
 				</tr>
 				<? } ?>
+				<? if ($adminuserlevel == 'ADMINISTRATOR') { ?>
+				<tr>
+					<? if (!empty($front) && $loggedin = 1) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href='<?= $baseurl?>/game-edit/<?= $game->id ?>/?function=Delete+Banner&bannerid=<?= $front->id?>' style="color: orange;">Delete This Art</a></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href='<?= $baseurl?>/game-edit/<?= $game->id ?>/?function=Delete+Banner&bannerid=<?= $back->id?>' style="color: orange;">Delete This Art</a></td>
+					<? } ?>
+				</tr>
+				<? } ?>
 			</table>
 			<? } ?>
 

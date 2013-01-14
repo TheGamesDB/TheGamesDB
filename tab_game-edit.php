@@ -202,84 +202,35 @@
 		</div>
 		<div style="clear: left; padding: 10px 0px 0px 0px;"></div>
 		<div id="gameCoversWrapper">
-			<div>
-			
-				<div id="frontBoxart">
-					<div id="frontRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-front.png) no-repeat; z-index: 10"></div>
-					<div class="slider-wrapper theme-default">
-						<?php
-						
-						if ($frontCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' "))
+			<div id="gameCovers">
+				<?php
+					if ($frontCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' LIMIT 1 "))
+					{
+						$front = mysql_fetch_object($frontCoverResult);
+						if (!empty($front))
 						{
-							if(mysql_num_rows($frontCoverResult) > 0)
+							?>
+							<img id="frontCover" class="frontCover imgShadow" <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+							<?php
+							if ($backCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%back%' LIMIT 1 "))
 							{
-							?>
-								<div id="frontBoxartSlider" class="nivoSlider">
-							<?php
-								$frontBoxartSlideCount = 0;
-								while($front = mysql_fetch_object($frontCoverResult))
-								{	
-							?>
-									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($front->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
-							<?php
-									$frontBoxartSlideCount++;
+								$back = mysql_fetch_object($backCoverResult);
+								if (!empty($back))
+								{
+								?>
+								<img  id="backCover" class="backCover imgShadow" style="display: none;" <?=imageResize("$baseurl/banners/$back->filename", "banners/_gameviewcache/$back->filename", 300, "width")?> alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+								<?php
 								}
-							?>
-								</div>
-							<?php
-							}
-							else
-							{
-							?>
-								<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/boxart_blank.png" width="300" height="417" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
-							<?php
 							}
 						}
-						?>	
-					</div>
-				
-					<div style="clear: both;"></div>
-				
-				</div>
-				
-				<div id="rearBoxart" style="margin-top: 30px;">
-					<div id="backRibbon" style="position: absolute; width: 125px; height: 125px; background: url(<?= $baseurl ?>/images/game-view/ribbon-back.png) no-repeat; z-index: 10"></div>
-					<div class="slider-wrapper theme-default">
-						<?php
-						
-						if ($frontCoverResult = mysql_query(" SELECT b.id, b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%back%' "))
+						else
 						{
-							if(mysql_num_rows($frontCoverResult) > 0)
-							{
-							?>
-								<div id="rearBoxartSlider" class="nivoSlider">
-							<?php
-								$frontBoxartSlideCount = 0;
-								while($front = mysql_fetch_object($frontCoverResult))
-								{	
-							?>
-									<img <?=imageResize("$baseurl/banners/$front->filename", "banners/_gameviewcache/$front->filename", 300, "width")?> title="<?= imageUsername($front->id) ?><br /><a href='<?="$baseurl/banners/$front->filename"?>' target='_blank'>View Full-Size</a> | <?php if($adminuserlevel == 'ADMINISTRATOR') { echo "<a href='$baseurl/game-edit/$game->id/?function=Delete+Banner&bannerid=$front->id'>Delete This Art</a>"; } ?><br /><?= imageRating($front->id) ?><br /><?= userImageRating($front->id, $baseurl, $game->id, $user->id) ?>" />
-							<?php
-									$frontBoxartSlideCount++;
-								}
-							?>
-								</div>
-							<?php
-							}
-							else
-							{
-							?>
-								<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/boxart_blank.png" width="300" height="417" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
-							<?php
-							}
+						?>
+							<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/boxart_blank.png" width="300" height="417" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+						<?php
 						}
-						?>	
-					</div>
-				
-					<div style="clear: both;"></div>
-				
-				</div>
-			
+					}
+				?>
 			</div>
 			<p style="text-align: center; font-size: 15px;">
 			<?php
@@ -292,7 +243,13 @@
 			if (!empty($front))
 			{
 			?>
-			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>
+			<?php
+			}
+			if (!empty($front) && !empty($back))
+			{
+			?>
+			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<?php
 			}
 			if (!empty($back))
@@ -302,7 +259,50 @@
 			<?php
 			}
 			?>
+
+			<? if (!empty($front) || !empty($back)) { ?>
+			<table call-padding="0" cell-spacing="0" style="border: 2px solid #444; border-radius: 6px; background-color: #333; color: #FFF; border-collapse: separate; border-spacing: 2px; border-color: gray; width: 100%;">
+				<tr>
+					<? if (!empty($front)) { ?>
+					<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444; color: #333;">Front Boxart</th>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444; color: #333;">Rear Boxart</th>
+					<? } ?>
+				</tr>
+				<tr>
+					<? if (!empty($front)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><?= imageUsername($front->id) ?></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><?= imageUsername($back->id) ?></td>
+					<? } ?>
+				</tr>
+				<? if ($loggedin == 1) { ?>
+				<tr>
+					<? if (!empty($front) && $loggedin = 1) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$front->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$back->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<? } ?>
+				</tr>
+				<? } ?>
+				<? if ($adminuserlevel == 'ADMINISTRATOR') { ?>
+				<tr>
+					<? if (!empty($front) && $loggedin = 1) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href='<?= $baseurl?>/game-edit/<?= $game->id ?>/?function=Delete+Banner&bannerid=<?= $front->id?>' style="color: orange;">Delete This Art</a></td>
+					<? } ?>
+					<? if (!empty($back)) { ?>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href='<?= $baseurl?>/game-edit/<?= $game->id ?>/?function=Delete+Banner&bannerid=<?= $back->id?>' style="color: orange;">Delete This Art</a></td>
+					<? } ?>
+				</tr>
+				<? } ?>
+			</table>
+			<? } ?>
+
 		</div>
+		
 		<div id="gameInfo">
 		
 		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="greyButton boxShadow" style="float: right; font-size: 16px; line-height: 32px; display: inline-block; padding: 9px; color: orange; margin-top: 14px;"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
@@ -1127,6 +1127,72 @@
 </script>
 <!-- End #panelNav Scripts -->
 	
+
+<!-- Start Boxart Flip Script -->
+<script type="text/javascript">
+	$('#frontCover').css({display: "none"});
+
+	$(document).ready(function(){
+		$('#frontCover').fadeIn(2000);
+	});
+</script>
+
+<?php
+	if (!empty($back))
+	{
+?>
+<script type="text/javascript">
+	$('#gameCovers').css({cursor : "pointer"});
+
+	$(document).ready(function(){
+		$('.gameCoversFlip').bind("click",function(){
+			var elem = $('#gameCovers');
+
+			if(elem.data('flipped'))
+			{
+				elem.revertFlip();
+				elem.data('flipped',false)
+			}
+			else
+			{
+				var frontWidth = $("#frontCover").attr("width");
+				var frontHeight = $("#frontCover").attr("height");
+				elem.flip({
+				direction:'rl',
+				speed: 350,
+				color: "#ff9000",
+				content: "<img class=\"imgShadow\" src=\"" + $("#backCover").attr("src") + "\" width=\"" + frontWidth + "\" height=\"" + frontHeight + "\" />"
+				});
+				elem.data('flipped',true);
+			}
+		});
+		$('#gameCovers').bind("click",function(){
+			var elem = $(this);
+
+			if(elem.data('flipped'))
+			{
+				elem.revertFlip();
+				elem.data('flipped',false)
+			}
+			else
+			{
+				var frontWidth = $("#frontCover").attr("width");
+				var frontHeight = $("#frontCover").attr("height");
+				elem.flip({
+				direction:'rl',
+				speed: 350,
+				color: "#ff9000",
+				content: "<img class=\"imgShadow\" src=\"" + $("#backCover").attr("src") + "\" width=\"" + frontWidth + "\" height=\"" + frontHeight + "\" />"
+				});
+				elem.data('flipped',true);
+			}
+		});
+	});
+</script>
+<!-- End Boxart Flip Script -->
+<?php
+	}
+?>
 <!-- Start Release Date Picker Script -->
 <script type="text/javascript">
     $(document).ready(function(){

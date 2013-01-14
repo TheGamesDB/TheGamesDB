@@ -238,9 +238,20 @@
 		## No errors, so we can process it
 		if ($errormessage == "")
 		{
+            $fileExists == false;
 			$fileid = 1;
-			if (file_exists("banners/boxart/original/$cover_side/$id-$fileid.jpg") || file_exists("banners/boxart/original/$cover_side/$id-$fileid.png")) {
-
+            
+            for ($i = 1; $i <= 10; $i++)
+            {
+                if (file_exists("banners/boxart/original/$cover_side/$id-$i.jpg") || file_exists("banners/boxart/original/$cover_side/$id-$i.png"))
+                {
+                    $fileid = $i;
+                    $fileExists = true;
+                }
+            }
+            
+            if ($fileExists == true)
+            {
 				// Name = GameID-Timestamp
 				if($image_type == 2)
 				{

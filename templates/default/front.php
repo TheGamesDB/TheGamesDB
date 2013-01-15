@@ -66,6 +66,18 @@
 		}
 		.error { opacity: 0.7; font: bold 16px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: red; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(<?php echo $baseurl; ?>/images/common/bg_orange.png) repeat-x center center;}
 		.message { opacity: 0.7; font: bold 16px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: #fff; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(<?php echo $baseurl; ?>/images/common/bg_orange.png) repeat-x center center;}
+        
+        input {
+            height: 34px;
+            font-size: 22px;
+            line-height: 22px;
+            margin: 0px;
+            padding: 0px;
+            border: 1px solid #fff;
+            border-radius: 0px;
+            background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center;
+            color: #fff;
+        }
 	</style>
 	
 	<?php
@@ -210,8 +222,11 @@
 			
 			<div id="searchbox" style="padding: 16px 0px; text-align: center;">
 				<form id="search" action="<?= $baseurl ?>/search/">
-					<input id="frontGameSearch" name="string" type="text" style="height: 30px; padding: 0px; width: 440px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee;" />
-					<input type="submit" value="Search" style="height: 30px; width: 100px; vertical-align: 2px; padding: 0px; font-size: 18px; text-shadow: 0px 2px 6px #666; color: #fff; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; border-radius: 6px; border: 1px solid #eee;" />
+                    <div>
+                        <input type="text" id="frontGameSearch" name="string" style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
+                        <!--<input id="frontGameSearch" name="string" type="text" style="height: 100%; padding: 0px; width: 440px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-right: 0px; border-radius: 6px 0px 0px 6px;" />
+                        <input type="submit" value="Search" style="height: 100%; padding: 0px 10px 0px 10px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 22px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-left: 0px; border-radius: 0px 6px 6px 0px;" /> -->
+                    </div>
 					<input type="hidden" name="function" value="Search" />
 				</form>
 			</div>

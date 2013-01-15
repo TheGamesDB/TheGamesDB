@@ -19,7 +19,7 @@ To get the site to run locally, you will need to install and configure the follo
   <dt>> Apache (v2.4.2 or Less Recommended)</dt>
   <dd>Additional Requirements: rewrite_module</dd>
   <dt>> MySQL (v5.5.8 or Less Recommended)</dt>
-  <dd>Additional Requirements: fulltext minimum word length should be set to 1 for searching game titles that include a single number in the title</dd>.
+  <dd>Additional Requirements: fulltext minimum word length should be set to 1 for searching game titles that include a single number in the title.</dd>
   <dt>> PHP 5 (v5.3.1 or Less Recommended)</dt>
   <dd>Additional Requirements: Settings - short open tag (on) & register globals (on)... you may want to alter your php error reporting settings to "error_reporting = E_ALL" to disable coding standards warnings for some deprecated functions that currently remain in use.</dd>
 </dl>

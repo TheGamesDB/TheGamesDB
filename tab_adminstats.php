@@ -261,7 +261,26 @@
 
                         // Fetch the number of new games titles
                         $timediff = time() - (60 * 60 * 24 * 30); //30 days
-                        $newGamesResult = mysql_query(" SELECT g.id, g.GameTitle, g.created FROM games AS g WHERE g.created > " . $timediff . " ORDER BY g.created DESC ");
+                        $newGamesResult = mysql_query("
+                            SELECT 
+                                g.id, 
+                                g.GameTitle, 
+                                g.created,
+                                g.author,
+                                p.name as platformname,
+                                p.alias as platformalias,
+                                u.username as authorname
+                            FROM 
+                                games AS g 
+                            LEFT JOIN
+                                platforms AS p ON g.Platform = p.id
+                            LEFT JOIN
+                                users AS u ON g.author = u.id
+                            WHERE 
+                                g.created > " . $timediff . " 
+                            ORDER BY 
+                                g.created DESC 
+                        ");
                         $newGamesCount = mysql_num_rows($newGamesResult);
                         ?>
                         <h2 style="color: #FF4F00;">New Games Titles (<?= $newGamesCount ?>)</h2>
@@ -269,8 +288,9 @@
                             <table align="center" border="1" cellspacing="0" cellpadding="7">
 								<tr>
 									<th style="background-color: #333; color: #FFF;" width="14%">Created</th>
-									<th style="background-color: #333; color: #FFF;" width="43%">Name</th>
 									<th style="background-color: #333; color: #FFF;" width="13%">User</th>
+									<th style="background-color: #333; color: #FFF;" width="14%">Platform</th>
+									<th style="background-color: #333; color: #FFF;" width="43%">Name</th>
 									<th style="background-color: #333; color: #FFF;" width="10%"></th>
 								</tr>
 
@@ -281,9 +301,10 @@
 								?>
 								<tr class="<?= $class; ?>">
 									<td><?= date("m-d g:i a", $game->created) ?></td>
-									<td style="text-align: left"><?= $game->GameTitle; ?></td>
-									<td>-</td>
-									<td><a href="/?tab=game-edit&id=<?= $game->id; ?>" style="color: orange;">Edit</a></td>
+									<td style="text-align: left"><a href="<?= $baseurl?>?tab=userinfoadmin&id=<?=$game->author?>" style="color: orange" target="_blank"><?=$game->authorname?></a></td>
+									<td style="text-align: left"><a href="<?=$baseurl?>/platform/<?=$game->platformalias?>" target="_blank" style="color: orange;"><?= $game->platformname ?></a></td>
+									<td style="text-align: left"><a href="<?=$baseurl?>?tab=game&id=<?= $game->id; ?>" target="_blank" style="color: orange;"><?= $game->GameTitle; ?></a></td>
+									<td><a href="<?=$baseurl?>?tab=game-edit&id=<?= $game->id; ?>" target="_blank"  style="color: orange;">Edit</a></td>
 								</tr>
 								<?php
 									}

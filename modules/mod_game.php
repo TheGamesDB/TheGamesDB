@@ -3,7 +3,6 @@
 	/*
 	 * Game Functions
 	 */
-
 	if ($function == 'Add Game') {
 		## Get Platform POSTDATA
 		//$selectedPlatform = $_POST['Platform'];
@@ -17,15 +16,10 @@
 
 		## Insert if it doesnt exist already
 		if (mysql_num_rows($result) == 0) {
-			$query = "INSERT INTO games (GameTitle, Platform, created, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time, NULL)";
+			$query = "INSERT INTO games (GameTitle, Platform, created, author, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time, {$user->id}, NULL)";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			$id = mysql_insert_id();
-			// TODO: trace this back and change the name
-			//seriesupdate($id); ## Update the XML data
-			// Add Audit
-			$sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'created', $id, NULL)";
-			mysql_query($sql);
-
+			
 			$URL = "$baseurl/game/$id/";
 			header("Location: $URL");
 			echo $selectedPlatform;
@@ -73,6 +67,8 @@
 		} else {
 			array_push($updates, "Overview=NULL");
 		}
+		
+		array_push($updates, "updatedby={$user->id}");
 
 		## Join the fields and run the query
 		$updatestring = implode(', ', $updates);
@@ -80,11 +76,6 @@
 		$query = "UPDATE games SET $updatestring WHERE id=$newshowid";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
-		// Add Audit
-		if (!empty($updatestring)) {
-			$sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'updated', $id, NULL)";
-			mysql_query($sql);
-		}
 		$message .= 'Game saved.';
 
 		$id = $newshowid;

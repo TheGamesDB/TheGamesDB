@@ -705,7 +705,7 @@
 			<div id="comments">
 					<?php
 						// SHOW ALL CURRENT COMMENTS
-						$commentsQuery = mysql_query(" SELECT c.*, u.username FROM comments AS c , users AS u WHERE c.gameid='$game->id' AND c.userid = u.id ORDER BY c.timestamp ASC");
+						$commentsQuery = mysql_query(" SELECT c.*, u.username, u.emailaddress FROM comments AS c , users AS u WHERE c.gameid='$game->id' AND c.userid = u.id ORDER BY c.timestamp ASC");
 						if(mysql_num_rows($commentsQuery))
 						{
 							while($comments = mysql_fetch_object($commentsQuery))
@@ -723,8 +723,10 @@
 								}
 								else
 								{
+									$gravatarID = md5(strtolower(trim($comments->emailaddress)));
+									$defaultBanner = urlencode($baseurl."/images/common/icons/user-black_64.png");
 								?>
-									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="http://www.gravatar.com/avatar/<?= $gravatarID ?>?s=64&r=pg&d=<?= $defaultBanner ?>" alt="<?= $comments->username; ?>" title="<?= $comments->username; ?>" />
 								<?php
 								}
 								?>
@@ -760,8 +762,10 @@
 								}
 								else
 								{
+									$gravatarID = md5(strtolower(trim($user->emailaddress)));
+									$defaultBanner = urlencode($baseurl."/images/common/icons/user-black_64.png");
 								?>
-									<img style="float: left; padding: 0px 15px 5px 0px;" src="<?=$baseurl; ?>/images/common/icons/user-black_64.png" alt="<?= $user->username; ?>" title="<?= $user->username; ?>" />
+									<img style="float: left; padding: 0px 15px 5px 0px;" src="http://www.gravatar.com/avatar/<?= $gravatarID ?>?s=64&r=pg&d=<?= $defaultBanner ?>" alt="<?= $user->username; ?>" title="<?= $user->username; ?>" />
 								<?php
 								}
 								?>

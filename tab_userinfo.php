@@ -1,4 +1,3 @@
-
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -30,8 +29,10 @@ if($loggedin == 1)
 		}
 		else
 		{
+			$gravatarID = md5(strtolower(trim($user->emailaddress)));
+			$defaultBanner = urlencode($baseurl."/images/common/icons/user-black_64.png");
 		?>
-			<p style="text-align: center;"><img src="<?= $baseurl; ?>/images/common/icons/user-black_64.png" alt="Current User Image" title="Current User Image" /></p>
+			<p style="text-align: center;"><img src="http://www.gravatar.com/avatar/<?= $gravatarID ?>?s=64&r=pg&d=<?= $defaultBanner ?>" alt="Current User Image" title="Current User Image" /></p>
 		<?php
 		}
 		?>

@@ -24,14 +24,37 @@ To get the site to run locally, you will need to install and configure the follo
   <dd>Additional Requirements: Settings - short open tag (on) & register globals (on)... you may want to alter your php error reporting settings to "error_reporting = E_ALL" to disable coding standards warnings for some deprecated functions that currently remain in use.</dd>
 </dl>
 
-The quickest way to install and configure these components is by using XAMPP/LAMP on Linux or WAMP on Windows.
+The quickest way to install and configure these components is by using XAMPP/LAMP on Linux, MAMP on Mac, or XAMPP/WAMP on Windows.
 
-Once these components are installed you will want to extract the site code into your www or htdocs directory.
+Once these components are installed you will want to extract the site code into your www or httpdocs directory.
 
-You will then need to set up the sample database. To do this use your favorite database management tool (PhpMyAdmin/Navicat) to import the "sample_db.sql" file into a new mysql database.
+The next step is to create a blank database and then configure the basic system settings. To do this copy and rename the "config.template.php" file to "config.php". Then open up this new file in your favorite text editor, and insert your database connection settings and Base URL settings.
 
-An admin account has been configured in the Users DB Table for you; the defualt username is "admin" and the default password is "admin".
+The easiest way to get sample data for this system is to use our TGDB Development Pack, you could also use the "sample_db.sql" file that is in the root of our GitHub repository, however we cannot guarantee that this file is up to date and is has no sample data to work with, just a blank database schema for posterity.
 
-Finally you will need to configure the basic system settings. To do this copy and rename the "config.template.php" file to "config.php". Then open up this new file in your favorite text editor, and insert your database connection settings and Base URL settings.
+The TGDB Development Pack:
+--------------------------
+
+> Where do I get it?
+
+You can download the TGDB Dev Pack from the following link: http://thegamesdb.net/tgdb-dev-pack.zip
+
+*It is roughly 40MB so be sure to do it on a connection that doesn't charge you per MB!*
+
+> What is it?
+
+The TGDB Dev Pack is a resource pack that is intended to aid the coding community to contribute to TheGamesDB.net's source code.
+The pack provides you with a small set of sample data and imagery which can be used as a test bed when coding for this project.
+Two users have already been created for you. There is an administrator account (username: "admin"), and a standard user account (username: "user")... The password for either of these users is very simply "password".
+To assist you in finding useful games, any games that have associated art available have been added as "favourite" games for both of these users.
+
+> How do I install it?
+
+Simply overwrite the "banners" folder that came with the original source code that you should have already grabbed, using the one included in this pack as a replacement.
+
+Finally, import the "tgdb-dev[dd-mm-yyyy].sql" file into your pre-configured MySQL database using your tool of choice (PhpMyAdmin, Navicat, MySQL Workbench, MySQL Console).
+
+That's It!
+----------
 
 *Now you should be good to go! Navigate to your web-server's url (typically "http://localhost" for local web-servers such as WAMP/LAMP/XAMPP)in your favorite browser and see if it all works!*

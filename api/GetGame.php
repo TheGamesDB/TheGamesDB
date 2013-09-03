@@ -15,7 +15,7 @@ include('../simpleimage.php');
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
 //$name = str_replace('-', '(.).(.)', $name);
-
+$platform = $_REQUEST['platform'];
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];

@@ -16,19 +16,19 @@ First, you will need to download a copy of the code. If you are unfamiliar with 
 To get the site to run locally, you will need to install and configure the following components:
 
 <dl>
-  <dt>> Apache (v2.4.2 or Less Recommended)</dt>
+  <dt>> Apache (v2.4.2 or Recommended)</dt>
   <dd>Additional Requirements: rewrite_module</dd>
-  <dt>> MySQL (v5.5.8 or Less Recommended)</dt>
+  <dt>> MySQL (v5.5.8 or Recommended)</dt>
   <dd>Additional Requirements: fulltext minimum word length should be set to 1 for searching game titles that include a single number in the title.</dd>
-  <dt>> PHP 5 (v5.3.1 or Less Recommended)</dt>
-  <dd>Additional Requirements: Settings - short open tag (on) & register globals (on)... you may want to alter your php error reporting settings to "error_reporting = E_ALL" to disable coding standards warnings for some deprecated functions that currently remain in use.</dd>
+  <dt>> PHP 5 (v5.3 or v5.4 Recommended)</dt>
+  <dd>Additional Requirements: Settings - short open tag (on) - Please Note: as of 23/09/2013 "register globals" is no longer required to be enabled... since PHP 5.4 has removed support for this, we had to introduce a Shiv in the code. As a result, you may want to alter your php error reporting settings to not display errors, as several uninitialized variables currently remain in use.</dd>
 </dl>
 
 The quickest way to install and configure these components is by using XAMPP/LAMP on Linux, MAMP on Mac, or XAMPP/WAMP on Windows.
 
 Once these components are installed you will want to extract the site code into your www or httpdocs directory.
 
-The next step is to create a blank database and then configure the basic system settings. To do this copy and rename the "config.template.php" file to "config.php". Then open up this new file in your favorite text editor, and insert your database connection settings and Base URL settings.
+The next step is to create a blank database and then configure the basic system settings. To do this copy and rename the "config.template.php" file to "config.php". Then open up this new file in your favorite text editor, and insert your database connection settings and Base URL settings. Please note that the base url you enter should not contain a trailing slash.
 
 The easiest way to get sample data for this system is to use our TGDB Development Pack, you could also use the "sample_db.sql" file that is in the root of our GitHub repository, however we cannot guarantee that this file is up to date and is has no sample data to work with, just a blank database schema for posterity.
 
@@ -57,4 +57,4 @@ Finally, import the "tgdb-dev[dd-mm-yyyy].sql" file into your pre-configured MyS
 That's It!
 ----------
 
-*Now you should be good to go! Navigate to your web-server's url (typically "http://localhost" for local web-servers such as WAMP/LAMP/XAMPP)in your favorite browser and see if it all works!*
+*Now you should be good to go! Navigate to your web-server's url (typically "http://localhost" for local web-servers such as WAMP/LAMP/MAMP/XAMPP)in your favorite browser and see if it all works!*

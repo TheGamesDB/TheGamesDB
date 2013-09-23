@@ -225,7 +225,7 @@ function imageResize($filename, $cleanFilename, $target)
 		}
 	?>
 	<!-- End Pagination -->
-
+	
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -414,7 +414,7 @@ function imageResize($filename, $cleanFilename, $target)
 							$boxart = mysql_fetch_object($boxartResult);
 						}
 						?>
-							<div style="padding: 10px; margin: 10px; border: 1px solid #333; background-color: #fff; text-align: left !important;">
+							<div class="backgroundGradientGrey" style="padding: 10px; margin: 10px; border: 1px solid #333; background-color: #fff; text-align: left !important; box-shadow: 0px 0px 6px #000; border-radius: 6px;">
 								<div style="height: 102px; width: 102px; text-align: center; padding-right: 10px; float:left">
 								<?php
 									if($boxart->filename != "")
@@ -431,7 +431,7 @@ function imageResize($filename, $cleanFilename, $target)
 									}
 								?>
 								</div>
-								<span style=" float: right; background-color: #333; padding: 6px; border-radius: 6px;">
+								<span style=" float: right; background-color: #333; padding: 7px 6px; border-radius: 6px; border: 1px solid #222; color: #eeeeee; font-weight: bold; margin-left: 10px; box-shadow: 0px 0px 6px #000;">
 								<?php
 								$ratingquery	= "SELECT AVG(rating) AS average, count(*) AS count FROM ratings WHERE itemtype='game' AND itemid=$game->id";
 								$ratingresult = mysql_query($ratingquery) or die('Query failed: ' . mysql_error());
@@ -449,6 +449,26 @@ function imageResize($filename, $cleanFilename, $target)
 								}
 								?>
 								</span>
+								<?php
+									if (!empty($game->ReleaseDate)) {
+									$releaseDate = null;
+								?>
+									<span style=" float: right; background-color: #333; padding: 6px; border-radius: 6px; border: 1px solid #222; color: #eeeeee; font-weight: bold; margin-left: 10px; box-shadow: 0px 0px 6px #000;">
+									<?php 
+										if (strlen($game->ReleaseDate) == 4)
+										{
+											echo $game->ReleaseDate;
+										}
+										else
+										{
+											$releaseDate = explode('/', $game->ReleaseDate);
+											echo $releaseDate[2];
+										}
+									?>
+									</span>
+								<?php
+									}
+								?>
 								<h3 style="margin-top: 0px;"><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
 								<p style="text-align: justify;"><?php if(!empty($game->Overview)) { echo substr($game->Overview, 0, 300) . "..."; } else { echo "<em><br />There is no overview available for this game.</em><br /><br />"; } ?></p>
 									<p style="font-size: 16px; color: #333;"><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a>&nbsp;|&nbsp;
@@ -476,7 +496,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$boxart = mysql_fetch_object($boxartResult);
 								}
 								?>
-									<div style="width: 356px; min-height: 102px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey" style="width: 356px; min-height: 102px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 102px; float:left">
 										<?php
 											if($boxart->filename != "")
@@ -525,7 +545,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$boxart = mysql_fetch_object($boxartResult);
 								}
 								?>
-									<div style="width: 222px; min-height: 280px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey" style="width: 222px; min-height: 280px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 200px;">
 										<?php
 											if($boxart->filename != "")
@@ -566,7 +586,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$banner = mysql_fetch_object($bannerResult);
 								}
 								?>
-									<div style="width: 222px; min-height: 80px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey" style="width: 222px; min-height: 80px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 47px;">
 										<?php
 											if($banner->filename != "")
@@ -616,19 +636,20 @@ function imageResize($filename, $cleanFilename, $target)
 				?>
 					<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable">
 						<tr>
-							<td class="head arcade" align="center">ID</td>
+							<td class="head" align="center">ID</td>
 							<td class="head arcade">Game Title</td>
-							<td class="head arcade">P</td>
-							<td class="head arcade">Genre</td>
-							<td class="head arcade">ESRB</td>
-							<td class="head arcade">Boxart</td>
-							<td class="head arcade">Fanart</td>
-							<td class="head arcade">Banner</td>
+							<td class="head arcade">Platform</td>
+							<td class="head arcade">Year</td>
+							<td class="head">Genre</td>
+							<td class="head">ESRB</td>
+							<td class="head">Boxart</td>
+							<td class="head">Fanart</td>
+							<td class="head">Banner</td>
 						</tr>
 				<?php
 				while($game = mysql_fetch_object($result))
 				{
-					if($gameResult = mysql_query(" SELECT g.id, g.GameTitle, g.Genre, g.Rating, p.name, p.alias AS PlatformAlias, p.icon FROM games as g, platforms as p WHERE g.id = '$game->id' AND g.Platform = p.id"))
+					if($gameResult = mysql_query(" SELECT g.id, g.GameTitle, g.ReleaseDate, g.Genre, g.Rating, p.name, p.alias AS PlatformAlias, p.icon FROM games as g, platforms as p WHERE g.id = '$game->id' AND g.Platform = p.id"))
 					{
 						if($game = mysql_fetch_object($gameResult))
 						{
@@ -647,6 +668,19 @@ function imageResize($filename, $cleanFilename, $target)
 								<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
 								<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/game/<?= $game->id ?>/"><?php echo $game->GameTitle; ?></a></td>
 								<td class="<?php echo $class; ?>"><img src="<?= $baseurl ?>/images/common/consoles/png16/<?php echo $game->icon; ?>" alt="<?php echo $game->name; ?>" style="vertical-align: middle;" /> <a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></td>
+								<td class="<?php echo $class; ?>">
+									<?php 
+										if (strlen($game->ReleaseDate) == 4)
+										{
+											echo $game->ReleaseDate;
+										}
+										else
+										{
+											$releaseDate = explode('/', $game->ReleaseDate);
+											echo $releaseDate[2];
+										}
+									?>
+								</td>
 								<td class="<?php echo $class; ?>">
 									<?php if(!empty($game->Genre))
 									{

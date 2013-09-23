@@ -276,7 +276,7 @@
 			</div>
 			
 			<div id="frontnav" style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #fff;">
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/topratedgames/">Games</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/browse/">Games</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/platforms/">Platforms</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/stats/">Stats</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/blog/">Blog</a></div>

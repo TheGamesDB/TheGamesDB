@@ -414,7 +414,7 @@ function imageResize($filename, $cleanFilename, $target)
 							$boxart = mysql_fetch_object($boxartResult);
 						}
 						?>
-							<div class="backgroundGradientGrey" style="padding: 10px; margin: 10px; border: 1px solid #333; background-color: #fff; text-align: left !important; box-shadow: 0px 0px 6px #000; border-radius: 6px;">
+							<div class="backgroundGradientGrey boxShadow" style="padding: 10px; margin: 10px; border: 1px solid #333; background-color: #fff; text-align: left !important; border-radius: 6px;">
 								<div style="height: 102px; width: 102px; text-align: center; padding-right: 10px; float:left">
 								<?php
 									if($boxart->filename != "")
@@ -496,7 +496,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$boxart = mysql_fetch_object($boxartResult);
 								}
 								?>
-									<div class="backgroundGradientGrey" style="width: 356px; min-height: 102px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey boxShadow" style="width: 356px; min-height: 102px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 102px; float:left">
 										<?php
 											if($boxart->filename != "")
@@ -545,7 +545,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$boxart = mysql_fetch_object($boxartResult);
 								}
 								?>
-									<div class="backgroundGradientGrey" style="width: 222px; min-height: 280px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey boxShadow" style="width: 222px; min-height: 280px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 200px;">
 										<?php
 											if($boxart->filename != "")
@@ -586,7 +586,7 @@ function imageResize($filename, $cleanFilename, $target)
 									$banner = mysql_fetch_object($bannerResult);
 								}
 								?>
-									<div class="backgroundGradientGrey" style="width: 222px; min-height: 80px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
+									<div class="backgroundGradientGrey  boxShadow" style="width: 222px; min-height: 80px; float: left; padding: 10px; margin: 10px; border-radius: 16px; border: 2px solid #333; background-color: #fff;">
 										<div style="height: 47px;">
 										<?php
 											if($banner->filename != "")
@@ -634,7 +634,7 @@ function imageResize($filename, $cleanFilename, $target)
 			elseif($searchview == "table")
 			{
 				?>
-					<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable">
+					<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable" calss="boxShadow">
 						<tr>
 							<td class="head" align="center">ID</td>
 							<td class="head arcade">Game Title</td>

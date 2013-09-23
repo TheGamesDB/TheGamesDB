@@ -142,10 +142,10 @@
 		<div id="navMain">
 		
 			<!-- GAMES NAV ITEM -->
-			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/topratedgames/">Games</a></div>
+			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "listplatform" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/browse/">Games</a></div>
 
 			<!-- PLATFORMS NAV ITEM -->
-			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "listplatform" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
+			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
 
 			<!-- STATS NAV ITEM -->
 			<?php if ($tab == "stats" || $tab == "adminstats" || $tab == "userlist" || $tab == "bannerartists" || $tab == "recentbanners") { $subnav = "stats"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/stats/">Stats</a></div>
@@ -173,6 +173,8 @@
 		?>
 			<div id="navSubGames" class="navSub">
 				<span class="navSubLinks">
+					<a href="<?=$baseurl ?>/browse/">Browse Games</a>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					<a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a>
 					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					<a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a>

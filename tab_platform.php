@@ -233,6 +233,8 @@
 							<?php } ?>
 				</div>
 				<hr />
+				<p style="text-align: center;"><a class="greyButton" href="<?= $baseurl ?>/browse/<?= $platform->id ?>/" style="padding-right: 5px; margin-right: 0px; border-radius: 6px 0px 0px 6px; border-right: 0px;"><img src="<?php echo $baseurl; ?>/images/common/icons/question-block_24.png" style="width:16px; height: 16px; vertical-align: -2px;" /></a><a class="greyButton" href="<?= $baseurl ?>/browse/<?= $platform->id ?>/" style="padding-left: 0px; margin-left: 0px; border-radius: 0px 6px 6px 0px; border-left: 1px; padding-left: 5px;">Browse Games For This Platform</a></p>
+				<hr />
 				<p><?php if (!empty($platform->overview)) { echo $platform->overview; } else { echo "\"No overview is currently available for this platform.\""; } ?></p>
 				<hr />
 				<?php

@@ -222,7 +222,7 @@ function imageResize($filename, $cleanFilename, $target)
 	<div style="width: 500px; margin-bottom: 12px; float: left;">
 		<div id="platformsPanel" style="border: 1px solid #000; background-color: #555555; padding: 15px; color: #FFFFFF;">
 			<div style="width:450px; margin: auto;">
-			<h1 class="arcade" style="text-align: center;"><span style="color: #000;">Browse</span> <span style="color: #EF5F00;">Platforms</span></h1>
+			<h1 style="text-align: center;"><span style="color: #000;">Browse</span> <span style="color: #FFA500;">Games</span></h1>
 			
 				<form id="platformBrowseForm">
 					<select name="stringPlatform" id="platformMenu" onchange="if($('#platformMenu').val() != 'select') { document.location.href = '<?= $baseurl ?>/browse/' + this.value + '/?searchview=<?= $searchview; ?>'; }" style="color: #333; width: 450px !important;">

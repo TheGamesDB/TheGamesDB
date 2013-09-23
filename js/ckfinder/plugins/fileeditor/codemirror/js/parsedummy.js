@@ -1,4 +1,4 @@
-﻿var DummyParser = Editor.Parser = (function() {
+var DummyParser = Editor.Parser = (function() {
   function tokenizeDummy(source) {
     while (!source.endOfLine()) source.next();
     return "text";

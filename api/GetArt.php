@@ -11,7 +11,7 @@
 	## Get requested game id from api call
 	$requestedID = $_REQUEST['id'];
 	
-	if (empty($id) || !is_numeric($id)) {
+	if (empty($requestedID) || !is_numeric($requestedID)) {
     print "<Error>An integer formatted id is required</Error>\n";
     exit;
 	}

@@ -1,4 +1,8 @@
 <?php
+
+## Workaround Fix for lack of "register globals" in PHP 5.4+
+require_once("globalsfix.php");
+
 ## Connect to the database
 include("include.php");
 ?>

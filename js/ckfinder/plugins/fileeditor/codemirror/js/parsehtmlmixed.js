@@ -1,4 +1,4 @@
-﻿var HTMLMixedParser = Editor.Parser = (function() {
+var HTMLMixedParser = Editor.Parser = (function() {
 
   // tags that trigger seperate parsers
   var triggers = {

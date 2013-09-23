@@ -1,4 +1,4 @@
-﻿// Minimal framing needed to use CodeMirror-style parsers to highlight
+// Minimal framing needed to use CodeMirror-style parsers to highlight
 // code. Load this along with tokenize.js, stringstream.js, and your
 // parser. Then call highlightText, passing a string as the first
 // argument, and as the second argument either a callback function

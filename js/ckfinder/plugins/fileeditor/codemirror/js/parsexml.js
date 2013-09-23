@@ -1,4 +1,4 @@
-﻿/* This file defines an XML parser, with a few kludges to make it
+/* This file defines an XML parser, with a few kludges to make it
  * useable for HTML. autoSelfClosers defines a set of tag names that
  * are expected to not have a closing tag, and doNotIndent specifies
  * the tags inside of which no indentation should happen (see Config

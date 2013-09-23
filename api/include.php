@@ -10,6 +10,7 @@
 
 	## Print the header
 	header("Content-Type: text/xml; charset=utf-8");
+    header("Cache-Control: public, max-age=60");
 	print "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
 
 	## Set the default language

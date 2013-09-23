@@ -1,4 +1,7 @@
 <?php
+	## Workaround Fix for lack of "register globals" in PHP 5.4+
+	require_once("../globalsfix.php");
+
 	// Script to keep an image that was reported for moderation
 	// Parameters: reportID - The ID of the item in the moderation queue
 	

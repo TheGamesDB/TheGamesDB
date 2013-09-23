@@ -1,4 +1,7 @@
 <?php
+	## Workaround Fix for lack of "register globals" in PHP 5.4+
+	require_once("../globalsfix.php");
+
 
 	// Script to Process Submission of Reported Image
 	//	-------------------------------------

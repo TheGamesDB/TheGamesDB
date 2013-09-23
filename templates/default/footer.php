@@ -1,7 +1,17 @@
-					<!--/* Ad4Game iFrame Tag */-->
-					<div style="padding: 10px; text-align: center; background-color: #0F0F0F;">
-						<iframe id='a199c979' name='a199c979' src='http://ads.ad4game.com/www/delivery/afr.php?n=a199c979&amp;zoneid=27520&amp;target=_blank&amp;cb=INSERT_RANDOM_NUMBER_HERE' framespacing='0' frameborder='no' scrolling='no' width='728' height='90' allowtransparency='true'><a href='http://ads.ad4game.com/www/delivery/ck.php?n=ab890b4b&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://ads.ad4game.com/www/delivery/avw.php?zoneid=27520&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ab890b4b' border='0' alt='' /></a></iframe>
-						<script type='text/javascript' src='http://ads.ad4game.com/www/delivery/ag.php'></script>
+					<!-- Page Footer -->
+					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666;">
+						<table style="width: 100%;" cellpadding="12">
+							<tr>
+								<td colspan="5"><h3>Friends of TheGamesDB.net</h3></td>
+							</tr>
+							<tr>
+								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://hostsphere.co.uk/" alt="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers" title="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers">HostSphere.co.uk</a></td>
+								<td style="width: 5%;">|</td>
+								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://xbmc.org/">XBMC.org</a></td>
+								<td style="width: 5%;">|</td>
+								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://fanart.tv/">Fanart.tv</a></td>
+							</tr>
+						</table>
 					</div>
 					
 				</div>				

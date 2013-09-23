@@ -1,4 +1,4 @@
-﻿function waitForStyles() {
+function waitForStyles() {
   for (var i = 0; i < document.styleSheets.length; i++)
     if (/googleapis/.test(document.styleSheets[i].href))
       return document.body.className += " droid";

@@ -1,4 +1,4 @@
-﻿/* Parse function for JavaScript. Makes use of the tokenizer from
+/* Parse function for JavaScript. Makes use of the tokenizer from
  * tokenizejavascript.js. Note that your parsers do not have to be
  * this complicated -- if you don't want to recognize local variables,
  * in many languages it is enough to just look for braces, semicolons,

@@ -1,4 +1,4 @@
-﻿/* The Editor object manages the content of the editable frame. It
+/* The Editor object manages the content of the editable frame. It
  * catches events, colours nodes, and indents lines. This file also
  * holds some functions for transforming arbitrary DOM structures into
  * plain sequences of <span> and <br> elements

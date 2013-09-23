@@ -1,4 +1,7 @@
 <?php
+	## Workaround Fix for lack of "register globals" in PHP 5.4+
+	require_once("../globalsfix.php");
+
 	// Script to approve items in the upload moderation queue
 	// Parameters: modID - The ID of the item in the moderation queue
 	

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * CKFinder
  * ========
  * http://ckfinder.com

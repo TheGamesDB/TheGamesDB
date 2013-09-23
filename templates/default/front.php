@@ -78,6 +78,40 @@
             background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center;
             color: #fff;
         }
+		
+		.approve {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 12px;
+			color: #ffffff;
+			padding: 6px 12px;
+			background: -moz-linear-gradient(
+				top,
+				#c8ffbf 0%,
+				#72cc72 25%,
+				#22a800);
+			background: -webkit-gradient(
+				linear, left top, left bottom,
+				from(#c8ffbf),
+				color-stop(0.25, #72cc72),
+				to(#22a800));
+			-moz-border-radius: 11px;
+			-webkit-border-radius: 11px;
+			border-radius: 11px;
+			border: 2px solid #ffffff;
+			-moz-box-shadow:
+				0px 3px 11px rgba(000,000,000,0.5),
+				inset 0px 0px 8px rgba(43,255,0,1);
+			-webkit-box-shadow:
+				0px 3px 11px rgba(000,000,000,0.5),
+				inset 0px 0px 8px rgba(43,255,0,1);
+			box-shadow:
+				0px 3px 11px rgba(000,000,000,0.5),
+				inset 0px 0px 8px rgba(43,255,0,1);
+			text-shadow:
+				0px -1px 0px rgba(000,000,000,0.2),
+				0px 1px 0px rgba(255,255,255,0.3);
+			cursor: pointer;
+		}
 	</style>
 	
 	<?php
@@ -208,6 +242,16 @@
 	<?php endif; ?>
 	</div>
 	
+	<!-- Start Donation Box -->
+	<span  style="width: 244px; position: absolute; top: 17%; right: 2%; z-index: 200; padding: 12px; border: 1px solid #999; background: url(<?php echo $baseurl; ?>/images/bg_bannerws-thin-glass-strips.png); background-size: cover; border-radius: 12px;">
+		<p style="text-align: center; font-size: 24px; padding: 12px; color: #FFF; font-family: sans-serif;">Funds Drive</p>
+		<p style="padding-bottom: 12px; text-align: center; color: #FFF; font-family: sans-serif; font-size: 14px;">To keep our free service alive, please consider donating to our funds drive. Thank you!</p>
+		<iframe src='http://gogetfunding.com/projects/widget/29570/6' width='240px' height='460px' frameborder='0' scrolling='no'></iframe>
+		<p style="text-align: center; padding-top: 12px;"><a class="approve" href="http://gogetfunding.com/project/thegamesdb-net" target="_blank">Donate Here</a></p>
+	</span>
+	<!-- End Donation Box -->
+	
+	
 	<div id="frontContentWrapper" style="position: absolute; top: 34%; width: 100%; height: 200px;  z-index: 200;">
 	
 		<div id="frontContent" style="opacity: 1; width: 600px; height: 160px; padding: 10px 30px; margin: auto; background: url(<?php echo $baseurl; ?>/images/bg_frontsearch.png) repeat-x center center; border-radius: 16px; border: 0px solid #333;">
@@ -223,7 +267,7 @@
 			<div id="searchbox" style="padding: 16px 0px; text-align: center;">
 				<form id="search" action="<?= $baseurl ?>/search/">
                     <div>
-                        <input type="text" id="frontGameSearch" name="string" style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
+                        <input type="text" id="frontGameSearch" name="string" x-webkit-speech style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
                         <!--<input id="frontGameSearch" name="string" type="text" style="height: 100%; padding: 0px; width: 440px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-right: 0px; border-radius: 6px 0px 0px 6px;" />
                         <input type="submit" value="Search" style="height: 100%; padding: 0px 10px 0px 10px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 22px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-left: 0px; border-radius: 0px 6px 6px 0px;" /> -->
                     </div>

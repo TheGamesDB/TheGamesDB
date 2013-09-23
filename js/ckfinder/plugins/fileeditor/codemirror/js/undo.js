@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Storage and control for undo information within a CodeMirror
  * editor. 'Why on earth is such a complicated mess required for
  * that?', I hear you ask. The goal, in implementing this, was to make

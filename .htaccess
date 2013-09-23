@@ -90,3 +90,4 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+php_value auto_prepend_file globalsfix.php

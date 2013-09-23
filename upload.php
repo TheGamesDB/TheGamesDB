@@ -1,4 +1,8 @@
 <?php
+
+## Workaround Fix for lack of "register globals" in PHP 5.4+
+require_once("globalsfix.php");
+
 /**
  * upload.php
  *
@@ -157,8 +161,6 @@ elseif ($arttype == "clearlogo")
 	$function = "Upload Clear Logo";
 }
 include("index.php");
-
-//$errormessage = "THIS IS AN ERROR";
 
 // If an error message has been issued by index.php, send it back to the uploader application, else exit with OK message
 if (isset($errormessage))

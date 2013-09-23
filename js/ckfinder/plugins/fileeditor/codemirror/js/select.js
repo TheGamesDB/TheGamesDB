@@ -1,4 +1,4 @@
-﻿/* Functionality for finding, storing, and restoring selections
+/* Functionality for finding, storing, and restoring selections
  *
  * This does not provide a generic API, just the minimal functionality
  * required by the CodeMirror system.

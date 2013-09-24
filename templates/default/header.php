@@ -18,7 +18,7 @@
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0001" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0002" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
@@ -89,6 +89,11 @@
 		<link type="text/css" rel="stylesheet" href="<?php echo $baseurl; ?>/js/theatre/theatre.css" />
 		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/theatre/jquery.theatre-1.0.js"></script>
 		<!-- End Platform View Page Scripts -->
+		
+		<!-- Start Just Gage Scripts (Stats Page Gagues)  -->
+		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/justgage.1.0.1.min.js"></script>
+		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/raphael.2.1.0.min.js"></script>
+		<!-- End Just Gage Scripts (Stats Page Gagues)  -->
 		
 		<!-- Start jQuery Snow Script -->
 		<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-snowfall/styles.css" type="text/css" media="all" />

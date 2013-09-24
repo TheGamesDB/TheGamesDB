@@ -379,3 +379,15 @@
 	background: linear-gradient(to bottom,  rgba(232,233,234,1) 0%,rgba(229,235,238,1) 32%,rgba(188,191,198,1) 79%,rgba(219,219,221,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e9ea', endColorstr='#dbdbdd',GradientType=0 ); /* IE6-9 */
 }
+.fadeBox{
+	background: #111111;
+	padding: 4px;
+	margin: 1px;
+	border-radius: 3px;
+	transition: background 0.65s ease-in-out;
+   -moz-transition: background 0.65s ease-in-out;
+   -webkit-transition: background 0.65 ease-in-out;
+}
+.fadeBox:hover{
+	background: #333333;
+}

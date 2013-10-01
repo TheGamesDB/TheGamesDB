@@ -18,7 +18,7 @@
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0002" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0003" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
@@ -147,7 +147,7 @@
 		<div id="navMain">
 		
 			<!-- GAMES NAV ITEM -->
-			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "listplatform" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/browse/">Games</a></div>
+			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "listplatform" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame" || $tab == "playgames") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/browse/">Games</a></div>
 
 			<!-- PLATFORMS NAV ITEM -->
 			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
@@ -185,6 +185,8 @@
 					<a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a>
 					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 					<a href="<?=$baseurl ?>/recentgames/">Recently Updated Games</a>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<a href="<?=$baseurl ?>/playgames/">Play Free Games</a>
 				</span>
 			</div>
 		<?php

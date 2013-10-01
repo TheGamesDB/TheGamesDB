@@ -276,10 +276,10 @@
 			</div>
 			
 			<div id="frontnav" style="font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #fff;">
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/browse/">Games</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/platforms/">Platforms</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/stats/">Stats</a></div>
-				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<?=$baseur?>/blog/">Blog</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<? echo $baseurl; ?>/browse/">Games</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<? echo $baseurl; ?>/platforms/">Platforms</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<? echo $baseurl; ?>/stats/">Stats</a></div>
+				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="<? echo $baseurl; ?>/blog/">Blog</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://forums.thegamesdb.net" target="_blank">Forum</a></div>
 				<div style="width: 76px; padding: 10px; float: left; text-align: center;"><a href="http://wiki.thegamesdb.net">Wiki</a></div>
 				<div style="clear: both;"></div>

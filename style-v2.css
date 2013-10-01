@@ -380,7 +380,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e9ea', endColorstr='#dbdbdd',GradientType=0 ); /* IE6-9 */
 }
 .fadeBox{
-	background: #111111;
+	background: #1E1E1E;
 	padding: 4px;
 	margin: 1px;
 	border-radius: 3px;

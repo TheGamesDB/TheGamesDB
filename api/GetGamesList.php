@@ -15,7 +15,8 @@ include("include.php");
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
 //$name = str_replace(array(' - ', '-'), '%', $name);
-$platform = $_REQUEST["platform"];
+$platform = mysql_real_escape_string($_REQUEST["platform"]);
+$genre= mysql_real_escape_string($_REQUEST["genre"]);
 
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];
@@ -25,7 +26,7 @@ if (empty($name)) {
     exit;
 }
 
-$query;
+
 if (isset($name) && !empty($name))
 {
 	$query = "SELECT *, ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) AS MatchValueBoolean, MATCH (GameTitle) AGAINST ('$name') AS MatchValue FROM games WHERE ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) OR ( MATCH (Alternates) AGAINST ('$name') OR Alternates SOUNDS LIKE '$name' ) HAVING MatchValueBoolean > 0 ";

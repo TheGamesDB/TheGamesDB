@@ -53,6 +53,19 @@ if (isset($name) && !empty($name))
 	}	
 
 	$query = $query . " ORDER BY MatchValue DESC, MatchValueBoolean DESC LIMIT 20";
+}elseif(isset($genre) && !empty($genre))
+{
+	$query = "SELECT * FROM games WHERE Genre Like '%$genre%'";
+}elseif(isset($platform) && !empty($platform))
+{
+	$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
+	if(mysql_num_rows($platformResult) != 0)
+	{
+		$platformRow = mysql_fetch_assoc($platformResult);
+		$platformId = $platformRow['id'];
+		
+		$query = "SELECT * FROM games WHERE platform = '$platformId'";
+	}
 }
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());

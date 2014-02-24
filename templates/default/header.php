@@ -163,7 +163,7 @@
 
 			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
-				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px; display: inline;">
+				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px;">
 					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee;" />
 					<input type="hidden" name="function" value="Search" />
 				</form>

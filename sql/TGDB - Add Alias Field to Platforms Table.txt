@@ -1,2 +1,0 @@
-ALTER TABLE `platforms`
-ADD COLUMN `alias`  varchar(100) NULL AFTER `name`;

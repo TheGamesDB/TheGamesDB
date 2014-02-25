@@ -1,7 +1,0 @@
-DirectoryIndex en.xml index.php
-RewriteEngine on
-<Files ".htaccess">
-	Order deny,allow
-	Deny from all
-	Satisfy All
-</Files>

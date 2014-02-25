@@ -331,7 +331,7 @@
 		<p>&nbsp;</p>
 		<p>We would also like to give a big thanks to all our contributers, without your involvement this site wouldn't be as good as it is today.</p>
 	</div>
-	
+	</div>
 	<div style="display:none;">
 		<?php
 			for($i = 0; $i < count($imageUrls); $i++)

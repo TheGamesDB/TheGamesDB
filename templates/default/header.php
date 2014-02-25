@@ -119,7 +119,7 @@
 					<?php } ?>
 				</p>
 				<a href="<?php echo $baseurl; ?>/" title="An open database of video games">
-					<img src="<?php echo $baseurl; ?>/images/bannerws-thin-glass.png" style="border-width: 0px" />
+					<img src="<?php echo $baseurl; ?>/images/bannerws-thin-glass-v2.png" style="border-width: 0px; padding: 12px 125px" />
 				</a>
 			</div>
 		</div>
@@ -223,7 +223,7 @@
 						<input type="hidden" name="function" value="Search" />
 						<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 					</form>
-					<a href="<?php echo $baseurl; ?>/" style="margin-left: 50px;"><img src="<?php echo $baseurl; ?>/images/tiny-logo.png" alt="TheGamesDB.net" /></a>
+					<a href="<?php echo $baseurl; ?>/" style="margin-left: 50px;"><img src="<?php echo $baseurl; ?>/images/tiny-logo-v2.png" alt="TheGamesDB.net" /></a>
 					<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">
 					<?php if ($loggedin) {
 						?><a href="<?= $baseurl ?>/messages/">Messages</a> <?php if($msgCount > 0) { echo"<span style=\"color: Chartreuse;\">($msgCount)</span>"; } else { echo "($msgCount)"; } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/favorites/">Favorites</a> <span>(<?php if($user->favorites != ""){ echo count(explode(",", $user->favorites)); } else{ echo "0"; } ?>) <span style="color: #ccc;">|</span> <?php if ($adminuserlevel == 'ADMINISTRATOR') { ?> <a href="<?= $baseurl ?>/admincp/">Admin Control Panel</a> <?php } else { ?><a href="<?= $baseurl ?>/userinfo/">My User Info</a><?php } ?> <span style="color: #ccc;">|</span> <a href="<?= $baseurl ?>/?function=Log Out">Logout</a>

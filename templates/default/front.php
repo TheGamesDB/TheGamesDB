@@ -223,7 +223,7 @@
 				<?php } ?>
 			</p>
 			<a href="<?php echo $baseurl; ?>/" title="An open database of video games">
-				<img src="<?php echo $baseurl; ?>/images/bannerws-thin-glass.png" style="border-width: 0px" />
+				<img src="<?php echo $baseurl; ?>/images/bannerws-thin-glass-v2.png" style="border-width: 0px; padding: 12px 125px" />
 			</a>
 		</div>
 	</div>
@@ -240,12 +240,12 @@
 	</div>
 	
 	<!-- Start Donation Box -->
-	<span  style="width: 244px; position: absolute; top: 17%; right: 2%; z-index: 200; padding: 12px; border: 1px solid #999; background: url(<?php echo $baseurl; ?>/images/bg_bannerws-thin-glass-strips.png); background-size: cover; border-radius: 12px;">
+	<!--<span  style="width: 244px; position: absolute; top: 17%; right: 2%; z-index: 200; padding: 12px; border: 1px solid #999; background: url(<?php echo $baseurl; ?>/images/bg_bannerws-thin-glass-strips.png); background-size: cover; border-radius: 12px;">
 		<p style="text-align: center; font-size: 24px; padding: 12px; color: #FFF; font-family: sans-serif;">Funds Drive</p>
 		<p style="padding-bottom: 12px; text-align: center; color: #FFF; font-family: sans-serif; font-size: 14px;">To keep our free service alive, please consider donating to our funds drive. Thank you!</p>
 		<iframe src='http://gogetfunding.com/projects/widget/29570/6' width='240px' height='460px' frameborder='0' scrolling='no'></iframe>
 		<p style="text-align: center; padding-top: 12px;"><a class="approve" href="http://gogetfunding.com/project/thegamesdb-net" target="_blank">Donate Here</a></p>
-	</span>
+	</span>-->
 	<!-- End Donation Box -->
 	
 	

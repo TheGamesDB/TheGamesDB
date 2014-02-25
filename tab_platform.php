@@ -129,16 +129,21 @@
 					<!-- Google plus share button -->
 					<span style="float: right;">
 					<!-- Place this tag where you want the +1 button to render -->
-					<g:plusone size="medium"></g:plusone>
+					<link rel="canonical" href="<?= "$baseurl/platform/$platform->id/";?>" />
+				    <g:plusone size="medium"></g:plusone>
 
 					<!-- Place this render call where appropriate -->
-					<script type="text/javascript">
-					  (function() {
-						var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-						po.src = 'https://apis.google.com/js/plusone.js';
-						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-					  })();
-					</script>
+                    <script type="text/javascript">
+                      window.___gcfg = {
+                        lang: 'en-US',
+                        parsetags: 'onload'
+                      };
+                      (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadCallback';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                      })();
+                    </script>
 					</span>
 					
 					<!-- Twitter share button -->
@@ -148,10 +153,7 @@
 					
 					<!-- Facebook share button -->
 					<span style="float: right; padding-top: 1px;">
-					<a name="fb_share"></a> 
-					<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" 
-							type="text/javascript">
-					</script>
+                    <div class="fb-share-button" data-href="<?= "$baseurl/platform/$platform->id/";?>"></div>
 					&nbsp;
 					</span>
 					

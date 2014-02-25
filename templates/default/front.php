@@ -1,10 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
-   xml:lang="en-gb" lang="en-gb" >
-   
+<!DOCTYPE html >
 <head>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<meta charset="utf-8"/>
 	
 	<meta name="robots" content="index, follow" />
 	<meta name="keywords" content="thegamesdb, the games db, games, database, meta, metadata, api, video, youtube, trailers, wallpapers, fanart, cover art, box art, fan art, open, source, game, search, forum," />
@@ -24,13 +20,14 @@
 	<script type="text/JavaScript" src="<?php echo $baseurl; ?>/js/jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
 
 	<!-- Start FaceBox Include -->
-	<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/facebox/facebox.css" type="text/css" media="all" />
-	<script src="<?php echo $baseurl; ?>/js/facebox/facebox.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-		   $('a[rel*=facebox]').facebox() 
-		}) 
-	</script>
+	<div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 	<!-- End FaceBox Include -->
 	
 	<!-- Start jQuery Snow Script -->
@@ -331,7 +328,7 @@
 		<p>&nbsp;</p>
 		<p>We would also like to give a big thanks to all our contributers, without your involvement this site wouldn't be as good as it is today.</p>
 	</div>
-	
+	</div>
 	<div style="display:none;">
 		<?php
 			for($i = 0; $i < count($imageUrls); $i++)

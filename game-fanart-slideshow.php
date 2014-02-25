@@ -7,9 +7,7 @@
 	$fanartResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$id' AND b.keytype = 'fanart' ") or die('Failed whilst fetching Fanart Info from DB: ' . mysql_error());
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html >
 
 	<!--
 		Supersized - Fullscreen Slideshow jQuery Plugin
@@ -24,7 +22,7 @@
 	<head>
 
 		<title>TheGamesDB.net - Fullscreen Slideshow</title>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta charset="UTF-8" />
 		
 		<link rel="stylesheet" href="js/supersized/css/supersized.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="js/supersized/theme/supersized.shutter.css" type="text/css" media="screen" />

@@ -31,7 +31,18 @@
 		<script src="<?php echo $baseurl; ?>/js/anythingslider/js/jquery.anythingslider.js" type="text/javascript"></script>
 		<!-- End AnythingSlider Include -->
 		
-		<!-- Start FaceBox Include -->
+        <!-- Start reCaptcha Include -->
+		<script src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+        <script type="text/javascript">
+           function showRecaptcha(element) {
+             Recaptcha.create("your_public_key", element, {
+               theme: "red",
+               callback: Recaptcha.focus_response_field});
+           }
+        </script>
+		<!-- Start reCaptcha Exclude -->
+		
+        <!-- Start FaceBox Include -->
         <link rel="stylesheet" href="<?php echo $baseurl; ?>/js/facebox/facebox.css" type="text/css" media="all" />
 		<script src="<?php echo $baseurl; ?>/js/facebox/facebox.js" type="text/javascript"></script>
 		<script type="text/javascript">

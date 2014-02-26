@@ -46,7 +46,7 @@
 		<div class="links">
 			<h1>Site Reports and Statistics</h1>	
 			<p>&nbsp;</p>
-			<h2 style="text-align: center; color: #FF4F00;"><?=$title?> <?=$max?> Most Recent <?php if($bannertype == "series") { echo "Banner"; } else { echo ucwords($bannertype); } ?> Images <?=$extratitle?></h2>
+			<h2 style="text-align: center; color: #FF4F00;"><?=$title?> <?=$max?> Most Recent <?php if($bannertype == "series") { echo "Banner"; } elseif ($bannertype == "clearlogo"){ echo "ClearLOGO"; } else { echo ucwords($bannertype); } ?> Images <?=$extratitle?></h2>
 			<p>&nbsp;</p>
 
 		<table cellspacing="10" cellpadding="2" border="0" align="center" width="600">

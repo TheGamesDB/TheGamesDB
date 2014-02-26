@@ -41,11 +41,6 @@ RewriteRule ^platform/([a-z0-9\-]+)(/?)$ index.php?tab=platform&alias=$1 [NC,QSA
 RewriteRule ^platform-edit/([0-9]+)(/?)$ index.php?tab=platform-edit&id=$1 [NC,QSA,L]
 
 
-#### API PAGE
-## http://thegamesdb.net/?tab=api&apiarea={showcase} => http://thegamesdb.net/api/{showcase}/
-RewriteRule ^api/([a-z0-9]+)(/?)$ index.php?tab=api&apiarea=$1 [NC,QSA,L]
-
-
 #### FAVORITES PAGE
 RewriteRule ^favorites(/?)$ index.php?tab=favorites [NC,QSA,L]
 
@@ -90,4 +85,3 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
-php_value auto_prepend_file globalsfix.php

@@ -129,7 +129,7 @@
 				<form id="search" action="<?= $baseurl ?>/search/">
 					<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
 					<input type="hidden" name="function" value="Search" />
-					<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
+					<input class="left" type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 				</form>
 				<ul>
 					<li id="nav_donation" class="tab"><a href="<?= $baseurl ?>/donation/"></a></li>
@@ -162,7 +162,7 @@
 			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
 				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px;">
-					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee;" />
+					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle; position: absolute;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee; position: absolute; left: 30px;" />
 					<input type="hidden" name="function" value="Search" />
 				</form>
 			</div>
@@ -221,7 +221,7 @@
 					<form action="<?= $baseurl ?>/search/" style="width: 300px; display: inline;">
 						<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
 						<input type="hidden" name="function" value="Search" />
-						<input class="left"type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
+						<input class="left" type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
 					</form>
 					<a href="<?php echo $baseurl; ?>/" style="margin-left: 50px;"><img src="<?php echo $baseurl; ?>/images/tiny-logo-v2.png" alt="TheGamesDB.net" /></a>
 					<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">

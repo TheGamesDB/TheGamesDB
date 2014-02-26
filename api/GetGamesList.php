@@ -21,13 +21,7 @@ $genre= mysql_real_escape_string($_REQUEST["genre"]);
 //$language		= $_REQUEST["language"];
 $user = $_REQUEST["user"];
 
-if (empty($name)) {
-    print "<Error>A name is required</Error>\n";
-    exit;
-}
-
-
-if (isset($name) && !empty($name))
+if(isset($name) && !empty($name))
 {
 	$query = "SELECT *, ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) AS MatchValueBoolean, MATCH (GameTitle) AGAINST ('$name') AS MatchValue FROM games WHERE ( MATCH (GameTitle) AGAINST ('$name') OR GameTitle SOUNDS LIKE '$name' ) OR ( MATCH (Alternates) AGAINST ('$name') OR Alternates SOUNDS LIKE '$name' ) HAVING MatchValueBoolean > 0 ";
 
@@ -53,10 +47,12 @@ if (isset($name) && !empty($name))
 	}	
 
 	$query = $query . " ORDER BY MatchValue DESC, MatchValueBoolean DESC LIMIT 20";
-}elseif(isset($genre) && !empty($genre))
+}
+else if(isset($genre) && !empty($genre))
 {
 	$query = "SELECT * FROM games WHERE Genre Like '%$genre%'";
-}elseif(isset($platform) && !empty($platform))
+}
+else if(isset($platform) && !empty($platform))
 {
 	$platformResult = mysql_query(" SELECT id FROM platforms WHERE name = '$platform' LIMIT 1 ");
 	if(mysql_num_rows($platformResult) != 0)
@@ -64,8 +60,13 @@ if (isset($name) && !empty($name))
 		$platformRow = mysql_fetch_assoc($platformResult);
 		$platformId = $platformRow['id'];
 		
-		$query = "SELECT * FROM games WHERE platform = '$platformId'";
+		$query = "SELECT * FROM games WHERE platform = $platformId";
 	}
+}
+else
+{
+    print "<Error>Please supply either the name, genre, or platform parameters. The platform parameter can also be used in conjuntion with the name parameter to search for titles only on a specific platform.</Error>\n";
+    exit;
 }
 
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());

@@ -114,6 +114,15 @@
 		document.write('\x3cscript type="text/javascript" src="http://ads.ad4game.com/www/delivery/siteskin.php?zoneid=27522&target=_blank&charset=UTF-8&withtext=1&cb='+ad4game_siteskin.random+'"\x3e\x3c/script\x3e');
 		//]]>--></script>
 		
+		<div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+		
     </body>
 	
 </html>

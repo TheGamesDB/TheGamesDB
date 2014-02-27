@@ -3,9 +3,10 @@
 	#####################################################
 	## REGISTRATION AND PASSWORD FUNCTIONS
 	#####################################################
+    
 	if ($function == 'Register') {
 
-        require_once('..\extentions\recaptcha\recaptchalib.php');
+        require_once('.\extentions\recaptcha\recaptchalib.php');
         
         $publickey = "";
         $privatekey = "";

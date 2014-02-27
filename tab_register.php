@@ -53,13 +53,6 @@
 	</td>
 </tr>
 <tr>
-    <td></td>
-    <td>
-    <div id="recaptcha_div"></div>
-    <script>showRecaptcha('recaptcha_div');</script>
-    </td>
-</tr>
-<tr>
 	<td></td>
 	<td><input type="submit" name="function" value="Register"></td>
 </tr>

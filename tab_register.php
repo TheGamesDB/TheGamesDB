@@ -53,6 +53,11 @@
 	</td>
 </tr>
 <tr>
+    <td></td>
+    <td><?= recaptcha_get_html($publickey = ""); ?>
+    </td>
+</tr>
+<tr>
 	<td></td>
 	<td><input type="submit" name="function" value="Register"></td>
 </tr>

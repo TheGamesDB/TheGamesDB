@@ -46,7 +46,7 @@ if(isset($name) && !empty($name))
 		$query = $query . " AND Genre Like '%$genre%'";
 	}	
 
-	$query = $query . " ORDER BY MatchValue DESC, MatchValueBoolean DESC LIMIT 20";
+	$query = $query . " ORDER BY MatchValue DESC, MatchValueBoolean";
 }
 else if(isset($genre) && !empty($genre))
 {

@@ -153,6 +153,17 @@ h2{
 	text-decoration: none;
 }
 
+.navSubLinks li {
+	display: inline;
+	list-style-type: none;
+	margin-right: 25px;
+	padding: 5px;
+}
+
+.navSubLinks li:hover {
+	background-color: #555555;
+}
+
 /* NAV */
 
 #nav{

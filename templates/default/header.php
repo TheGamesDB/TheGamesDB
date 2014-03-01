@@ -175,17 +175,13 @@
 			{
 		?>
 			<div id="navSubGames" class="navSub">
-				<span class="navSubLinks">
-					<a href="<?=$baseurl ?>/browse/">Browse Games</a>
-					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a>
-					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a>
-					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/recentgames/">Recently Updated Games</a>
-					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/playgames/">Play Free Games</a>
-				</span>
+				<ui class="navSubLinks">
+					<li><a href="<?=$baseurl ?>/browse/">Browse Games</a></li>
+					<li><a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a></li>
+					<li><a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a></li>
+					<li><a href="<?=$baseurl ?>/recentgames/">Recently Updated Games</a></li>
+					<li><a href="<?=$baseurl ?>/playgames/">Play Free Games</a></li>
+				</ui>
 			</div>
 		<?php
 			}
@@ -194,11 +190,10 @@
 			{
 		?>
 			<div id="navSubPlatforms" class="navSub">
-				<span class="navSubLinks">
-					<a href="<?=$baseurl ?>/platforms/">All Platforms</a>
-					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-					<a href="<?=$baseurl ?>/topratedplatforms/">Top 10 Rated Platforms</a>
-				</span>
+				<ui class="navSubLinks">
+					<li><a href="<?=$baseurl ?>/platforms/">All Platforms</a></li>
+					<li><a href="<?=$baseurl ?>/topratedplatforms/">Top 10 Rated Platforms</a></li>
+				</ui>
 			</div>
 		<?php
 			}
@@ -250,9 +245,3 @@
 				<?php } ?>
 				
 				<div id="gameWrapper">
-				
-					<?php
-						//Google AdSense - Right of Main Content Skyscraper
-						include_once("adverts/adsense-skyscraper_content-right.php");
-					?>
-					

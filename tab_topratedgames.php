@@ -41,13 +41,6 @@ function imageResize($filename, $cleanFilename, $target)
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
 	
-	
-	<?php
-		//Google AdSense - Right of Main Content Skyscraper
-		include_once("adverts/adsense-leaderboard_content-top.php");
-	?>
-	
-	
 	<h1>Top Rated Games</h1>
 	
 	<?php

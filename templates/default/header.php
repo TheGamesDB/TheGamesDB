@@ -175,13 +175,13 @@
 			{
 		?>
 			<div id="navSubGames" class="navSub">
-				<ui class="navSubLinks">
+				<ul class="navSubLinks">
 					<li><a href="<?=$baseurl ?>/browse/">Browse Games</a></li>
 					<li><a href="<?=$baseurl ?>/topratedgames/">Top Rated Games</a></li>
 					<li><a href="<?=$baseurl ?>/recentaddedgames/">Recently Added Games</a></li>
 					<li><a href="<?=$baseurl ?>/recentgames/">Recently Updated Games</a></li>
 					<li><a href="<?=$baseurl ?>/playgames/">Play Free Games</a></li>
-				</ui>
+				</ul>
 			</div>
 		<?php
 			}
@@ -190,10 +190,10 @@
 			{
 		?>
 			<div id="navSubPlatforms" class="navSub">
-				<ui class="navSubLinks">
+				<ul class="navSubLinks">
 					<li><a href="<?=$baseurl ?>/platforms/">All Platforms</a></li>
 					<li><a href="<?=$baseurl ?>/topratedplatforms/">Top 10 Rated Platforms</a></li>
-				</ui>
+				</ul>
 			</div>
 		<?php
 			}

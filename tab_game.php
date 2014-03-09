@@ -406,7 +406,7 @@
 				// Start Developer Logo Replacement
 				if (!empty($game->Developer))
 				{
-					$developerBool = false;
+					$developerLogoExists = false;
 					$devArray = explode(" ", $game->Developer);
 					$i = 0;
 
@@ -418,19 +418,22 @@
 							if(mysql_num_rows($developerQuery) != 0)
 							{
 								$developerResult = mysql_fetch_object($developerQuery);
-								$developerBool = true;
+								$developerLogoExists = true;
 								$i = count($devArray);
 							}
 						}
 					}
-					if($developerBool == true)
+					if($developerLogoExists == true)
 					{
 						if(!file_exists("banners/_gameviewcache/publishers/$developerResult->logo"))
 						{
 							WideImage::load("banners/publisher-logos/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
 						}
 					?>
-						<span class="grey">Developer:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" /><br />
+						<span class="grey">Developer:</span> <?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?>
+						<br/>
+						<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+						<br/>
 					<?php
 					}
 					else
@@ -452,7 +455,7 @@
 				// Start Publisher Logo Replacement
 				if (!empty($game->Publisher))
 				{
-					$publisherBool = false;
+					$publisherLogoExists = false;
 					$pubArray = explode(" ", $game->Publisher);
 					$i = 0;
 
@@ -464,19 +467,22 @@
 							if(mysql_num_rows($publisherQuery) != 0)
 							{
 								$publisherResult = mysql_fetch_object($publisherQuery);
-								$publisherBool = true;
+								$publisherLogoExists = true;
 								$i = count($pubArray);
 							}
 						}
 					}
-					if($publisherBool == true)
+					if($publisherLogoExists == true)
 					{
 						if(!file_exists("banners/_gameviewcache/publishers/$publisherResult->logo"))
 						{
 							WideImage::load("banners/publisher-logos/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
 						}
 					?>
-						<span class="grey">Publisher:</span><br /><img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+						<span class="grey">Publisher:</span> <?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
+						<br/>
+						<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+						<br/>
 					<?php
 					}
 					else

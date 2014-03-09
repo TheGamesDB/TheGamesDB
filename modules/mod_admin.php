@@ -10,41 +10,46 @@
 				$sitenewswrite = fwrite($sitenewsfile, $sitenews);
 				if($sitenewswrite != false)
 				{
-					$message = 'Site News Has Been Saved Successfully';
+					$message = "Site news has been saved successfully";
 				}
 				else
 				{
-					$errormessage = 'There was a problem saving the site news';
+					$errormessage = "There was a problem saving the site news";
 				}
 			}
 			fclose($sitenewsfile);
 		}
 		else {
-			$errormessage = 'You must be logged in as an admin to make that change';
+			$errormessage = "You must be logged in as an admin to make that change.";
 		}
 	}
 
 	if ($function == 'Add Platform') {
-		## Check for exact matches for platform name
-		$PlatformTitle = mysql_real_escape_string($PlatformTitle);
-		$PlatformTitle = ucfirst($PlatformTitle);
-		$query = " SELECT * FROM platforms WHERE name='$PlatformTitle' ";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-
-		## Insert if it doesnt exist already
-		if (mysql_num_rows($result) == 0) {
-			$query = "INSERT INTO platforms (name, icon) VALUES ('$PlatformTitle', 'console_default.png')";
+		if ($adminuserlevel == 'ADMINISTRATOR') {
+			## Check for exact matches for platform name
+			$PlatformTitle = mysql_real_escape_string($PlatformTitle);
+			$PlatformTitle = ucfirst($PlatformTitle);
+			$query = " SELECT * FROM platforms WHERE name='$PlatformTitle' ";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-			$id = mysql_insert_id();
 
-			// Add Audit
-			//$sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'created', $id, NULL)";
-			//mysql_query($sql);
+			## Insert if it doesnt exist already
+			if (mysql_num_rows($result) == 0) {
+				$query = "INSERT INTO platforms (name, icon) VALUES ('$PlatformTitle', 'console_default.png')";
+				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+				$id = mysql_insert_id();
 
-			$URL = "$baseurl/platform/$id/";
-			header("Location: $URL");
-		} else {
-			$errormessage = "Sorry, \"$PlatformTitle\" Already Exists in Platforms.";
+				// Add Audit
+				//$sql = "INSERT INTO audits values(NULL, {$_SESSION['userid']}, 'created', $id, NULL)";
+				//mysql_query($sql);
+
+				$URL = "$baseurl/platform/$id/";
+				header("Location: $URL");
+			} else {
+				$errormessage = "Sorry, \"$PlatformTitle\" already exists in platforms.";
+			}
+		}
+		else {
+			$errormessage = "You must be logged in as an admin to make that change.";
 		}
 	}
 
@@ -53,7 +58,7 @@
 		
 			if(empty($_FILES["publisherlogo"]["name"]))
 			{
-				$errormessage = "You cannot add a new publisher without selecting a logo.";
+				$errormessage = "You cannot add a new publisher/developer without selecting a logo.";
 			}
 			else
 			{	
@@ -68,18 +73,18 @@
 					
 					if(move_uploaded_file($_FILES["publisherlogo"]["tmp_name"], "banners/publisher-logos/$logofilename"))
 					{
-						if(mysql_query(" INSERT INTO pubdev (keywords, logo) VALUES ('$publisherKeywords', '$logofilename') ") or die (mysql_error()))
+						if(mysql_query("INSERT INTO pubdev (keywords, logo) VALUES ('$publisherKeywords', '$logofilename') ") or die (mysql_error()))
 						{
-							$message = "Pulisher/Developer Added Sucessfully";
+							$message = "Publisher/developer added sucessfully";
 						}
 						else
 						{
-							$errormessage = "There was a problem updating Pulisher/Developer Keywords, please try again...";
+							$errormessage = "There was a problem updating the publisher/developer keywords, please try again...";
 						}
 					}
 					else
 					{
-						$errormessage = "There was a problem uploading the new Publisher/Developer logo, please try again...";
+						$errormessage = "There was a problem uploading the new publisher/developer logo, please try again...";
 					}
 				}
 				else
@@ -91,7 +96,7 @@
 		}
 		else
 		{
-			$errormessage = 'You must be logged in as an admin to make that change';
+			$errormessage = "You must be logged in as an admin to make that change.";
 		}
 	}
 
@@ -101,13 +106,13 @@
 		
 			if(empty($_FILES["publisherlogo"]["name"]))
 			{
-				if(mysql_query(" UPDATE pubdev SET keywords='$publisherKeywords' WHERE id=$publisherID "))
+				if(mysql_query("UPDATE pubdev SET keywords='$publisherKeywords' WHERE id=$publisherID"))
 				{
 					$message = "Publisher keywords updated successfully.";
 				}
 				else
 				{
-					$errormessage="There was a problem updating the keywords in the database. Please try again.";
+					$errormessage = "There was a problem updating the keywords in the database. Please try again.";
 				}
 			}
 			else
@@ -127,13 +132,13 @@
 				
 					if (move_uploaded_file($_FILES["publisherlogo"]["tmp_name"], "banners/publisher-logos/$logofilename"))
 					{	
-						if(mysql_query(" UPDATE pubdev SET keywords='$publisherKeywords', logo='$logofilename' WHERE id=$publisherID "))
+						if(mysql_query("UPDATE pubdev SET keywords='$publisherKeywords', logo='$logofilename' WHERE id=$publisherID"))
 						{
 							$message = "Publisher keywords and logo updated successfully.";
 						}
 						else
 						{
-							$errormessage="There was a problem updating the database. Please try again.";
+							$errormessage = "There was a problem updating the database. Please try again.";
 						}
 					}
 					else
@@ -143,14 +148,14 @@
 				}
 				else
 				{
-					$errormessage = "The image MUST be in JPG, PNG or GIF format";
+					$errormessage = "The image MUST be in JPG, PNG or GIF format.";
 				}
 			}
 			
 		}
 		else
 		{
-			$errormessage = 'You must be logged in as an admin to make that change';
+			$errormessage = "You must be logged in as an admin to make that change.";
 		}
 	}
 	

@@ -58,10 +58,17 @@
 		
 			if(empty($_FILES["publisherlogo"]["name"]))
 			{
-				$errormessage = "You cannot add a new publisher/developer without selecting a logo.";
+				if( mysql_query("INSERT INTO pubdev (keywords) VALUES ('$publisherKeywords')") or die ( mysql_error() ) )
+				{
+					$message = "Publisher/developer (without logo) added successfully.";
+				}
+				else
+				{
+					$errormessage = "There was a problem adding the publisher/developer. Please try again.";
+				}
 			}
 			else
-			{	
+			{
 				if($_FILES['publisherlogo']['error'] == 0)
 				{
 					$filenamecount = 0;
@@ -79,12 +86,12 @@
 						}
 						else
 						{
-							$errormessage = "There was a problem updating the publisher/developer keywords, please try again...";
+							$errormessage = "There was a problem adding the publisher/developer. Please try again.";
 						}
 					}
 					else
 					{
-						$errormessage = "There was a problem uploading the new publisher/developer logo, please try again...";
+						$errormessage = "There was a problem uploading the new publisher/developer logo. Please try again.";
 					}
 				}
 				else

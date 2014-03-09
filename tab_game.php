@@ -321,8 +321,7 @@
 									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 							}
-							?>
-						<?php } ?>
+						} ?>
 			</div>
 			<hr />
 			<?php
@@ -344,49 +343,27 @@
 			<div id="gameVitals">
 				<div id="esrbIcon" style ="float: right; width: 72px; height: 100px;">
 					<?php
+						$esrb;
 						switch($game->Rating)
 						{
-							case "EC - Early Childhood":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-ec.png" />
-								<?php
-							break;
-
-							case "E - Everyone":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-everyone.png" />
-								<?php
-							break;
-
-							case "E10+ - Everyone 10+":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-e10.png" />
-								<?php
-							break;
-
-							case "T - Teen":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-teen.png" />
-								<?php
-							break;
-
-							case "M - Mature":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-mature.png" />
-								<?php
-							break;
-
-							case "RP - Rating Pending":
-								?>
-									<img src="<?= $baseurl ?>/images/game-view/esrb/esrb-rp.png" />
-								<?php
-							break;
+							case "EC - Early Childhood": $esrb = "ec"; break;
+							case "E - Everyone": $esrb = "everyone"; break;
+							case "E10+ - Everyone 10+": $esrb = "e10"; break;
+							case "T - Teen": $esrb = "teen"; break;
+							case "M - Mature": $esrb = "mature"; break;
+							case "RP - Rating Pending": $esrb = "rp"; break;
 						}
+						if (isset($esrb))
+						{
+							echo "<img src=\"$baseurl/images/game-view/esrb/esrb-$esrb.png\"/>";
+						}
+						unset($esrb);
 					?>
 				</div>
-				<p><span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
+				<p>
+					<span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
 					<span class="grey" style="padding-left: 20px;">Co-op:</span>&nbsp;&nbsp;<?php if($game->coop != false) { echo $game->coop; } else { echo "N/A"; } ?><br />
-				<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) {
+					<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) {
 					$genres = explode("|", $game->Genre);
 					$genreCount = 1;
 					while($genreCount < count($genres) - 1)
@@ -399,8 +376,9 @@
 						$genreCount++;
 						}
 					}
-					else { echo "N/A"; } ?><br />
-				<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
+					else { echo "N/A"; } ?>
+					<br />
+					<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
 
 				<?php
 				// Start Developer Logo Replacement

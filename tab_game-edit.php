@@ -492,7 +492,19 @@
 							<span class="grey">Developer</span>
 						</td>
 						<td>
-							<input type="text" name="Developer" value="<?= $game->Developer ?>" />
+							<input type="text" list="developers" name="Developer" value="<?= $game->Developer ?>" />
+							<datalist id="developers">
+							<?php	
+								$query = "SELECT keywords FROM pubdev";
+								$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+								while($row = mysql_fetch_array($result)) {
+									list($dev) = $row;
+									$dev = ucfirst($dev);
+									echo "<option value=\"$dev\">";
+								}
+								unset($dev);
+							?>
+							</datalist>
 						</td>
 					</tr>
 					<tr>
@@ -500,7 +512,7 @@
 							<span class="grey">Publisher</span>
 						</td>
 						<td>
-							<input type="text" name="Publisher" value="<?= $game->Publisher ?>" />
+							<input type="text" list="developers" name="Publisher" value="<?= $game->Publisher ?>" />
 						</td>
 					</tr>
 					<tr>

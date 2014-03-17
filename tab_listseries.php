@@ -236,12 +236,6 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php endif; ?>
 	
 	
-	<?php
-		//Google AdSense - Right of Main Content Skyscraper
-		include_once("adverts/adsense-leaderboard_content-top.php");
-	?>
-	
-	
 	<h1 style="float: left;">Search: <?=$string?></h1>
 
 	<!-- Start View Mode Links -->

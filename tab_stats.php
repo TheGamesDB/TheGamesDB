@@ -1,11 +1,6 @@
 
 	<div id="gameHead">
-	
-		<?php
-			//Google AdSense - Right of Main Content Skyscraper
-			include_once("adverts/adsense-leaderboard_content-top.php");
-		?>
-		
+
 		<h1 style="text-align: center;">Database Completion Overview</h1>
 		
 		<?php

@@ -704,7 +704,18 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 												WideImage::load("banners/publisher-logos/$pubdevResult->logo")->resize(400, 60)->saveToFile("banners/_admincpcache/publisher-logos/$pubdevResult->logo");
 											}
 										?>
+										<?php
+											if($pubdevResult->logo)
+											{
+										?>
 										<td><img src="<?= $baseurl ?>/banners/_admincpcache/publisher-logos/<?= $pubdevResult->logo ?>" style="vertical-align: middle;" /></td>
+										<?php
+											}
+											else
+											{
+												echo "<td>Logo Missing</td>";
+											}
+										?>
 										<td><a style="color: orange;" href="<?= $baseurl ?>/updatepub/?publisherid=<?= $pubdevResult->id ?>">Update Keywords &amp; Logo</a></td>
 									</tr>
 								<?php

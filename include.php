@@ -184,10 +184,17 @@ function displaybanner ($filename, $bannerauthor, $allowdelete, $fullurl, $banne
 
 ## Function to generate/display a cached version of a banner
 function displaybannernew ($banner, $allowdelete, $link) {
-    if(substr($banner->filename,0,9) == 'clearlogo') $clogo = 1;
-    else $clogo = 0;
+    if(substr($banner->filename,0,9) == 'clearlogo')
+    {
+    	$clogo = true;
+    }
+    else
+	{
+		$clogo = false;
+	}
 
 	global $loggedin, $user, $bannercount, $tab, $id, $seriesid, $seasonid, $baseurl;
+
 	switch ($tab) {
 		case "mainmenu":
 			$fullurl = $baseurl . "/?";
@@ -215,9 +222,9 @@ function displaybannernew ($banner, $allowdelete, $link) {
     ## Display the image
 	
 	if($clogo && $link) {
-		print "<a href=\"$link\"><img src=\"$baseurl/banners/$banner->filename\" class=\"banner\" width=\"$imgWidth\" height=\"$imgHeight\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
+		print "<a href=\"$link\"><img src=\"$baseurl/banners/$banner->filename\" class=\"banner\" width=\"300\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
 	}
-    if ($link)  {
+    else if ($link)  {
 		print "<a href=\"$link\"><img src=\"$baseurl/banners/_cache/$banner->filename\" class=\"banner\" width=\"$imgWidth\" height=\"$imgHeight\" border=\"0\" alt=\"$banner->seriesname\"></a>\n";
 	}
 	else {

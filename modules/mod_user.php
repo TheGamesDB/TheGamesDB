@@ -3,8 +3,26 @@
 	#####################################################
 	## REGISTRATION AND PASSWORD FUNCTIONS
 	#####################################################
+    
 	if ($function == 'Register') {
-		## Check for exact matches for username
+
+        require_once('.\extentions\recaptcha\recaptchalib.php');
+        
+        $publickey = "";
+        $privatekey = "";
+        
+        $resp = null;
+        $error = null;
+        
+        if ($_POST["recaptcha_response_field"]) {
+                $resp = recaptcha_check_answer ($privatekey,
+                                                $_SERVER["REMOTE_ADDR"],
+                                                $_POST["recaptcha_challenge_field"],
+                                                $_POST["recaptcha_response_field"]);
+        }
+        ## If Captcha OK
+        if ($resp->is_valid) {
+        ## Check for exact matches for username
 		$username = mysql_real_escape_string($username);
 		$userpass1 = mysql_real_escape_string($userpass1);
 		$userpass2 = mysql_real_escape_string($userpass2);
@@ -71,6 +89,9 @@
 		} else {
 			$errormessage = 'Username already exists.  Please try another.';
 		}
+        } else {
+            $errormessage = $resp->error;
+        }
 	}
 
 

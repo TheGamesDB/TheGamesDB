@@ -1,4 +1,5 @@
 
+    <?php require_once('extentions\recaptcha\recaptchalib.php');?>
 	<div id="gameHead">
 	
 	<?php if($errormessage): ?>
@@ -51,6 +52,11 @@
 			?>
 			</select>
 	</td>
+</tr>
+<tr>
+    <td></td>
+    <td><?= recaptcha_get_html($publickey = ""); ?>
+    </td>
 </tr>
 <tr>
 	<td></td>

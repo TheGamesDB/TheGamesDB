@@ -13,4 +13,9 @@
 	$mail_server = "mail.thetvdb.com";
 	$mail_username = "";
 	$mail_password = "";
+
+	## Recaptcha Settings
+	// (Developers will need to get their own keys from recaptcha, if you are running from 'localhost' try making the key usable for 'all domains')
+	$recpatcha_publickey = "";
+    $recaptcha_privatekey = "";
 ?>

@@ -1,24 +1,32 @@
+<?php
+	require_once('extentions\recaptcha\recaptchalib.php');
+?>
 
-    <?php require_once('extentions\recaptcha\recaptchalib.php');?>
-	<div id="gameHead">
+<div id="gameHead">
 	
-	<?php if($errormessage): ?>
-	<div class="error"><?= $errormessage ?></div>
-	<?php endif; ?>
-	<?php if($message): ?>
-	<div class="message"><?= $message ?></div>
-	<?php endif; ?>
+	<?php
+		if($errormessage)
+		{
+	?>
+			<div class="error"><?php echo $errormessage ?></div>
+	<?php
+		}
+		if($message) {
+	?>
+			<div class="message"><?php echo $message ?></div>
+	<?php
+		}
+	?>
 
 <div style="text-align: center; padding: 26px 0px;">
 <h1>Register</h1>
-<form action="<?=$baseurl?>/" method="POST">
-<div id="red"><?=$errormessage?></div>
+<form action="<?= $baseurl ?>/" method="POST">
 <p>&nbsp;</p>
-<p>Please fill in your details below to register for an account.</p>
+<h3>Please fill in your details below to register for an account.</h3>
 <table cellspacing="2" cellpadding="2" border="0" align="center" style="text-align: left;">
 <tr>
 	<td><b>Username</b></td>
-	<td><input type="text" name="username" value="<?=$username?>"></td>
+	<td><input type="text" name="username" value="<?= $username ?>"></td>
 </tr>
 <tr>
 	<td><b>Password</b></td>
@@ -30,7 +38,7 @@
 </tr>
 <tr>
 	<td><b>Email Address</b></td>
-	<td><input type="text" name="email" value="<?=$email?>"></td>
+	<td><input type="text" name="email" value="<?= $email ?>"></td>
 </tr>
 <tr>
 	<td><b>Preferred Language</b></td>
@@ -54,13 +62,13 @@
 	</td>
 </tr>
 <tr>
-    <td></td>
-    <td><?= recaptcha_get_html($publickey = ""); ?>
+    <td colspan="2">
+    	<h3>Enter the words below</h3>
+    	<?php echo recaptcha_get_html($recaptcha_publickey); ?>
     </td>
 </tr>
 <tr>
-	<td></td>
-	<td><input type="submit" name="function" value="Register"></td>
+	<td colspan="2"><input type="submit" name="function" value="Register"></td>
 </tr>
 </table>
 

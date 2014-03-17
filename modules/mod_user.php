@@ -8,7 +8,7 @@
 
 		$tab = 'register';
 
-        require_once('.\extentions\recaptcha\recaptchalib.php');
+        require_once('./extentions/recaptcha/recaptchalib.php');
         
         $recaptcha_resp = null;
         

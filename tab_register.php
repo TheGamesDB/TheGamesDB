@@ -1,5 +1,5 @@
 <?php
-	require_once('extentions\recaptcha\recaptchalib.php');
+	require_once('extentions/recaptcha/recaptchalib.php');
 ?>
 
 <div id="gameHead">

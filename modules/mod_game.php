@@ -19,6 +19,20 @@
 			$query = "INSERT INTO games (GameTitle, Platform, created, author, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time, {$user->id}, NULL)";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			$id = mysql_insert_id();
+
+			if (!empty($id))
+			{
+				$dbGamesResult = mysql_query("SELECT `g`.*, `p`.`id` AS `PlatformId`, `p`.`name` AS `PlatformName`, `p`.`alias` AS `PlatformAlias`, `p`.`icon` AS `PlatformIcon` FROM `games` AS `g`, `platforms` AS `p` WHERE `g`.`Platform` = `p`.`id` AND `g`.`id` = $id");
+				if($dbGamesRow = mysql_fetch_assoc($dbGamesResult))
+				{
+					$searchParams = array();
+					$searchParams['body']  = $dbGamesRow;
+					$searchParams['index'] = 'thegamesdb';
+					$searchParams['type']  = 'game';
+					$searchParams['id']    = $id;
+					$elasticsearchInsertResult = $elasticsearchClient->index($searchParams);
+				}
+			}
 			
 			$URL = "$baseurl/game/$id/";
 			header("Location: $URL");
@@ -74,11 +88,23 @@
 		$updatestring = implode(', ', $updates);
 		$newshowid = mysql_real_escape_string($newshowid);
 		$query = "UPDATE games SET $updatestring WHERE id=$newshowid";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		$id = $newshowid;
+		if($result = mysql_query($query) or die('Query failed: ' . mysql_error()))
+		{
+			$dbGamesResult = mysql_query("SELECT `g`.*, `p`.`id` AS `PlatformId`, `p`.`name` AS `PlatformName`, `p`.`alias` AS `PlatformAlias`, `p`.`icon` AS `PlatformIcon` FROM `games` AS `g`, `platforms` AS `p` WHERE `g`.`Platform` = `p`.`id` AND `g`.`id` = $id");
+			if($dbGamesRow = mysql_fetch_assoc($dbGamesResult))
+			{
+				$searchParams = array();
+				$searchParams['body']  = $dbGamesRow;
+				$searchParams['index'] = 'thegamesdb';
+				$searchParams['type']  = 'game';
+				$searchParams['id']    = $id;
+				$elasticsearchInsertResult = $elasticsearchClient->index($searchParams);
+			}
+		}
 
 		$message .= 'Game saved.';
 
-		$id = $newshowid;
 		//$tab = 'game-edit';
 		header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		exit;

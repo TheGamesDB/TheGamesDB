@@ -1,3 +1,5 @@
 upload-temp/*
 config.php
 banners/*
+adminarea/.htaccess
+adminarea/.htpasswd

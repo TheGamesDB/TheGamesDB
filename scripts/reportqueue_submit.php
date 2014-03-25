@@ -59,12 +59,12 @@
 	
 	<div>
 	
-		<h2>Report <?=ucfirst($reporttype;)?></h2>
+		<h2>Report <?=ucfirst($reporttype);?></h2>
 		
 		<p>If you consider this <?=$reporttype;?> in need of moderation by an administrator, then please report it to us using the form below.</p>
 		
 		<form>
-			<p style="font-weight: bold;">Reason for Reporting This <?=ucfirst($reporttype;)?>:</p>
+			<p style="font-weight: bold;">Reason for Reporting This <?=ucfirst($reporttype);?>:</p>
 			<select id="reportReason" name="reportReason">
 				<?php if($reporttype == "image" ){ ?>
 				<option>Image uses a language other than that which matches the game information.</option>
@@ -78,8 +78,8 @@
 				<?}?>
 
 				<?php if($reporttype == "game" ){ ?>
-				<option>Game has been added for the incorrect platform</option>
 				<option>Game is a duplicate</option>
+				<option>Game has been added for the incorrect platform</option>
 				<option>Game is a mod/hack of another game</option>
 				<option>Game is not a game</option>
 				<option>Game is in a different language</option>
@@ -110,7 +110,7 @@
 				var reportReason = $('#reportReason').val();
 				var reportAdditional = $('#reportAdditional').val();
 				
-				$.get('<?= $baseurl; ?>/scripts/reportqueue_process-submission.php?reportType=' + reportType + 'reportID=' + reportImageID + '&reportUserID=' + reportUserID + '&reportReason=' + reportReason + '&reportAdditional=' + reportAdditional ,
+				$.get('<?= $baseurl; ?>/scripts/reportqueue_process-submission.php?reportType=' + reportType + '&reportID=' + reportID + '&reportUserID=' + reportUserID + '&reportReason=' + reportReason + '&reportAdditional=' + reportAdditional ,
 					function(data){ 
 						if(data == 'Success') {
 							alert("Thank you, the " + reportType + " was reported for moderation successfully.");

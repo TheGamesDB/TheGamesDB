@@ -34,7 +34,7 @@
 				if ($reportType == "game")
 					$checkExistQuery = "SELECT * FROM games WHERE id = $reportID LIMIT 1";
 
-				if($checkExistQuery && mysql_fetch_object(mysql_query($checkExistQuery))
+				if($checkExistQuery && mysql_fetch_object(mysql_query($checkExistQuery)))
 				{
 					$reportReason = htmlentities($reportReason, ENT_QUOTES);
 					$reportAdditional = htmlentities($reportAdditional, ENT_QUOTES);

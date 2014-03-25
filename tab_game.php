@@ -123,6 +123,7 @@
 		<div id="gameTitle">
 			<?php	if ($loggedin == 1) {  ?>
 				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
+				<a class="greyButton" href='javascript:void();' onclick='faceboxReportGame(<?=$game->id?>)' style='color: orange;'>Report this Game</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 
@@ -968,6 +969,10 @@
 	function faceboxReport(reportid)
 	{
 		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportqueue_submit.php?reportimageid=' + reportid });
+	}
+	function faceboxReportGame(reportid)
+	{
+		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportgame_submit.php?reportgameid=' + reportid });
 	}
 </script>
 

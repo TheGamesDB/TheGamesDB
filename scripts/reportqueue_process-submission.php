@@ -21,7 +21,7 @@
 			$existingResult = mysql_query("SELECT id FROM moderation_reported WHERE bannerid = $reportImageID");
 			if(mysql_num_rows($existingResult) == 0)
 			{
-				if( $reportimage = mysql_fetch_object(mysql_query("SELECT * FROM banners WHERE id = $reportImageID LIMIT 1")) )
+				if(mysql_fetch_object(mysql_query("SELECT * FROM banners WHERE id = $reportImageID LIMIT 1"))
 				{
 					$reportReason = htmlentities($reportReason, ENT_QUOTES);
 					$reportAdditional = htmlentities($reportAdditional, ENT_QUOTES);
@@ -45,7 +45,7 @@
 		}
 		else
 		{
-			echo "Error: You must provide an Image ID, User ID and a Reason for Reporting the Image.";
+			echo "Error: You must provide an Image ID, User ID, and a reason for reporting the image.";
 		}
 	}
 	else

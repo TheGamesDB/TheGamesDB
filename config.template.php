@@ -13,4 +13,7 @@
 	$mail_server = "mail.thetvdb.com";
 	$mail_username = "";
 	$mail_password = "";
+
+    ## Timezone Settings
+	date_default_timezone_set('UTC'); 
 ?>

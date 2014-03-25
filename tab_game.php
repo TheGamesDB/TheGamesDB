@@ -123,7 +123,7 @@
 		<div id="gameTitle">
 			<?php	if ($loggedin == 1) {  ?>
 				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
-				<a class="greyButton" href='javascript:void();' onclick='faceboxReportGame(<?=$game->id?>)' style='color: orange;'>Report this Game</a>
+				<a class="greyButton" href='javascript:void();' onclick='faceboxReport("game",<?=$game->id?>)' style='color: orange;'>Report this Game</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 
@@ -535,7 +535,7 @@
 								{
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]";
 							?>
-									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$fanart->id" ?>);' style='color: orange;'>Report Image</a><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
+									<img  class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?php echo $game->GameTitle; ?> Fanart" title="<?= imageUsername($fanart->id) ?> | <a href='javascript:void();' onclick='faceboxReport("image",<?= "$fanart->id" ?>);' style='color: orange;'>Report Image</a><br/><a href='<?="$baseurl/banners/$fanart->filename"?>' target='_blank'>View Full-Size</a> | <a href='<?= $baseurl; ?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>" />
 							<?php
 									$fanSlideCount++;
 								}
@@ -571,7 +571,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{
 							?>
-									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= "$screen->id" ?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
+									<img  class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?php echo $game->GameTitle; ?> Screenshot" title="<?= imageUsername($screen->id) ?> | <a href='javascript:void();' onclick='faceboxReport("image",<?= "$screen->id" ?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>" />
 							<?php
 									$screenSlideCount++;
 								}
@@ -609,7 +609,7 @@
 							while($banner = mysql_fetch_array($bannerResult))
 							{
 						?>
-								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?> | <a href='javascript:void();' onclick='faceboxReport(<?= $banner[id] ?>)' style='color: orange;'>Report Image</a>"/>
+								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?php echo $game->GameTitle; ?> Banner" title="<?= imageUsername($banner[id]) ?> | <a href='javascript:void();' onclick='faceboxReport("image",<?= $banner[id] ?>)' style='color: orange;'>Report Image</a>"/>
 						<?php
 								$bannerSlideCount++;
 							}
@@ -966,13 +966,9 @@
 <!-- End jQuery Smooth Vertical Page Scrolling -->
 
 <script type="text/javascript">
-	function faceboxReport(reportid)
+	function faceboxReport(reporttype, reportid)
 	{
-		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportqueue_submit.php?reportimageid=' + reportid });
-	}
-	function faceboxReportGame(reportid)
-	{
-		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportgame_submit.php?reportgameid=' + reportid });
+		jQuery.facebox({ ajax: '<?= $baseurl ?>/scripts/reportqueue_submit.php?reporttype=' + reporttype + '&reportid=' + reportid });
 	}
 </script>
 

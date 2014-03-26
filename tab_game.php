@@ -124,6 +124,7 @@
 			<?php	if ($loggedin == 1) {  ?>
 				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
 				<a class="greyButton" href='javascript:void();' onclick='faceboxReport("game",<?=$game->id?>)' style='color: orange;'>Report this Game</a>
+				<a class="greyButton" onclick='faceboxReport("game",<?=$game->id?>)'><img src="<?php echo $baseurl; ?>/images/common/icons/report_16.png" style="vertical-align: -2px;"/>&nbsp;Report</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 

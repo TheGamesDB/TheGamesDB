@@ -670,8 +670,8 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 													if ($queuetype == "game")
 														$type = "game";
 													?>
-													<button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_keep.php?reportType=<?=$type;?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Keep</button>&nbsp;&nbsp;
-													<button type="button" class="deny" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_delete.php?reportType=<?=$type;?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Delete</button>
+													<button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_keep.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Keep</button>&nbsp;&nbsp;
+													<button type="button" class="deny" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_delete.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Delete</button>
 												</p>
 												<div id="deny-<?= $reportedObject->id ?>" style="display: none;">
 													<hr />

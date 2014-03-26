@@ -3,14 +3,16 @@
 	require_once("../globalsfix.php");
 
 	// Script to keep an image that was reported for moderation
-	// Parameters: reportID - The ID of the item in the moderation queue
+	// Parameters: 
+	//	reportType - The type of the item in the moderation queue
+	// 	reportID - The ID of the item in the moderation queue
 	
 	include("../include.php");
 	include("../modules/mod_userinit.php");
 	
 	if ($loggedin = 1 && $adminuserlevel = 'ADMINISTRATOR')
 	{
-		if (isset($reportID))
+		if (isset($reportID) and isset($reportType))
 		{
 			if ($reportedResult = mysql_query("SELECT b.filename FROM moderation_reported AS m, banners AS b WHERE m.bannerid = b.id AND m.id = $reportID LIMIT 1"))
 			{	
@@ -46,7 +48,7 @@
 		}
 		else
 		{
-			echo "Error: You must provide a the ID of the reported image to keep";
+			echo "Error: You must provide a the ID and type of the reported image/game to keep.";
 		}
 	}
 	else

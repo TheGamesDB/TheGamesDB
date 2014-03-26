@@ -22,7 +22,7 @@
 		if (isset($reportType) && isset($reportID) && isset($reportUserID) && isset($reportReason))
 		{
 			// Check if the report was already reported
-			$existingResult = mysql_query("SELECT id FROM moderation_reported WHERE reporttype = $reportType AND reportid = $reportID");
+			$existingResult = mysql_query("SELECT id FROM moderation_reported WHERE reporttype = '$reportType' AND reportid = $reportID");
 			if(mysql_num_rows($existingResult) == 0)
 			{
 				// Check if the thing we want to report exists.
@@ -41,13 +41,17 @@
 					$dateadded = date("Y-m-d H:i:s");
 
 					$insertquery = "INSERT INTO moderation_reported(reporttype, reportid, userid, reason, additional, dateadded) ".
-								   "VALUES ($reportType, $reportID, $reportUserID, '$reportReason', '$reportAdditional', '$dateadded')";
+								   "VALUES ('$reportType', $reportID, $reportUserID, '$reportReason', '$reportAdditional', '$dateadded')";
 				
 					// Now report it
 					if ( mysql_query($insertquery) )
 					{
 						echo "Success";
 					}				
+					else
+					{
+						echo "Error: Unable to report the game due to an error.";
+					}
 				}
 				else
 				{

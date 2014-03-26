@@ -157,7 +157,7 @@
 			<div><a href="http://forums.thegamesdb.net">Forums</a></div>
 			
 			<!-- ADD NEW GAME NAV ITEM -->
-			<a href="<?= $baseurl ?>/addgame/" style="position: absolute; padding: 3px 8px 4px 3px; margin: 3px 4px 4px 20px; border: 1px solid #eee; border-radius: 6px; background-color: #333; color: #eee; font-size: 14px; text-decoration: none; font-weight: bold;"><img src="<?= $baseurl ?>/images/common/icons/star_14.png" style="margin: 0px 5px; 0px 0px; padding: 0px; vertical-align: middle;" />Add New Game</a>
+			<a href="<?= $baseurl ?>/addgame/" class="addgameButton"><img src="<?= $baseurl ?>/images/common/icons/star_14.png" style="margin: 0px 5px; 0px 0px; padding: 0px; vertical-align: middle;" />Add New Game</a>
 
 			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">

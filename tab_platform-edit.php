@@ -182,7 +182,7 @@
 				Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
 			</span>
 			
-			<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a></span>
+			<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a></span>
 			
 			<span style="float: left; clear: left;">
 				URL Alias:<input type="text" name="alias" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->alias; ?>" /><br />

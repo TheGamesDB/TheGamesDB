@@ -216,6 +216,13 @@
 	min-height: 40px;
 	background: #BFBFBF url('images/bg_banner-shadow.png') top center repeat-x;
 }
+.modTableTitle {
+	background: #F1F1F1;
+	background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9);
+	padding: 7px 7px 8px;
+	font-size: 16px;
+	border-bottom: 1px solid #444;
+}
 .grey {
 	color: #555;
 }
@@ -235,14 +242,17 @@
 	background-image: linear-gradient(top, #777777, #222222);
 }
 .button {
-	border: 1px solid #555;
-	border-radius: 5px;
+	border: 0px solid #555;
+	border-radius: 4px;
 	box-shadow: 0px 0px 1px 0px #FFF;
 	color: #fff;
 	background-color: #222;
 	margin: 0px 5px 0px 2px;
 	padding: 4px 8px;
 	cursor: pointer;
+}
+.button:hover {
+	background: #555;
 }
 .darkorangeButton {
 	font-family: Arial, Helvetica, sans-serif;
@@ -306,23 +316,13 @@
 	top:1px;
 }
 .greyButton {
+	cursor: pointer;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: orange;
 	text-decoration: none;
 	padding: 6px 8px;
-	background: -moz-linear-gradient(
-		top,
-		#a3a3a3 0%,
-		#3b3b3b 50%,
-		#242424 50%,
-		#000000);
-	background: -webkit-gradient(
-		linear, left top, left bottom, 
-		from(#505050),
-		color-stop(0.50, #4b4b4b),
-		color-stop(0.50, #343434),
-		to(#101010));
+	background: #3b3b3b;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
@@ -340,12 +340,45 @@
 		0px -1px 0px rgba(000,000,000,1),
 		0px 1px 0px rgba(255,255,255,0.2);
 }
+.greyButton:hover {
+	background: #242424;
+}
 .boxShadow {
 	box-shadow: 3px 6px 10px #000;
 }
+.avatar {
+	float: left;
+	width: 64px;
+	height: 64px;
+	padding: 0px 15px 15px 0px;
+	text-align: center;
+}
+.addgameButton {
+	position: absolute;
+	padding: 3px 8px 4px 3px;
+	margin: 3px 4px 4px 20px;
+	border-radius: 6px;
+	background-color: #333;
+	color: #eee;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+}
+.addgameButton:hover {
+	background: #242424;
+}
+.uploadButton {
+	float: right;
+	font-size: 16px;
+	line-height: 32px;
+	display: inline-block;
+	padding: 9px;
+	color: orange;
+	margin-top: 14px;
+}
 #gameWrapper input[type=text] {
-	border: 1px solid #555;
-	border-radius: 5px;
+	border: 0px solid #555;
+	border-radius: 4px;
 	box-shadow: 0px 0px 1px 0px #FFF;
 	color: #fff;
 	background-color: #222;
@@ -353,8 +386,8 @@
 	margin: 5px;
 }
 #gameWrapper textarea {
-	border: 1px solid #555;
-	border-radius: 5px;
+	border: 0px solid #555;
+	border-radius: 4px;
 	box-shadow: 0px 0px 1px 0px #FFF;
 	color: #fff;
 	font-family: Arial, sans-serif;
@@ -362,8 +395,8 @@
 	padding: 2px;
 }
 #gameWrapper select {
-	border: 1px solid #555;
-	border-radius: 5px;
+	border: 0px solid #555;
+	border-radius: 4px;
 	box-shadow: 0px 0px 1px 0px #FFF;
 	color: #fff;
 	background-color: #222;

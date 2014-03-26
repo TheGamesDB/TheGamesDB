@@ -121,7 +121,7 @@
 			<div id="gameTitle">
 			
 				<?php	if ($loggedin == 1) {  ?>
-					<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/">Edit this Platform</a></span>
+					<span id = "gameUserLinks"><a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/">Edit this Platform</a></span>
 				<?php } ?><br /><br />
 				
 				<span style="float: right; padding-top: 16px;">

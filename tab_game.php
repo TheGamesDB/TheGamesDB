@@ -119,32 +119,40 @@
 	if(mysql_num_rows($result) != 0)
 	{
 	?>
-
 		<div id="gameTitle">
-			<?php	if ($loggedin == 1) {  ?>
-				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Edit this Game</a>
-				<a class="greyButton" href='javascript:void();' onclick='faceboxReport("game",<?=$game->id?>)' style='color: orange;'>Report this Game</a>
+			<?php if ($loggedin == 1) {  ?>
+				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: -2px;"/>&nbsp;Edit</a>
+				&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a id="shareButton" class="greyButton"><img src="<?php echo $baseurl; ?>/images/common/icons/social_16.png" style="vertical-align: -2px;"/>&nbsp;Share</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 
 					## If the user has this as a favorite, display a message and a button
-					## to "Un-favorite".
+					## to "Unfavorite".
+					$action = "favorite";
 					if (in_array($id, $userfavorites, 1)) {
-						print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Unfavorite this Game</a>";
+						$action = "unfavorite";
 					}
 					## If the user doesn't have this as a favorite, display a button to
 					## mark it as a favorite.
 					else {
-						print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Favorite this Game</a>";
+						$action = "favorite";
 					}
+
+					echo "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/".$action."_16.png\" style=\"vertical-align: -1px;\" />&nbsp;".ucfirst($action)."</a>";
+					unset($action);
 				?>
-			<?php } ?></span>
-			<h1 style="margin: 0px; padding: 0px;"><?php echo $game->GameTitle; ?></h1>
-			<?php if(!empty($game->Alternates)) { ?>
-				<h3><span style="color: #888; font-size: 13px;"><em>
-			<?php echo "a.k.a. ' " . str_replace(",", ", ", $game->Alternates) . " ' "; ?>
-				</em></span></h3>
 			<?php } ?>
+				</span>
+				<h1 style="margin: 0px; padding: 0px;"><?=$game->GameTitle;?></h1>
+			<?php
+				if(!empty($game->Alternates))
+				{
+					echo "<h3><span style='color: #888; font-size: 13px;'><em>";
+					echo "a.k.a. ' " . str_replace(",", ", ", $game->Alternates) . " ' ";
+					echo "</em></span></h3>";
+				}
+			?>
 		</div>
 		<div id="gameCoversWrapper">
 			<div id="gameCovers">
@@ -182,25 +190,25 @@
 			if (!empty($front) && !empty($back))
 			{
 			?>
-			<a href="javascript: void();" class="gameCoversFlip"><img src="<?php echo $baseurl; ?>/images/common/icons/flip_32.png" style="width:24px; height: 24px; vertical-align: -7px;" /></a>&nbsp;<a href="javascript: void();" class="gameCoversFlip">Flip</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="javascript: void();" class="gameCoversFlip"><img src="<?php echo $baseurl; ?>/images/common/icons/flip_32.png" style="width:24px; height: 24px; vertical-align: -7px;" /></a>&nbsp;<a href="javascript: void();" class="gameCoversFlip">Flip</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<?php
 			}
 			if (!empty($front))
 			{
 			?>
-			<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>
+				<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$front->filename"?>" target="_blank">Front</a>
 			<?php
 			}
 			if (!empty($front) && !empty($back))
 			{
 			?>
-			&nbsp;&nbsp;|&nbsp;&nbsp;
+				&nbsp;&nbsp;|&nbsp;&nbsp;
 			<?php
 			}
 			if (!empty($back))
 			{
 			?>
-			<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank">Back</a></p>
+				<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank"><img src="<?php echo $baseurl; ?>/images/common/icons/expand_48.png" style="width:24px; height: 24px; vertical-align: -6px;" /></a>&nbsp;<a href="<?="$baseurl/banners/$back->filename"?>" target="_blank">Back</a></p>
 			<?php
 			}
 			?>
@@ -237,9 +245,8 @@
 			<? } ?>
 
 		</div>
-
 		<div id="gameInfo">
-			<span style="float: right;">
+			<div id="gameShare" style="float: right">
 
 				<!-- Google plus share button -->
 				<span style="float: right;">
@@ -275,7 +282,7 @@
 				<!-- Share via Email button -->
 				<a href="<?= $baseurl; ?>/mailshare.php?urlsubject=<?= urlencode("TheGamesDB.net - $game->GameTitle"); ?>&url=<?= urlencode("$baseurl/game/$game->id/"); ?>" rel="facebox" style="float: right; margin-right: 10px; padding: 1px 6px 1px 3px; color: #fff; text-decoration: none; background-color: #333; border: 1px solid #444; border-radius: 3px; font-size: 11px; font-weight: bold;" onmouseover="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_active.png')" onmouseout="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_dark.png')"><img id="mailIcon" src="<?= $baseurl ?>/images/common/icons/social/24/share_dark.png" alt="Share via Email" title="Share via Email" style="vertical-align: middle; width: 18px; height: 18px;" />&nbsp;Share via Email</a>
 
-			</span>
+			</div>
 
 			<h2><img src="<?php echo $baseurl; ?>/images/common/consoles/png32/<?php echo $game->PlatformIcon; ?>" alt="<?php echo $game->PlatformName; ?>" title="<?php echo $game->PlatformName; ?>" style="vertical-align: -8px;" />&nbsp;<?php if (!empty($game->PlatformName)) { ?>
 
@@ -879,6 +886,20 @@
 </script>
 <!-- End #panelNav Scripts -->
 
+<!-- Start Share Script -->
+<script type="text/javascript">
+
+	$('#gameShare').css({display: "none"});
+
+	$(document).ready(function(){
+		$('#shareButton').bind("click",function(){
+			var elem = $('#gameShare');
+			elem.slideToggle();
+		});
+
+	});
+</script>
+<!-- End Share Script -->
 
 
 <!-- Start Boxart Flip Script -->

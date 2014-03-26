@@ -581,16 +581,16 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 											<th colspan="3" style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 18px; text-align: center; border-bottom: 1px solid #444;"><?= $queueheader; ?></th>
 										</tr>
 										<tr>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Art</th>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Art Info</th>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#C5C5C5,#F9F9F9); padding: 7px 7px 8px; font-size: 16px; border-bottom: 1px solid #444;">Report Info</th>
+											<th class="modTableTitle">Art</th>
+											<th class="modTableTitle">Art Info</th>
+											<th class="modTableTitle">Report Info</th>
 										</tr>
 									</thead>
 									<tfoot style="text-align: left;">
 										<tr>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Art</th>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Art Info</th>
-											<th style="background: #F1F1F1; background-image: -webkit-linear-gradient(bottom,#F9F9F9,#C5C5C5); padding: 7px 7px 8px; font-size: 16px; border-top: 1px solid #444;">Report Info</th>
+											<th class="modTableTitle">Art</th>
+											<th class="modTableTitle">Art Info</th>
+											<th class="modTableTitle">Report Info</th>
 										</tr>
 									</tfoot>
 									<tbody>

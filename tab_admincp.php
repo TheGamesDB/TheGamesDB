@@ -566,37 +566,37 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 									switch ($queuetype)
 									{
 										case "frontboxart":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%front%' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Front Boxart Queue";
 										break;
 
 										case "rearboxart":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'boxart' AND b.filename LIKE '%back%' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Rear Boxart Queue";
 										break;
 
 										case "clearlogo":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'clearlogo' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'clearlogo' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported ClearLOGO Queue";
 										break;
 
 										case "fanart":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'fanart' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'fanart' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Fanart Queue";
 										break;
 
 										case "screenshot":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'screenshot' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'screenshot' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Screenshot Queue";
 										break;
 
 										case "banner":
-											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'series' ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, b.filename, b.resolution, g.id AS gameID, g.GameTitle, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p, banners AS b WHERE m.reportid = b.id AND m.reporttype = 'image' AND m.userID = u.id AND b.keyvalue = g.id AND g.Platform = p.id AND b.keytype = 'series' ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Banner Queue";
 										break;
 
 										case "game":
-											$reportedResult = mysql_query("SELECT m.*, u.username, g.id AS gameID, g.GameTitle, g.Developer, g.Publisher, g.ReleaseDate, g.Overview, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p WHERE m.reportid = g.id AND m.reporttype = 'game' AND m.userID = u.id AND g.Platform = p.id ORDER BY m.dateadded");
+											$reportedResult = mysql_query("SELECT m.*, u.username, g.id AS gameID, g.GameTitle, g.Developer, g.Publisher, g.ReleaseDate, g.Overview, p.name AS PlatformName, p.id AS PlatformID FROM moderation_reported AS m, users AS u, games AS g, platforms AS p WHERE m.reportid = g.id AND m.reporttype = 'game' AND m.userID = u.id AND g.Platform = p.id ORDER BY m.dateadded") or die(mysql_error());
 											$queueheader = "Reported Game Queue";
 										break;
 									}

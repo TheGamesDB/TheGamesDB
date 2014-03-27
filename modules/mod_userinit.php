@@ -7,7 +7,7 @@
 	## COOKIE STUFF - AUTOMATIC LOGIN
 	#####################################################
 	## Check if the id and pass match a user
-	if ($cookieid && $cookiepass) {
+	if (!empty($cookieid) && !empty($cookiepass)) {
 		$cookieid = mysql_real_escape_string($cookieid);
 		$cookiepass = mysql_real_escape_string($cookiepass);
 		$query = "SELECT * FROM users WHERE id=$cookieid AND userpass='$cookiepass'";
@@ -40,7 +40,7 @@
 	#####################################################
 	$loggedin = 0; ## Just in case
 	## If they're attempting to log in
-	if ($function == 'Log In') {
+	if (isset($function) && $function == 'Log In') {
 		## Verify their credentials
 		$username = mysql_real_escape_string($username);
 		$password = mysql_real_escape_string($password);
@@ -86,7 +86,7 @@
 	}
 
 	## If they're attempting to log out
-	else if ($function == 'Log Out') {
+	else if (isset($function) && $function == 'Log Out') {
 		unset($_SESSION['userid']);
 		unset($_SESSION['password']);
 		unset($_SESSION['userlevel']);
@@ -130,7 +130,7 @@
 	## Administrator and SuperAdmin variable
 	global $adminuserlevel;
 	$adminuserlevel = '';
-	if ($_SESSION['userlevel'] == 'ADMINISTRATOR' OR $_SESSION['userlevel'] == 'SUPERADMIN') {
+	if (isset($_SESSION['userlevel']) && ($_SESSION['userlevel'] == 'ADMINISTRATOR' OR $_SESSION['userlevel'] == 'SUPERADMIN')) {
 		$adminuserlevel = 'ADMINISTRATOR';
 	}
 
@@ -138,7 +138,7 @@
 	$secureArea = array(
 		//'addgame'
 	);
-	if (!$loggedin && in_array($tab, $secureArea)) {
+	if (isset($tab) && !$loggedin && in_array($tab, $secureArea)) {
 		//header("Location:index.php");
 		$tab = "mainmenu";
 		$errormessage = "You must be logged in to access that area. <a href=\"$baseurl/?tab=login\">Login</a>";

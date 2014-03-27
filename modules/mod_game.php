@@ -3,7 +3,7 @@
 	/*
 	 * Game Functions
 	 */
-	if ($function == 'Add Game') {
+	if (isset($function) && $function == 'Add Game') {
 		## Get Platform POSTDATA
 		//$selectedPlatform = $_POST['Platform'];
 
@@ -42,7 +42,7 @@
 		}
 	}
 
-	if ($function == 'Save Game') {
+	if (isset($function) && $function == 'Save Game') {
 		$message = null;
 		$errormessage = null;
 
@@ -110,7 +110,7 @@
 		exit;
 	}
 
-	if ($function == 'Upload Game Banner') {
+	if (isset($function) && $function == 'Upload Game Banner') {
 		$message = null;
 		$errormessage = null;
 		$subkey = "graphical";
@@ -204,7 +204,7 @@
 		//exit;
 	}
 
-	if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
+	if (isset($function) && $function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "DELETE FROM games WHERE id=$id";
@@ -226,7 +226,7 @@
 		$tab = 'mainmenu';
 	}
 
-	if ($function == 'Upload Box Art') {
+	if (isset($function) && $function == 'Upload Box Art') {
 		$message = null;
 		$errormessage = null;
 
@@ -354,7 +354,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Fan Art') {
+	if (isset($function) && $function == 'Upload Fan Art') {
 		$message = null;
 		$errormessage = null;
 
@@ -430,7 +430,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Screenshot') {
+	if (isset($function) && $function == 'Upload Screenshot') {
 		$message = null;
 		$errormessage = null;
 
@@ -504,7 +504,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Clear Logo') {
+	if (isset($function) && $function == 'Upload Clear Logo') {
 		$message = null;
 		$errormessage = null;
 
@@ -598,13 +598,13 @@
 		//exit;
 	}
 
-	if ($function == 'Lock Game') {
+	if (isset($function) && $function == 'Lock Game') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='yes', lockedby=$user->id  WHERE id=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
-	if ($function == 'UnLock Game') {
+	if (isset($function) && $function == 'UnLock Game') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='no', lockedby=''  WHERE id=$id";
@@ -612,7 +612,7 @@
 	}
 
 	## Change A Series Banner's Language
-	if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
+	if (isset($function) && $function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE banners SET languageid=$languageid WHERE id=$id";

@@ -4,7 +4,7 @@
 	 * Platform Functions
 	 */
 
-	if ($function == 'Save Platform') {
+	if (isset($function) && $function == 'Save Platform') {
 		$message = null;
 		$errormessage = null;
 		
@@ -61,7 +61,7 @@
 		exit;
 	}
 
-	if ($function == 'Upload Platform Icon') {
+	if (isset($function) && $function == 'Upload Platform Icon') {
 		$message = null;
 		$errormessage = null;
 		
@@ -137,7 +137,7 @@
 		}
 	}
 
-	if ($function == 'Upload Platform Box Art') {
+	if (isset($function) && $function == 'Upload Platform Box Art') {
 		$message = null;
 		$errormessage = null;
 		
@@ -188,7 +188,7 @@
 		}
 	}
 
-	if ($function == 'Upload Platform Fan Art') {
+	if (isset($function) && $function == 'Upload Platform Fan Art') {
 		$message = null;
 		$errormessage = null;
 		
@@ -237,7 +237,7 @@
 		exit;
 	}
 
-	if ($function == 'Upload Platform Banner') {
+	if (isset($function) && $function == 'Upload Platform Banner') {
 		$message = null;
 		$errormessage = null;
 		
@@ -291,7 +291,7 @@
 		exit;
 	}
 
-	if ($function == 'Upload Controller Art') {
+	if (isset($function) && $function == 'Upload Controller Art') {
 		$message = null;
 		$errormessage = null;
 		
@@ -334,7 +334,7 @@
 		exit;
 	}
 
-	if ($function == 'Upload Console Art') {
+	if (isset($function) && $function == 'Upload Console Art') {
 		$message = null;
 		$errormessage = null;
 		
@@ -378,7 +378,7 @@
 	}
 
 
-	if ($function == 'Delete Controller Art') {
+	if (isset($function) && $function == 'Delete Controller Art') {
 		if ($adminuserlevel == 'ADMINISTRATOR')
 		{
 			if(unlink("banners/platform/controllerart/$id.png"))
@@ -392,7 +392,7 @@
 		}
 	}
 
-	if ($function == 'Delete Console Art') {
+	if (isset($function) && $function == 'Delete Console Art') {
 		if ($adminuserlevel == 'ADMINISTRATOR')
 		{
 			if(unlink("banners/platform/consoleart/$id.png"))

@@ -5,7 +5,7 @@
 	#####################################################
 
 	// Function to auto-redirect to game page if only one result is found
-	if ($function == "Search")
+	if (isset($function) && $function == "Search")
 	{
 		$string = mysql_real_escape_string($string);
 		
@@ -38,7 +38,7 @@
 	}
 
 	// Function to update last search/favorites view type in users db table
-	if ($updateview == "yes")
+	if (isset($updateview) && $updateview == "yes")
 	{
 		if ($loggedin == 1)
 		{
@@ -56,7 +56,7 @@
 	}
 
 	// Function to share page via email
-	if($function == "Share via Email")
+	if(isset($function) && $function == "Share via Email")
 	{
 		// Check that captcha is completed and matches
 		if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['captcha']) && $_POST['captcha'] == $_SESSION['captcha'])
@@ -123,7 +123,7 @@
 		}
 	}
 
-	if ($function == 'Send PM') {
+	if (isset($function) && $function == 'Send PM') {
 		$toQuery = mysql_query(" SELECT id FROM users WHERE username = '$pmto' LIMIT 1");
 		$to = mysql_fetch_object($toQuery);
 
@@ -139,7 +139,7 @@
 		}
 	}
 
-	if ($function == 'Delete PM') {
+	if (isset($function) && $function == 'Delete PM') {
 		if(mysql_query(" DELETE FROM messages WHERE messages.id = $pmid AND messages.to = '$user->id' "))
 		{
 			$message = "Your message was deleted.";
@@ -150,7 +150,7 @@
 		}
 	}
 
-	if ($function == "Generate Platform Alias's") {
+	if (isset($function) && $function == "Generate Platform Alias's") {
 		if($aliasResult = mysql_query(" SELECT p.id, p.name, p.alias FROM platforms AS p WHERE p.alias IS NULL OR p.alias = '' "))
 		{
 			$successflag = true;

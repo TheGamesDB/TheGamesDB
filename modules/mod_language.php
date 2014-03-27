@@ -14,7 +14,7 @@
 
 	## Set the default language
 	if (!isset($lid)) {
-		if ($user->languageid) {
+		if (isset($user) && $user->languageid) {
 			$lid = $user->languageid;  ## user preferred language
 		} else {
 			$lid = 1;  ## English

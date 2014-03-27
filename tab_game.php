@@ -120,11 +120,11 @@
 	{
 	?>
 		<div id="gameTitle">
+			<span id ="gameUserLinks">
 			<?php if ($loggedin == 1) {  ?>
-				<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: -2px;"/>&nbsp;Edit</a>
+				<a class="greyButton" href="<?=$baseurl?>?tab=game-edit&id=<?=$game->id?>"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: -2px;"/>&nbsp;Edit</a>
 				<a class="greyButton" onclick='faceboxReport("game",<?=$game->id?>)'><img src="<?php echo $baseurl; ?>/images/common/icons/report_16.png" style="vertical-align: -2px;"/>&nbsp;Report</a>
 				&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a id="shareButton" class="greyButton"><img src="<?php echo $baseurl; ?>/images/common/icons/social_16.png" style="vertical-align: -2px;"/>&nbsp;Share</a>
 				<?php	## First, generate their userfavorites array
 					$userfavorites = explode(",", $user->favorites);
 
@@ -144,8 +144,9 @@
 					unset($action);
 				?>
 			<?php } ?>
-				</span>
-				<h1 style="margin: 0px; padding: 0px;"><?=$game->GameTitle;?></h1>
+				<a id="shareButton" class="greyButton"><img src="<?php echo $baseurl; ?>/images/common/icons/social_16.png" style="vertical-align: -2px;"/>&nbsp;Share</a>
+			</span>
+			<h1 style="margin: 0px; padding: 0px;"><?=$game->GameTitle;?></h1>
 			<?php
 				if(!empty($game->Alternates))
 				{

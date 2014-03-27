@@ -182,14 +182,20 @@
 				Title:<input type="text" name="name" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->name; ?>" /><br />
 			</span>
 			
-			<span id ="gameUserLinks"><a href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform/<?=$platform->id?>/">View this Platform</a></span>
+			<span id ="gameUserLinks"><a class="greyButton" href="<?=$baseurl?>/platform/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/arrowleft_16.png" style="vertical-align: middle;" />&nbsp;View this Platform</a></span>
 			
 			<span style="float: left; clear: left;">
 				URL Alias:<input type="text" name="alias" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $platform->alias; ?>" /><br />
 				<span style="font-style: italic;" class="grey">E.g. "nintendo-entertainment-system" (Alpha-numeric Characters and Hypens Only)</span>
 			</span>
 			
-			<p style="text-align: center; clear: both; padding: 10px; 0px;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#platformIconUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Icon</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Platform Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Banner</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' /> <a href='#consoleartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Console Art</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' /> <a href='#controllerartUpload' rel='facebox' style="color: orange; text-decoration: underline;">Upload Controller Art</a>
+			<p style="text-align: center; clear: both; padding: 10px; 0px;">
+				<a class="greyButton" href='#platformIconUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' />Upload Platform Icon</a> 
+				<a class="greyButton" href='#frontBoxartUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' />Upload Platform Art</a> 
+				<a class="greyButton" href='#fanartUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' />Upload Fanart</a> 
+				<a class="greyButton" href='#bannerUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' />Upload Banner</a> 
+				<a class="greyButton" href='#consoleartUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Console Art' />Upload Console Art</a> 
+				<a class="greyButton" href='#controllerartUpload' rel='facebox'><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Controller Art' />Upload Controller Art</a>
 			</p>
 			
 			<div style="clear: both;"></div>
@@ -262,16 +268,17 @@
 							$query	= "SELECT rating FROM ratings WHERE itemtype='platform' AND itemid=$id AND userid=$user->id";
 							$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 							$rating = mysql_fetch_object($result);
-							if (!$rating->rating) {
-								$rating->rating = 0;
-							}
+							if ($rating)
+								$rating = $rating->rating;
+							else
+								$rating = 0;
 
 							for ($i = 1; $i <= 10; $i++) {
-								if ($i <= $rating->rating) {
-									print "<a href=\"$baseurl/platform-edit/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+								if ($i <= $rating) {
+									print "<a href=\"$baseurl/platform-edit/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 								else {
-									print "<a href=\"$baseurl/platform-edit/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+									print "<a href=\"$baseurl/platform-edit/$id/?function=UserRating&type=platform&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 							}
 							?>

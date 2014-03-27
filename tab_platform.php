@@ -116,15 +116,19 @@
 		{
 		?>
 		
-			<div id="gamePlatformIcon">
-			</div>
+			<div id="gamePlatformIcon"></div>
 			<div id="gameTitle">
 			
-				<?php	if ($loggedin == 1) {  ?>
-					<span id = "gameUserLinks"><a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: middle;" /></a>&nbsp;<a href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/">Edit this Platform</a></span>
-				<?php } ?><br /><br />
+				<span id="gameUserLinks">
+				<?php if ($loggedin == 1) {  ?>
+						<a class="greyButton" href="<?=$baseurl?>/platform-edit/<?=$platform->id?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/edit_16.png" style="vertical-align: middle;" />&nbsp;Edit this Platform</a>
+				<?php } ?>
+						<a id="shareButton" class="greyButton"><img src="<?php echo $baseurl; ?>/images/common/icons/social_16.png" style="vertical-align: -2px;"/>&nbsp;Share</a>
+				</span>
+
+				<br/><br/>
 				
-				<span style="float: right; padding-top: 16px;">
+				<div id="platShare" style="float: right; padding-top: 16px;">
 					
 					<!-- Google plus share button -->
 					<span style="float: right;">
@@ -160,7 +164,7 @@
 					<!-- Share via Email button -->
 					<a href="<?= $baseurl; ?>/mailshare.php?urlsubject=<?= urlencode("TheGamesDB.net - $platform->name"); ?>&url=<?= urlencode("$baseurl/platform/$platform->id/"); ?>" rel="facebox" style="float: right; margin-right: 10px; padding: 1px 6px 1px 3px; color: #fff; text-decoration: none; background-color: #333; border: 1px solid #444; border-radius: 3px; font-size: 11px; font-weight: bold;" onmouseover="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_active.png')" onmouseout="$('#mailIcon').attr('src', '<?= $baseurl ?>/images/common/icons/social/24/share_dark.png')"><img id="mailIcon" src="<?= $baseurl ?>/images/common/icons/social/24/share_dark.png" alt="Share via Email" title="Share via Email" style="vertical-align: middle; width: 18px; height: 18px;" />&nbsp;Share via Email</a>
 					
-				</span>
+				</div>
 				
 				<h1 style="margin: 0px; padding: 0px;"><img src="<?php echo $baseurl; ?>/images/common/consoles/png48/<?php if(!empty($platform->icon)){ echo $platform->icon; } else { echo "console_default.png"; } ?>" alt="<?php echo $platform->name; ?>" title="<?php echo $platform->name; ?>" style="vertical-align: middle;" />&nbsp;<?php echo $platform->name; ?></h1>
 				<?php if(!empty($game->Alternates)) { ?>
@@ -219,23 +223,24 @@
 								$query	= "SELECT rating FROM ratings WHERE itemtype='platform' AND itemid=$platform->id AND userid=$user->id";
 								$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 								$rating = mysql_fetch_object($result);
-								if (!$rating->rating) {
-									$rating->rating = 0;
-								}
+								if ($rating)
+									$rating = $rating->rating;
+								else
+									$rating = 0;
 
 								for ($i = 1; $i <= 10; $i++) {
-									if ($i <= $rating->rating) {
-										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+									if ($i <= $rating) {
+										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 									}
 									else {
-										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+										print "<a href=\"$baseurl/platform/$platform->id/?function=UserRating&type=platform&itemid=$platform->id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 									}
 								}
 								?>
 							<?php } ?>
 				</div>
 				<hr />
-				<p style="text-align: center;"><a class="greyButton" href="<?= $baseurl ?>/browse/<?= $platform->id ?>/" style="padding-right: 5px; margin-right: 0px; border-radius: 6px 0px 0px 6px; border-right: 0px;"><img src="<?php echo $baseurl; ?>/images/common/icons/question-block_24.png" style="width:16px; height: 16px; vertical-align: -2px;" /></a><a class="greyButton" href="<?= $baseurl ?>/browse/<?= $platform->id ?>/" style="padding-left: 0px; margin-left: 0px; border-radius: 0px 6px 6px 0px; border-left: 1px; padding-left: 5px;">Browse Games For This Platform</a></p>
+				<p style="text-align: center;"><a class="greyButton" href="<?= $baseurl ?>/browse/<?= $platform->id ?>/"><img src="<?php echo $baseurl; ?>/images/common/icons/question-block_24.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;Browse Games For This Platform</a></p>
 				<hr />
 				<p><?php if (!empty($platform->overview)) { echo $platform->overview; } else { echo "\"No overview is currently available for this platform.\""; } ?></p>
 				<hr />
@@ -633,10 +638,23 @@
 			});	
 		});
 	</script>
+	<?php } ?>
 	<!-- End Boxart Flip Script -->
-	<?php
-		}
-	?>
+
+	<!-- Start Share Script -->
+	<script type="text/javascript">
+
+		$('#platShare').css({display: "none"});
+
+		$(document).ready(function(){
+			$('#shareButton').bind("click",function(){
+				var elem = $('#platShare');
+				elem.slideToggle();
+			});
+
+		});
+	</script>
+	<!-- End Share Script -->
 
 	<!-- Start Fanart nivoSlider -->
 	<script type="text/javascript">

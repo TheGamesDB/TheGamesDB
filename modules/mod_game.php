@@ -210,6 +210,12 @@
 		$query = "DELETE FROM games WHERE id=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
+		$deleteParams = array();
+		$deleteParams['index'] = 'thegamesdb';
+		$deleteParams['type'] = 'game';
+		$deleteParams['id'] = "$id";
+		$esDeleteResult = $elasticsearchClient->delete($deleteParams);
+
 		$query = "DELETE FROM translation_seriesname WHERE seriesid=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 

@@ -357,6 +357,10 @@
 				select: function(event, ui) { $("#search").submit(); }
 			});
 		});
+        
+        $( "#frontGameSearch" ).blur(function() {
+          $( this ).val($.trim($( this ).val()));
+        });
 	</script>
 	
 	<script type="text/javascript">

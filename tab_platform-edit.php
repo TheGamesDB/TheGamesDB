@@ -393,7 +393,7 @@
 							<span class="grey">Youtube Trailer</span>
 						</td>
 						<td>
-							<input type="text" size="46" id="Youtube" name="youtube" value="<?=$platform->youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('http://youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('http://www.youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtu.be/', '')); " />
+							<input type="text" size="46" id="Youtube" name="youtube" value="<?=$platform->youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace(/(^.*youtu)(be.com\/(watch\?v=|embed\/|user\/|v\/)|.be\/)|&.*$|;.*$|#.*$|\?.*$/gmi,'')); " />
 						</td>
 					</tr>
 				</table>
@@ -760,7 +760,44 @@
 			break;
 		}
 	}
-	
+	    
+    $( "[name='overview']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='name']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='alias']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='developer']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='manufacturer']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='cpu']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='memory']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='graphics']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='sound']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='display']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='media']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='maxcontroller']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    
 	function contentHide(id)
 	{
 		// Remove active class from nav item
@@ -781,7 +818,7 @@
 <!-- Start Release Date Picker Script -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#ReleaseDate').datepicker({ changeYear: true, yearRange: '1950:2020'  });
+        $('#ReleaseDate').datepicker({ changeMonth: true,changeYear: true, yearRange: '1950:2020'  });
     });
 </script>
 <!-- End Release Date Picker Script -->

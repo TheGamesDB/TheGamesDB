@@ -235,11 +235,11 @@
 		
 			<div id="content">
 
-				<?php if(!$newlayout) { ?>
-				<?php if($errormessage): ?>
+				<?php if(isset($newlayout) && !$newlayout) { ?>
+				<?php if(!empty($errormessage)): ?>
 				<div class="error"><?= $errormessage ?></div>
 				<?php endif; ?>
-				<?php if($message): ?>
+				<?php if(!empty($message)): ?>
 				<div class="message"><?= $message ?></div>
 				<?php endif; ?>
 				<?php } ?>

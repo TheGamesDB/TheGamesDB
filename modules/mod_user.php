@@ -4,7 +4,7 @@
 	## REGISTRATION AND PASSWORD FUNCTIONS
 	#####################################################
     
-	if ($function == 'Register') {
+	if (isset($function) && $function == 'Register') {
 
 		$tab = 'register';
 
@@ -95,7 +95,7 @@
 	}
 
 
-	if ($function == 'Reset Password') {
+	if (isset($function) && $function == 'Reset Password') {
 		## Get their email address and username
 		$email = mysql_real_escape_string($email);
 		$query = "SELECT emailaddress, username, id FROM users WHERE emailaddress='$email'";
@@ -163,7 +163,7 @@
 	}
 
 
-	if ($function == 'Update User Information') {
+	if (isset($function) && $function == 'Update User Information') {
 		$user->languageid = $languageid;
 
 		## Update password and email address
@@ -197,7 +197,7 @@
 	}
 
 	## Update Users Image
-	if ($function == 'Update User Image') {
+	if (isset($function) && $function == 'Update User Image') {
 		if($_FILES['userimage']['error'] == 0)
 		{
 			$existingfiles = glob("banners/users/" . $user->id . "*.jpg");
@@ -218,7 +218,7 @@
 	}
 
 	## Administrator's User Update Form
-	if ($function == 'Admin Update User') {
+	if (isset($function) && $function == 'Admin Update User') {
 		## Prepare the fields
 		$form_userlevel = mysql_real_escape_string($form_userlevel);
 		$languageid = mysql_real_escape_string($languageid);
@@ -255,7 +255,7 @@
 	}
 
 
-	if ($function == 'Terms Agreement') {
+	if (isset($function) && $function == 'Terms Agreement') {
 		if ($agreecheck) {
 			$query = "UPDATE users SET banneragreement=1 WHERE id=$user->id";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());

@@ -4,7 +4,7 @@
 	## OTHER
 	#####################################################
 
-	if ($function == 'Retrieve API Key') {
+	if (isset($function) && $function == 'Retrieve API Key') {
 		## Prepare values
 		$projectname = mysql_real_escape_string($projectname);
 		$projectwebsite = mysql_real_escape_string($projectwebsite);
@@ -18,7 +18,7 @@
 	}
 
 
-	if ($function == 'Delete Banner') {
+	if (isset($function) && $function == 'Delete Banner') {
 		## Get the banner info (also verifies username again)
 		$bannerid = mysql_real_escape_string($bannerid);
 		if ($adminuserlevel == 'ADMINISTRATOR') {
@@ -61,7 +61,7 @@
 		}
 	}
 
-	if ($function == 'Delete Banner Admin') {
+	if (isset($function) && $function == 'Delete Banner Admin') {
 		## Get the banner info (also verifies username again)
 		$bannerid = mysql_real_escape_string($bannerid);
 		$query = "SELECT * FROM banners WHERE id=$bannerid";
@@ -93,7 +93,7 @@
 
 
 	## This function marks a series as a favorite for a user
-	if ($function == 'ToggleFavorite') {
+	if (isset($function) && $function == 'ToggleFavorite') {
 		## Explode the favorites into an array
 		if ($user->favorites) {
 			$userfavorites = explode(",", $user->favorites);
@@ -122,7 +122,7 @@
 
 
 	## This function sets the user rating for this series
-	if ($function == "UserRating") {
+	if (isset($function) && $function == "UserRating") {
 		## Check for an existing rating
 		$type = mysql_real_escape_string($type);
 		$itemid = mysql_real_escape_string($itemid);
@@ -164,7 +164,7 @@
 	}
 
 	## Sends a DMCA takedown request to site amdins email.
-	if ($function == "Submit Takedown Request") {
+	if (isset($function) && $function == "Submit Takedown Request") {
 		//Checks that form was filled in
 		if ($workname == null) {
 			$errmsg .="You must enter an 'Infringed work name'.<br/>";

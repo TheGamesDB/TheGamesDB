@@ -70,7 +70,7 @@ function imageResize($filename, $cleanFilename, $target)
 
 		if ($function == 'Search')  {
 		
-			$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
+			/*$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
 			if(!empty($sortBy) && $sortBy != "relevance")
 			{
 				$query .= " ORDER BY $sortBy, GameTitle ASC";
@@ -78,11 +78,83 @@ function imageResize($filename, $cleanFilename, $target)
 			else
 			{
 				$query .= " ORDER BY MatchValue DESC, MatchValueBoolean DESC";
+			}*/
+
+			// Set Initial Elasticsearch Search Parameters
+			$searchParams = array();
+			$searchParams['index'] = 'thegamesdb';
+			$searchParams['type']  = 'game';
+
+			if (!empty($page) && !empty($limit))
+			{
+				$searchParams['from']  = ($page - 1) * $limit;
+				$searchParams['size']  = $limit;
 			}
+			else
+			{
+				$searchParams['from']  = 0;
+				$searchParams['size']  = 20;
+			}
+
+			$searchterm = $string;
+
+			// Check if $search term contains an integer
+			if (strcspn($searchterm, '0123456789') != strlen($searchterm))
+			{
+				// Extract first number found in string
+				preg_match('/\d+/', $searchterm, $numbermatch, PREG_OFFSET_CAPTURE);
+				$numberAsNumber = $numbermatch[0][0];
+
+				// Convert Number to Roman Numerals
+				$numberAsRoman = romanNumerals($numberAsNumber);
+
+				// Replace Number in string with RomanNumerals
+				$searchtermRoman = str_replace($numberAsNumber, $numberAsRoman, $searchterm);
+
+				$json = '{
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            },
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchtermRoman . '"
+					              }
+					            }
+					          ]
+					        }
+					      }
+					    }';
+				$searchParams['body'] = $json;
+			}
+			else
+			{
+				$json = '{
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            }
+					            ' . $searchPlatform . '
+					          ]
+					        }
+					      }
+					    }';
+				$searchParams['body'] = $json;
+			}
+
+			$searchParams['sort'] = '"PlatformName": { "order": "asc" }';
 		}
 		## Start Advanced Search Query
 		elseif ($function == 'Advanced Search')  {
-			$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
+			/*$query = "SELECT g.*, ( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) AS MatchValueBoolean, MATCH (g.GameTitle) AGAINST ('$string') AS MatchValue, p.id AS platformid, p.alias AS PlatformAlias, p.name, p.icon FROM games AS g, platforms AS p WHERE (( MATCH (g.GameTitle) AGAINST ('$string') OR g.GameTitle SOUNDS LIKE '$string' ) OR ( MATCH (g.Alternates) AGAINST ('$string') OR g.Alternates SOUNDS LIKE '$string' )) AND g.Platform = p.id HAVING MatchValueBoolean > 0 ";
 			if($stringPlatform != "")
 			{
 				$query = $query .  " AND g.Platform = '$stringPlatform' ";
@@ -101,14 +173,129 @@ function imageResize($filename, $cleanFilename, $target)
 			}
 			if(!empty($sortBy) && $sortBy != "relevance")
 			{
-				$query .= " ORDER BY $sortBy, GameTitle ASC";
+				//$query .= " ORDER BY $sortBy, GameTitle ASC";
+				//$searchParams['sort'] = '{ "PlatformName": { "order": "asc" }, _score }';
+				//echo "<script>alert('sorting by $sortBy'); </script>";
 			}
 			else
 			{
 				$query .= " ORDER BY MatchValue DESC, MatchValueBoolean DESC";
+			}*/
+
+			// Set Initial Elasticsearch Search Parameters
+			$searchParams = array();
+			$searchParams['index'] = 'thegamesdb';
+			$searchParams['type']  = 'game';
+
+			if (!empty($page) && !empty($limit))
+			{
+				$searchParams['from']  = ($page - 1) * $limit;
+				$searchParams['size']  = $limit;
 			}
+			else
+			{
+				$searchParams['from']  = 0;
+				$searchParams['size']  = 20;
+			}
+
+			$searchPlatform = "";
+			if (!empty($stringPlatform))
+			{
+				$searchPlatform = ',
+						            "filter": {
+										term: {
+						              		"PlatformId": "' . $stringPlatform . '"
+										}
+						            }
+						          ';
+			}
+			$searchRating = "";
+			if(!empty($stringRating))
+			{
+				$searchRating = ',{
+						            "match": {
+						              "Rating": "' . $stringRating . '"
+						            }
+						          }';
+			}
+			$searchGenres = "";
+			if(!empty($stringGenres))
+			{
+				$searchGenres = ',{
+						            "match": {
+						              "Genre": "' . $stringGenres . '"
+						            }
+						          }';
+			}
+			$searchCoop = "";
+			if(!empty($stringCoop))
+			{
+				$searchCoop = ',{
+						            "match": {
+						              "coop": "' . $stringCoop . '"
+						            }
+						          }';
+			}
+
+			$searchterm = $string;
+
+			// Check if $search term contains an integer
+			if (strcspn($searchterm, '0123456789') != strlen($searchterm))
+			{
+				// Extract first number found in string
+				preg_match('/\d+/', $searchterm, $numbermatch, PREG_OFFSET_CAPTURE);
+				$numberAsNumber = $numbermatch[0][0];
+
+				// Convert Number to Roman Numerals
+				$numberAsRoman = romanNumerals($numberAsNumber);
+
+				// Replace Number in string with RomanNumerals
+				$searchtermRoman = str_replace($numberAsNumber, $numberAsRoman, $searchterm);
+
+				$json = '{
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            },
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchtermRoman . '"
+					              }
+					            }
+					          ]
+					        }
+					      }
+					    }';
+				$searchParams['body'] = $json;
+			}
+			else
+			{
+				$json = '{
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            }
+					            ' . $searchRating . $searchGenres . $searchCoop . '
+					          ]
+					        }
+					      }' . $searchPlatform . '
+					    }';
+				$searchParams['body'] = $json;
+			}
+
+			$searchParams['sort'] = '"PlatformName": { "order": "asc" }';
 		}
 		## End Advanced Search Query
+
+		$elasticResults = $elasticsearchClient->search($searchParams);
 	?>
 
 	<!-- Start Pagination -->
@@ -120,7 +307,8 @@ function imageResize($filename, $cleanFilename, $target)
 		   First get total number of rows in data table. 
 		   If you have a WHERE clause in your query, make sure you mirror it here.
 		*/
-		$total_pages = mysql_num_rows(mysql_query($query));
+		//$total_pages = mysql_num_rows(mysql_query($query));
+		$total_pages = $elasticResults['hits']['total'];
 		
 		/* Setup vars for query. */
 		if(!isset($limit))
@@ -234,7 +422,6 @@ function imageResize($filename, $cleanFilename, $target)
 	<?php if($message): ?>
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
-	
 	
 	<h1 style="float: left;">Search: <?=$string?></h1>
 
@@ -358,14 +545,15 @@ function imageResize($filename, $cleanFilename, $target)
 		<input name="stringPlatform" type="hidden" value="<?=$stringPlatform?>" />
 		<input name="stringRating" type="hidden" value="<?=$stringRating?>" />
 		<input name="stringGenres" type="hidden" value="<?=$stringGenres?>" />
-		<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
+		<!--<p style="font-weight: bold;">Sort By: <select name="sortBy" onchange="this.form.submit();">
 			<option <?php if($sortBy == "relevance"){ echo "selected"; } ?> value="relevance">Relevance</option>
-			<option <?php if($sortBy == "g.GameTitle"){ echo "selected"; } ?> value="g.GameTitle">Name</option>
-			<option <?php if($sortBy == "p.name"){ echo "selected"; } ?> value="p.name">Platform</option>
-			<option <?php if($sortBy == "g.Genre"){ echo "selected"; } ?> value="g.Genre">Genre</option>
-			<option <?php if($sortBy == "g.Rating"){ echo "selected"; } ?> value="g.Rating">Rating</option>
+			<option <?php if($sortBy == "GameTitle"){ echo "selected"; } ?> value="g.GameTitle">Name</option>
+			<option <?php if($sortBy == "PlatformName"){ echo "selected"; } ?> value="p.name">Platform</option>
+			<option <?php if($sortBy == "Genre"){ echo "selected"; } ?> value="g.Genre">Genre</option>
+			<option <?php if($sortBy == "Rating"){ echo "selected"; } ?> value="g.Rating">Rating</option>
 		</select>
-		&nbsp;&nbsp;&nbsp;&nbsp;Show: <select name="limit" onchange="this.form.submit();">
+		&nbsp;&nbsp;&nbsp;&nbsp;</p>-->
+		<p>Show: <select name="limit" onchange="this.form.submit();" style="min-width: 200px">
 			<option <?php if($limit == 10){ echo "selected"; } ?> value="10">10 Rows</option>
 			<option <?php if($limit == 20){ echo "selected"; } ?> value="20">20 Rows</option>
 			<option <?php if($limit == 40){ echo "selected"; } ?> value="40">40 Rows</option>
@@ -379,7 +567,7 @@ function imageResize($filename, $cleanFilename, $target)
 	
 	<?php			
 			##  START RUN SEARCH QUERY!!!!
-			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			//$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			##  END RUN SEARCH QUERY!!!!
 	?>
 	
@@ -389,18 +577,36 @@ function imageResize($filename, $cleanFilename, $target)
 		$counter = 0;
 		?>
 			<div class="bgBlack" style="text-align: center; width: 800px; padding: 15px; margin:30px auto; background-color: #eee; border: 1px solid #666; color: #333;">
-			
-	<!-- Start Show Pagination -->
-	<?=$pagination?>
-	<!-- End Show Pagination -->
+		
+		<h3><?php echo $elasticResults['hits']['total']; ?> Games Found</h3>;
+
+		<!-- Start Show Pagination -->
+		<?=$pagination?>
+		<!-- End Show Pagination -->
 	
 		<?
-		if(mysql_num_rows($result) > 0)
+		if(count($elasticResults['hits']['hits']))
 		{
-			if($searchview != "table")
-			{
-				while($game = mysql_fetch_object($result))
+				if($searchview == "table")
 				{
+			?>
+					<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable" calss="boxShadow">
+						<tr>
+							<td class="head" align="center">ID</td>
+							<td class="head arcade">Game Title</td>
+							<td class="head arcade">Platform</td>
+							<td class="head arcade">Year</td>
+							<td class="head">Genre</td>
+							<td class="head">ESRB</td>
+							<td class="head">Boxart</td>
+							<td class="head">Fanart</td>
+							<td class="head">Banner</td>
+						</tr>
+			<?php
+				}
+				foreach($elasticResults['hits']['hits'] as $game)
+				{
+					$game = (object)$game['_source'];
 					if($searchview == "listing")
 					{
 						if($boxartResult = mysql_query(" SELECT b.filename FROM banners as b WHERE b.keyvalue = '$game->id' AND b.filename LIKE '%boxart%front%' LIMIT 1 "))
@@ -465,7 +671,7 @@ function imageResize($filename, $cleanFilename, $target)
 								?>
 								<h3 style="margin-top: 0px;"><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
 								<p style="text-align: justify;"><?php if(!empty($game->Overview)) { echo substr($game->Overview, 0, 300) . "..."; } else { echo "<em><br />There is no overview available for this game.</em><br /><br />"; } ?></p>
-									<p style="font-size: 16px; color: #333;"><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a>&nbsp;|&nbsp;
+									<p style="font-size: 16px; color: #333;"><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->PlatformIcon?>" alt="<?=$game->PlatformName?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->PlatformId; } ?>/"><?= $game->PlatformName ?></a>&nbsp;|&nbsp;
 								<?php
 									$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 									$boxartResult = mysql_num_rows($boxartQuery);
@@ -508,7 +714,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3 style="margin-top: 0px;"><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-											<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
+											<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->PlatformIcon?>" alt="<?=$game->PlatformName?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->PlatformId; } ?>/"><?= $game->PlatformName ?></a></p>
 										<?php
 											$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
 											$boxartResult = mysql_num_rows($boxartQuery);
@@ -557,7 +763,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
+										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->PlatformIcon?>" alt="<?=$game->PlatformName?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->PlatformId; } ?>/"><?=$game->PlatformName?></a></p>
 										<div style="clear: both;"></div>
 									</div>
 								<?php
@@ -598,7 +804,7 @@ function imageResize($filename, $cleanFilename, $target)
 										?>
 										</div>
 										<h3><a href="<?=$baseurl?>/game/<?=$game->id?>/" style="color: #000;"><?=$game->GameTitle?></a></h3>
-										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->icon?>" alt="<?=$game->name?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></p>
+										<p><img src="<?=$baseurl?>/images/common/consoles/png24/<?=$game->PlatformIcon?>" alt="<?=$game->PlatformName?>" style="vertical-align: -6px;" />&nbsp;<a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->PlatformId; } ?>/"><?=$game->PlatformName?></a></p>
 										<div style="clear: both;"></div>
 									</div>
 								<?php
@@ -614,6 +820,72 @@ function imageResize($filename, $cleanFilename, $target)
 									$counter++;
 								}
 							}
+							elseif($searchview == "table")
+							{
+								$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
+								$boxartResult = mysql_num_rows($boxartQuery);
+								
+								$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'fanart' LIMIT 1");
+								$fanartResult = mysql_num_rows($fanartQuery);
+
+								$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'series' LIMIT 1");
+								$bannerResult = mysql_num_rows($bannerQuery);
+								
+								if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
+								?>
+								<tr>
+									<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
+									<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/game/<?= $game->id ?>/"><?php echo $game->GameTitle; ?></a></td>
+									<td class="<?php echo $class; ?>"><img src="<?= $baseurl ?>/images/common/consoles/png16/<?php echo $game->PlatformIcon; ?>" alt="<?php echo $game->PlatformName; ?>" style="vertical-align: middle;" /> <a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->PlatformId; } ?>/"><?=$game->PlatformName?></a></td>
+									<td class="<?php echo $class; ?>">
+										<?php 
+											if (strlen($game->ReleaseDate) == 4)
+											{
+												echo $game->ReleaseDate;
+											}
+											else
+											{
+												$releaseDate = explode('/', $game->ReleaseDate);
+												echo $releaseDate[2];
+											}
+										?>
+									</td>
+									<td class="<?php echo $class; ?>">
+										<?php if(!empty($game->Genre))
+										{
+											$mainGenre = explode("|", $game->Genre);
+											if(!empty($stringGenres))
+											{
+												for($i = 0; $i <= count($mainGenre); $i++)
+												{
+													if($mainGenre[$i] == $stringGenres)
+													{
+														if(strlen($mainGenre[$i]) > 15)
+														{
+															$mainGenre[$i] = substr($mainGenre[$i], 0, 15) . "...";
+														}
+														echo $mainGenre[$i];
+													}
+												}
+											}
+											else
+											{
+												if(strlen($mainGenre[1]) > 15)
+												{
+													$mainGenre[1] = substr($mainGenre[1], 0, 15) . "...";
+												}
+												echo $mainGenre[1];
+											}
+										}
+										?>
+									</td>
+									<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
+									<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+									<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+									<td align="center" class="<?php echo $class; ?>"><?php if($bannerResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
+								</tr>
+							<?php
+							}
 							
 							if($increment == "odd")
 							{
@@ -624,99 +896,14 @@ function imageResize($filename, $cleanFilename, $target)
 								$increment = "odd";
 							}
 				}
-			}
-			elseif($searchview == "table")
-			{
-				?>
-					<table width="100%" border="0" cellspacing="1" cellpadding="7" id="listtable" calss="boxShadow">
-						<tr>
-							<td class="head" align="center">ID</td>
-							<td class="head arcade">Game Title</td>
-							<td class="head arcade">Platform</td>
-							<td class="head arcade">Year</td>
-							<td class="head">Genre</td>
-							<td class="head">ESRB</td>
-							<td class="head">Boxart</td>
-							<td class="head">Fanart</td>
-							<td class="head">Banner</td>
-						</tr>
-				<?php
-				while($game = mysql_fetch_object($result))
-				{
-					if($gameResult = mysql_query(" SELECT g.id, g.GameTitle, g.ReleaseDate, g.Genre, g.Rating, p.name, p.alias AS PlatformAlias, p.icon FROM games as g, platforms as p WHERE g.id = '$game->id' AND g.Platform = p.id"))
-					{
-						if($game = mysql_fetch_object($gameResult))
-						{
-							$boxartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND banners.filename LIKE '%front%' LIMIT 1");
-							$boxartResult = mysql_num_rows($boxartQuery);
-							
-							$fanartQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'fanart' LIMIT 1");
-							$fanartResult = mysql_num_rows($fanartQuery);
 
-							$bannerQuery = mysql_query("SELECT keyvalue FROM banners WHERE banners.keyvalue = '$game->id' AND keytype = 'series' LIMIT 1");
-							$bannerResult = mysql_num_rows($bannerQuery);
-							
-							if ($class == 'odd')  {  $class = 'even';  }  else  {  $class = 'odd';  }
-							?>
-							<tr>
-								<td align="center" class="<?php echo $class; ?>"><?php echo $game->id; ?></td>
-								<td class="<?php echo $class; ?>"><a href="<?php echo $baseurl; ?>/game/<?= $game->id ?>/"><?php echo $game->GameTitle; ?></a></td>
-								<td class="<?php echo $class; ?>"><img src="<?= $baseurl ?>/images/common/consoles/png16/<?php echo $game->icon; ?>" alt="<?php echo $game->name; ?>" style="vertical-align: middle;" /> <a style="color: #000;" href="<?= $baseurl; ?>/platform/<?php if(!empty($game->PlatformAlias)) { echo $game->PlatformAlias; } else { echo $game->Platform; } ?>/"><?=$game->name?></a></td>
-								<td class="<?php echo $class; ?>">
-									<?php 
-										if (strlen($game->ReleaseDate) == 4)
-										{
-											echo $game->ReleaseDate;
-										}
-										else
-										{
-											$releaseDate = explode('/', $game->ReleaseDate);
-											echo $releaseDate[2];
-										}
-									?>
-								</td>
-								<td class="<?php echo $class; ?>">
-									<?php if(!empty($game->Genre))
-									{
-										$mainGenre = explode("|", $game->Genre);
-										if(!empty($stringGenres))
-										{
-											for($i = 0; $i <= count($mainGenre); $i++)
-											{
-												if($mainGenre[$i] == $stringGenres)
-												{
-													if(strlen($mainGenre[$i]) > 15)
-													{
-														$mainGenre[$i] = substr($mainGenre[$i], 0, 15) . "...";
-													}
-													echo $mainGenre[$i];
-												}
-											}
-										}
-										else
-										{
-											if(strlen($mainGenre[1]) > 15)
-											{
-												$mainGenre[1] = substr($mainGenre[1], 0, 15) . "...";
-											}
-											echo $mainGenre[1];
-										}
-									}
-									?>
-								</td>
-								<td class="<?php echo $class; ?>"><?php echo $game->Rating; ?></td>
-								<td align="center" class="<?php echo $class; ?>"><?php if($boxartResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
-								<td align="center" class="<?php echo $class; ?>"><?php if($fanartResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
-								<td align="center" class="<?php echo $class; ?>"><?php if($bannerResult != 0){ ?><img src="<?= $baseurl ?>/images/common/icons/tick_16.png" alt="Yes" /><?php } else{ ?><img src="<?= $baseurl ?>/images/common/icons/cross_16.png" alt="Yes" /><?php }?></td>
-							</tr>
-						<?php
-						}
-					}
-				}
-				?>
+				if($searchview == "table")
+				{
+			?>
 					</table>
-				<?php
-			}
+			<?php
+				}
+			
 		}
 		else
 		{

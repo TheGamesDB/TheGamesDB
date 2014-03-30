@@ -1,0 +1,501 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Index",
+				"Index"
+			],
+			[
+				"search",
+				"searchPlatform"
+			],
+			[
+				"sear",
+				"searchPlatform"
+			],
+			[
+				"string",
+				"stringPlatform"
+			],
+			[
+				"elas",
+				"elasticsearchClient"
+			],
+			[
+				"sea",
+				"searchterm"
+			],
+			[
+				"number",
+				"numberAsRoman"
+			],
+			[
+				"con",
+				"contertedRomanNumerals"
+			],
+			[
+				"roman",
+				"romanNumerals"
+			],
+			[
+				"num",
+				"numbermatch"
+			],
+			[
+				"Title",
+				"title"
+			],
+			[
+				"borde",
+				"border-radius"
+			],
+			[
+				"recap",
+				"recaptcha_publickey"
+			],
+			[
+				"error",
+				"errormessage"
+			],
+			[
+				"ret",
+				"ret	return"
+			],
+			[
+				"db",
+				"dbGamesRow"
+			],
+			[
+				"mysql_fetch",
+				"mysql_fetch_assoc"
+			],
+			[
+				"var",
+				"var_export"
+			],
+			[
+				"rgb",
+				"rgba()"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "tab_admincp.php",
+			"settings":
+			{
+				"buffer_size": 50318,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tab_listseries.php",
+			"settings":
+			{
+				"buffer_size": 41395,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "modules/mod_game.php",
+			"settings":
+			{
+				"buffer_size": 19302,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "adminarea/.htpasswd",
+			"settings":
+			{
+				"buffer_size": 42,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "modules/mod_elasticsearch.php",
+			"settings":
+			{
+				"buffer_size": 1391,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 1243,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 313.0,
+		"selected_items":
+		[
+			[
+				"pcip",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 480.0
+	},
+	"console":
+	{
+		"height": 333.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_elasticsearch-manage.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_game-edit.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/elasticsearch.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_elasticsearch.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/style-v2.css",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/index.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_other.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/djep.html",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/standard.css",
+		"/C/ProgramData/Sublime Text 3/Data/Packages/Less2Css/README.md",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htpasswd",
+		"/D/Wamp/logs/apache_error.log",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htaccess",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/index.php",
+		"/C/ProgramData/Sublime Text 3/Data/Packages/Emmet/Default (Windows).sublime-keymap",
+		"/D/Alex User Home/Downloads/OpenWithSublimeText3.bat",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_user.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/header.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_register.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/config.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/include.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_stats.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/config.template.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_admincp.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_addgame.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"$params",
+			"client",
+			"<li>\n								<i class=\"glyphicon glyphicon-star color-gold pull-left\"></i>\n								<p class=\"lead\">Title</p>\n								<p>Description second line.</p>\n							</li>"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$searchParams",
+			"elasticsearchClient",
+			"<li>\n								<i class=\"glyphicon glyphicon-star color-gold pull-left\"></i>\n								<p class=\"lead\">Title</p>\n								<p>Description second line.</p>\n								<div class=\"clearfix\"></div>\n							</li>"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "tab_admincp.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 50318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44522,
+								44522
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 16551.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "tab_listseries.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 41395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6379,
+								6351
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3356.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "modules/mod_game.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19302,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3559,
+								3559
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1587.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "adminarea/.htpasswd",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "modules/mod_elasticsearch.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1391,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								185,
+								185
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "index.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								429,
+								429
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.55737704918,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "thegamesdb.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 191.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

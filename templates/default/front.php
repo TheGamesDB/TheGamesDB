@@ -230,10 +230,10 @@
 	<div style="position: absolute; top: 78px; background: url(<?php echo $baseurl; ?>/images/bg_banner-shadow.png) repeat-x center center; height: 15px; width: 100%; z-index: 200;"></div>
 	
 	<div id="messages" style="position: absolute; top: 160px; width: 100%;">
-	<?php if($errormessage): ?>
+	<?php if(!empty($errormessage)): ?>
 	<div class="error"><?= $errormessage ?></div>
 	<?php endif; ?>
-	<?php if($message): ?>
+	<?php if(!empty($message)): ?>
 	<div class="message"><?= $message ?></div>
 	<?php endif; ?>
 	</div>
@@ -357,6 +357,10 @@
 				select: function(event, ui) { $("#search").submit(); }
 			});
 		});
+        
+        $( "#frontGameSearch" ).blur(function() {
+          $( this ).val($.trim($( this ).val()));
+        });
 	</script>
 	
 	<script type="text/javascript">

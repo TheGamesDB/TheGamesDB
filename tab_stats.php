@@ -281,9 +281,10 @@
 				
 				<div style="width: 300px; float: left; margin-right: 30px; text-align: center;">
 					<h3>Most Recent</h3>
-					<p><a href="?tab=recentbanners&bannertype=series">50 Most Recent Game Banners</a></p>
-					<p><a href="?tab=recentbanners&bannertype=fanart">20 Most Recent Fanart Images</a></p>
 					<p><a href="?tab=recentbanners&bannertype=boxart">50 Most Recent Boxart Images</a></p>
+					<p><a href="?tab=recentbanners&bannertype=fanart">20 Most Recent Fanart Images</a></p>
+					<p><a href="?tab=recentbanners&bannertype=clearlogo">50 Most Recent ClearLOGOs</a></p>
+					<p><a href="?tab=recentbanners&bannertype=series">50 Most Recent Game Banners</a></p>
 				</div>
 				
 				<div style="width: 300px; float: left; text-align: center;">

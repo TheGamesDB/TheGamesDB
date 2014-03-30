@@ -524,7 +524,7 @@
 							<span class="grey">Youtube Trailer</span>
 						</td>
 						<td>
-							<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace('http://www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('youtube.com/watch?v=', '')); $('#Youtube').val($('#Youtube').val().replace('http://youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('http://www.youtu.be/', '')); $('#Youtube').val($('#Youtube').val().replace('www.youtu.be/', '')); " />
+							<input type="text" size="46" id="Youtube" name="Youtube" value="<?=$game->Youtube?>" onblur="$('#Youtube').val($('#Youtube').val().replace(/(^.*youtu)(be.com\/(watch\?v=|embed\/|user\/|v\/)|.be\/)|&.*$|;.*$|#.*$|\?.*$/gmi,'')); " />
 						</td>
 					</tr>
 				</table>
@@ -1105,8 +1105,36 @@
 			break;
 		}
 	}
-	
-	function contentHide(id)
+    
+    $( "[name='GameTitle']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='Overview']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='Developer']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='Publisher']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='os']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='ram']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='hdd']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='video']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    $( "[name='sound']" ).blur(function() {
+      $( this ).val($.trim($( this ).val()));
+    });
+    
+    function contentHide(id)
 	{
 		// Remove active class from nav item
 		$("#panelNav ul li a").each( function(index) { $(this).removeClass("active"); } );
@@ -1192,7 +1220,7 @@
 <!-- Start Release Date Picker Script -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#ReleaseDate').datepicker({ changeYear: true, yearRange: '1950:2020'  });
+        $('#ReleaseDate').datepicker({ changeMonth: true,changeYear: true, yearRange: '1950:2020'  });
     });
 </script>
 <!-- End Release Date Picker Script -->

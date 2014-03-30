@@ -3,7 +3,7 @@
 	#####################################################
 	## ADMIN CONTROL PANEL FUNCTIONS
 	#####################################################
-	if ($function == 'Update Site News') {
+	if (isset($function) && $function == 'Update Site News') {
 		if ($adminuserlevel == 'ADMINISTRATOR') {
 			$sitenewsfile = fopen("sitenews.php", "w");
 			if($sitenewsfile != false) {
@@ -24,7 +24,7 @@
 		}
 	}
 
-	if ($function == 'Add Platform') {
+	if (isset($function) && $function == 'Add Platform') {
 		if ($adminuserlevel == 'ADMINISTRATOR') {
 			## Check for exact matches for platform name
 			$PlatformTitle = mysql_real_escape_string($PlatformTitle);
@@ -53,7 +53,7 @@
 		}
 	}
 
-	if ($function == "Add New Publisher") {
+	if (isset($function) && $function == "Add New Publisher") {
 		if ($adminuserlevel == 'ADMINISTRATOR') {
 		
 			if(empty($_FILES["publisherlogo"]["name"]))
@@ -107,7 +107,7 @@
 		}
 	}
 
-	if($function == "Update Publisher")
+	if(isset($function) && $function == "Update Publisher")
 	{
 		if ($adminuserlevel == 'ADMINISTRATOR') {
 		

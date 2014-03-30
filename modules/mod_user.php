@@ -3,8 +3,26 @@
 	#####################################################
 	## REGISTRATION AND PASSWORD FUNCTIONS
 	#####################################################
-	if ($function == 'Register') {
-		## Check for exact matches for username
+    
+	if (isset($function) && $function == 'Register') {
+
+		$tab = 'register';
+
+        require_once('./extentions/recaptcha/recaptchalib.php');
+        
+        $recaptcha_resp = null;
+        
+        if ($_POST["recaptcha_response_field"]) {
+                $recaptcha_resp = recaptcha_check_answer ($recaptcha_privatekey,
+                                                $_SERVER["REMOTE_ADDR"],
+                                                $_POST["recaptcha_challenge_field"],
+                                                $_POST["recaptcha_response_field"]);
+        }
+
+        ## If Captcha OK
+        if ($recaptcha_resp->is_valid) {
+
+        ## Check for exact matches for username
 		$username = mysql_real_escape_string($username);
 		$userpass1 = mysql_real_escape_string($userpass1);
 		$userpass2 = mysql_real_escape_string($userpass2);
@@ -21,7 +39,7 @@
 					$query = "INSERT INTO users (username, userpass, emailaddress, languageid, uniqueid) VALUES ('$username', PASSWORD('$userpass1'), '$email', $languageid, '$uniqueid')";
 					$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 					$tab = 'mainmenu';
-					$message = '<p style=\"font-size: x-small !important;\"><strong><em>Thank you for registering with TheGamesDB!</em></strong><p>You will receive an email confirmation with your account information shortly.  Please proceed to the <a href=\"$baseurl/?tab=login\">Login</a> screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
+					$message = '<p style="font-size: x-small !important;"><strong><em>Thank you for registering with TheGamesDB!</em></strong><p>You will receive an email confirmation with your account information shortly.  Please proceed to the <a href="' . $baseurl . '/login/">Login</a> screen and review our terms and conditions.  If you have any questions, please visit our forums.  We hope you enjoy your stay!</p>';
 					
 					## Email it to the user
 		
@@ -71,10 +89,13 @@
 		} else {
 			$errormessage = 'Username already exists.  Please try another.';
 		}
+        } else {
+            $errormessage = 'The reCpatcha was entered incorrectly, please try again.';
+        }
 	}
 
 
-	if ($function == 'Reset Password') {
+	if (isset($function) && $function == 'Reset Password') {
 		## Get their email address and username
 		$email = mysql_real_escape_string($email);
 		$query = "SELECT emailaddress, username, id FROM users WHERE emailaddress='$email'";
@@ -142,7 +163,7 @@
 	}
 
 
-	if ($function == 'Update User Information') {
+	if (isset($function) && $function == 'Update User Information') {
 		$user->languageid = $languageid;
 
 		## Update password and email address
@@ -176,7 +197,7 @@
 	}
 
 	## Update Users Image
-	if ($function == 'Update User Image') {
+	if (isset($function) && $function == 'Update User Image') {
 		if($_FILES['userimage']['error'] == 0)
 		{
 			$existingfiles = glob("banners/users/" . $user->id . "*.jpg");
@@ -197,7 +218,7 @@
 	}
 
 	## Administrator's User Update Form
-	if ($function == 'Admin Update User') {
+	if (isset($function) && $function == 'Admin Update User') {
 		## Prepare the fields
 		$form_userlevel = mysql_real_escape_string($form_userlevel);
 		$languageid = mysql_real_escape_string($languageid);
@@ -234,7 +255,7 @@
 	}
 
 
-	if ($function == 'Terms Agreement') {
+	if (isset($function) && $function == 'Terms Agreement') {
 		if ($agreecheck) {
 			$query = "UPDATE users SET banneragreement=1 WHERE id=$user->id";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());

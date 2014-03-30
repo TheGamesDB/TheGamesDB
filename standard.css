@@ -112,7 +112,16 @@ h2{
 	text-align: center;
 }
 
-#navMain .active {
+#navMain div:hover {
+	height: 36px;
+	background: #333;
+	border-radius: 0px 0px 6px 6px;
+	box-shadow: 0px 0px 4px 0px #000;
+	line-height: 36px;
+	transition: all 0.25s ease-in-out;
+}
+
+#navMain div.active {
 	height: 36px;
 	background: transparent url('images/bg_mainnav-active.jpg') repeat-x left top;
 	border-radius: 0px 0px 6px 6px;
@@ -128,6 +137,10 @@ h2{
 #navMain div a {
 	color: #111;
 	text-decoration: none;
+	transition: all 0.25s ease-in-out;
+}
+#navMain div a:hover {
+	color: #eee;
 }
 
 /* NAV SUB*/
@@ -153,15 +166,21 @@ h2{
 	text-decoration: none;
 }
 
+.navSubLinks {
+	margin: 0px;
+}
 .navSubLinks li {
 	display: inline;
 	list-style-type: none;
 	margin-right: 25px;
-	padding: 5px;
+	padding: 10px;
+	transition: all 0.25s ease-in-out;
 }
 
 .navSubLinks li:hover {
 	background-color: #555555;
+	border-radius: 0px 0px 6px 6px;
+	box-shadow: 0px 0px 4px 0px #000;
 }
 
 /* NAV */

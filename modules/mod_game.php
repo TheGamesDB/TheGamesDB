@@ -3,7 +3,7 @@
 	/*
 	 * Game Functions
 	 */
-	if ($function == 'Add Game') {
+	if (isset($function) && $function == 'Add Game') {
 		## Get Platform POSTDATA
 		//$selectedPlatform = $_POST['Platform'];
 
@@ -19,6 +19,20 @@
 			$query = "INSERT INTO games (GameTitle, Platform, created, author, lastupdated) VALUES ('$GameTitle', '$cleanPlatform', $time, {$user->id}, NULL)";
 			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			$id = mysql_insert_id();
+
+			if (!empty($id))
+			{
+				$dbGamesResult = mysql_query("SELECT `g`.*, `p`.`id` AS `PlatformId`, `p`.`name` AS `PlatformName`, `p`.`alias` AS `PlatformAlias`, `p`.`icon` AS `PlatformIcon` FROM `games` AS `g`, `platforms` AS `p` WHERE `g`.`Platform` = `p`.`id` AND `g`.`id` = $id");
+				if($dbGamesRow = mysql_fetch_assoc($dbGamesResult))
+				{
+					$searchParams = array();
+					$searchParams['body']  = $dbGamesRow;
+					$searchParams['index'] = 'thegamesdb';
+					$searchParams['type']  = 'game';
+					$searchParams['id']    = $id;
+					$elasticsearchInsertResult = $elasticsearchClient->index($searchParams);
+				}
+			}
 			
 			$URL = "$baseurl/game/$id/";
 			header("Location: $URL");
@@ -28,7 +42,7 @@
 		}
 	}
 
-	if ($function == 'Save Game') {
+	if (isset($function) && $function == 'Save Game') {
 		$message = null;
 		$errormessage = null;
 
@@ -74,17 +88,29 @@
 		$updatestring = implode(', ', $updates);
 		$newshowid = mysql_real_escape_string($newshowid);
 		$query = "UPDATE games SET $updatestring WHERE id=$newshowid";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		$id = $newshowid;
+		if($result = mysql_query($query) or die('Query failed: ' . mysql_error()))
+		{
+			$dbGamesResult = mysql_query("SELECT `g`.*, `p`.`id` AS `PlatformId`, `p`.`name` AS `PlatformName`, `p`.`alias` AS `PlatformAlias`, `p`.`icon` AS `PlatformIcon` FROM `games` AS `g`, `platforms` AS `p` WHERE `g`.`Platform` = `p`.`id` AND `g`.`id` = $id");
+			if($dbGamesRow = mysql_fetch_assoc($dbGamesResult))
+			{
+				$searchParams = array();
+				$searchParams['body']  = $dbGamesRow;
+				$searchParams['index'] = 'thegamesdb';
+				$searchParams['type']  = 'game';
+				$searchParams['id']    = $id;
+				$elasticsearchInsertResult = $elasticsearchClient->index($searchParams);
+			}
+		}
 
 		$message .= 'Game saved.';
 
-		$id = $newshowid;
 		//$tab = 'game-edit';
 		header("Location: $baseurl/game-edit/$id/?message=" . urlencode($message) . "&errormessage=" . urlencode($errormessage));
 		exit;
 	}
 
-	if ($function == 'Upload Game Banner') {
+	if (isset($function) && $function == 'Upload Game Banner') {
 		$message = null;
 		$errormessage = null;
 		$subkey = "graphical";
@@ -178,11 +204,17 @@
 		//exit;
 	}
 
-	if ($function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
+	if (isset($function) && $function == 'Delete Game' && $adminuserlevel == 'ADMINISTRATOR') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "DELETE FROM games WHERE id=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+		$deleteParams = array();
+		$deleteParams['index'] = 'thegamesdb';
+		$deleteParams['type'] = 'game';
+		$deleteParams['id'] = "$id";
+		$esDeleteResult = $elasticsearchClient->delete($deleteParams);
 
 		$query = "DELETE FROM translation_seriesname WHERE seriesid=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
@@ -200,7 +232,7 @@
 		$tab = 'mainmenu';
 	}
 
-	if ($function == 'Upload Box Art') {
+	if (isset($function) && $function == 'Upload Box Art') {
 		$message = null;
 		$errormessage = null;
 
@@ -328,7 +360,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Fan Art') {
+	if (isset($function) && $function == 'Upload Fan Art') {
 		$message = null;
 		$errormessage = null;
 
@@ -404,7 +436,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Screenshot') {
+	if (isset($function) && $function == 'Upload Screenshot') {
 		$message = null;
 		$errormessage = null;
 
@@ -478,7 +510,7 @@
 		//exit;
 	}
 
-	if ($function == 'Upload Clear Logo') {
+	if (isset($function) && $function == 'Upload Clear Logo') {
 		$message = null;
 		$errormessage = null;
 
@@ -572,13 +604,13 @@
 		//exit;
 	}
 
-	if ($function == 'Lock Game') {
+	if (isset($function) && $function == 'Lock Game') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='yes', lockedby=$user->id  WHERE id=$id";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
-	if ($function == 'UnLock Game') {
+	if (isset($function) && $function == 'UnLock Game') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE games SET locked='no', lockedby=''  WHERE id=$id";
@@ -586,7 +618,7 @@
 	}
 
 	## Change A Series Banner's Language
-	if ($function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
+	if (isset($function) && $function == 'Change Language' AND $adminuserlevel == 'ADMINISTRATOR') {
 		## Prepare SQL
 		$id = mysql_real_escape_string($id);
 		$query = "UPDATE banners SET languageid=$languageid WHERE id=$id";

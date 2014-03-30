@@ -284,10 +284,10 @@
 				<? if ($loggedin == 1) { ?>
 				<tr>
 					<? if (!empty($front) && $loggedin = 1) { ?>
-					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$front->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?=$baseurl;?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$front->id;?>" rel="facebox" style="color: orange;">Report Image</a></td>
 					<? } ?>
 					<? if (!empty($back)) { ?>
-					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$back->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?=$baseurl;?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$back->id;?>" rel="facebox" style="color: orange;">Report Image</a></td>
 					<? } ?>
 				</tr>
 				<? } ?>

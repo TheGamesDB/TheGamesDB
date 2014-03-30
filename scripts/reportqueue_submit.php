@@ -14,6 +14,8 @@
 	
 	if ($loggedin = 1)
 	{
+		if (!isset($reporttype))
+			$reporttype = "image";
 	
 		// Look-up Submitted Object in DB
 		if (isset($reportid))
@@ -130,6 +132,10 @@
 	
 	<?php
 	
+		}
+		else
+		{
+			echo "Error: Report ID not provided.";
 		}
 	}
 	

@@ -80,8 +80,8 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 			<div id="controlPanelNav">
 				<ul>
 					<li<?php if($cptab == "userinfo"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=userinfo">My User Info</a></li>
-					<li<?php if($cptab == "moderationqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart">Uploaded Images Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $modQueueCount ?></span></a></li>
-					<li<?php if($cptab == "reportedqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart">Reported Images/Games Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $repQueueCount ?></span></a></li>
+					<li<?php if($cptab == "moderationqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart">Uploaded Images Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $modQueueCount ?></span></a></li>
+					<li<?php if($cptab == "reportedqueue"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart">Reported Images/Games Moderation Queue</a><br /><a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue" style="text-decoration: none;"><span style="padding: 3px 9px; font-weight: bold; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $repQueueCount ?></span></a></li>
 					<li<?php if($cptab == "addplatform"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=addplatform">Add New Platform</a></li>
 					<li<?php if($cptab == "publishers"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=pubdev">Manage Publishers &amp; Developers</a></li>
 					<li<?php if($cptab == "sendpm"){ ?> class="active" <?php } ?>><a href="<?= $baseurl ?>/admincp/?cptab=sendpm">Send PM</a></li>
@@ -297,7 +297,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 									if( empty($clearlogoQueueCount)) { $clearlogoQueueCount = 0; }
 								?>
 
-								<p><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $frontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=backboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $backQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $clearlogoQueueCount ?></span></p>
+								<p><a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $frontQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=backboxart" style="color: orange; font-size: 16;">Rear Boxart</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $backQueueCount ?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?= $baseurl ?>/admincp/?cptab=moderationqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a><span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $clearlogoQueueCount ?></span></p>
 
 								<?php
 									if ($queuetype == "frontboxart")
@@ -542,25 +542,25 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 
 								<p>
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=frontboxart" style="color: orange; font-size: 16;">Front Boxart</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFrontQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFrontQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=rearboxart" style="color: orange; font-size: 16;">Rear Boxart</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedRearQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedRearQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=clearlogo" style="color: orange; font-size: 16;">ClearLOGO</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedClearlogoQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedClearlogoQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=fanart" style="color: orange; font-size: 16;">Fanart</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFanartQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedFanartQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=screenshot" style="color: orange; font-size: 16;">Screenshot</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedScreenshotQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedScreenshotQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=banner" style="color: orange; font-size: 16;">Banner</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedBannerQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedBannerQueueCount ?></span>
 									&nbsp;&nbsp;|&nbsp;&nbsp;
 									<a href="<?= $baseurl ?>/admincp/?cptab=reportedqueue&queuetype=game" style="color: orange; font-size: 16;">Game</a>
-									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #666666; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedGameQueueCount ?></span>
+									<span style="margin-left: 4px; padding: 1px 6px; background-color: orange; color: #444444; border: 1px soid #FFFFFF; border-radius: 5px;"><?= $reportedGameQueueCount ?></span>
 								</p>
 
 								<?php
@@ -662,17 +662,15 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 												<span style="font-weight: bold;">Developer:</span> <? if (!empty($reportedObject->Developer)) { echo $reportedObject->Developer; } else{ echo "N/A"; } ?><br/>
 												<span style="font-weight: bold;">Publisher:</span> <? if (!empty($reportedObject->Publisher)) { echo $reportedObject->Publisher; } else{ echo "N/A"; } ?><br/>
 												<span style="font-weight: bold;">Release Date:</span> <? if (!empty($reportedObject->ReleaseDate)) { echo $reportedObject->ReleaseDate; } else{ echo "N/A"; } ?><br/>
-												<span style="font-weight: bold;">Overview:</span> <? if (!empty($reportedObject->Overview)) { echo $reportedObject->Overview; } else{ echo "N/A"; } ?>
+												<span style="font-weight: bold;">Overview:</span> <? if (!empty($reportedObject->Overview)) { echo "<div style=\"border: 1px solid #999; margin: 4px; padding: 4px; width: 575px; height: 150px; overflow: auto;\">".nl2br(strip_tags($reportedObject->Overview))."</div>"; } else{ echo "N/A"; } ?>
 												<?php }?>
-
-												<p>&nbsp;</p>
 												<p style="text-align: right;">
 													<?php $type = "image";
 													if ($queuetype == "game")
 														$type = "game";
 													?>
-													<button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_keep.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Keep</button>&nbsp;&nbsp;
-													<button type="button" class="deny" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_delete.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data == 'Success') { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Delete</button>
+													<button type="button" class="approve" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_keep.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data.indexOf('Success') >= 0) { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Keep</button>&nbsp;&nbsp;
+													<button type="button" class="deny" onclick="$.get('<?= $baseurl; ?>/scripts/reportqueue_delete.php?reportType=<?=$type;?>&reportedID=<?= $reportedObject->reportid; ?>&reportID=<?= $reportedObject->id; ?>', function(data){ if(data.indexOf('Success') >= 0) { $('#modItem-<?= $reportedObject->id ?> img').css('display', 'none'); $('#modItem-<?= $reportedObject->id ?>').slideUp(); } else { alert(data); } });">Delete</button>
 												</p>
 												<div id="deny-<?= $reportedObject->id ?>" style="display: none;">
 													<hr />

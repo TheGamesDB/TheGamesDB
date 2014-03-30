@@ -220,10 +220,13 @@ function imageResize($filename, $cleanFilename, $target)
 	
 	<!-- Start Browse By Platform -->
 	<div style="width: 500px; margin-bottom: 12px; float: left;">
-		<div id="platformsPanel" style="border: 1px solid #000; background-color: #555555; padding: 15px; color: #FFFFFF;">
+		<div id="platformsPanel" style="border: 1px solid #555; background-color: #232323; padding: 15px; color: #FFFFFF;">
 			<div style="width:450px; margin: auto;">
-			<h1 style="text-align: center;"><span style="color: #000;">Browse</span> <span style="color: #FFA500;">Games</span></h1>
-			
+
+				<h1 style="text-align: center;">
+					Browse Games
+				</h1>
+				<br/>
 				<form id="platformBrowseForm">
 					<select name="stringPlatform" id="platformMenu" onchange="if($('#platformMenu').val() != 'select') { document.location.href = '<?= $baseurl ?>/browse/' + this.value + '/?searchview=<?= $searchview; ?>'; }" style="color: #333; width: 450px !important;">
 						<option value="select" title="<?php echo $baseurl; ?>/images/common/icons/question-block_48.png">Please Select Platform...</option>

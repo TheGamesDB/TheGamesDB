@@ -76,11 +76,13 @@
 		<!-- End jQuery Enabled CKEditor & CKFinder Include -->
 
 		<!-- Start Game View Page Scripts -->
-		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/jqflip/jquery.flip.min.js"></script>
+		<?php if($tab == "game") { ?>
+			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/jqflip/jquery.flip.min.js"></script>
 		
-		<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
-		<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
+			<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+			<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/nivo-slider/jquery.nivo.slider.pack.js"></script>
+		<?php } ?>
 		<!-- End Game View Page Scripts -->		
 		
 		<!-- Start Platform View Page Scripts -->
@@ -89,8 +91,10 @@
 		<!-- End Platform View Page Scripts -->
 		
 		<!-- Start Just Gage Scripts (Stats Page Gagues)  -->
-		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/justgage.1.0.1.min.js"></script>
-		<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/raphael.2.1.0.min.js"></script>
+		<?php if($tab == "stats") { ?>
+			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/justgage.1.0.1.min.js"></script>
+			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/justgage/raphael.2.1.0.min.js"></script>
+		<?php } ?>
 		<!-- End Just Gage Scripts (Stats Page Gagues)  -->
 		
 		<!-- Start jQuery Snow Script -->
@@ -143,21 +147,53 @@
 		</div>
 		
 		<div id="navMain">
+
+			<ul class="navLinks">
 		
-			<!-- GAMES NAV ITEM -->
-			<?php if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "listplatform" || $tab == "recentgames" || $tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame" || $tab == "playgames") { $subnav = "games"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/browse/">Games</a></div>
+				<!-- GAMES NAV ITEM -->
+				<?
+					$class = "";
+					if ($tab == "game" || $tab == "game-edit" || $tab == "listseries" || $tab == "listplatform" || $tab == "recentgames" || 
+						$tab == "recentaddedgames" || $tab == "topratedgames" || $tab == "addgame" || $tab == "playgames")
+					{
+						$subnav = "games";
+						$class = "active";
+					}
 
-			<!-- PLATFORMS NAV ITEM -->
-			<?php if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "topratedplatforms") { $subnav = "platforms"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/platforms/">Platforms</a></div>
+					echo "<li class='$class'><a href='$baseurl/browse/'>Games";
+				?>
 
-			<!-- STATS NAV ITEM -->
-			<?php if ($tab == "stats" || $tab == "adminstats" || $tab == "userlist" || $tab == "bannerartists" || $tab == "recentbanners") { $subnav = "stats"; ?><div class="active"><?php } else { ?><div><?php } ?><a href="<?= $baseurl ?>/stats/">Stats</a></div>
+				<!-- PLATFORMS NAV ITEM -->
+				<?
+					$class = "";
+					if ($tab == "platform" || $tab == "platform-edit" || $tab == "platforms" || $tab == "topratedplatforms")
+					{
+						$subnav = "platforms";
+						$class = "active";
+					}
 
-			<!-- FORUMS NAV ITEM -->
-			<div><a href="http://forums.thegamesdb.net">Forums</a></div>
+					echo "<li class='$class'><a href='$baseurl/platforms/'>Platforms";
+				?>
+
+				<!-- STATS NAV ITEM -->
+				<?
+					$class = "";
+					if ($tab == "stats" || $tab == "adminstats" || $tab == "userlist" || $tab == "bannerartists" || $tab == "recentbanners")
+					{
+						$subnav = "stats";
+						$class = "active";
+					}
+
+					echo "<li class='$class'><a href='$baseurl/stats/'>Stats";
+				?>
+
+				<!-- FORUMS NAV ITEM -->
+				<li><a href="http://forums.thegamesdb.net">Forums</a></li>
+
+			</ul>
 			
 			<!-- ADD NEW GAME NAV ITEM -->
-			<a href="<?= $baseurl ?>/addgame/" class="addgameButton"><img src="<?= $baseurl ?>/images/common/icons/star_14.png" style="margin: 0px 5px; 0px 0px; padding: 0px; vertical-align: middle;" />Add New Game</a>
+			<a href="<?= $baseurl ?>/addgame/" class="addgameButton">Add New Game</a>
 
 			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
@@ -166,9 +202,9 @@
 					<input type="hidden" name="function" value="Search" />
 				</form>
 			</div>
-			<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
 			
 		</div>
+		<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
 		
 		<?php
 			if ($subnav == "games")

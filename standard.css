@@ -104,15 +104,17 @@ h2{
 	font-size: 18px;
 }
 
-#navMain div {
+#navMain li {
 	width: 160px;
 	float: left;
 	height: 31px;
 	line-height: 31px;
 	text-align: center;
+	display: inline;
+	list-style-type: none;
 }
 
-#navMain div:hover {
+#navMain li:hover {
 	height: 36px;
 	background: #333;
 	border-radius: 0px 0px 6px 6px;
@@ -121,7 +123,7 @@ h2{
 	transition: all 0.25s ease-in-out;
 }
 
-#navMain div.active {
+#navMain li.active {
 	height: 36px;
 	background: transparent url('images/bg_mainnav-active.jpg') repeat-x left top;
 	border-radius: 0px 0px 6px 6px;
@@ -132,14 +134,15 @@ h2{
 
 #navMain .active a {
 	color: #FFF;
+	text-decoration: none;
 }
 
-#navMain div a {
+#navMain li a {
 	color: #111;
 	text-decoration: none;
 	transition: all 0.25s ease-in-out;
 }
-#navMain div a:hover {
+#navMain li a:hover {
 	color: #eee;
 }
 
@@ -150,7 +153,7 @@ h2{
 	/*background: transparent url('images/bg_subnav.jpg') repeat-x left top;*/
 	border-bottom: 1px solid #222;
 	position: absolute;
-	top: 109px;
+	top: 128px;
 	left: 0px;
 	width: 95%;
 	overflow: visible;
@@ -465,12 +468,12 @@ div.pagination span.disabled {
 /* Control Panel */
 #controlPanelWrapper {
 	border: 1px solid #666;
-	background-color: #444444;
+	background-color: #222;
 }
 #controlPanelNav {
 	float: left;
 	width: 150px;
-	background-color: #444;
+	background-color: #333;
 	font-size: 16px;
 }
 #controlPanelNav ul {
@@ -479,14 +482,14 @@ div.pagination span.disabled {
 	padding: 0px;
 }
 #controlPanelNav li {
-	background-color: #999;
+	background-color: #666;
 	border: 1px solid #aaa;
 	margin: 1px;
 	text-align: center;
 	padding: 10px 0px;
 }
 #controlPanelNav li:hover {
-	background-color: #444;
+	background-color: #333;
 }
 #controlPanelNav .active {
 	background-color: #333;
@@ -506,7 +509,7 @@ div.pagination span.disabled {
 	width: 780px;
 	padding: 13px;
 	border: 1px solid #AAA;
-	background-color: #666666;
+	background-color: #333;
 }
 #controlPanelContent h2 {
 	text-align: center;

@@ -376,7 +376,7 @@
 	color: orange;
 	margin-top: 14px;
 }
-#gameWrapper input[type=text] {
+#gameWrapper input[type=text], #gameWrapper input[type=password] {
 	border: 0px solid #555;
 	border-radius: 4px;
 	box-shadow: 0px 0px 1px 0px #FFF;

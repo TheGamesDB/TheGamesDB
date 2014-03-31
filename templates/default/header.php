@@ -76,7 +76,7 @@
 		<!-- End jQuery Enabled CKEditor & CKFinder Include -->
 
 		<!-- Start Game View Page Scripts -->
-		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit")) { ?>
+		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit")) { ?>
 			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/jqflip/jquery.flip.min.js"></script>
 		
 			<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />

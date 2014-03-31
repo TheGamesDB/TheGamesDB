@@ -104,6 +104,11 @@ h2{
 	font-size: 18px;
 }
 
+#navMain ul {
+	margin: 0px;
+	padding: 0px;
+}
+
 #navMain li {
 	width: 160px;
 	float: left;
@@ -112,15 +117,6 @@ h2{
 	text-align: center;
 	display: inline;
 	list-style-type: none;
-}
-
-#navMain li:hover {
-	height: 36px;
-	background: #333;
-	border-radius: 0px 0px 6px 6px;
-	box-shadow: 0px 0px 4px 0px #000;
-	line-height: 36px;
-	transition: all 0.25s ease-in-out;
 }
 
 #navMain li.active {
@@ -140,8 +136,22 @@ h2{
 #navMain li a {
 	color: #111;
 	text-decoration: none;
-	transition: all 0.25s ease-in-out;
+	transition: all 0.15s ease-in-out;
+
+	width: 160px;
+	height: 31px;
+	display: block;
 }
+
+#navMain li a:hover {
+	height: 36px;
+	background: #333;
+	border-radius: 0px 0px 6px 6px;
+	box-shadow: 0px 0px 4px 0px #000;
+	line-height: 36px;
+	transition: all 0.15s ease-in-out;
+}
+
 #navMain li a:hover {
 	color: #eee;
 }
@@ -149,13 +159,13 @@ h2{
 /* NAV SUB*/
 .navSub {
 	height: 31px;
+	width: 95%;
 	background-color: #808080;
 	/*background: transparent url('images/bg_subnav.jpg') repeat-x left top;*/
 	border-bottom: 1px solid #222;
 	position: absolute;
-	top: 128px;
+	top: 109px;
 	left: 0px;
-	width: 95%;
 	overflow: visible;
 	padding-left: 5%;
 	box-shadow: 0px 0px 20px 0px #000;
@@ -171,19 +181,27 @@ h2{
 
 .navSubLinks {
 	margin: 0px;
+	padding: 0px;
 }
+
 .navSubLinks li {
 	display: inline;
 	list-style-type: none;
-	margin-right: 25px;
-	padding: 10px;
-	transition: all 0.25s ease-in-out;
+	margin: 10px;
 }
 
-.navSubLinks li:hover {
+.navSubLinks li a:hover {
 	background-color: #555555;
 	border-radius: 0px 0px 6px 6px;
 	box-shadow: 0px 0px 4px 0px #000;
+	transition: all 0.15s ease-in-out;
+}
+
+.navSubLinks li a {
+	display: inline-block;
+	padding-top: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 /* NAV */

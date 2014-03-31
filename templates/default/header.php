@@ -160,7 +160,7 @@
 						$class = "active";
 					}
 
-					echo "<li class='$class'><a href='$baseurl/browse/'>Games";
+					echo "<li class='$class'><a href='$baseurl/browse/'>Games</a></li>";
 				?>
 
 				<!-- PLATFORMS NAV ITEM -->
@@ -172,7 +172,7 @@
 						$class = "active";
 					}
 
-					echo "<li class='$class'><a href='$baseurl/platforms/'>Platforms";
+					echo "<li class='$class'><a href='$baseurl/platforms/'>Platforms</a></li>";
 				?>
 
 				<!-- STATS NAV ITEM -->
@@ -184,7 +184,9 @@
 						$class = "active";
 					}
 
-					echo "<li class='$class'><a href='$baseurl/stats/'>Stats";
+					echo "<li class='$class'><a href='$baseurl/stats/'>Stats</a></li>";
+
+					unset($class);
 				?>
 
 				<!-- FORUMS NAV ITEM -->

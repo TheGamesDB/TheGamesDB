@@ -358,110 +358,115 @@
 				} ?>
 			</div>
 
-		</div>
-
-		<?php
-		$clearlogoQuery = mysql_query(" SELECT * FROM banners WHERE keytype='clearlogo' AND keyvalue='$game->id' LIMIT 1 ");
-		if(mysql_num_rows($clearlogoQuery) != 0)
-		{
-			$clearlogoResult = mysql_fetch_object($clearlogoQuery);
-		?>
-		<div style="margin: auto; padding-top: 10px;">
-			<h2 class="grey">ClearLOGO</h2>
-			<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($clearlogoResult->id) ?> | <a href="<?=$baseurl?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$clearlogoResult->id?>" rel="facebox" style="color: orange;">Report Image</a></p>
-		</div>
-		<hr />
-		<?php
-		}
-		?>
-
-		<p>
-			<?php if (!empty($game->Overview)) {
-				echo nl2br( strip_tags($game->Overview) );
-			}
-			else
+			<?php
+			$clearlogoQuery = mysql_query(" SELECT * FROM banners WHERE keytype='clearlogo' AND keyvalue='$game->id' LIMIT 1 ");
+			if(mysql_num_rows($clearlogoQuery) != 0)
 			{
-				echo "\"No overview is currently available for this title.\"";
-			} ?>
-		</p>
-
-		<hr />
-
-		<div id="gameVitals">
-
-			<div id="esrbIcon" style ="float: right; width: 72px; height: 100px;">
-				<?php
-					$esrb;
-					switch($game->Rating)
-					{
-						case "EC - Early Childhood": $esrb = "ec"; break;
-						case "E - Everyone": $esrb = "everyone"; break;
-						case "E10+ - Everyone 10+": $esrb = "e10"; break;
-						case "T - Teen": $esrb = "teen"; break;
-						case "M - Mature": $esrb = "mature"; break;
-						case "RP - Rating Pending": $esrb = "rp"; break;
-					}
-					if (isset($esrb))
-					{
-						echo "<img src=\"$baseurl/images/game-view/esrb/esrb-$esrb.png\"/>";
-					}
-					unset($esrb);
-				?>
+				$clearlogoResult = mysql_fetch_object($clearlogoQuery);
+			?>
+			<div style="margin: auto; padding-top: 10px;">
+				<h2 class="grey">ClearLOGO</h2>
+				<p style="text-align: center;"><img src="<?= $baseurl ?>/banners/<?= $clearlogoResult->filename ?>" alt="<?= $game->GameTitle . "ClearLOGO" ?>" title="<?= $game->GameTitle . "ClearLOGO" ?>" /><br /><br /><?= imageUsername($clearlogoResult->id) ?> | <a href="<?=$baseurl?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$clearlogoResult->id?>" rel="facebox" style="color: orange;">Report Image</a></p>
 			</div>
+			<hr />
+			<?php
+			}
+			?>
 
 			<p>
-				<span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
-				<span class="grey" style="padding-left: 20px;">Co-op:</span>&nbsp;&nbsp;<?php if($game->coop != false) { echo $game->coop; } else { echo "N/A"; } ?><br />
-				<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) {
-				$genres = explode("|", $game->Genre);
-				$genreCount = 1;
-				while($genreCount < count($genres) - 1)
-				{
-					echo $genres[$genreCount];
-					if ($genreCount < count($genres) - 2)
-					{
-						echo ", ";
-					}
-					$genreCount++;
-					}
+				<?php if (!empty($game->Overview)) {
+					echo nl2br( strip_tags($game->Overview) );
 				}
-				else { echo "N/A"; } ?>
-				<br />
-				<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
-
-				<?php
-				// Start Developer Logo Replacement
-				if (!empty($game->Developer))
+				else
 				{
-					$developerLogoExists = false;
-					$devArray = explode(" ", $game->Developer);
-					$i = 0;
+					echo "\"No overview is currently available for this title.\"";
+				} ?>
+			</p>
 
-					for($i = 0; $i < count($devArray); $i++)
-					{
-						$developerQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$devArray[$i]%' ");
-						if($developerQuery)
+			<hr />
+
+			<div id="gameVitals">
+
+				<div id="esrbIcon" style ="float: right; width: 72px; height: 100px;">
+					<?php
+						$esrb;
+						switch($game->Rating)
 						{
-							if(mysql_num_rows($developerQuery) != 0)
+							case "EC - Early Childhood": $esrb = "ec"; break;
+							case "E - Everyone": $esrb = "everyone"; break;
+							case "E10+ - Everyone 10+": $esrb = "e10"; break;
+							case "T - Teen": $esrb = "teen"; break;
+							case "M - Mature": $esrb = "mature"; break;
+							case "RP - Rating Pending": $esrb = "rp"; break;
+						}
+						if (isset($esrb))
+						{
+							echo "<img src=\"$baseurl/images/game-view/esrb/esrb-$esrb.png\"/>";
+						}
+						unset($esrb);
+					?>
+				</div>
+
+				<p>
+					<span class="grey">Players:</span>&nbsp;&nbsp;<?php if (!empty($game->Players)) { echo $game->Players; } else { echo "N/A"; } ?>
+					<span class="grey" style="padding-left: 20px;">Co-op:</span>&nbsp;&nbsp;<?php if($game->coop != false) { echo $game->coop; } else { echo "N/A"; } ?><br />
+					<span class="grey">Genres:</span>&nbsp;&nbsp;<?php if (!empty($game->Genre)) {
+					$genres = explode("|", $game->Genre);
+					$genreCount = 1;
+					while($genreCount < count($genres) - 1)
+					{
+						echo $genres[$genreCount];
+						if ($genreCount < count($genres) - 2)
+						{
+							echo ", ";
+						}
+						$genreCount++;
+						}
+					}
+					else { echo "N/A"; } ?>
+					<br />
+					<span class="grey">Release Date:</span>&nbsp;&nbsp;<?php if (!empty($game->ReleaseDate)) { echo $game->ReleaseDate; } else { echo "N/A"; } ?><br /><br />
+
+					<?php
+					// Start Developer Logo Replacement
+					if (!empty($game->Developer))
+					{
+						$developerLogoExists = false;
+						$devArray = explode(" ", $game->Developer);
+						$i = 0;
+
+						for($i = 0; $i < count($devArray); $i++)
+						{
+							$developerQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$devArray[$i]%' ");
+							if($developerQuery)
 							{
-								$developerResult = mysql_fetch_object($developerQuery);
-								$developerLogoExists = true;
-								$i = count($devArray);
+								if(mysql_num_rows($developerQuery) != 0)
+								{
+									$developerResult = mysql_fetch_object($developerQuery);
+									$developerLogoExists = true;
+									$i = count($devArray);
+								}
 							}
 						}
-					}
-					if($developerLogoExists == true)
-					{
-						if(!file_exists("banners/_gameviewcache/publishers/$developerResult->logo"))
+						if($developerLogoExists == true)
 						{
-							WideImage::load("banners/publisher-logos/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
+							if(!file_exists("banners/_gameviewcache/publishers/$developerResult->logo"))
+							{
+								WideImage::load("banners/publisher-logos/$developerResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$developerResult->logo");
+							}
+						?>
+							<span class="grey">Developer:</span> <?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?>
+							<br/>
+							<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+							<br/>
+						<?php
 						}
-					?>
-						<span class="grey">Developer:</span> <?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?>
-						<br/>
-						<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $developerResult->logo; ?>" alt="<?= $game->Developer; ?>" title="<?= $game->Developer; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
-						<br/>
-					<?php
+						else
+						{
+						?>
+							<span class="grey">Developer:</span>&nbsp;&nbsp;<?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?><br />
+						<?php
+						}
 					}
 					else
 					{
@@ -469,48 +474,48 @@
 						<span class="grey">Developer:</span>&nbsp;&nbsp;<?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?><br />
 					<?php
 					}
-				}
-				else
-				{
-				?>
-					<span class="grey">Developer:</span>&nbsp;&nbsp;<?php if (!empty($game->Developer)) { echo $game->Developer; } else { echo "N/A"; } ?><br />
-				<?php
-				}
-				?>
+					?>
 
-				<?php
-				// Start Publisher Logo Replacement
-				if (!empty($game->Publisher))
-				{
-					$publisherLogoExists = false;
-					$pubArray = explode(" ", $game->Publisher);
-					$i = 0;
-
-					for($i = 0; $i < count($pubArray); $i++)
+					<?php
+					// Start Publisher Logo Replacement
+					if (!empty($game->Publisher))
 					{
-						$publisherQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$pubArray[$i]%' ");
-						if($publisherQuery)
+						$publisherLogoExists = false;
+						$pubArray = explode(" ", $game->Publisher);
+						$i = 0;
+
+						for($i = 0; $i < count($pubArray); $i++)
 						{
-							if(mysql_num_rows($publisherQuery) != 0)
+							$publisherQuery = mysql_query(" SELECT logo FROM pubdev WHERE keywords LIKE '%$pubArray[$i]%' ");
+							if($publisherQuery)
 							{
-								$publisherResult = mysql_fetch_object($publisherQuery);
-								$publisherLogoExists = true;
-								$i = count($pubArray);
+								if(mysql_num_rows($publisherQuery) != 0)
+								{
+									$publisherResult = mysql_fetch_object($publisherQuery);
+									$publisherLogoExists = true;
+									$i = count($pubArray);
+								}
 							}
 						}
-					}
-					if($publisherLogoExists == true)
-					{
-						if(!file_exists("banners/_gameviewcache/publishers/$publisherResult->logo"))
+						if($publisherLogoExists == true)
 						{
-							WideImage::load("banners/publisher-logos/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
+							if(!file_exists("banners/_gameviewcache/publishers/$publisherResult->logo"))
+							{
+								WideImage::load("banners/publisher-logos/$publisherResult->logo")->resize(400, 60)->saveToFile("banners/_gameviewcache/publishers/$publisherResult->logo");
+							}
+						?>
+							<span class="grey">Publisher:</span> <?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
+							<br/>
+							<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
+							<br/>
+						<?php
 						}
-					?>
-						<span class="grey">Publisher:</span> <?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
-						<br/>
-						<img src="<?= $baseurl; ?>/banners/_gameviewcache/publishers/<?= $publisherResult->logo; ?>" alt="<?= $game->Publisher; ?>" title="<?= $game->Publisher; ?>" style="vertical-align: middle; padding-bottom: 14px; padding-top: 4px;" />
-						<br/>
-					<?php
+						else
+						{
+						?>
+							<span class="grey">Publisher:</span>&nbsp;&nbsp;<?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
+						<?php
+						}
 					}
 					else
 					{
@@ -518,31 +523,26 @@
 						<span class="grey">Publisher:</span>&nbsp;&nbsp;<?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
 					<?php
 					}
-				}
-				else
-				{
-				?>
-					<span class="grey">Publisher:</span>&nbsp;&nbsp;<?php if (!empty($game->Publisher)) { echo $game->Publisher; } else { echo "N/A"; } ?>
-				<?php
-				}
-				?>
+					?>
 
-			</p>
+				</p>
 
-			<div style="clear: both;"></div>
+				<div style="clear: both;"></div>
 
-			<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
-			<hr />
-			<div id="sysReq">
-				<p><span class="grey">System Requirements</span></p>
-				<p><span class="grey">OS:</span> <?php if($game->os == ""){echo "N/A";} else{echo $game->os;} ?><br />
-				<span class="grey">Processor:</span> <?php if($game->processor == ""){echo "N/A";} else{echo $game->processor;} ?><br />
-				<span class="grey">RAM:</span> <?php if($game->ram == ""){echo "N/A";} else{echo $game->ram;} ?><br />
-				<span class="grey">Hard Drive:</span> <?php if($game->hdd == ""){echo "N/A";} else{echo $game->hdd;} ?><br />
-				<span class="grey">Video:</span> <?php if($game->video == ""){echo "N/A";} else{echo $game->video;} ?><br />
-				<span class="grey">Sound:</span> <?php if($game->sound == ""){echo "N/A";} else{echo $game->sound;} ?></p>
+				<?php if($game->Platform == 1 || $game->Platform == 37) { ?>
+				<hr />
+				<div id="sysReq">
+					<p><span class="grey">System Requirements</span></p>
+					<p><span class="grey">OS:</span> <?php if($game->os == ""){echo "N/A";} else{echo $game->os;} ?><br />
+					<span class="grey">Processor:</span> <?php if($game->processor == ""){echo "N/A";} else{echo $game->processor;} ?><br />
+					<span class="grey">RAM:</span> <?php if($game->ram == ""){echo "N/A";} else{echo $game->ram;} ?><br />
+					<span class="grey">Hard Drive:</span> <?php if($game->hdd == ""){echo "N/A";} else{echo $game->hdd;} ?><br />
+					<span class="grey">Video:</span> <?php if($game->video == ""){echo "N/A";} else{echo $game->video;} ?><br />
+					<span class="grey">Sound:</span> <?php if($game->sound == ""){echo "N/A";} else{echo $game->sound;} ?></p>
+				</div>
+				<? } ?>
+
 			</div>
-			<? } ?>
 
 		</div>
 

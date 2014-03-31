@@ -103,15 +103,47 @@
 			"file": "modules/mod_game.php",
 			"settings":
 			{
-				"buffer_size": 19302,
+				"buffer_size": 19721,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "adminarea/.htpasswd",
+			"file": "scripts/reportqueue_process-submission.php",
 			"settings":
 			{
-				"buffer_size": 42,
+				"buffer_size": 1588,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Alex User Home/Desktop/moderation_reported.sql",
+			"settings":
+			{
+				"buffer_size": 913,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "tab_game.php",
+			"settings":
+			{
+				"buffer_size": 39856,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scripts/reportqueue_submit.php",
+			"settings":
+			{
+				"buffer_size": 3862,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": ".htaccess",
+			"settings":
+			{
+				"buffer_size": 3282,
 				"line_ending": "Windows"
 			}
 		},
@@ -164,6 +196,7 @@
 	},
 	"file_history":
 	[
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htpasswd",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_elasticsearch-manage.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_game-edit.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/elasticsearch.php",
@@ -174,7 +207,6 @@
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/djep.html",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/standard.css",
 		"/C/ProgramData/Sublime Text 3/Data/Packages/Less2Css/README.md",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htpasswd",
 		"/D/Wamp/logs/apache_error.log",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htaccess",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/index.php",
@@ -229,7 +261,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -245,8 +277,8 @@
 						"selection":
 						[
 							[
-								44522,
-								44522
+								0,
+								0
 							]
 						],
 						"settings":
@@ -255,10 +287,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 16551.0,
+						"translation.y": 15237.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -287,30 +319,24 @@
 						"translation.y": 3356.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 9,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 2,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 2,
 					"file": "modules/mod_game.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19302,
+						"buffer_size": 19721,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3559,
-								3559
+								7469,
+								7469
 							]
 						],
 						"settings":
@@ -319,7 +345,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1587.0,
+						"translation.y": 3586.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -327,19 +353,134 @@
 				},
 				{
 					"buffer": 3,
-					"file": "adminarea/.htpasswd",
+					"file": "scripts/reportqueue_process-submission.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 42,
+						"buffer_size": 1588,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42,
-								42
+								829,
+								829
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 378.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/D/Alex User Home/Desktop/moderation_reported.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 913,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "tab_game.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 39856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3996.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scripts/reportqueue_submit.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3862,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								398,
+								398
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": ".htaccess",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3282,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -350,11 +491,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 8,
 					"file": "modules/mod_elasticsearch.php",
 					"semi_transient": false,
 					"settings":
@@ -366,8 +507,8 @@
 						"selection":
 						[
 							[
-								185,
-								185
+								293,
+								293
 							]
 						],
 						"settings":
@@ -379,11 +520,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 9,
 					"file": "index.php",
 					"semi_transient": false,
 					"settings":
@@ -408,7 +549,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -431,12 +572,6 @@
 				0,
 				1,
 				1
-			],
-			[
-				0,
-				1,
-				1,
-				2
 			]
 		],
 		"cols":
@@ -447,7 +582,6 @@
 		"rows":
 		[
 			0.0,
-			0.55737704918,
 			1.0
 		]
 	},

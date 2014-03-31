@@ -1,5 +1,5 @@
 					<!-- Page Footer -->
-					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666;margin-top: 15px;border-top: 2px solid #333;border-bottom: 2px solid #333;">
+					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666; border-top: 2px solid #333; border-bottom: 2px solid #333;">
 						<table style="width: 100%;" cellpadding="2">
 							<tr>
 								<td colspan="5"><h3>Friends of TheGamesDB.net</h3></td>

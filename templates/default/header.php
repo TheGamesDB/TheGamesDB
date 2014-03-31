@@ -15,8 +15,8 @@
 		
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0004" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0004" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0005" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0005" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
@@ -64,7 +64,7 @@
 		<!-- End jQuery Image Dropdown Include -->
 		
 		<!-- Start xFade2 Include -->
-		<?php if($tab == "game") { ?>
+		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit")) { ?>
 		<script src="<?php echo $baseurl; ?>/js/xfade2/xfade2.js" type="text/javascript"></script>
 		<?php } ?>
 		<!-- End xFade2 Include -->
@@ -76,7 +76,7 @@
 		<!-- End jQuery Enabled CKEditor & CKFinder Include -->
 
 		<!-- Start Game View Page Scripts -->
-		<?php if($tab == "game") { ?>
+		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit")) { ?>
 			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/jqflip/jquery.flip.min.js"></script>
 		
 			<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />

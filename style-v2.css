@@ -3,9 +3,9 @@
 }
 #gameWrapper {
 	margin-bottom: 30px;
-	padding-bottom: 30px;
 	position: absolute;
 	width: 1000px;
+	box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.5);
 }
 #gameWrapper img{
 	/*box-shadow: 3px 6px 20px 5px #000;*/

@@ -587,9 +587,7 @@
 								{
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]";
 							?>
-									<img class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?=$game->GameTitle?> Fanart" title="<?=imageUsername($fanart->id)?> | <a href='javascript:void();' onclick='faceboxReport(<?=$fanart->id?>);' style='color: orange;'>Report Image</a>">
-									<br/>
-									<a href='<?=$baseurl/banners/$fanart->filename?>' target='_blank'>View Full-Size</a> |  <a href='<?="$baseurl?>/game-fanart-slideshow.php?id=<?=$game->id"?>' target='_blank'>Full-screen Slideshow</a>
+									<img class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?=$game->GameTitle?> Fanart" title="<?=imageUsername($fanart->id)?> | <a href='javascript:void();'' onclick='faceboxReport(<?=$fanart->id?>);' style='color: orange;'>Report Image</a> <br/> <a href='<?=$baseurl/banners/$fanart->filename?>' target='_blank'>View Full-Size</a> | <a href='<?="$baseurl?>/game-fanart-slideshow.php?id=<?=$game->id"?>' target='_blank'>Full-screen Slideshow</a>">
 							<?php
 									$fanSlideCount++;
 								}
@@ -625,9 +623,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{
 							?>
-									<img class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?=$game->GameTitle?> Screenshot" title="<?=imageUsername($screen->id)?> | <a href='javascript:void();' onclick='faceboxReport(<?=$screen->id?>);' style='color: orange;'>Report Image</a>">
-									<br />
-									<a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>
+									<img class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?=$game->GameTitle?> Screenshot" title="<?=imageUsername($screen->id)?> | <a href='javascript:void();' onclick='faceboxReport(<?=$screen->id?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>">
 							<?php
 									$screenSlideCount++;
 								}

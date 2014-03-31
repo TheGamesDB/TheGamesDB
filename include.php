@@ -271,16 +271,14 @@ function displaybannernew ($banner, $allowdelete, $link) {
 				$query  = "SELECT rating FROM ratings WHERE itemtype='banner' AND itemid=$banner->id AND userid=$user->id";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$rating = mysql_fetch_object($result);
-				if (!$rating->rating)  {
-					$rating->rating = 0;
-				}
+				if (!$rating->rating) { $rating = 0; } else { $rating = $rating->rating; }
 		
 				for ($i = 1; $i <= 10; $i++)  {
-					if ($i <= $rating->rating)  {
-						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id', $i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id', $rating->rating)\"><img src=\"/images/game/star_on.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
+					if ($i <= $rating)  {
+						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id', $i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id', $rating)\"><img src=\"/images/game/star_on.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
 					}
 					else  {
-						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id',$i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id',$rating->rating)\"><img src=\"/images/game/star_off.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
+						print "<a href=\"$fullurl&function=UserRating&type=banner&itemid=$banner->id&rating=$i\" OnMouseOver=\"UserRating2('bannerrating$banner->id',$i)\" OnMouseOut=\"UserRating2('bannerrating$banner->id',$rating)\"><img src=\"/images/game/star_off.png\" width=15 height=15 border=0 name=\"bannerrating$banner->id$i\"></a>";
 					}
 				}
 			print "</td></tr>\n";

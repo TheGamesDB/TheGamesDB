@@ -18,4 +18,7 @@
 	// (Developers will need to get their own keys from recaptcha, if you are running from 'localhost' try making the key usable for 'all domains')
 	$recpatcha_publickey = "";
     $recaptcha_privatekey = "";
+
+    ## Timezone Settings
+	date_default_timezone_set('UTC'); 
 ?>

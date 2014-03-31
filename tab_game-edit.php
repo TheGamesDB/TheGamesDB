@@ -175,27 +175,30 @@
 	
 	<form id="editGameForm" name="editGameForm" action="<?= $baseurl ?>/game-edit/<?= $game->id ?>/" method="post" onsubmit="mergeAltTitles(); if(editGameForm.coopfake.checked == false) {$('#coop').val('No');} else if(editGameForm.coopfake.checked == true){ $('#coop').val('Yes');}">
 
-			
 		<div id="gameTitle">
 			<?php if ($loggedin == 1) {  ?>
-				<span id ="gameUserLinks"><a class="greyButton"  href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?= $baseurl ?>/images/common/icons/edit_128.png" style="width:16px; height: 16px; vertical-align: -2px;" />&nbsp;View this Game</a>
-					<?php	## First, generate their userfavorites array
-						$userfavorites = explode(",", $user->favorites);
+				<span id="gameUserLinks">
+					<a class="greyButton" href="<?=$baseurl?>/game/<?=$game->id?>/"><img src="<?= $baseurl ?>/images/common/icons/arrowleft_16.png" style="vertical-align: -2px;" />&nbsp;View (Exit Edit)</a>
+			<?php
+				if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')
+				{
+			?>
+					<input class="greyButton" type="submit" name="function" value="Save Game">
+					<input type="hidden" name="newshowid" value="<?=$game->id?>">
 
-						## If the user has this as a favorite, display a message and a button
-						## to "Un-favorite".
-						if (in_array($id, $userfavorites, 1)) {
-							print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Unfavorite this Game</a>";
-						}
-						## If the user doesn't have this as a favorite, display a button to
-						## mark it as a favorite.
-						else {
-							print "<a class=\"greyButton\" href=\"/?function=ToggleFavorite&id=$id\"><img src=\"$baseurl/images/common/icons/favorite_48.png\" style=\"width:16px; height: 16px; vertical-align: -3px;\" />&nbsp;Favorite this Game</a>";
-						}
-					?>
+			<?php
+					if ($adminuserlevel == 'ADMINISTRATOR')
+					{
+			?>
+						<input class="greyButton" type="submit" name="function" value="Delete Game" onClick="return confirmSubmit()">
+			<?php
+					}
+				}
+			?>
 				</span>
-			<?php } ?>
-			
+			<?php
+			}
+			?>
 			<input type="text" name="GameTitle" style="font-size: 18px; font-weight: bold; width: 240px;" value="<?php echo $game->GameTitle; ?>" />
 			
 			<p style="display: none; clear: both; text-align: center;"><img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#frontBoxartUpload' rel='facebox' style="color: orange;">Upload Front Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#rearBoxartUpload' rel='facebox' style="color: orange;">Upload Rear Boxart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#fanartUpload' rel='facebox' style="color: orange;">Upload Fanart</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#clearartUpload' rel='facebox' style="color: orange;">Upload ClearLOGO</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#screenshotUpload' rel='facebox' style="color: orange;">Upload Screenshot</a> | <img src='<?= $baseurl ?>/images/common/icons/upload_24.png' style='border: 0px; vertical-align: -7px;' alt='Upload Artwork' /> <a href='#bannerUpload' rel='facebox' style="color: orange;">Upload Banner</a></p>
@@ -281,10 +284,10 @@
 				<? if ($loggedin == 1) { ?>
 				<tr>
 					<? if (!empty($front) && $loggedin = 1) { ?>
-					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$front->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?=$baseurl;?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$front->id;?>" rel="facebox" style="color: orange;">Report Image</a></td>
 					<? } ?>
 					<? if (!empty($back)) { ?>
-					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?= "$baseurl/scripts/reportqueue_submit.php?reportimageid=$back->id" ?>" rel="facebox" style="color: orange;">Report Image</a></td>
+					<td style="padding: 10px 10px; vertical-align: top; text-align: center;"><a href="<?=$baseurl;?>/scripts/reportqueue_submit.php?reporttype=image&reportid=<?=$back->id;?>" rel="facebox" style="color: orange;">Report Image</a></td>
 					<? } ?>
 				</tr>
 				<? } ?>
@@ -305,7 +308,7 @@
 		
 		<div id="gameInfo">
 		
-		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="greyButton boxShadow" style="float: right; font-size: 16px; line-height: 32px; display: inline-block; padding: 9px; color: orange; margin-top: 14px;"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
+		<a href="<?= $baseurl ?>/uploader/?gameid=<?= $game->id ?>" class="greyButton uploadButton"><img src="<?= $baseurl ?>/images/common/icons/dropbox_32.png" style="vertical-align: -10px; margin-right: 10px;" />Upload Artwork</a>
 		
 		<div id="altTitleWrapper">
 		<span class="grey">Alt. Titles</span>&nbsp;<span class="button altAdd" onclick="altAdd(this);">+</span><br /><br />
@@ -397,16 +400,17 @@
 							$query	= "SELECT rating FROM ratings WHERE itemtype='game' AND itemid=$id AND userid=$user->id";
 							$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 							$rating = mysql_fetch_object($result);
-							if (!$rating->rating) {
-								$rating->rating = 0;
-							}
+							if ($rating && $rating->rating)
+								$rating = $rating->rating;
+							else
+								$rating = 0;
 
 							for ($i = 1; $i <= 10; $i++) {
-								if ($i <= $rating->rating) {
-									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+								if ($i <= $rating) {
+									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_on.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 								else {
-									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating->rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
+									print "<a href=\"$baseurl/game/$id/?function=UserRating&type=game&itemid=$id&rating=$i\" OnMouseOver=\"UserRating2('userrating',$i)\" OnMouseOut=\"UserRating2('userrating',$rating)\"><img src=\"$baseurl/images/game/star_off.png\" width=15 height=15 border=0 name=\"userrating$i\"></a>";
 								}
 							}
 							?>
@@ -583,26 +587,6 @@
 			<? } ?>
 			
 			<hr />
-			
-			<?php
-				if ($loggedin == 1)
-				{
-					if ($game->locked != 'yes' OR $lockadmin->userlevel == 'ADMINISTRATOR')
-					{
-			?>
-						<input class="greyButton" type="submit" name="function" value="Save Game">
-						<input type="hidden" name="newshowid" value="<?=$game->id?>">
-
-					<?php
-						if ($adminuserlevel == 'ADMINISTRATOR')
-						{
-					?>
-							<input class="greyButton" type="submit" name="function" value="Delete Game" onClick="return confirmSubmit()"><br>
-					<?php
-						}
-					}
-				}
-			?>
 			
 		</div>
 		<div style="clear:both"></div>

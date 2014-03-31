@@ -43,6 +43,7 @@
 				echo "Error: Couldn't match Key.";
 			}
 			
+			// Delete the original artwork, if it's there
 			if ($deletebanner = mysql_fetch_object(mysql_query($query)))
 			{
 				## Delete SQL record
@@ -61,56 +62,53 @@
 				if(file_exists("../banners/_favcache/_banner-view/$deletebanner->filename")) { unlink("../banners/_favcache/_banner-view/$deletebanner->filename"); }
 				if(file_exists("../banners/_favcache/_boxart-view/$deletebanner->filename")) { unlink("../banners/_favcache/_boxart-view/$deletebanner->filename"); }
 				if(file_exists("../banners/_favcache/_tile-view/$deletebanner->filename")) { unlink("../banners/_favcache/_tile-view/$deletebanner->filename"); }
+			}
+
+			// Add the new artwork
+			if ($key == "clearlogo")
+			{
+				$filename = "clearlogo/$modItem->gameID.png";
+			}
+			else
+			{
+				// MOVE APPROVED ART TO BANNERS FOLDER AND INSERT INTO BANNERS DB TABLE
+				list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../moderationqueue/$modItem->filename");
 				
-				if ($key == "clearlogo")
+				## See if image is jpeg format
+				if($image_type == 2)
 				{
-					$filename = "clearlogo/$modItem->gameID.png";
+					$filename = "boxart/original/$modItem->imagekey/$modItem->gameID-1.jpg";
 				}
-				else
+				## or see if image is png format
+				elseif($image_type == 3)
 				{
-					// MOVE APPROVED ART TO BANNERS FOLDER AND INSERT INTO BANNERS DB TABLE
-					list($image_width, $image_height, $image_type, $image_attr) = getimagesize("../moderationqueue/$modItem->filename");
-					
-					## See if image is jpeg format
-					if($image_type == 2)
-					{
-						$filename = "boxart/original/$modItem->imagekey/$modItem->gameID-1.jpg";
-					}
-					## or see if image is png format
-					elseif($image_type == 3)
-					{
-						$filename = "boxart/original/$modItem->imagekey/$modItem->gameID-1.png";
-					}
+					$filename = "boxart/original/$modItem->imagekey/$modItem->gameID-1.png";
 				}
-				
-				// Move approved Item to banners folder
-				if(rename("../moderationqueue/$modItem->filename", "../banners/$filename"))
+			}
+			
+			// Move approved Item to banners folder
+			if(rename("../moderationqueue/$modItem->filename", "../banners/$filename"))
+			{
+				## Insert database record
+				if(mysql_query("INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('$keytype', $modItem->gameID, $modItem->userID, $time, '$filename', 1, '$modItem->resolution')"))
 				{
-					## Insert database record
-					if(mysql_query("INSERT INTO banners (keytype, keyvalue, userid, dateadded, filename, languageid, resolution) VALUES ('$keytype', $modItem->gameID, $modItem->userID, $time, '$filename', 1, '$modItem->resolution')"))
+					## Delete Moderation Item SQL record
+					if(mysql_query("DELETE FROM moderation_uploads WHERE id=$modItem->id"))
 					{
-						## Delete Moderation Item SQL record
-						if(mysql_query("DELETE FROM moderation_uploads WHERE id=$modItem->id"))
-						{
-							// Delete item from moderation queue cache folder
-							if(file_exists("../moderationqueue/_cache/$modItem->filename")) { unlink("../moderationqueue/_cache/$modItem->filename"); }
-							
-							echo "Success";
-						}
-					}
-					else
-					{
-						echo "Failed: Could not insert record into database.";
+						// Delete item from moderation queue cache folder
+						if(file_exists("../moderationqueue/_cache/$modItem->filename")) { unlink("../moderationqueue/_cache/$modItem->filename"); }
+						
+						echo "Success";
 					}
 				}
 				else
 				{
-					echo "Failed: Could not move item art to banners folder.";
+					echo "Failed: Could not insert record into database.";
 				}
 			}
 			else
 			{
-				echo "Failed: Could not locate old artwork in the database.";
+				echo "Failed: Could not move item art to banners folder.";
 			}
 		}
 		else

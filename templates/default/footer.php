@@ -1,15 +1,15 @@
 					<!-- Page Footer -->
-					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666;">
-						<table style="width: 100%;" cellpadding="12">
+					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666;margin-top: 15px;border-top: 2px solid #333;border-bottom: 2px solid #333;">
+						<table style="width: 100%;" cellpadding="2">
 							<tr>
 								<td colspan="5"><h3>Friends of TheGamesDB.net</h3></td>
 							</tr>
 							<tr>
-								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://hostsphere.co.uk/" alt="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers" title="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers">HostSphere.co.uk</a></td>
+								<td style="width: 30%;"><a style="color: orange;" href="http://hostsphere.co.uk/" alt="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers" title="HostSphere | Unlimited Web Hosting | VPS | Hybrid Servers | Dedicated Servers">HostSphere.co.uk</a></td>
 								<td style="width: 5%;">|</td>
-								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://xbmc.org/">XBMC.org</a></td>
+								<td style="width: 30%;"><a style="color: orange;" href="http://xbmc.org/">XBMC.org</a></td>
 								<td style="width: 5%;">|</td>
-								<td style="width: 30%;">&rsaquo;&nbsp;<a style="color: orange;" href="http://fanart.tv/">Fanart.tv</a></td>
+								<td style="width: 30%;"><a style="color: orange;" href="http://fanart.tv/">Fanart.tv</a></td>
 							</tr>
 						</table>
 					</div>

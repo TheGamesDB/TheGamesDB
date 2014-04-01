@@ -13,7 +13,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/fullscreenslider/css/style.css"/>
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-ui/css/trontastic/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
-	<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $baseurl; ?>/js/fullscreenslider/js/jquery.tmpl.min.js"></script>
 	<script type="text/javascript" src="<?php echo $baseurl; ?>/js/fullscreenslider/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="<?php echo $baseurl; ?>/js/fullscreenslider/js/script.js"></script>
@@ -37,6 +37,7 @@
 	<style type="text/css">
 		body {
 			background:#111111 url(<?php echo $baseurl; ?>/images/bg-main-background.jpg) repeat-x top center;
+			overflow: hidden;
 		}
 		#frontHeader{
 			color: #fff;
@@ -60,9 +61,55 @@
 			color: #fff;
 			text-decoration: underline;
 		}
+		#ajaxSearchResults {
+			display: none;
+			position: fixed;
+			min-width: 450px;
+			background: #444;
+			background: rgba(40,40,40,0.98);
+			color: #888;
+			border: 1px solid #AAA;
+			border-radius: 4px;
+			margin-left: 35px;
+			text-align: left;
+			font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif;
+			font-size: 16px;
+			text-shadow: 0px 2px 6px #333;
+		}
+		#ajaxSearchResults ul {
+			margin: 0px;
+			padding: 0px;
+			list-style-type: none;
+		}
+		#ajaxSearchResults ul li {
+			border-bottom: 1px solid #999;
+		}
+		#ajaxSearchResults ul li:nth-child(even) {
+			background-color: rgba(60,60,60,0.3);
+		}
+		#ajaxSearchResults ul li:hover {
+			background-color: rgba(0,0,0,0.3);
+		}
+		#ajaxSearchResults ul li a {
+			padding: 10px;
+			display: block;
+			color: #fff;
+			text-decoration: none;
+			letter-spacing: 0.8px;
+			font-size: 1em;
+		}
+		#ajaxSearchResults ul li a:focus {
+			outline: 1px solid orange;
+			box-shadow: inset 0 0 5px rgba(255, 165, 0, 0.6);
+			background-color: rgba(0,0,0,0.3);
+		}
+		#ajaxSearchResults ul li a span {
+			font-size: 0.8em;
+			color: #888;
+			letter-spacing: 0px;
+		}
 		.error { opacity: 0.7; font: bold 16px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: red; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(<?php echo $baseurl; ?>/images/common/bg_orange.png) repeat-x center center;}
 		.message { opacity: 0.7; font: bold 16px Helvetica, Arial, Sans-serif; text-shadow: 0px 2px 6px #333; color: #fff; width: 70%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background: url(<?php echo $baseurl; ?>/images/common/bg_orange.png) repeat-x center center;}
-        
         input {
             height: 34px;
             font-size: 22px;
@@ -74,7 +121,6 @@
             background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center;
             color: #fff;
         }
-		
 		.approve {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: 12px;
@@ -261,12 +307,9 @@
 			</h1>
 			
 			<div id="searchbox" style="padding: 16px 0px; text-align: center;">
-				<form id="search" action="<?= $baseurl ?>/search/">
-                    <div>
-                        <input type="text" id="frontGameSearch" name="string" x-webkit-speech style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
-                        <!--<input id="frontGameSearch" name="string" type="text" style="height: 100%; padding: 0px; width: 440px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 20px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-right: 0px; border-radius: 6px 0px 0px 6px;" />
-                        <input type="submit" value="Search" style="height: 100%; padding: 0px 10px 0px 10px; font-family: 'Segoe UI','HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Arial,Tahoma,Verdana,sans-serif; font-size: 22px; text-shadow: 0px 2px 6px #666; color: #333; background: url(<?php echo $baseurl; ?>/images/common/bg_glass.png) no-repeat center center; color: #fff;  border: 1px solid #eee; margin-left: 0px; border-radius: 0px 6px 6px 0px;" /> -->
-                    </div>
+				<form id="search" action="<?= $baseurl ?>/search/" autocomplete="off">
+                    <input type="text" id="frontGameSearch" name="string" x-webkit-speech style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
+					<div id="ajaxSearchResults"></div>
 					<input type="hidden" name="function" value="Search" />
 				</form>
 			</div>
@@ -293,7 +336,7 @@
 		<!-- Pictures will be injected by jQuery -->
 	</div>
 	
-	<div id="footer" style="position:absolute; width: 100%; bottom:0px; z-index: 200; text-align: center;">
+	<div id="footer" style="position:fixed; width: 100%; bottom:0px; z-index: 200; text-align: center;">
 		<div id="footerbarShadow" style="width: 100%; background: url(<?php echo $baseurl; ?>/images/bg_footerbar-shadow.png) repeat-x center center; height: 15px;"></div>
 		<div id="footerbar" style="width: 100%; background: url(<?php echo $baseurl; ?>/images/bg_footerbar.png) repeat-x center center; height: 30px;">
 		
@@ -338,29 +381,93 @@
 			}
 			?>
 	</div>
-	
+
 	<script type="text/javascript">
-		$(function() {
-			var availableTags = [
-				<?php
-					if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
-					{
-						while($titlesObj = mysql_fetch_object($titlesResult))
-						{
-							echo " \"$titlesObj->GameTitle\",\n";
-						}
+		// Ajax Quick Search
+		$( "#frontGameSearch" ).bind("focus input paste", function(event) {
+			if ( this.value )
+			{
+				$.post( "<?php echo $baseurl; ?>/scripts/ajax_searchgame.php", "searchterm=" + $(this).val(), function( data ) {
+					if (data.result == 'success')
+					{	
+					  	var resultsArray = [];
+
+					  	$.each(data.games, function(index, value) {
+					  		var currentResult = ['<li>',
+						  							'<a href="<?php $baseurl; ?>/game/' + value.id + '">' + value.title + '<br>',
+						  								'<span>' + value.platform + '</span>',
+						  							'</a>',
+						  						'</li>'].join('\n');
+
+						  	resultsArray.push(currentResult);
+						});
+
+
+					  	var resultDisplay = ['<ul>',
+												resultsArray.join('\n'),
+					  						'</ul>'].join('\n');
+
+						$('#ajaxSearchResults').html(resultDisplay);
+						$('#ajaxSearchResults').slideDown();
 					}
-				?>
-			];
-			$( "#frontGameSearch" ).autocomplete({
-				source: availableTags,
-				select: function(event, ui) { $("#search").submit(); }
-			});
+					else
+					{
+						$('#ajaxSearchResults').html('');
+						$('#ajaxSearchResults').slideUp('fast');	
+					}
+				}, "json");
+
+			}
+			else
+			{
+				$('#ajaxSearchResults').slideUp('fast');
+			}
+
 		});
-        
-        $( "#frontGameSearch" ).blur(function() {
-          $( this ).val($.trim($( this ).val()));
-        });
+
+		// Keyboard Navigation For Ajax QuickSearch
+		$('#frontGameSearch, #ajaxSearchResults').bind('keydown', function(e) {
+			var ajaxParent = $(this).closest('form').children('#ajaxSearchResults').children('ul');
+			if ($('#frontGameSearch').is(':focus'))
+			{
+				if (e.keyCode == 40)
+			    {
+			        ajaxParent.children('li').first().children('a').focus();
+			        return false;
+			    }
+			}
+			else
+			{
+			    if (e.keyCode == 40)
+			    {
+			    	$(':focus').parent().next().children('a').focus();
+					e.preventDefault();
+			        return false;
+			    }
+			    else if (e.keyCode == 38)
+			    {        
+			        $(':focus').parent().prev().children('a').focus();
+					e.preventDefault();
+			        return false;
+			    }
+			    else if (e.keyCode == 8)
+			    {
+			        $('#frontGameSearch').focus();
+					e.preventDefault();
+			        return false;
+			    }
+			}
+		});
+
+		// Hide Ajax QuickSearch When Clicking Outside of Results
+		$(document).click( function (e)
+		{
+		    var container = $("#ajaxSearchResults");
+		    if (!container.is(e.target) && container.has(e.target).length === 0)
+		    {
+		        container.slideUp('fast');
+		    }
+		});
 	</script>
 	
 	<script type="text/javascript">

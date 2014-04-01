@@ -24,7 +24,7 @@
 				if ($reportType == "image")
 				{
 					// Gather info to clear from cache, but keep the image data	
-					if ($reportedResult == mysql_query("SELECT b.filename FROM banners WHERE b.id == $reportedID LIMIT 1"))
+					if ($reportedResult = mysql_query("SELECT filename FROM banners WHERE id = $reportedID LIMIT 1"))
 					{
 						$reported = mysql_fetch_object($reportedResult);
 

@@ -540,8 +540,26 @@ div.pagination span.disabled {
 .right { float: right; }
 .clear { clear: both; }
 .tile { display: block;margin-top: 11px }
-.error { color: red; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
-.message {color:green; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
+/*.error { color: red; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}*/
+/*.message {color:green; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}*/
+.message {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.error {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
 .ad {
     margin:0 auto;
     width:468px;

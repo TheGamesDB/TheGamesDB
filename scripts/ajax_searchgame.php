@@ -16,6 +16,21 @@
 		$searchParams['type']  = 'game';
 		$searchParams['size']  = 6;
 
+		$searchplatform = '';
+
+		if(isset($_REQUEST['platform']))
+		{
+
+			$platform = $_REQUEST['platform'];
+			$searchplatform = ',
+					            "filter": {
+									term: {
+					              		"PlatformId": "' . $platform . '"
+									}
+					            }
+					          ';
+		}
+
 		// Check if $search term contains an integer
 		if (strcspn($searchterm, '0123456789') != strlen($searchterm))
 		{
@@ -30,38 +45,42 @@
 			$searchtermRoman = str_replace($numberAsNumber, $numberAsRoman, $searchterm);
 
 			$json = '{
-				      "query": {
-				        "bool": {
-				          "must": [
-				            {
-				              "match": {
-				                "GameTitle": "' . $searchterm . '"
-				              }
-				            },
-				            {
-				              "match": {
-				                "GameTitle": "' . $searchtermRoman . '"
-				              }
-				            }
-				          ]
-				        }
-				      }
-				    }';
-			$searchParams['body'] = $json;
-		}
-		else
-		{
-			$json = '{
-				      "query": {
-			            "multi_match": {
-			                "query": "' . $searchterm . '",
-			                "fields": [ "GameTitle", "Alternates" ]
-			              }
-				        }
-				      }
-				    }';
-			$searchParams['body'] = $json;
-		}
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            },
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchtermRoman . '"
+					              }
+					            }
+					          ]
+					        }
+					      }
+					    }';
+				$searchParams['body'] = $json;
+			}
+			else
+			{
+				$json = '{
+					      "query": {
+					        "bool": {
+					          "must": [
+					            {
+					              "match": {
+					                "GameTitle": "' . $searchterm . '"
+					              }
+					            }
+					          ]
+					        }
+					      }' . $searchplatform . '
+					    }';
+				$searchParams['body'] = $json;
+			}
 
 		$elasticResults = $elasticsearchClient->search($searchParams);
 

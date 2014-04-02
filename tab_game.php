@@ -111,10 +111,13 @@
 
 	<?php
 		if($errormessage)
+		{
 			echo "<div class=\"error\">$errormessage</div>";
-
+		}
 		if($message)
-			echo "<div class=\"message\"><$message</div>";
+		{
+			echo "<div class=\"message\">$message</div>";
+		}
 	?>
 
 	<?php

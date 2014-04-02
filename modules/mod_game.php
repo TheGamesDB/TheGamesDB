@@ -8,7 +8,7 @@
 		//$selectedPlatform = $_POST['Platform'];
 
 
-		## Check for exact matches for seriesname
+		## Check for exact matches for GameTitle
 		$GameTitle = mysql_real_escape_string($GameTitle);
 		$GameTitle = ucfirst($GameTitle);
 		$query = "SELECT * FROM games WHERE GameTitle='$GameTitle' AND Platform='$cleanPlatform'";
@@ -38,7 +38,10 @@
 			header("Location: $URL");
 			echo $selectedPlatform;
 		} else {
-			$errormessage = "Sorry, \"$GameTitle\" Already Exists For That Platform.";
+			$errormessage .= "<strong>Whoops!</strong> The game \"$GameTitle\" was already found for this platform. We have taken you directly to it.";
+			$existingRow = mysql_fetch_object($result);
+			$id = $existingRow->id;
+			$tab = 'game';
 		}
 	}
 

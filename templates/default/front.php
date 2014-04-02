@@ -308,7 +308,7 @@
 			
 			<div id="searchbox" style="padding: 16px 0px; text-align: center;">
 				<form id="search" action="<?= $baseurl ?>/search/" autocomplete="off">
-                    <input type="text" id="frontGameSearch" name="string" x-webkit-speech style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
+                    <input type="text" id="frontGameSearch" name="string"  placeholder="Search Games..." x-webkit-speech style="border-radius: 6px 0px 0px 6px; width: 450px;" /><input type="submit" value="Search" style="border-radius: 0px 6px 6px 0px; height: 36px; padding: 0px 5px 0px 5px;"  />
 					<div id="ajaxSearchResults"></div>
 					<input type="hidden" name="function" value="Search" />
 				</form>

@@ -15,8 +15,8 @@
 		
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0007" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0007" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0008" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0008" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />

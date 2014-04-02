@@ -36,20 +36,25 @@
 	<hr />
 	<br />
 	<h2 style="color: #FF4F00;">Game Info:</h2>
-	<p>You must select the platform that the game you're submitting corresponds to.  If the same title is on multiple platforms, they must be made into separate entries.  Metadata and artwork (boxart especially) changes depending on platform type.</p>						
+	<div style="text-align: center;">
+		<p>You must select the platform that the game you're submitting corresponds to.</p>
+		<p>If the same title is on multiple platforms, they must be made into separate entries.</p>
+		<p>Metadata and artwork (boxart especially) changes depending on platform type.</p>
+		<p>If the platform you require does not exist you can <a href="http://forums.thegamesdb.net/" style="color: darkorange;">Request a New Platform</a></p>
+	</div>
 
 		<!-- Begin Game Add Form -->
 		<?php
 			$platformResult = mysql_query(" SELECT id, name FROM platforms ORDER BY name ASC ");
 		?>
-		<div style="width: 500px; background-color: #000; color: #FFF; margin: 40px auto 20px auto; border: 1px solid #666; border-radius: 15px; padding: 5px 0px 15px 0px">
+		<div id="addGamePanel" style="width: 600px; background-color: #000; color: #FFF; margin: 40px auto 20px auto; border: 1px solid #666; border-radius: 15px; padding: 5px 0px 15px 0px; font-size: 1.3em;">
 		<h3 style="text-align: center;">Enter New Game Info</h3>
-		<form action="<?php echo $baseurl;?>/index.php?" method="POST" onsubmit="if($('#GameTitle').val() != '' && $('#Platform').val() != 'empty') { return true; } else { alert('You must both select a valid Platform and enter a Game Title to proceed...'); return false;}">
+		<form action="<?php echo $baseurl;?>/index.php?" method="POST" onsubmit="if( $('#GameTitle').val() != '' && $('#Platform').val() != 'empty' && $('#existsNo').attr('checked') == 'checked') { return true; } else { return false; }">
 			<table align="center">
 				<tr>
-					<td valign="top"><b>Platform:</b></td>
+					<td valign="middle" style="text-align: right;"><b>Platform:</b></td>
 					<td>
-						<select id="Platform" name="cleanPlatform">
+						<select id="Platform" name="cleanPlatform" style="font-size: 1.2em; width: 355px; margin: 5px; padding: 2px;">
 							<option value="empty">Select Platform...</option>
 							<?php
 								while($platformRow = mysql_fetch_assoc($platformResult))
@@ -63,14 +68,50 @@
 					</td>
 				</tr>
 				<tr> 
-					<td valign="top"><b>Game Title:</b></td> 
-					<td><input type="text" id="GameTitle" name="GameTitle" size="46" value="<?php if(!empty($passTitle)){echo $passTitle;} ?>"></td>
+					<td valign="middle" style="text-align: right;"><b>Game Title:</b></td> 
+					<td>
+						<input type="text" id="GameTitle" name="GameTitle" placeholder="Enter Game Title..." autocomplete="off" style="font-size: 1.2em; width: 351px; margin: 5px; padding: 2px;" value="<?php if(!empty($passTitle)){echo $passTitle;} ?>">
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><a href="http://forums.thegamesdb.net/" style="color: #fff;">Request a new platform option</a></td>
+					<td></td>
+					<td><p><a class="greyButton" id="checkExistingGames" href="javascript:;" style="font-size: 1.3em; text-align: center; width: 339px; display: block; margin: 5px;"><img src="<?php echo $baseurl; ?>/images/common/icons/refresh_24.png" style="vertical-align: -3px;"/>&nbsp;&nbsp;&nbsp;Check For Existing Game</a></p></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit" name="function" value="Add Game"></td>
+					<td colspan="2" align="center">
+						<div id="existingGames" class="gamesList">
+
+						</div>
+						
+						<div id="existsCheck" style="display: none;">
+							<p>Does the game you wanted to add exist in the list above,<br>or one that closely resembles it?</p>
+							
+							<table>
+								<tr>
+									<td style="text-align: center;">
+										<input type="radio" name="gameExists" id="existsYes" value="yes" style="width: 28px; height: 28px;" />
+										<br>
+										<label for="existsYes" style="">Yes</label>
+
+									</td>
+									<td style="text-align: center;">
+										<input type="radio" name="gameExists" id="existsNo" value="no" style="width: 28px; height: 28px;" />
+										<br>
+										<label for="existsNo">No</label>
+									</td>
+								</tr>
+							</table>
+						</div>
+
+						<div id="denySubmitGame" style="display: none;">
+							<h3 style="color: darkorange;"><br>This game has already been entered for this platform.<br>To view or modify information about this game,<br>select it from the list above.</h3>
+						</div>
+
+						<div id="approveSubmitGame" style="display: none;">
+							<h4 style="color: darkorange;">Please press the button below to add the game to the database.</h4>
+							<p><input class="greyButton" type="submit" name="function" value="Add Game"></p>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</form>
@@ -79,21 +120,75 @@
 
 
 <script>
-	$(function() {
-		var availableTags = [
-			<?php
-				if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
-				{
-					while($titlesObj = mysql_fetch_object($titlesResult))
-					{
-						echo " \"$titlesObj->GameTitle\",\n";
-					}
+	$('#checkExistingGames').click( function() {
+		if($('#GameTitle').val().trim() != '' && $('#Platform').val() != 'empty')
+		{
+			$.post( "<?php echo $baseurl; ?>/scripts/ajax_searchgame.php", "searchterm=" + $('#GameTitle').val() + "&platform=" + $('#Platform').val(), function( data ) {
+				if (data.result == 'success')
+				{	
+				  	var resultsArray = [];
+
+				  	$.each(data.games, function(index, value) {
+				  		var currentResult = ['<li>',
+					  							'<a href="<?php $baseurl; ?>/game/' + value.id + '">' + value.title + '<br>',
+					  								'<span>' + value.platform + '</span>',
+					  							'</a>',
+					  						'</li>'].join('\n');
+
+					  	resultsArray.push(currentResult);
+					});
+
+
+				  	var resultDisplay = ['<ul>',
+											resultsArray.join('\n'),
+				  						'</ul>'].join('\n');
+
+					$('#existingGames').html(resultDisplay);
+					$('#existingGames').slideDown();
+					$('#existsCheck').slideDown();
+					
 				}
-			?>
-		];
-		$( "#GameTitle" ).autocomplete({
-			source: availableTags
-		});
+				else
+				{
+					var resultDisplay = ['<ul>',
+											'<li>',
+					  							'<a href="javascript:;">No Existing Games Were Found<br>',
+					  								'<span>Feel Free To Submit This Game</span>',
+					  							'</a>',
+					  						'</li>',
+				  						'</ul>'].join('\n');
+
+					$('#existingGames').html(resultDisplay);
+					$('#existingGames').slideDown();
+				}
+			}, "json");
+
+			$('html, body').animate({
+		        scrollTop: $("#addGamePanel").offset().top
+		    }, 2000);
+		}
+		else
+		{
+			alert("You must both select a platform and enter a game title before continuing...");
+		}
+	});
+
+	$('#existsYes').click( function() {
+		$('#approveSubmitGame').slideUp();
+		$('#denySubmitGame').slideDown();
+
+		$('html, body').animate({
+	        scrollTop: $("#addGamePanel").offset().top
+	    }, 2000);
+	});
+
+	$('#existsNo').click( function() {
+		$('#denySubmitGame').slideUp();
+		$('#approveSubmitGame').slideDown();
+
+		$('html, body').animate({
+	        scrollTop: $("#addGamePanel").offset().top
+	    }, 2000);
 	});
 </script>
 <?php

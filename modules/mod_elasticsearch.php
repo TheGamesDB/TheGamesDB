@@ -5,7 +5,7 @@
 	#####################################################
 
 	// Include Composer Autoload Packages
-	require 'vendor/autoload.php';
+	require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 	// Initialize New Elasticsearch elasticsearchClient
 	$elasticsearchParams = array();

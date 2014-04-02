@@ -1,5 +1,5 @@
 					<!-- Page Footer -->
-					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666;margin-top: 15px;border-top: 2px solid #333;border-bottom: 2px solid #333;">
+					<div style="padding: 10px; text-align: center; background-color: #0F0F0F; color: #666666; border-top: 2px solid #333; border-bottom: 2px solid #333;">
 						<table style="width: 100%;" cellpadding="2">
 							<tr>
 								<td colspan="5"><h3>Friends of TheGamesDB.net</h3></td>
@@ -55,40 +55,107 @@
 		</div>
 
 		<script type="text/javascript">
-		$(function() {
-			var availableTags = [
-				<?php
-					if($titlesResult = mysql_query(" SELECT DISTINCT GameTitle FROM games ORDER BY GameTitle ASC; "))
-					{
-						while($titlesObj = mysql_fetch_object($titlesResult))
-						{
-							echo " \"$titlesObj->GameTitle\",\n";
+			// Ajax Quick Search
+			$( ".ajaxSearch" ).bind("focus input paste", function(event) {
+				var currentElement = $(this);
+				if ( this.value )
+				{
+					$.post( "<?php echo $baseurl; ?>/scripts/ajax_searchgame.php", "searchterm=" + $(this).val(), function( data ) {
+						if (data.result == 'success')
+						{	
+						  	var resultsArray = [];
+
+						  	$.each(data.games, function(index, value) {
+						  		var currentResult = ['<li>',
+							  							'<a href="<?php $baseurl; ?>/game/' + value.id + '">' + value.title + '<br>',
+							  								'<span>' + value.platform + '</span>',
+							  							'</a>',
+							  						'</li>'].join('\n');
+
+							  	resultsArray.push(currentResult);
+							});
+
+
+						  	var resultDisplay = ['<ul>',
+													resultsArray.join('\n'),
+						  						'</ul>'].join('\n');
+
+							currentElement.parent().children('.ajaxSearchResults').html(resultDisplay);
+							currentElement.parent().children('.ajaxSearchResults').slideDown();
 						}
-					}
-				?>
-			];
-			$( ".autosearch" ).autocomplete({
-				source: availableTags,
-				position: { offset: "-30 3" },
-				appendTo: '#autocompleteContainer',
-				select: function(event, ui) { this.form.submit(); }
+						else
+						{
+							currentElement.parent().children('.ajaxSearchResults').html('');
+							currentElement.parent().children('.ajaxSearchResults').slideUp('fast');	
+						}
+					}, "json");
+
+				}
+				else
+				{
+					$('.ajaxSearchResults').slideUp('fast');
+				}
+
 			});
-		});
-	</script>
+
+			// Keyboard Navigation For Ajax QuickSearch
+			$('.ajaxSearch, .ajaxSearchResults').bind('keydown', function(e) {
+				var ajaxParent = $(this).closest('form').children('.ajaxSearchResults').children('ul');
+				if ($('.ajaxSearch').is(':focus'))
+				{
+					if (e.keyCode == 40)
+				    {
+				        ajaxParent.children('li').first().children('a').focus();
+				        return false;
+				    }
+				}
+				else
+				{
+				    if (e.keyCode == 40)
+				    {
+				    	$(':focus').parent().next().children('a').focus();
+						e.preventDefault();
+				        return false;
+				    }
+				    else if (e.keyCode == 38)
+				    {        
+				        $(':focus').parent().prev().children('a').focus();
+						e.preventDefault();
+				        return false;
+				    }
+				    else if (e.keyCode == 8)
+				    {
+				        $(this).closest('form').children('.ajaxSearch').focus();
+						e.preventDefault();
+				        return false;
+				    }
+				}
+			});
+
+			// Hide Ajax QuickSearch When Clicking Outside of Results
+			$(document).click( function (e)
+			{
+			    var container = $(".ajaxSearchResults");
+			    if (!container.is(e.target) && container.has(e.target).length === 0)
+			    {
+			        container.slideUp('fast');
+			    }
+			});
+		</script>
 		
-			<script type="text/javascript">
+		<script type="text/javascript">
 
-				var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', 'UA-16803563-1']);
-				_gaq.push(['_trackPageview']);
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-16803563-1']);
+			_gaq.push(['_trackPageview']);
 
-				(function() {
-					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-				})();
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
 
-			</script>
+		</script>
 		
 		<script type="text/javascript">
 			// jQuery Snow Script Instance
@@ -98,21 +165,6 @@
 		<!-- Start Force instant run of cufon to circumvent IE delay -->
 		<script type="text/javascript"> Cufon.now(); </script>
 		<!-- End Force instant run of cufon to circumvent IE delay -->
-		
-		<!--/* Ad4Game Site-Skin Tag */-->
-		<script type='text/javascript'><!--//<![CDATA[
-		var ad4game_siteskin = {
-			'contentWidth' : '1000px', // size of the regular content in pixel
-			'leftOffset'   : '0px',   // left ad position adjustment -/+ pixel left/right
-			'topOffset'    : '141px',   // top position of the ads
-			'rightOffset'  : '0px',   // right ad adjustment
-			'zIndex'       : '4',     // css style z-index for the ads
-			'fixed'        : '0',     // 0=>ads scroll with content, 1=>ads stay fixed
-			'hide'         : 'none',  // hide a banner: one of 'none', 'left', 'right'
-			'random'       : Math.floor(Math.random() * 99999999999)
-		};
-		document.write('\x3cscript type="text/javascript" src="http://ads.ad4game.com/www/delivery/siteskin.php?zoneid=27522&target=_blank&charset=UTF-8&withtext=1&cb='+ad4game_siteskin.random+'"\x3e\x3c/script\x3e');
-		//]]>--></script>
 		
 		<div id="fb-root"></div>
         <script>(function(d, s, id) {

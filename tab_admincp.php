@@ -662,7 +662,7 @@ if ($loggedin = 1 && $adminuserlevel == 'ADMINISTRATOR')
 												<span style="font-weight: bold;">Developer:</span> <? if (!empty($reportedObject->Developer)) { echo $reportedObject->Developer; } else{ echo "N/A"; } ?><br/>
 												<span style="font-weight: bold;">Publisher:</span> <? if (!empty($reportedObject->Publisher)) { echo $reportedObject->Publisher; } else{ echo "N/A"; } ?><br/>
 												<span style="font-weight: bold;">Release Date:</span> <? if (!empty($reportedObject->ReleaseDate)) { echo $reportedObject->ReleaseDate; } else{ echo "N/A"; } ?><br/>
-												<span style="font-weight: bold;">Overview:</span> <? if (!empty($reportedObject->Overview)) { echo "<div style=\"border: 1px solid #999; margin: 4px; padding: 4px; width: 575px; height: 150px; overflow: auto;\">".nl2br(strip_tags($reportedObject->Overview))."</div>"; } else{ echo "N/A"; } ?>
+												<span style="font-weight: bold;">Overview:</span> <? if (!empty($reportedObject->Overview)) { echo "<div style=\"border: 1px solid #999; margin: 4px; padding: 4px; width: 100%; height: 150px; overflow: auto;\">".nl2br(strip_tags($reportedObject->Overview))."</div>"; } else{ echo "N/A"; } ?>
 												<?php }?>
 												<p style="text-align: right;">
 													<?php $type = "image";

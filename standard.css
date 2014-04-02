@@ -104,12 +104,12 @@ h2{
 	font-size: 18px;
 }
 
-#navMain ul {
+#navMain ul.navLinks {
 	margin: 0px;
 	padding: 0px;
 }
 
-#navMain li {
+#navMain ul.navLinks li {
 	width: 160px;
 	float: left;
 	height: 31px;
@@ -119,7 +119,7 @@ h2{
 	list-style-type: none;
 }
 
-#navMain li.active {
+#navMain ul.navLinks li.active {
 	height: 36px;
 	background: transparent url('images/bg_mainnav-active.jpg') repeat-x left top;
 	border-radius: 0px 0px 6px 6px;
@@ -128,12 +128,12 @@ h2{
 	margin-right: 10px;
 }
 
-#navMain .active a {
+#navMain ul.navLinks li.active a {
 	color: #FFF;
 	text-decoration: none;
 }
 
-#navMain li a {
+#navMain ul.navLinks li a {
 	color: #111;
 	text-decoration: none;
 	transition: all 0.15s ease-in-out;
@@ -143,7 +143,7 @@ h2{
 	display: block;
 }
 
-#navMain li a:hover {
+#navMain ul.navLinks li a:hover {
 	height: 36px;
 	background: #333;
 	border-radius: 0px 0px 6px 6px;
@@ -152,7 +152,7 @@ h2{
 	transition: all 0.15s ease-in-out;
 }
 
-#navMain li a:hover {
+#navMain ul.navLinks li a:hover {
 	color: #eee;
 }
 
@@ -540,8 +540,26 @@ div.pagination span.disabled {
 .right { float: right; }
 .clear { clear: both; }
 .tile { display: block;margin-top: 11px }
-.error { color: red; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
-.message {color:green; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}
+/*.error { color: red; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}*/
+/*.message {color:green; width: 94%; margin: auto; margin-bottom: 20px; border: 2px solid #666; border-radius: 7px; padding: 15px; text-align: center; background-color: #DDD; font-size: 14px;}*/
+.message {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.error {
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
 .ad {
     margin:0 auto;
     width:468px;

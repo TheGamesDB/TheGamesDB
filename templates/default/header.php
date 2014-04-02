@@ -15,15 +15,15 @@
 		
 		<link rel="shortcut icon" href="<?= $baseurl ?>/favicon.ico" />
 		
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0004" />
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0004" />
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/standard.css?ver=0008" />
+		<link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/style-v2.css?ver=0008" />
 		
         <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/js/ckeditor/assets/output_xhtml.css" />
         <link rel="stylesheet" href="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/COLOURloversColorPicker.css" type="text/css" media="all" />
         <link rel="stylesheet" href="<?php echo $baseurl; ?>/js/jquery-ui/css/trontastic/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
 
         <script type="text/JavaScript" src="http://colourlovers.com.s3.amazonaws.com/COLOURloversColorPicker/js/COLOURloversColorPicker.js"></script>
-        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script type="text/JavaScript" src="<?php echo $baseurl; ?>/js/jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
 		
 		<!-- Start AnythingSlider Include -->
@@ -64,7 +64,7 @@
 		<!-- End jQuery Image Dropdown Include -->
 		
 		<!-- Start xFade2 Include -->
-		<?php if($tab == "game") { ?>
+		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit")) { ?>
 		<script src="<?php echo $baseurl; ?>/js/xfade2/xfade2.js" type="text/javascript"></script>
 		<?php } ?>
 		<!-- End xFade2 Include -->
@@ -76,7 +76,7 @@
 		<!-- End jQuery Enabled CKEditor & CKFinder Include -->
 
 		<!-- Start Game View Page Scripts -->
-		<?php if($tab == "game") { ?>
+		<?php if(isset($tab) && ($tab == "game" || $tab == "game-edit" || $tab == "platform" || $tab == "platform-edit")) { ?>
 			<script type="text/javascript" src="<?php echo $baseurl; ?>/js/jqflip/jquery.flip.min.js"></script>
 		
 			<link rel="stylesheet" href="<?php echo $baseurl; ?>/js/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
@@ -199,14 +199,14 @@
 
 			<!-- SEARCH NAV ITEM -->
 			<div style="text-align: left; position: relative; float: right; height: 18px; width: 200px; padding: 2px 3px; margin: 3px 50px; border: 1px solid #999; border-radius: 6px; background-color: #eee; ">
-				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px;">
-					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle; position: absolute;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input class="autosearch" type="text" name="string" id="navSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee; position: absolute; left: 30px;" />
+				<form action="<?= $baseurl ?>/search/" id="searchForm" style="width: 300px;" autocomplete="off">
+					<img src="<?= $baseurl ?>/images/common/icons/search_18.png" style="margin: 0px 5px; padding: 0px; vertical-align: middle; position: absolute;" onclick="if($('#navSearch').val() != '') { $('#searchForm').submit(); } else { alert('Please enter something to search for before pressing search!'); }" /><input type="text" name="string" id="navSearch" class="ajaxSearch" style="height: 18px; width: 170px; border: 0px; padding: 0px; margin: 0px auto; background-color: #eee; position: absolute; left: 30px;" />
 					<input type="hidden" name="function" value="Search" />
+					<div class="ajaxSearchResults" style="top: 22px; right: -45px;"></div>
 				</form>
 			</div>
 			
 		</div>
-		<div id="autocompleteContainer" style="clear: right; color: #ffffff !important; position: relative; float: right; height: 200px; width: 206px; font-size: 12px;"></div>
 		
 		<?php
 			if ($subnav == "games")
@@ -251,10 +251,11 @@
 		<div id="tinyHeader" style="position: fixed; width: 100%; left: 0px; top: 0px; height: 50px; z-index: 299;">			
 			<div style="width: 100%; height: 35px; background: #000;">
 				<div style="width: 1000px; margin: auto; background: #000 url(<?php echo $baseurl; ?>/images/header-tiny.png) no-repeat center left;">
-					<form action="<?= $baseurl ?>/search/" style="width: 300px; display: inline;">
-						<input class="left autosearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
+					<form action="<?= $baseurl ?>/search/" style="width: 300px; display: inline;" autocomplete="off">
+						<input class="left ajaxSearch" type="text" name="string" style="color: #333; margin-left: 40px; margin-top: 5px; width: 190px;" />
 						<input type="hidden" name="function" value="Search" />
 						<input class="left" type="submit" value="Search" style="margin-top: 4px; margin-left: 4px; height: 24px;" />
+						<div class="ajaxSearchResults" style="top: 27px; width: 264px;"></div>
 					</form>
 					<a href="<?php echo $baseurl; ?>/" style="margin-left: 50px;"><img src="<?php echo $baseurl; ?>/images/tiny-logo-v2.png" alt="TheGamesDB.net" /></a>
 					<p style="position: absolute; top: 10px; right: 15px; font-family:Arial; font-size:10pt; margin: 0px; padding: 0px;">

@@ -590,7 +590,7 @@
 								{
 									// $dims = getimagesize("$baseurl/banners/$fanart->filename"); echo "$dims[0] x $dims[1]";
 							?>
-									<img class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?=$game->GameTitle?> Fanart" title="<?=imageUsername($fanart->id)?> | <a href='javascript:void();'' onclick='faceboxReport(<?=$fanart->id?>);' style='color: orange;'>Report Image</a> <br/> <a href='<?=$baseurl/banners/$fanart->filename?>' target='_blank'>View Full-Size</a> | <a href='<?="$baseurl?>/game-fanart-slideshow.php?id=<?=$game->id"?>' target='_blank'>Full-screen Slideshow</a>">
+									<img class="fanartSlide imgShadow" <?=imageResize("$baseurl/banners/$fanart->filename", "banners/_gameviewcache/$fanart->filename", 470, "width")?> alt="<?=$game->GameTitle?> Fanart" title="<?=imageUsername($fanart->id)?>"/> | <a href='javascript:void();' onclick='faceboxReport(<?=$fanart->id?>);' style='color: orange;'>Report Image</a> <br/> <a href='<?=$baseurl;?>/banners/<?=$fanart->filename?>' target='_blank'>View Full-Size</a> | <a href='<?=$baseurl?>/game-fanart-slideshow.php?id=<?=$game->id?>' target='_blank'>Full-screen Slideshow</a>
 							<?php
 									$fanSlideCount++;
 								}
@@ -626,7 +626,7 @@
 								while($screen = mysql_fetch_object($screenResult))
 								{
 							?>
-									<img class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?=$game->GameTitle?> Screenshot" title="<?=imageUsername($screen->id)?> | <a href='javascript:void();' onclick='faceboxReport(<?=$screen->id?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>">
+									<img class="screenSlide" <?=imageDualResize("$baseurl/banners/$screen->filename", "banners/_gameviewcache/$screen->filename", 470, 264)?> alt="<?=$game->GameTitle?> Screenshot" title="<?=imageUsername($screen->id)?>"/> | <a href='javascript:void();' onclick='faceboxReport(<?=$screen->id?>);' style='color: orange;'>Report Image</a><br /><a href='<?="$baseurl/banners/$screen->filename"?>' target='_blank'>View Full-Size</a>
 							<?php
 									$screenSlideCount++;
 								}
@@ -664,7 +664,7 @@
 							while($banner = mysql_fetch_array($bannerResult))
 							{
 						?>
-								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?=$game->GameTitle?> Banner" title="<?=imageUsername($banner[id])?> | <a href='javascript:void();' onclick='faceboxReport(<?=$banner[id]?>)' style='color: orange;'>Report Image</a>">
+								<img class="bannerSlide" src="<?="$baseurl/banners/$banner[filename]"?>" width="760" height="140" alt="<?=$game->GameTitle?> Banner" title="<?=imageUsername($banner[id])?>"/> | <a href='javascript:void();' onclick='faceboxReport(<?=$banner[id]?>)' style='color: orange;'>Report Image</a>
 						<?php
 								$bannerSlideCount++;
 							}
@@ -675,7 +675,7 @@
 						else
 						{
 						?>
-							<img class="imgShadow" src="<?php echo $baseurl; ?>/images/common/placeholders/banner_blank.png" width="760" height="140" alt="<?php echo $game->GameTitle; ?>" title="<?php echo $game->GameTitle; ?>" />
+							<img class="imgShadow" src="<?=$baseurl;?>/images/common/placeholders/banner_blank.png" width="760" height="140" alt="<?=$game->GameTitle;?>" title="<?=$game->GameTitle;?>" />
 						<?php
 						}
 					}

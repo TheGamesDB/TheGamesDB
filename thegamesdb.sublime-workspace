@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"clea",
+				"cleanPlatform"
+			],
+			[
+				"esit",
+				"existingRow"
+			],
+			[
+				"exists",
+				"existsYes"
+			],
+			[
+				"cell",
+				"cellspacing	Attr"
+			],
+			[
+				"exis",
+				"existingGames"
+			],
+			[
+				"check",
+				"checkExistingGames"
+			],
+			[
+				"search",
+				"searchplatform"
+			],
+			[
 				"ajax",
 				"ajaxSearch"
 			],
@@ -46,10 +74,6 @@
 			[
 				"Index",
 				"Index"
-			],
-			[
-				"search",
-				"searchPlatform"
 			],
 			[
 				"sear",
@@ -127,31 +151,23 @@
 			"file": "scripts/ajax_searchgame.php",
 			"settings":
 			{
-				"buffer_size": 2204,
+				"buffer_size": 2585,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "templates/default/front.php",
+			"file": "tab_addgame.php",
 			"settings":
 			{
-				"buffer_size": 22458,
+				"buffer_size": 9057,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "style-v2.css",
+			"file": "modules/mod_game.php",
 			"settings":
 			{
-				"buffer_size": 12948,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "standard.css",
-			"settings":
-			{
-				"buffer_size": 15871,
+				"buffer_size": 19877,
 				"line_ending": "Windows"
 			}
 		},
@@ -164,26 +180,26 @@
 			}
 		},
 		{
-			"file": "templates/default/footer.php",
+			"file": "style-v2.css",
 			"settings":
 			{
-				"buffer_size": 8176,
+				"buffer_size": 14221,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Alex User Home/My Documents/App Development/Git Repositories/gaysgetlaid.com/pages/standard/newsfeed.php",
+			"file": "standard.css",
 			"settings":
 			{
-				"buffer_size": 11127,
+				"buffer_size": 16223,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "modules/mod_elasticsearch.php",
+			"file": "tab_game.php",
 			"settings":
 			{
-				"buffer_size": 1420,
+				"buffer_size": 40337,
 				"line_ending": "Windows"
 			}
 		}
@@ -220,14 +236,18 @@
 	},
 	"file_history":
 	[
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/front.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/style-v2.css",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/standard.css",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/header.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/footer.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/gaysgetlaid.com/pages/standard/newsfeed.php",
+		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_elasticsearch.php",
 		"/E/Download/Studio Tools/Sound Forge Pro 10.0b (Build 474)/Sound Forge Pro 10.0b (Build 474)/_Keygen and Reg Patch Only/diginsan.nfo",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_admincp.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/index.php",
 		"/V/Wedding DJs/ajax/ajaxsendcontactmail.php",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/style-v2.css",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/footer.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_game.php",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/templates/default/header.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_game-edit.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/config.template.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_listseries.php",
@@ -236,13 +256,11 @@
 		"/D/Alex User Home/Desktop/moderation_reported.sql",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/scripts/reportqueue_submit.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/.htaccess",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_elasticsearch.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htpasswd",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/tab_elasticsearch-manage.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/elasticsearch.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/modules/mod_other.php",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/djep.html",
-		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/standard.css",
 		"/C/ProgramData/Sublime Text 3/Data/Packages/Less2Css/README.md",
 		"/D/Wamp/logs/apache_error.log",
 		"/D/Alex User Home/My Documents/App Development/Git Repositories/TheGamesDB/adminarea/.htaccess",
@@ -262,9 +280,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 97.0,
 		"where_history":
 		[
+			"D:\\Alex User Home\\My Documents\\App Development\\Git Repositories\\TheGamesDB"
 		]
 	},
 	"find_state":
@@ -272,6 +291,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"echo \"<div class=\\\"message\\\"><$message</div>\";",
+			".ajaxSearchResults",
 			"#ajaxSearchResults",
 			"$params",
 			"client",
@@ -283,6 +304,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			".gamesList",
 			".ajaxSearchResults",
 			"$searchParams",
 			"elasticsearchClient",
@@ -297,7 +319,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -306,15 +328,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2204,
+						"buffer_size": 2585,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								406,
-								406
+								1988,
+								1988
 							]
 						],
 						"settings":
@@ -322,27 +344,27 @@
 							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "templates/default/front.php",
+					"file": "tab_addgame.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 22458,
+						"buffer_size": 9057,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19511,
-								19511
+								6306,
+								6306
 							]
 						],
 						"settings":
@@ -351,72 +373,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7936.0,
+						"translation.y": 1628.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "style-v2.css",
+					"file": "modules/mod_game.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12948,
+						"buffer_size": 19877,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6491,
-								6491
+								1529,
+								1529
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4170.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "standard.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15871,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2683,
-								2683
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2086.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "templates/default/header.php",
 					"semi_transient": false,
 					"settings":
@@ -428,8 +421,8 @@
 						"selection":
 						[
 							[
-								2014,
-								2014
+								984,
+								984
 							]
 						],
 						"settings":
@@ -445,49 +438,78 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "templates/default/footer.php",
+					"buffer": 4,
+					"file": "style-v2.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8176,
+						"buffer_size": 14221,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4346,
-								4346
+								7084,
+								7087
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2970.0,
+						"translation.y": 4572.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "standard.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10017,
+								10017
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 9349.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "/D/Alex User Home/My Documents/App Development/Git Repositories/gaysgetlaid.com/pages/standard/newsfeed.php",
+					"file": "tab_game.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11127,
+						"buffer_size": 40337,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10738,
-								9961
+								0,
+								0
 							]
 						],
 						"settings":
@@ -496,39 +518,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4246.0,
+						"translation.y": 1566.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "modules/mod_elasticsearch.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1420,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								393,
-								412
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

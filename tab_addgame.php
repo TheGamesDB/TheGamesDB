@@ -160,6 +160,7 @@
 
 					$('#existingGames').html(resultDisplay);
 					$('#existingGames').slideDown();
+					$('#existsCheck').slideDown();
 				}
 			}, "json");
 

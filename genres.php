@@ -60,10 +60,11 @@
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				$tr = 1;								
 				while ($genres = mysql_fetch_object($result)) {
+					$friendlyName = str_replace(' ','',$genres->genre);
 					if ($tr == 1){echo "				<tr>\n";}
 ?>
-					<td><INPUT TYPE="checkbox" NAME="chkgenres" VALUE="<?=$genres->genre?>" <?if (strstr($Genre,"$genres->genre")){echo "checked";}?>></td>
-					<td><?=$genres->genre?> </td>
+					<td><INPUT id="genre<?=$friendlyName>" TYPE="checkbox" NAME="chkgenres" VALUE="<?=$genres->genre?>" <?if (strstr($Genre,"$genres->genre")){echo "checked";}?>></td>
+					<td><label for="genre<?=$friendlyName?>"><?=$genres->genre?></label></td>
 <?
 					if ($tr == 2){echo "				</tr>\n"; $tr = 1;}else{$tr = 2;}
 				}

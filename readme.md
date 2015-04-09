@@ -24,7 +24,7 @@ To get the site to run locally, you will need to install and configure the follo
   <dd>Additional Requirements: Settings - short open tag (on) - Please Note: as of 23/09/2013 "register globals" is no longer required to be enabled... since PHP 5.4 has removed support for this, we had to introduce a Shiv in the code. As a result, you may want to alter your php error reporting settings to not display errors, as several uninitialized variables currently remain in use.</dd>
 </dl>
 
-The quickest way to install and configure these components is by using XAMPP/LAMP on Linux, MAMP on Mac, or XAMPP/WAMP on Windows.
+The quickest way to install and configure these components is by using XAMPP/LAMP on Linux, MAMP on Mac, or XAMPP/WAMP on Windows. You can also use vagrant, as described below.
 
 Once these components are installed you will want to extract the site code into your www or httpdocs directory.
 
@@ -58,3 +58,9 @@ That's It!
 ----------
 
 *Now you should be good to go! Navigate to your web-server's url (typically "http://localhost" for local web-servers such as WAMP/LAMP/MAMP/XAMPP)in your favorite browser and see if it all works!*
+
+Vagrant
+-------
+
+There is a "Vagrantfile" in this repository that can be used to bring up a VirtualBox test VM with the site and the TGDB development pack. It basically follows the instructions provided above inside a base Ubuntu 14.04 installation. Just issue a "vagrant up" and access http://localhost:8888/
+

@@ -1,6 +1,9 @@
 upload-temp/*
-config.php
+/config.php
 banners/*
 adminarea/.htaccess
 adminarea/.htpasswd
 thegamesdb.sublime-workspace
+/.vagrant/
+/tgdb-dev*.sql
+/README.txt

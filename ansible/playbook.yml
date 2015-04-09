@@ -1,0 +1,44 @@
+---
+- hosts: all
+  sudo: true
+  tasks:
+    # Install packages:
+    - apt: name="{{item}}" update_cache=yes cache_valid_time=3600 state=present
+      with_items:
+      - libapache2-mod-php5
+      - apache2
+      - mysql-server
+      - php5-mysql
+      - php5-gd
+      - php5-curl
+      - python-mysqldb
+      - unzip
+    # Apache+PHP setup:
+    - copy: dest=/etc/apache2/sites-enabled/thegamesdb.conf src=apache-site.conf owner=root group=root mode=0644
+      notify: apache-restart
+    - file: dest=/etc/apache2/sites-enabled/000-default.conf state=absent
+      notify: apache-restart
+    - lineinfile: dest=/etc/php5/apache2/php.ini line="short_open_tag = On" regexp="^short_open_tag.*"
+      notify: apache-restart
+    - apache2_module: state=present name=rewrite
+      notify: apache-restart
+    - file: dest=/var/www/html/index.html state=absent
+    - copy: src=config.php  dest=/var/www/html/config.php owner=root group=www-data mode=0755
+      notify: apache-restart
+    - service: name=apache2 state=running enabled=yes
+    # mysql+database setup:
+    - service: name=mysql state=started enabled=true
+    - mysql_user: name=root host="{{item}}" password="" login_user=root login_password=root check_implicit_admin=yes priv="*.*:ALL,GRANT"
+      with_items:
+        - "{{ ansible_hostname }}"
+        - 127.0.0.1
+        - ::1
+        - localhost
+    - get_url: url="http://thegamesdb.net/tgdb-dev-pack.zip" dest=/tmp/tgdb-dev-pack.zip sha256sum=e4e72ee24ffb9fbf25ce1cd62a92897ff92cc9d8cad368fc852f571951b926ec
+    - command: unzip -o /tmp/tgdb-dev-pack.zip chdir=/var/www/html
+    - mysql_db: name=thegamedb state=present
+    - shell: cat /var/www/html/tgdb-dev*.sql | mysql -u root thegamedb
+  handlers:
+    - name: apache-restart
+      service: name=apache2 state=restarted
+

@@ -8,10 +8,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8888
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/playbook.yml"
-    ansible.sudo = true
-  end
+  config.vm.provision "shell", inline: <<-SH
+    set -e -x
+    aptitude update
+    aptitude install -R -y ansible
+    ansible-playbook -i localhost, -c local /var/www/html/ansible/playbook.yml
+  SH
 
   config.vm.synced_folder ".", "/var/www/html", owner: "root", group: "www-data"
 end

@@ -3,7 +3,7 @@
   sudo: true
   tasks:
     # Install packages:
-    - apt: name="{{item}}" update_cache=yes cache_valid_time=3600 state=present
+    - apt: name="{{item}}" state=present
       with_items:
       - libapache2-mod-php5
       - apache2
@@ -20,7 +20,7 @@
       notify: apache-restart
     - lineinfile: dest=/etc/php5/apache2/php.ini line="short_open_tag = On" regexp="^short_open_tag.*"
       notify: apache-restart
-    - apache2_module: state=present name=rewrite
+    - file: state=link dest=/etc/apache2/mods-enabled/rewrite.load src=/etc/apache2/mods-available/rewrite.load
       notify: apache-restart
     - file: dest=/var/www/html/index.html state=absent
     - copy: src=config.php  dest=/var/www/html/config.php owner=root group=www-data mode=0755

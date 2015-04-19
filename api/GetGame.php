@@ -15,6 +15,7 @@ include('../simpleimage.php');
 ## Prepare the search string
 $name = addslashes(stripslashes(stripslashes($_REQUEST["name"])));
 //$name = str_replace('-', '(.).(.)', $name);
+$exactname = addslashes(stripslashes(stripslashes($_REQUEST["exactname"])));
 $platform = $_REQUEST['platform'];
 $id = $_REQUEST['id'];
 //$language		= $_REQUEST["language"];
@@ -208,7 +209,7 @@ $user = $_REQUEST["user"];
 		}
 	}
 
-if (empty($name) && empty($id)) {
+if (empty($name) && empty($id) && empty($exactname)) {
     print "<Error>A name or id is required</Error>\n";
     exit;
 } else {
@@ -240,12 +241,19 @@ else
 			$platformRow = mysql_fetch_assoc($platformResult);
 			$platformId = $platformRow['id'];
 
-			$arr = array();
-			preg_match('/[0-9]+/', $name, $arr);
-			$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
-			foreach($arr as $numeric)
+			if (isset($exactname) && !empty($exactname))
 			{
+				$query = "SELECT id FROM games WHERE GameTitle = ('$exactname')";
+			}
+			else
+			{
+				$arr = array();
+				preg_match('/[0-9]+/', $name, $arr);
+				$query = "SELECT id FROM games WHERE MATCH(GameTitle) AGAINST ('$name')";
+				foreach($arr as $numeric)
+				{
 					$query .= " AND GameTitle LIKE '%$numeric%'";
+				}
 			}
 
 			$query .= " AND Platform = '$platformId'";
@@ -255,6 +263,10 @@ else
 			print "<Error>The specified platform was not valid.</Error>\n";
 			exit;
 		}
+	}
+	elseif (isset($exactname) && !empty($exactname))
+	{
+		$query = "SELECT id FROM games WHERE GameTitle = ('$exactname')";
 	}
 	else
 	{

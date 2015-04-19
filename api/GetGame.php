@@ -338,6 +338,23 @@ while ($obj = mysql_fetch_object($result)) {
             }
         }
     }
+    
+	##On Other Platforms
+	$similarResult = mysql_query("SELECT g.id, g.platform FROM games as g, platforms as p WHERE g.GameTitle = \"$baseObj->GameTitle\" AND g.Platform = p.id AND g.Platform != '$baseObj->PlatformId' ORDER BY p.name");
+	$similarRowCount = mysql_num_rows($similarResult);
+
+	if($similarRowCount > 0)
+	{
+		print "<Similar><SimilarCount>".$similarRowCount."</SimilarCount>";
+		while($similarRow = mysql_fetch_assoc($similarResult))
+		{
+			print "<Game>";
+			print "<id>".$similarRow['id']."</id>";
+			print "<PlatformId>".$similarRow['platform']."</PlatformId>";
+			print "</Game>";
+		}
+		print "</Similar>";
+	}
 
     ## Process Images
 	print "<Images>\n";

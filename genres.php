@@ -30,7 +30,7 @@
 					$counter++;
 				}
 ?>
-			if (genlist.length>1){genlist = genlist+"|"} 
+			if (genlist.length>1){genlist = genlist+"|"}
 			if (genlist.length>99){
 				alert("You have selected too many genres.")
 			}
@@ -48,7 +48,7 @@
 <tr><td>
 	<div class="titlesection">
 		<h1>Genres</h1>
-		<h3>Please select the genres for <?=$GameTitle?>.</h3>
+		<h3>Please select the genres for <?= $_GET['GameTitle']; ?>.</h3>
 	</div>
 
 	<div class="section">
@@ -58,17 +58,17 @@
 <?
 				$query = "SELECT * FROM genres ORDER BY genre";
 				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-				$tr = 1;								
+				$tr = 1;
 				while ($genres = mysql_fetch_object($result)) {
 					$friendlyName = str_replace(' ','',$genres->genre);
 					if ($tr == 1){echo "				<tr>\n";}
 ?>
-					<td><INPUT id="genre<?=$friendlyName>" TYPE="checkbox" NAME="chkgenres" VALUE="<?=$genres->genre?>" <?if (strstr($Genre,"$genres->genre")){echo "checked";}?>></td>
-					<td><label for="genre<?=$friendlyName?>"><?=$genres->genre?></label></td>
+					<td><INPUT id="genre<?=$friendlyName?>" TYPE="checkbox" NAME="chkgenres" VALUE="<?=$genres->genre?>" <?if (strstr($Genre,"$genres->genre")){echo "checked";}?>></td>
+					<td><label for="genre<?=$friendlyName?>">&nbsp;<?=$genres->genre?></label></td>
 <?
 					if ($tr == 2){echo "				</tr>\n"; $tr = 1;}else{$tr = 2;}
 				}
-?>								
+?>
 				<tr>
 					<td style="text-align: right" colspan="4">
 						<input type="submit" name="function" value="Accept" class="submit" onClick="return copygenre()">

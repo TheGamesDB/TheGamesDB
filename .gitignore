@@ -7,3 +7,6 @@ thegamesdb.sublime-workspace
 /.vagrant/
 /tgdb-dev*.sql
 /README.txt
+.idea/
+TheGamesDB.iml
+phpinfo.php
